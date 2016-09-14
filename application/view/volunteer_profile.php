@@ -8,7 +8,7 @@ require_once '../config/connect.php';
  */
 if(isset($_SESSION['user_session'])) {
     echo '<h2>Welcome, ' . $_SESSION['email'] . '</h2>';
-    echo '<p>You are now logged in to the volunteer profile view!</p>';
+    echo '<p>You are now logged in to the volunteer profile view under the group ' . $_SESSION['user_group'] . '</p>';
 } else {
     echo '<p>Your session has expired</p>';
 }
