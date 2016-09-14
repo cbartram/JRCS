@@ -23,7 +23,7 @@ CREATE TABLE `JRCS`.`JBC_login` ( `volunteer_id` VARCHAR(15) NOT NULL , `email`V
 
 CREATE TABLE `JRCS`.`volunteer_CICO` ( `volunteer_id` VARCHAR(20) NOT NULL ,`volunteer_email` VARCHAR(120) NOT NULL , `volunteer_organization` VARCHAR(120)NOT NULL , `volunteer_type` VARCHAR(75) NOT NULL , `volunteer_program`VARCHAR(75) NOT NULL , `check_in_timestamp` TIMESTAMP NOT NULL ,`check_out_timestamp` TIMESTAMP NOT NULL , PRIMARY KEY (`volunteer_id`(20)))ENGINE = InnoDB;
 
-CREATE TABLE `JRCS`.`volunteer_event` ( `volunteer_id` VARCHAR(20) NOT NULL ,`attendee_count` INT NOT NULL , `event_description` LONGTEXT NOT NULL ,`volunteer_count` INT NOT NULL , `total_volunteer_hours` INT NOT NULL ,`donation_ammount` INT NOT NULL , PRIMARY KEY (`volunteer_id`(20))) ENGINE =InnoDB;
+CREATE TABLE `JRCS`.`volunteer_event` ( `volunteer_id` VARCHAR(20) NOT NULL ,`attendee_count` INT NOT NULL , `event_description` LONGTEXT NOT NULL ,`volunteer_count` INT NOT NULL , `total_volunteer_hours` INT NOT NULL ,`donation_amount` INT NOT NULL , PRIMARY KEY (`volunteer_id`(20))) ENGINE =InnoDB;
 
 CREATE TABLE `JRCS`.`donations` ( `volunteer_id` VARCHAR(20) NOT NULL ,`organization_name` VARCHAR(120) NOT NULL , `donation_description` LONGTEXT NOT NULL , `donation_value` INT NOT NULL , `date` DATE NOT NULL , PRIMARY KEY(`volunteer_id`(20))) ENGINE = InnoDB;
 
