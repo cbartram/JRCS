@@ -6,7 +6,14 @@ A Volunteer Management Software for Jacksonville Refugee services
 - initial commit
 - created user php class
 - added local database connection
+
 ###Version 1.0.1###
 - added jquery and js to asych login users 
 - added php file to log in users based on which button they clicked
 - added staff abiliity to log into all 3 volunteer sites
+
+###Version 1.0.2###
+- Cleaned up volunteer_profile UI 
+- added additional methods to query db
+- cleaned up db design
+- added code documentation for `User.Class.php`
