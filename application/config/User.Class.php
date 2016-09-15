@@ -74,6 +74,83 @@ class USER
         }
     }
 
+
+    /**
+     * Returns a volunteer's email given their volunteer id
+     * @param $volunteer_id
+     * @return mixed
+     */
+    public function get_email($volunteer_id) {
+        $stmt = $this->db->prepare("SELECT email FROM volunteer_profile WHERE volunteer_id = :volunteer");
+        $stmt->execute(array(':volunteer' => $volunteer_id));
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        return $row['email'];
+    }
+
+    public function get_email_from($volunteer_id, $table) {
+        $stmt = $this->db->prepare("SELECT email FROM " .$table . " WHERE volunteer_id = :volunteer");
+        $stmt->execute(array(':volunteer' => $volunteer_id));
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        return $row['email'];
+    }
+
+
+    /**
+     * Returns the volunteer Id for a volunteer with a given email
+     * @param $email
+     * @return mixed
+     */
+    public function get_volunteer_id($email) {
+        $stmt = $this->db->prepare("SELECT volunteer_id FROM volunteer_profile WHERE email = :email");
+        $stmt->execute(array(':email' => $email));
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        return $row['volunteer_id'];
+    }
+
+    /**
+     * Returns true if the volunteer is a member of the group specified false otherwise
+     * @param $email the volunteers email
+     * @param $group_name the group name to check
+     * @return bool
+     *
+     * Ex: $user->is_member_of($email, "BEBCO");
+     */
+    public function is_member_of($email, $group_name) {
+        $table = "";
+
+        switch($group_name) {
+            case "BEBCO":
+                $table = "BEBCO_login";
+                break;
+            case "JACO":
+                $table = "JACO_login";
+                break;
+            case "JBC":
+                $table = "JBC_login";
+                break;
+        }
+
+        $stmt = $this->db->prepare("SELECT volunteer_group FROM " . $table . " WHERE email = :email");
+
+        $stmt->bindParam(":email", $email);
+        $stmt->execute();
+
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if($row['volunteer_group'] != null && $row['volunteer_group'] != "") {
+            return true;
+        }
+        return false;
+    }
+    
+    
+    public function is_null_or_empty($question) {
+        return (!isset($question) || trim($question)==='');
+    }
+
     /**
      * Creates a new volunteer entry in the volunteer_profile table
      * @param $first_name
@@ -142,6 +219,94 @@ class USER
        }
    }
 
+
+    /**
+     * Switches a user who is already logged in under a different group to the JACO group 
+     * NOTE: this does not re-authenticate the user it simply switches their sessions to reflect the new group
+     * @param $email users email or volunteer_id
+     * @return bool
+     */
+    public function switch_JACO($email) {
+        
+        try {
+            //Email for both params because email could either be email or vol_id depending on what the user decided to input
+            $stmt = $this->db->prepare("SELECT * FROM JACO_login WHERE email = :email OR volunteer_id = :email LIMIT 1");
+
+            $stmt->execute(array(':email' => $email));
+
+            $row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+            $_SESSION['user_session'] = $row['volunteer_id'];
+            $_SESSION['email'] = $row['email'];
+            $_SESSION['user_group'] = 'JACO';
+            
+        } catch(Exception $e) {
+            $e->getMessage();
+            return false;
+        }
+        
+        return true;
+
+    }
+
+    /**
+     * Switches a user who is already logged in under a different group to the BEBCO group
+     * NOTE: this does not re-authenticate the user it simply switches their sessions to reflect the new group
+     * @param $email users email or volunteer_id
+     * @return bool
+     */
+    public function switch_BEBCO($email) {
+
+        try {
+            //Email for both params because email could either be email or vol_id depending on what the user decided to input
+            $stmt = $this->db->prepare("SELECT * FROM BEBCO_login WHERE email = :email OR volunteer_id = :email LIMIT 1");
+
+            $stmt->execute(array(':email' => $email));
+
+            $row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+            $_SESSION['user_session'] = $row['volunteer_id'];
+            $_SESSION['email'] = $row['email'];
+            $_SESSION['user_group'] = 'BEBCO';
+
+        } catch(Exception $e) {
+            $e->getMessage();
+            return false;
+        }
+
+        return true;
+
+    }
+
+    /**
+     * Switches a user who is already logged in under a different group to the JBC group
+     * NOTE: this does not re-authenticate the user it simply switches their sessions to reflect the new group
+     * @param $email users email or volunteer_id
+     * @return bool
+     */
+    public function switch_JBC($email) {
+
+        try {
+            //Email for both params because email could either be email or vol_id depending on what the user decided to input
+            $stmt = $this->db->prepare("SELECT * FROM JBC_login WHERE email = :email OR volunteer_id = :email LIMIT 1");
+
+            $stmt->execute(array(':email' => $email));
+
+            $row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+            $_SESSION['user_session'] = $row['volunteer_id'];
+            $_SESSION['email'] = $row['email'];
+            $_SESSION['user_group'] = 'JBC';
+
+        } catch(Exception $e) {
+            $e->getMessage();
+            return false;
+        }
+
+        return true;
+
+    }
+
     /**
      * Logs a user into the JBC group of volunteers
      * @param $email users email
@@ -191,9 +356,9 @@ class USER
 
             if($stmt->rowCount() > 0) {
                 if(password_verify($password, $row['password'])) {
-                    $_SESSION['user_session'] = $row['volunteer_id'];
-                    $_SESSION['email'] = $row['email'];
-                    $_SESSION['user_group'] = 'BEBCO';
+                        $_SESSION['email'] = $row['email'];
+                        $_SESSION['user_session'] = $row['volunteer_id'];
+                        $_SESSION['user_group'] = 'BEBCO';
 
                     return true;
                 } else {
