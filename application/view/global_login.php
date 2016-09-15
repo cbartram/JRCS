@@ -44,13 +44,13 @@ if(isset($_COOKIE['remember_me_password'])) {
                 </div>
                 <div class="row">
                     <div class="col-md-4">
-                        <button data-login-type="JACO" class="btn btn-sm btn-primary btn-block" type="submit">JACO Login</button>
+                        <button data-login-type="JACO" class="btn btn-sm btn-primary" type="submit">JACO Login</button>
                     </div>
                     <div class="col-md-4">
-                        <button data-login-type="BEBCO" class="btn btn-sm btn-primary btn-block" type="submit">BEBCO Login</button>
+                        <button data-login-type="BEBCO" class="btn btn-sm btn-primary" type="submit">BEBCO Login</button>
                     </div>
                     <div class="col-md-4">
-                        <button data-login-type="JBC" class="btn btn-sm btn-primary btn-block" type="submit">JBC Login</button>
+                        <button data-login-type="JBC" class="btn btn-sm btn-primary" type="submit">JBC Login</button>
                     </div>
                 </div>
             </form>

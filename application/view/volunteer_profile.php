@@ -56,27 +56,42 @@ include '../config/gravatar.php';
                             <a href="#"><i class="glyphicon glyphicon-user"></i>Account Settings</a>
                         </li>
                         <li>
-                            <a href="#" target="_blank"><i class="glyphicon glyphicon-ok"></i>Tasks</a>
+                            <a href="#"><i class="glyphicon glyphicon-ok"></i>Tasks</a>
                         </li>
                         <li>
                             <a href="#"><i class="glyphicon glyphicon-flag"></i>Help</a>
                         </li>
                         <li>
-                            <a href="../controller/global_logout.php"><i class="glyphicon glyphicon-log-out"></i>Logout </a>
+                            <a href="../controller/global_logout.php"><i class="glyphicon glyphicon-log-out"></i>Logout</a>
                         </li>
                     </ul>
                 </div>
-                <!-- END MENU -->
             </div>
         </div>
         <div class="col-md-9">
-            <div class="profile-content"></div>
+            <div class="profile-content">
+                <ul class="nav nav-tabs">
+                    <li role="presentation" class="active"><a href="#">Home</a></li>
+                    <li role="presentation"><a href="#">Profile</a></li>
+                    <li role="presentation"><a href="#">Messages</a></li>
+                    <li role="presentation" class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                            Dropdown <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li class="dropdown-header">Organizations</li>
+                            <li><a href="#">BEBCO</a></li>
+                            <li><a href="#">JACO</a></li>
+                            <li><a href="#">JBC</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
         </div>
         <div class="row profile">
-            <div class="col-md-3"></div>
             <div class="col-md-9">
                 <br>
-                <div class="profile-content"></div>
+                <div class="profile-content" style="float:top;"></div>
             </div>
         </div>
     </div>
@@ -88,3 +103,18 @@ include '../config/gravatar.php';
 </html>
 
 
+<!--
+
+  <li>
+                        <div class="btn-group-vertical" role="group">
+                            <a style="margin-left:15px;" href="#" type="button" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="glyphicon glyphicon-menu-hamburger"></i>Dropdown</a>
+                            <ul class="dropdown-menu">
+                                <li class="dropdown-header">Dropdown header</li>
+                                <li><a href="#">Dropdown link</a></li>
+                                <li><a href="#">Dropdown link</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                     </li>
+
+                 -->
