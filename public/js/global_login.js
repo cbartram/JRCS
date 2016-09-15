@@ -19,6 +19,7 @@ $(document).ready(function() {
                 //when the server returns a response
                 if(data == false) {
                     $("#alert").addClass("alert alert-danger").html("Incorrect Username or Password.");
+                    $(".alert-success").remove();
                 } else {
                     window.location.href = "../../application/view/volunteer_profile.php";
                 }

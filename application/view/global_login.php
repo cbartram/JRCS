@@ -31,6 +31,7 @@ if(isset($_COOKIE['remember_me_password'])) {
             <form class="form-signin">
                 <h2 class="form-signin-heading">Volunteer Login</h2>
                 <div id="alert"></div>
+                <?php if(isset($_GET['response'])) { echo '<div class="alert alert-success">' . $_GET['response'] . '</div>';} ?>
                 <label for="inputEmail" class="sr-only">Email address or Volunteer ID</label>
                 <input type="text" id="inputEmail" class="form-control" placeholder="Email address or Volunteer ID" value="<?php isset($_COOKIE['remember_me_email']) ?  $_COOKIE['remember_me_email'] : '' ?>" >
                 <br>
