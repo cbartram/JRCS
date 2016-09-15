@@ -22,7 +22,7 @@ catch(PDOException $e)
     echo $e->getMessage();
 }
 
-
+include_once 'gravatar.php';
 include_once 'User.class.php';
 $user = new USER($DB_con);
 ?>

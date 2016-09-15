@@ -1,6 +1,5 @@
 <?php
 require_once '../config/connect.php';
-include '../config/gravatar.php';
 /**
  * Created by PhpStorm.
  * User: christianbartram
@@ -75,14 +74,11 @@ include '../config/gravatar.php';
                     <li role="presentation"><a href="#">Profile</a></li>
                     <li role="presentation"><a href="#">Messages</a></li>
                     <li role="presentation" class="dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-                            Dropdown <span class="caret"></span>
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Switch Organizations<span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu">
                             <li class="dropdown-header">Organizations</li>
-                            <li><a href="#">BEBCO</a></li>
-                            <li><a href="#">JACO</a></li>
-                            <li><a href="#">JBC</a></li>
+                            <?php include '../model/volunteer_profile_model.php' ?>
                         </ul>
                     </li>
                 </ul>
