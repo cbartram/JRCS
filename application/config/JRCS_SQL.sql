@@ -27,7 +27,4 @@ CREATE TABLE `JRCS`.`volunteer_event` ( `volunteer_id` VARCHAR(20) NOT NULL ,`at
 
 CREATE TABLE `JRCS`.`donations` ( `volunteer_id` VARCHAR(20) NOT NULL ,`organization_name` VARCHAR(120) NOT NULL , `donation_description` LONGTEXT NOT NULL , `donation_value` INT NOT NULL , `date` DATE NOT NULL , PRIMARY KEY(`volunteer_id`(20))) ENGINE = InnoDB;
 
-ALTER TABLE `BEBCO_login` ADD `staff_email` VARCHAR(120) NOT NULL AFTER `staff_id`;
-ALTER TABLE `JACO_login` ADD `staff_email` VARCHAR(120) NOT NULL AFTER `staff_id`;
-ALTER TABLE `JBC_login` ADD `staff_email` VARCHAR(120) NOT NULL AFTER `staff_id`;
 ALTER TABLE `volunteer_profile` ADD `password` VARCHAR(200) NOT NULL AFTER `volunteer_id`;
