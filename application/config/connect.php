@@ -28,6 +28,6 @@ catch(PDOException $e)
 }
 
 include_once 'gravatar.php';
-include_once 'User.class.php';
+include_once 'User.Class.php';
 $user = new USER($DB_con);
 ?>
