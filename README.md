@@ -17,3 +17,9 @@ A Volunteer Management Software for Jacksonville Refugee services
 - added additional methods to query db
 - cleaned up db design
 - added code documentation for `User.Class.php`
+
+###Version 1.0.3###
+- Added Travis.yml file for CI
+- Added Heroku PHP App for deployable dev environment
+- Added Seamless transitioning between volunteer groups
+- App only shows groups that are available to the user
