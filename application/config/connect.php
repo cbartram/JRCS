@@ -7,10 +7,15 @@
  */
 session_start();
 
-$DB_host = "localhost";
-$DB_user = "jrcs";
-$DB_pass = "jrcs";
-$DB_name = "JRCS";
+//$DB_host = "localhost";
+//$DB_user = "jrcs";
+//$DB_pass = "jrcs";
+//$DB_name = "JRCS";
+
+$DB_host = "us-cdbr-iron-east-04.cleardb.net";
+$DB_user = "bd8aa6573fef84";
+$DB_pass = "87956034";
+$DB_name = "heroku_01b6c023d9d5d29";
 
 try
 {
