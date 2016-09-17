@@ -19,15 +19,44 @@ require_once '../config/connect.php';
 
     <title>Volunteer Profile</title>
 
-    <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <!-- Custom styles for this template -->
     <link href="../../public/css/volunteer_profile.css" rel="stylesheet">
 </head>
 
 <body>
 
 <div class="container">
+    <!-- Modal open -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+                </div>
+                <div class="modal-body">
+                    <table class="table table-striped">
+                        <thead>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Volunteer ID</th>
+                            <th>Address</th>
+                            <th>City</th>
+                            <th>State</th>
+                            <th>Zip</th>
+                        </thead>
+                        <tbody id="table-body">
+
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal close -->
     <div class="row profile">
         <div class="col-md-3">
             <div class="profile-sidebar">
@@ -82,7 +111,11 @@ require_once '../config/connect.php';
                         </ul>
                     </li>
                 </ul>
-            </div>
+                <div class="row">
+                    <div class="col-xs-12" style="height:50px;"></div>
+                </div>
+                <div id="listing" class="row"><?php include '../model/volunteer_listing.php' ?></div>
+                </div>
         </div>
         <div class="row profile">
             <div class="col-md-9">
@@ -95,22 +128,6 @@ require_once '../config/connect.php';
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script src="../../public/js/volunteer_profile.js"></script>
 </body>
 </html>
-
-
-<!--
-
-  <li>
-                        <div class="btn-group-vertical" role="group">
-                            <a style="margin-left:15px;" href="#" type="button" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="glyphicon glyphicon-menu-hamburger"></i>Dropdown</a>
-                            <ul class="dropdown-menu">
-                                <li class="dropdown-header">Dropdown header</li>
-                                <li><a href="#">Dropdown link</a></li>
-                                <li><a href="#">Dropdown link</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                     </li>
-
-                 -->
