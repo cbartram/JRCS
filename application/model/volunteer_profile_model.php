@@ -14,7 +14,7 @@ for($i = 0; $i < sizeof($groups); $i++) {
 
         //If the group presented is the users currently logged in group add a disabled link (users cant switch to their current group)
         if($groups[$i] == $_SESSION['user_group']) {
-            echo  '<li class="disabled"><a href="#' . $groups[$i] . '">' . $groups[$i] . ' - Current Organization</a></li>';
+            echo  '<li class="disabled"><a href="#">' . $groups[$i] . ' - Current Organization</a></li>';
         } else {
             echo '<li><a href="../controller/handle_switch.php?group=' . $groups[$i] . '">' . $groups[$i] . '</a></li>';
         }

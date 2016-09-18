@@ -32,7 +32,7 @@ require_once '../config/connect.php';
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+                    <h4 class="modal-title" style="color:black;" id="myModalLabel">Modal title</h4>
                 </div>
                 <div class="modal-body">
                     <table class="table table-striped">
@@ -84,7 +84,7 @@ require_once '../config/connect.php';
                             <a href="#"><i class="glyphicon glyphicon-user"></i>Account Settings</a>
                         </li>
                         <li>
-                            <a href="#"><i class="glyphicon glyphicon-ok"></i>Tasks</a>
+                            <a href="#"><i class="glyphicon glyphicon-plus"></i>New Volunteer</a>
                         </li>
                         <li>
                             <a href="#"><i class="glyphicon glyphicon-flag"></i>Help</a>
@@ -99,12 +99,12 @@ require_once '../config/connect.php';
         <div class="col-md-9">
             <div class="profile-content">
                 <ul class="nav nav-tabs">
-                    <li role="presentation" class="active"><a href="#">Home</a></li>
-                    <li role="presentation"><a href="#">Profile</a></li>
-                    <li role="presentation"><a href="#">Messages</a></li>
+                    <li role="presentation" id="add-volunteer"><a href="#"><span class="glyphicon glyphicon-plus"></span> New Volunteer </a></li>
+                    <li role="presentation" id="profile"><a href="#"><span class="glyphicon glyphicon-user"></span> Profile</a></li>
+                    <li role="presentation" id="messages"><a href="#"><span class="glyphicon glyphicon-envelope"></span> Messages</a></li>
                     <li role="presentation" class="dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Switch Organizations<span class="caret"></span>
-                        </a>
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-random"></span>
+                            &nbsp; Switch Organizations <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li class="dropdown-header">Organizations</li>
                             <?php include '../model/volunteer_profile_model.php' ?>
@@ -114,13 +114,23 @@ require_once '../config/connect.php';
                 <div class="row">
                     <div class="col-xs-12" style="height:50px;"></div>
                 </div>
-                <div id="listing" class="row"><?php include '../model/volunteer_listing.php' ?></div>
+                    <div id="listing" class="row">
+                        <!-- todo Load volunteer profile form -->
+                    </div>
                 </div>
         </div>
         <div class="row profile">
             <div class="col-md-9">
                 <br>
-                <div class="profile-content" style="float:top;"></div>
+                <div class="profile-content" style="float:top;">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h2 style="color:black;">Volunteer Profiles</h2>
+                            <hr>
+                        </div>
+                    </div>
+                    <?php include '../model/volunteer_listing.php' ?>
+                </div>
             </div>
         </div>
     </div>
