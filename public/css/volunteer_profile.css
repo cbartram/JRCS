@@ -107,3 +107,69 @@ body {
     background: #fff;
     min-height: 460px;
 }
+
+/* Handles Volunteer profile boxes */
+
+
+.cart-item .cart-add {
+    float: right;
+    margin-bottom: .5em;
+}
+.well {
+    background-color:#202D3B;
+}
+.btn {
+    border-width: 2px;
+}
+.btn-success {
+    color: #fff;
+    background-color: #18bc9c;
+    border-color: #18bc9c;
+    font-family: Helvetica;
+}
+.btn-success:hover {
+    background-color: #159e82;
+    border-color: #159e82;
+}
+.icon-script-combat {
+    background-image: url(../images/sprites/bandos-sprite.png);
+}
+
+.descr {
+    color:#FFFFFF;
+}
+h4 {
+    color:#FFFFFF;
+}
+.price {
+    color:#FFFFFF;
+}
+
+.well-inverse .price, .well-inverse .price:before {
+    text-shadow: none;
+}
+.cart-item .price {
+    float: left;
+    font-size: 1.65em;
+    text-shadow: 0 1px 0 #fff;
+}
+
+.icon-script-combat {
+    background-position: 0-64px;
+}
+.icon-script {
+    background: url(/assets/img/sprites/scripts.png) no-repeat 0 0;
+    height: 32px;
+    width: 32px;
+    margin-right: 8px;
+}
+.pull-left {
+    float: left !important;
+}
+.jumbotron {color: #FFFFFF;text-align: center;background-color: #159957;background-image: linear-gradient(120deg, #43cea2, #185a9d);}
+
+.navbar-avatar {height:45px;width:45px;border-radius:50%;-moz-border-radius: 50%;-webkit-border-radius: 50%;border:1px solid gray;padding:3px;}
+
+.navbar-avatar:hover {border:1px solid white;}
+
+.logged-in {padding-top:70px; }

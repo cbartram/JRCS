@@ -19,15 +19,44 @@ require_once '../config/connect.php';
 
     <title>Volunteer Profile</title>
 
-    <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <!-- Custom styles for this template -->
     <link href="../../public/css/volunteer_profile.css" rel="stylesheet">
 </head>
 
 <body>
 
 <div class="container">
+    <!-- Modal open -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" style="color:black;" id="myModalLabel">Modal title</h4>
+                </div>
+                <div class="modal-body">
+                    <table class="table table-striped">
+                        <thead>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Volunteer ID</th>
+                            <th>Address</th>
+                            <th>City</th>
+                            <th>State</th>
+                            <th>Zip</th>
+                        </thead>
+                        <tbody id="table-body">
+
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal close -->
     <div class="row profile">
         <div class="col-md-3">
             <div class="profile-sidebar">
@@ -55,7 +84,7 @@ require_once '../config/connect.php';
                             <a href="#"><i class="glyphicon glyphicon-user"></i>Account Settings</a>
                         </li>
                         <li>
-                            <a href="#"><i class="glyphicon glyphicon-ok"></i>Tasks</a>
+                            <a href="#"><i class="glyphicon glyphicon-plus"></i>New Volunteer</a>
                         </li>
                         <li>
                             <a href="#"><i class="glyphicon glyphicon-flag"></i>Help</a>
@@ -70,24 +99,38 @@ require_once '../config/connect.php';
         <div class="col-md-9">
             <div class="profile-content">
                 <ul class="nav nav-tabs">
-                    <li role="presentation" class="active"><a href="#">Home</a></li>
-                    <li role="presentation"><a href="#">Profile</a></li>
-                    <li role="presentation"><a href="#">Messages</a></li>
+                    <li role="presentation" id="add-volunteer"><a href="#"><span class="glyphicon glyphicon-plus"></span> New Volunteer </a></li>
+                    <li role="presentation" id="profile"><a href="#"><span class="glyphicon glyphicon-user"></span> Profile</a></li>
+                    <li role="presentation" id="messages"><a href="#"><span class="glyphicon glyphicon-envelope"></span> Messages</a></li>
                     <li role="presentation" class="dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Switch Organizations<span class="caret"></span>
-                        </a>
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-random"></span>
+                            &nbsp; Switch Organizations <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li class="dropdown-header">Organizations</li>
                             <?php include '../model/volunteer_profile_model.php' ?>
                         </ul>
                     </li>
                 </ul>
-            </div>
+                <div class="row">
+                    <div class="col-xs-12" style="height:50px;"></div>
+                </div>
+                    <div id="listing" class="row">
+                        <!-- todo Load volunteer profile form -->
+                    </div>
+                </div>
         </div>
         <div class="row profile">
             <div class="col-md-9">
                 <br>
-                <div class="profile-content" style="float:top;"></div>
+                <div class="profile-content" style="float:top;">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h2 style="color:black;">Volunteer Profiles</h2>
+                            <hr>
+                        </div>
+                    </div>
+                    <?php include '../model/volunteer_listing.php' ?>
+                </div>
             </div>
         </div>
     </div>
@@ -95,22 +138,6 @@ require_once '../config/connect.php';
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script src="../../public/js/volunteer_profile.js"></script>
 </body>
 </html>
-
-
-<!--
-
-  <li>
-                        <div class="btn-group-vertical" role="group">
-                            <a style="margin-left:15px;" href="#" type="button" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="glyphicon glyphicon-menu-hamburger"></i>Dropdown</a>
-                            <ul class="dropdown-menu">
-                                <li class="dropdown-header">Dropdown header</li>
-                                <li><a href="#">Dropdown link</a></li>
-                                <li><a href="#">Dropdown link</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                     </li>
-
-                 -->
