@@ -18,12 +18,18 @@ $(document).ready(function() {
         }
        console.log(rememberMe);
 
-        //Asychronous post request to php passing the loginType as a JSON parameter
+        //Asynchronous POST request to php passing the loginType as a JSON parameter
         $.post("../../application/controller/global_login_controller.php", {login_type: loginType, email: email, password: password, remember_me: rememberMe})
             .done(function(data) {
-                //when the server returns a response
+                //When the server returns a response
                 if(data == false) {
-                    $("#alert").addClass("alert alert-danger").html("Incorrect Username or Password.").effect("shake");
+                    var alertText = "";
+                    if(email == "" || password == "") {
+                       alertText = "You must feel out all the fields!"
+                    } else {
+                        alertText = "Wrong Username or Password!"
+                    }
+                    $("#alert").addClass("alert alert-danger").html(alertText).effect("shake");
                 } else {
                     window.location.href = "../../application/view/volunteer_profile.php";
                 }
