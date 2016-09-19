@@ -42,6 +42,12 @@ if(isset($login_type)) {
                echo false;
            }
            break;
+       case 'ADMIN':
+           if($user->login_admin($email, $password)) {
+               $user->redirect("../view/volunteer_profile.php");
+           } else {
+               echo false;
+           }
        default:
            //todo return an error message? 
            break;

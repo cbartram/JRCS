@@ -19,7 +19,7 @@ $DB_name = "heroku_01b6c023d9d5d29";
 
 try
 {
-    $DB_con = new PDO("mysql:host={$DB_host};dbname={$DB_name}",$DB_user,$DB_pass);
+    $DB_con = new PDO("mysql:host={$DB_host};dbname={$DB_name}", $DB_user, $DB_pass);
     $DB_con->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 }
 catch(PDOException $e)
@@ -27,7 +27,11 @@ catch(PDOException $e)
     echo $e->getMessage();
 }
 
+//Include the necessary files
 include_once 'gravatar.php';
 include_once 'User.Class.php';
+include_once 'SQL.php';
+
+//create global instances of the Class's
 $user = new USER($DB_con);
-?>
+$query = new SQL($DB_con);

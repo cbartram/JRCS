@@ -5,25 +5,36 @@ require_once '../config/connect.php';
  * User: christianbartram
  * Date: 9/16/16
  * Time: 11:57 PM
+ *
+ * Note: We pull the data from the volunteer_profile table instead of the login table because it contains
+ * the first name, and last name data
  */
 
 $group = $_SESSION['user_group'];
+$id = $_SESSION['user_session'];
 
-//This statement acts as a filter to only get the volunteers of a particular group
-$stmt = $DB_con->prepare("SELECT p.first_name, p.last_name, p.volunteer_id FROM volunteer_profile AS p WHERE " . format_user_group($group) .  " = 1");
-$stmt->execute();
+if($group == "ADMIN") {
+    //No Where clause is necessary because the admin gets a high level view of all 3 groups
+    $stmt = $DB_con->prepare("SELECT first_name, last_name, volunteer_id FROM volunteer_profile ORDER BY first_name, last_name ASC");
+    $stmt->execute();
+} else {
 
-//get the result set as an array
-$row = $stmt->fetch(PDO::FETCH_ASSOC);
+    //This statement acts as a filter to only get the volunteers of a particular group
+    $stmt = $DB_con->prepare("SELECT first_name, last_name, volunteer_id FROM volunteer_profile WHERE " . format_user_group($group) . " = 1 ORDER BY first_name, last_name ASC");
+    $stmt->execute();
+}
 
-//iterate over each element in the array
+//todo KBDYNAMIC-38 takes place here
+//iterate over each element in the array after getting the result set as an array
 while($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-    echo '<div class="col-lg-4">
+
+    //Prevents logged in user from seeing him/herself in the list of volunteers enabled by default but can be disabled in the Account Settings panel
+    if($row['volunteer_id'] != $id) {
+        echo '<div class="col-lg-4">
                             <div class="well cart-item cart-script">
                                 <h4 class="user-name">' . $row["first_name"] . ' ' . $row["last_name"] . '</h4>
                                 <div class="descr">
-                                    <div class="pull-left icon-script icon-script-combat"></div><span class="vol-id">Volunteer with the ID: ' . $row["volunteer_id"] . '</span>
-                                </div>
+                                    <div class="pull-left icon-script icon-script-combat"></div><span class="vol-id">Volunteer with the ID: ' . $row["volunteer_id"] . '</span></div>
                                 <br>
                                 <div class="row">
                                     <div class="col-md-12">
@@ -32,6 +43,7 @@ while($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
                                 </div>
                             </div>
                         </div>';
+    }
 }
 
 /**
