@@ -49,7 +49,7 @@ while($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
 /**
  * Formats the normal user group to sql safe format to be used in queries
  * @param $group the group that the user is in (bebco, jaco, or jbc)
- * @return $group returns the formatted group for sql
+ * @return returns the formatted group for sql
  */
 function format_user_group($group) {
     switch($group) {
