@@ -22,4 +22,7 @@ switch($group) {
         $user->switch_JBC($_SESSION['email']);
         $user->redirect("../view/volunteer_profile.php");
         break;
+    case "ADMIN":
+        $user->switch_ADMIN($_SESSION['email']);
+        $user->redirect("../view/volunteer_profile.php");
 }

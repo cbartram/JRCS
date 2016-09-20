@@ -1,4 +1,11 @@
 <?php
+/**
+ * Created by PhpStorm.
+ * User: christianbartram
+ * Date: 9/13/16
+ * Time: 2:53 PM
+ */
+
 class USER
 {
     private $db;
@@ -131,19 +138,35 @@ class USER
             case "JBC":
                 $table = "JBC_login";
                 break;
+            case "ADMIN":
+                $table = "admin_login";
+                break;
         }
+        if($table == "admin_login") {
+            $stmt = $this->db->prepare("SELECT staff_id FROM " . $table . " WHERE email = :email");
+            $stmt->bindParam(":email", $email);
+            $stmt->execute();
 
-        $stmt = $this->db->prepare("SELECT volunteer_group FROM " . $table . " WHERE email = :email");
+            $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        $stmt->bindParam(":email", $email);
-        $stmt->execute();
 
-        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+            if($row['staff_id'] != null && $row['staff_id'] != "") {
+                return true;
+            }
+            return false;
 
-        if($row['volunteer_group'] != null && $row['volunteer_group'] != "") {
-            return true;
+        } else {
+            $stmt = $this->db->prepare("SELECT volunteer_group FROM " . $table . " WHERE email = :email");
+            $stmt->bindParam(":email", $email);
+            $stmt->execute();
+
+            $row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+            if($row['volunteer_group'] != null && $row['volunteer_group'] != "") {
+                return true;
+            }
+            return false;
         }
-        return false;
     }
     
     
@@ -166,7 +189,7 @@ class USER
      * @param $password
      * @return mixed
      */
-    public function register($first_name, $last_name, $address, $city, $state, $zip, $email, $phone, $volunteer_type, $consent, $password) {
+    public function register($first_name, $last_name, $address, $city, $state, $zip, $email, $phone, $volunteer_type, $consent, $password, $bebco, $jaco, $jbc) {
        //todo this hasnt been tested
         try {
            $new_password = password_hash($password, PASSWORD_DEFAULT, ['cost' => 12]);
@@ -174,16 +197,48 @@ class USER
            $id = "vol_" . substr($new_password, strlen($new_password) - 8, strlen($new_password));
    
            $stmt = $this->db->prepare("INSERT INTO volunteer_profile (volunteer_id, first_name, last_name, street_address,
-                                      city, state, zip_code, email, phone_number, volunteer_type, background_consent, authentication_level, password)
-                                VALUES (:id, :firstName, :lastName, :addr, :city, :state, :zip, :email, :phone, :volunteerType, :backgroundConsent, 0, :pass)");
+                                      city, state, zip_code, email, phone_number, volunteer_type, background_consent, bebco_volunteer, jaco_volunteer, jbc_volunteer, authentication_level, password)
+                                VALUES (:id, :firstName, :lastName, :addr, :city, :state, :zip, :email, :phone, :volunteerType, :backgroundConsent, :bebco, :jaco, :jbc,  0, :pass)");
            $stmt->execute(array(":id" => $id, ":firstName" => $first_name, ":lastName" => $last_name, ":addr" => $address,
                                 ":city" => $city, ":state" => $state, ":zip" => $zip, ":email" => $email, ":phone" => $phone,
-                                ":volunteerType" => $volunteer_type, ":backgroundConsent" => $consent, ":pass" => $new_password));
+                                ":volunteerType" => $volunteer_type, ":backgroundConsent" => $consent, ":bebco" => $bebco, ":jaco" => $jaco, ":jbc" => $jbc, ":pass" => $new_password));
            return $stmt; 
        }
        catch(PDOException $e) {
            echo $e->getMessage();
        }    
+    }
+
+    /**
+     * Logs a user into the admin group for a high level overview
+     * @param $email users email
+     * @param $password users password
+     * @return bool
+     */
+    public function login_admin($email, $password) {
+        try {
+            //Staff can login with either their staff_id or their email and a volunteer can login with either their volunteer_id or their email
+            $stmt = $this->db->prepare("SELECT * FROM admin_login WHERE email = :email OR staff_id = :email LIMIT 1");
+
+            $stmt->execute(array(':email' => $email));
+
+            $row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+            if($stmt->rowCount() > 0) {
+                if(password_verify($password, $row['password'])) {
+                    $_SESSION['user_session'] = $row['staff_id'];
+                    $_SESSION['email'] = $row['email'];
+                    $_SESSION['user_group'] = 'ADMIN';
+
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+        }
+        catch(PDOException $e) {
+            echo $e->getMessage();
+        }
     }
 
 
@@ -218,94 +273,6 @@ class USER
            echo $e->getMessage();
        }
    }
-
-
-    /**
-     * Switches a user who is already logged in under a different group to the JACO group 
-     * NOTE: this does not re-authenticate the user it simply switches their sessions to reflect the new group
-     * @param $email users email or volunteer_id
-     * @return bool
-     */
-    public function switch_JACO($email) {
-        
-        try {
-            //Email for both params because email could either be email or vol_id depending on what the user decided to input
-            $stmt = $this->db->prepare("SELECT * FROM JACO_login WHERE email = :email OR volunteer_id = :email LIMIT 1");
-
-            $stmt->execute(array(':email' => $email));
-
-            $row = $stmt->fetch(PDO::FETCH_ASSOC);
-
-            $_SESSION['user_session'] = $row['volunteer_id'];
-            $_SESSION['email'] = $row['email'];
-            $_SESSION['user_group'] = 'JACO';
-            
-        } catch(Exception $e) {
-            $e->getMessage();
-            return false;
-        }
-        
-        return true;
-
-    }
-
-    /**
-     * Switches a user who is already logged in under a different group to the BEBCO group
-     * NOTE: this does not re-authenticate the user it simply switches their sessions to reflect the new group
-     * @param $email users email or volunteer_id
-     * @return bool
-     */
-    public function switch_BEBCO($email) {
-
-        try {
-            //Email for both params because email could either be email or vol_id depending on what the user decided to input
-            $stmt = $this->db->prepare("SELECT * FROM BEBCO_login WHERE email = :email OR volunteer_id = :email LIMIT 1");
-
-            $stmt->execute(array(':email' => $email));
-
-            $row = $stmt->fetch(PDO::FETCH_ASSOC);
-
-            $_SESSION['user_session'] = $row['volunteer_id'];
-            $_SESSION['email'] = $row['email'];
-            $_SESSION['user_group'] = 'BEBCO';
-
-        } catch(Exception $e) {
-            $e->getMessage();
-            return false;
-        }
-
-        return true;
-
-    }
-
-    /**
-     * Switches a user who is already logged in under a different group to the JBC group
-     * NOTE: this does not re-authenticate the user it simply switches their sessions to reflect the new group
-     * @param $email users email or volunteer_id
-     * @return bool
-     */
-    public function switch_JBC($email) {
-
-        try {
-            //Email for both params because email could either be email or vol_id depending on what the user decided to input
-            $stmt = $this->db->prepare("SELECT * FROM JBC_login WHERE email = :email OR volunteer_id = :email LIMIT 1");
-
-            $stmt->execute(array(':email' => $email));
-
-            $row = $stmt->fetch(PDO::FETCH_ASSOC);
-
-            $_SESSION['user_session'] = $row['volunteer_id'];
-            $_SESSION['email'] = $row['email'];
-            $_SESSION['user_group'] = 'JBC';
-
-        } catch(Exception $e) {
-            $e->getMessage();
-            return false;
-        }
-
-        return true;
-
-    }
 
     /**
      * Logs a user into the JBC group of volunteers
@@ -369,6 +336,87 @@ class USER
         catch(PDOException $e) {
             echo $e->getMessage();
         }
+    }
+
+
+    /**
+     * Switches a user who is already logged in under a different group to the ADMIN group
+     * NOTE: this does not re-authenticate the user it simply switches their sessions to reflect the new group
+     * @param $email volunteer email or volunteer_id
+     * @return bool
+     */
+    public function switch_ADMIN($email) {
+        try {
+            $_SESSION['user_group'] = 'ADMIN';
+
+        } catch(Exception $e) {
+            $e->getMessage();
+            return false;
+        }
+
+        return true;
+
+    }
+
+
+    /**
+     * Switches a user who is already logged in under a different group to the JACO group
+     * NOTE: this does not re-authenticate the user it simply switches their sessions to reflect the new group
+     * @param $email users email or volunteer_id
+     * @return bool
+     */
+    public function switch_JACO($email) {
+
+        try {
+            $_SESSION['user_group'] = 'JACO';
+
+        } catch(Exception $e) {
+            $e->getMessage();
+            return false;
+        }
+
+        return true;
+
+    }
+
+    /**
+     * Switches a user who is already logged in under a different group to the BEBCO group
+     * NOTE: this does not re-authenticate the user it simply switches their sessions to reflect the new group
+     * @param $email users email or volunteer_id
+     * @return bool
+     */
+    public function switch_BEBCO($email) {
+
+        try {
+            $_SESSION['user_group'] = 'BEBCO';
+
+        } catch(Exception $e) {
+            $e->getMessage();
+            return false;
+        }
+
+        return true;
+
+    }
+
+    /**
+     * Switches a user who is already logged in under a different group to the JBC group
+     * NOTE: this does not re-authenticate the user it simply switches their sessions to reflect the new group
+     * @param $email users email or volunteer_id
+     * @return bool
+     */
+    public function switch_JBC($email) {
+        try {
+            //The only thing we need to update is the user_group session
+            $_SESSION['user_group'] = 'JBC';
+
+        } catch(Exception $e) {
+            $e->getMessage();
+            return false;
+        }
+
+        return true;
+
     }
 
     /**

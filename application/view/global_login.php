@@ -1,9 +1,9 @@
 <?php
 $remember_me_password = false;
-if(isset($_COOKIE['remember_me_password'])) {
-   $remember_me_password = true;
-}
- ?>
+$remember_me_email = false;
+if(isset($_COOKIE['remember_me_password'])) {$remember_me_password = true;}
+if(isset($_COOKIE['remember_me_email'])) {$remember_me_email = true;}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -33,10 +33,10 @@ if(isset($_COOKIE['remember_me_password'])) {
                 <div id="alert"></div>
                 <?php if(isset($_GET['response'])) { echo '<div class="alert alert-success">' . $_GET['response'] . '</div>';} ?>
                 <label for="inputEmail" class="sr-only">Email address or Volunteer ID</label>
-                <input type="text" id="inputEmail" class="form-control" placeholder="Email address or Volunteer ID" value="<?php isset($_COOKIE['remember_me_email']) ?  $_COOKIE['remember_me_email'] : '' ?>" >
+                <input type="text" id="inputEmail" class="form-control" placeholder="Email address or Volunteer ID" value="<?php echo $_COOKIE['remember_me_email'] ?>">
                 <br>
                 <label for="inputPassword" class="sr-only">Password</label>
-                <input type="password" id="inputPassword" class="form-control" placeholder="Password" value="<?php $remember_me_password ?  $_COOKIE['remember_me_password'] : '' ?>">
+                <input type="password" id="inputPassword" class="form-control" placeholder="Password" value="<?php echo $_COOKIE['remember_me_password'] ?>">
                 <div class="checkbox">
                     <label>
                         <input type="checkbox" id="remember-me" value="remember-me"> Remember me
@@ -53,6 +53,12 @@ if(isset($_COOKIE['remember_me_password'])) {
                         <button data-login-type="JBC" class="btn btn-sm btn-primary" type="submit">JBC Login</button>
                     </div>
                 </div>
+                <div class="row">
+                    <div class="col-md-12" style="height:25px;"></div>
+                    <div class="col-md-12">
+                        <button data-login-type="ADMIN" class="btn btn-sm btn-success" type="submit">Admin Login</button>
+                    </div>
+                </div>
             </form>
         </div>
     </div>
@@ -61,6 +67,7 @@ if(isset($_COOKIE['remember_me_password'])) {
 </div> <!-- /container -->
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+<script src="//code.jquery.com/ui/1.12.0/jquery-ui.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 <script src="../../public/js/global_login.js"></script>
 </body>

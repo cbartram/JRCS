@@ -6,7 +6,7 @@ require_once '../config/connect.php';
  * Date: 9/15/16
  * Time: 10:39 AM
  */
-$groups = array('BEBCO', 'JACO', 'JBC');
+$groups = array('BEBCO', 'JACO', 'JBC', "ADMIN");
 
 //Iterate through the array creating a new html link for the view for each group the volunteer is a member of
 for($i = 0; $i < sizeof($groups); $i++) {

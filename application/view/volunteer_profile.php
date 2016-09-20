@@ -128,8 +128,8 @@ require_once '../config/connect.php';
                             <h2 style="color:black;">Volunteer Profiles</h2>
                             <hr>
                         </div>
+                        <?php include '../model/volunteer_listing.php' ?>
                     </div>
-                    <?php include '../model/volunteer_listing.php' ?>
                 </div>
             </div>
         </div>
