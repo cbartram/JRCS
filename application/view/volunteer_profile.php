@@ -1,5 +1,6 @@
 <?php
 require_once '../config/connect.php';
+include '../config/require_login.php';
 /**
  * Created by PhpStorm.
  * User: christianbartram

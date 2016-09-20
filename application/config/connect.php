@@ -32,6 +32,7 @@ include_once 'gravatar.php';
 include_once 'User.Class.php';
 include_once 'SQL.php';
 
-//create global instances of the Class's
+//Create global instances of the Class's
 $user = new USER($DB_con);
 $query = new SQL($DB_con);
+
