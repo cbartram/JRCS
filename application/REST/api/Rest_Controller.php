@@ -1,5 +1,5 @@
 <?php
-require '../../../vendor/Slim/vendor/autoload.php';
+require '../../../Slim/vendor/autoload.php';
 
 /**
  * Created by PhpStorm.
