@@ -57,6 +57,36 @@ class USER
         }
     }
 
+
+    public function get_group_from_id($id) {
+        $group = "";
+
+        try {
+            $stmt = $this->db->prepare("SELECT bebco_volunteer, jaco_volunteer, jbc_volunteer FROM volunteer_profile WHERE volunteer_id = :id");
+            $stmt->bindParam(":id", $id);
+            $stmt->execute();
+
+            $row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+
+            //could be replaced with a for loop
+            if($row['bebco_volunteer'] == 1) {
+               $group .= "BEBCO, ";
+            }
+            if($row['jaco_volunteer'] == 1) {
+                $group .= "JACO, ";
+            }
+            if($row['jbc_volunteer'] == 1) {
+                $group .= " JBC";
+            }
+
+            return $group;
+
+        } catch (PDOException $e) {
+            $e->getMessage();
+        }
+    }
+
     /**
      * Returns the users first name and last name separated by a space character
      * @param $email the users email

@@ -28,11 +28,14 @@ if($group == "ADMIN") {
 //iterate over each element in the array after getting the result set as an array
 while($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
 
+    $vol_groups = $user->get_group_from_id($row['volunteer_id']);
+    $vol_groups = rtrim($vol_groups, ",");
+
     //Prevents logged in user from seeing him/herself in the list of volunteers enabled by default but can be disabled in the Account Settings panel
     if($row['volunteer_id'] != $id) {
         echo '<div class="col-lg-4">
                             <div class="well cart-item cart-script">
-                                <h4 class="user-name">' . $row["first_name"] . ' ' . $row["last_name"] . '</h4>
+                                <h4 class="user-name">' . $row["first_name"] . ' ' . $row["last_name"] . ' - ' . $vol_groups . '</h4>
                                 <div class="descr">
                                     <div class="pull-left icon-script icon-script-combat"></div><span class="vol-id">Volunteer with the ID: ' . $row["volunteer_id"] . '</span></div>
                                 <br>
