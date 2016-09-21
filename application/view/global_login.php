@@ -25,14 +25,23 @@ if(isset($_COOKIE['remember_me_email'])) {$remember_me_email = true;}
 <body>
 
 <div class="container">
-    <div class="row">
+    <div class="btn-group btn-group-justified" role="group">
+        <div class="btn-group" role="group">
+            <button type="button" id="staff-login-btn" class="btn btn-md btn-primary">Staff Login</button>
+        </div>
+        <div class="btn-group" role="group">
+            <button type="button" id="volunteer-login-btn" class="btn btn-md btn-primary">Volunteer Check In</button>
+        </div>
+    </div>
+    <!-- Start Staff/Admin Login -->
+    <div class="row" id="staff-login">
         <div class="col-lg-4"></div>
         <div class="col-lg-4">
             <form class="form-signin">
-                <h2 class="form-signin-heading">Volunteer Login</h2>
+                <h2 class="form-signin-heading" align="center">Staff Login</h2>
                 <div id="alert"></div>
-                <?php if(isset($_GET['response'])) { echo '<div class="alert alert-success">' . $_GET['response'] . '</div>';} ?>
-                <label for="inputEmail" class="sr-only">Email address or Volunteer ID</label>
+                <?php if(isset($_GET['response'])) { echo '<div class="alert alert-success"> <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a> You have been successfully logged out!</div>';} ?>
+                <label for="inputEmail" class="sr-only">Email address or Staff ID</label>
                 <input type="text" id="inputEmail" class="form-control" placeholder="Email address or Volunteer ID" value="<?php echo $_COOKIE['remember_me_email'] ?>">
                 <br>
                 <label for="inputPassword" class="sr-only">Password</label>
@@ -44,25 +53,53 @@ if(isset($_COOKIE['remember_me_email'])) {$remember_me_email = true;}
                 </div>
                 <div class="row">
                     <div class="col-md-4">
-                        <button data-login-type="JACO" class="btn btn-sm btn-primary" type="submit">JACO Login</button>
+                        <button data-login-type="JACO" id="jaco" class="btn btn-sm btn-primary" type="submit">JACO Login</button>
                     </div>
                     <div class="col-md-4">
-                        <button data-login-type="BEBCO" class="btn btn-sm btn-primary" type="submit">BEBCO Login</button>
+                        <button data-login-type="BEBCO" id="bebco" class="btn btn-sm btn-primary" type="submit">BEBCO Login</button>
                     </div>
                     <div class="col-md-4">
-                        <button data-login-type="JBC" class="btn btn-sm btn-primary" type="submit">JBC Login</button>
+                        <button data-login-type="JBC" id="jbc" class="btn btn-sm btn-primary" type="submit">JBC Login</button>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-12" style="height:25px;"></div>
                     <div class="col-md-12">
-                        <button data-login-type="ADMIN" class="btn btn-sm btn-success" type="submit">Admin Login</button>
+                        <button data-login-type="ADMIN" id="admin" class="btn btn-sm btn-success" type="submit">Admin Login</button>
                     </div>
                 </div>
             </form>
         </div>
+        <div class="col-lg-4"></div>
     </div>
-    <div class="col-lg-4"></div>
+    <!-- End Staff Login -->
+
+
+
+
+    <div class="row" id="volunteer-login">
+        <div class="col-lg-4"></div>
+        <div class="col-lg-4">
+            <form class="form-signin">
+                <h2 class="form-signin-heading" align="center">Volunteer Login</h2>
+                <div id="alert-volunteer"></div>
+                <?php if(isset($_GET['response-volunteer'])) { echo '<div class="alert alert-success"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a> You have been successfully logged out!</div>';} ?>
+                <label for="volunteer-email" class="sr-only">Email address or Volunteer ID</label>
+                <input type="text" id="volunteer-email" class="form-control" placeholder="Email address or Volunteer ID">
+                <div class="row">
+                    <div class="col-md-12" style="height:25px;"></div>
+                    <div class="col-md-12">
+                        <button id="volunteer-login-submit" class="btn btn-sm btn-success" type="submit">Search</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="col-lg-4"></div>
+    </div>
+
+
+
+
 
 </div> <!-- /container -->
 
