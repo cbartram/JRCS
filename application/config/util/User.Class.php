@@ -438,8 +438,7 @@ class USER
      * @return bool
      */
    public function is_loggedin() {
-      if(isset($_SESSION['user_session']))
-      {
+      if(isset($_SESSION['user_session'])) {
          return true;
       }
    }
@@ -457,7 +456,6 @@ class USER
      * @return bool
      */
    public function logout() {
-	   	   
         session_destroy();
         unset($_SESSION['user_session']);
 	    unset($_SESSION['email']);

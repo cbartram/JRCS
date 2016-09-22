@@ -29,8 +29,8 @@ catch(PDOException $e)
 
 //Include the necessary files
 include_once 'gravatar.php';
-include_once 'User.Class.php';
-include_once 'SQL.php';
+include_once 'util/User.Class.php';
+include_once 'util/SQL.php';
 
 //Create global instances of the Class's
 $user = new USER($DB_con);

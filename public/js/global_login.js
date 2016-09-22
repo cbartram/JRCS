@@ -2,37 +2,120 @@
  * Created by christianbartram on 9/14/16.
  */
 $(document).ready(function() {
-    $("#volunteer-login").hide();
+    var email, program, type;
+
+    //Hide both the volunteer Login and Cico on page load
+    $("#volunteer-login, #volunteer-cico").hide();
+
     $("#staff-login-btn").click(function() {
-        //show the staff login hide the volunteer login
-        $("#staff-login").show("slow");
-        $("#volunteer-login").hide();
+        if($(this).attr("class") != "btn btn-primary disabled") {
+            //show the staff login hide the volunteer login
+            $("#staff-login").show("slow");
+            $("#volunteer-login").hide();
+            $("#volunteer-cico").hide();
+        }
 
     });
 
     $("#volunteer-login-btn").click(function() {
-        //show the volunteer login and hide the staff login
-        $("#volunteer-login").show("slow");
-        $("#staff-login").hide();
+        if($("#staff-login-btn").attr("class") != "btn btn-primary disabled") {
+            //show the volunteer login and hide the staff login
+            $("#volunteer-login").show("slow");
+            $("#staff-login").hide();
+        }
 
+    });
+
+    $(".btn-danger").click(function() {
+        //todo this transition needs to be more smooth
+        $("#alert-cico").removeClass("alert alert-danger").html("");
+
+        //remove the disabled state for the staff login button
+        $("#staff-login-btn").attr("class", "btn btn-primary");
+
+        //Hide both the volunteer Login and Cico on page load
+        $("#volunteer-login, #volunteer-cico").hide();
+        $("#staff-login").show("slow");
+
+    });
+
+    $('#volunteer-type').change(function() {
+        //gets the selected attribute from the option list
+         program = $(this).find(':selected').attr('name');
+
+        if(program == "program") {
+            //Show the program option list
+            $("#volunteer-program").show("slow");
+        } else {
+            $("#volunteer-program").hide("slow");
+        }
+
+    });
+
+    $("#volunteer-program").change(function() {
+        type = $(this).find(":selected").attr('name');
+    });
+
+    $("#volunteer-cico-submit").click(function(e) {
+
+        //todo needs AM/PM and its in 24 hour time needs converting to 12 hour time
+        var date = new Date();
+        var timestamp = date.getHours() + ":" + date.getMinutes();
+
+        $.post("../../application/controller/clock_in.php", {email: email, program: program, type: type, timestamp: timestamp})
+            .done(function(data) {
+                var alertText;
+
+                //If the user hasnt filled out the form at all
+                if($("#volunteer-type").find(':selected').attr('name') == "default") {
+                    alertText = "You need to pick a Volunteer Type before you can Check-in";
+
+                    $("#alert-cico").addClass("alert alert-danger").html(alertText).effect("shake");
+
+                } else {
+
+                    //the user filled out the form
+                    if (data == false) {
+                        alertText = "You haven't clocked out yet with the email: <b>" + email + "</b>";
+                        $("#alert-cico").addClass("alert alert-danger").html(alertText).effect("shake");
+                    } else {
+                        alertText = "Checked in <b>" + email + "</b> at " + timestamp;
+                        $("#alert-cico").attr("class", "alert alert-success").html(alertText);
+                        //Re-enable to Staff Login button
+                        $("#staff-login-btn").attr("class", "btn btn-primary");
+
+                    }
+                }
+
+            });
+
+        e.preventDefault();
     });
 
 
     $("#volunteer-login-submit").click(function(e) {
-        var email = $('#volunteer-email').val();
+         email = $('#volunteer-email').val();
 
         $.post("../../application/controller/global_volunteer_login_controller.php", {email: email})
             .done(function(data) {
                 var alertText;
 
                 if(data == false) {
-                    alertText = email +  " is not a valid volunteer in the database...";
+                    alertText = "<b>" + email +  "</b> is not a valid volunteer in the database";
                     $("#alert-volunteer").addClass("alert alert-danger").html(alertText).effect("shake");
                 } else {
-                    alertText = "Success, logging in!";
-
-                    $("#alert-volunteer").attr("class", "alert alert-success").html(alertText);
                     //hide volunteer login & show volunteer program/CICO
+                    $("#staff-login-btn").attr("class", "btn btn-primary disabled");
+                    $("#volunteer-login").hide();
+
+                    //Reset form fields from previous Check-in
+                    $('#volunteer-program').prop('selectedIndex',0);
+                    $('#volunteer-type').prop('selectedIndex', 0);
+
+
+                    $("#volunteer-cico").show("slow");
+                    $("#volunteer-program").hide();
+
                 }
             });
 

@@ -74,9 +74,7 @@ if(isset($_COOKIE['remember_me_email'])) {$remember_me_email = true;}
     </div>
     <!-- End Staff Login -->
 
-
-
-
+    <!-- Volunteer Login -->
     <div class="row" id="volunteer-login">
         <div class="col-lg-4"></div>
         <div class="col-lg-4">
@@ -96,6 +94,50 @@ if(isset($_COOKIE['remember_me_email'])) {$remember_me_email = true;}
         </div>
         <div class="col-lg-4"></div>
     </div>
+    <!-- Volunteer Login end -->
+
+    <!-- Volunteer CICO -->
+    <div class="row" id="volunteer-cico">
+        <div class="col-lg-4"></div>
+        <div class="col-lg-4">
+            <form class="form-signin">
+                <h2 class="form-signin-heading" align="center">Volunteer Check-in</h2>
+                <div id="alert-cico"></div>
+                <div class="form-group">
+                    <select class="form-control" id="volunteer-type">
+                        <option name="default" selected>Select Volunteer Type</option>
+                        <option name="program">Program</option>
+                        <option name="board">Board</option>
+                        <option name="general">General</option>
+                    </select>
+                </div>
+
+                <!-- Hidden form only visible to program volunteers -->
+                <div class="form-group" id="volunteer-program">
+                    <label for="program">Select Volunteer Program</label>
+                    <select class="form-control" id="program">
+                        <option name="default" selected>Select Program</option>
+                        <option name="SAT">SAT Prep</option>
+                        <option name="ACT">ACT Prep</option>
+                        <option name="Career">Career Counseling</option>
+                    </select>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12" style="height:25px;"></div>
+                    <div class="col-md-12">
+                        <button id="volunteer-cico-submit" class="btn btn-success" type="submit">Check-in</button>
+                    </div>
+                    <div class="col-md-12" style="height:25px;"></div>
+                    <div class="col-md-12">
+                        <button class="btn btn-danger" type="button">Back</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="col-lg-4"></div>
+    </div>
+    <!-- Volunteer CICO end -->
 
 
 
