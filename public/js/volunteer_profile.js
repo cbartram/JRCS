@@ -27,8 +27,11 @@ $(document).ready(function() {
     
     $(".btn-success").click(function() {
 
-        //Travels up the DOM searching for H4 tag with the CSS class user-name
+        //Travels up the DOM searching for H4 tag with the CSS class user-name could be done better
         var user = $(this).parent().parent().parent().parent().find('.user-name').text();
+        //Trims the users name
+        user = user.substr(0, user.indexOf("-") - 1);
+
 
         //todo Length need to be 12 in production
         var element = $(this).parent().parent().parent().find(".vol-id").text();
