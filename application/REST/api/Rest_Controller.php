@@ -31,7 +31,11 @@ function getVolunteers() {
     try {
         $db = getConnection();
 
-        $stmt = $db->prepare("SELECT * FROM volunteer_profile ORDER BY last_name, first_name ASC");
+        $stmt = $db->prepare("SELECT volunteer_id, first_name, last_name, 
+                                      street_address, city, state, zip_code, email, phone_number, 
+                                      volunteer_type, bebco_volunteer, jaco_volunteer, jbc_volunteer, 
+                                      background_consent, authentication_level 
+                                      FROM volunteer_profile ORDER BY last_name, first_name ASC");
         $stmt->execute();
         $volunteers = $stmt->fetchAll(PDO::FETCH_OBJ);
 
@@ -45,11 +49,15 @@ function getVolunteers() {
 
 
 function getVolunteer($id) {
+
     try {
         $db = getConnection();
-
-        $stmt = $db->prepare("SELECT * FROM volunteer_profile WHERE volunteer_id = :id");
-        $stmt->execute(array(":id" => $id));
+        $stmt = $db->prepare("SELECT volunteer_id, first_name, last_name, 
+                                      street_address, city, state, zip_code, email, phone_number, 
+                                      volunteer_type, bebco_volunteer, jaco_volunteer, jbc_volunteer, 
+                                      background_consent, authentication_level  FROM volunteer_profile WHERE volunteer_id = :id");
+        $stmt->bindParam("id", $id);
+        $stmt->execute();
 
         $volunteer = $stmt->fetchObject();
         $db = null;
