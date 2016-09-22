@@ -8,4 +8,4 @@ require_once '../config/connect.php';
  */
 
 $user->logout();
-$user->redirect("../view/global_login.php?response=You%20have%20been%20successfully%20logged%20out!");
+$user->redirect("../view/global_login.php?response=logout");
