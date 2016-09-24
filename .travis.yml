@@ -8,8 +8,3 @@ php:
   - nightly
 
 script: build.sh
-
- deploy:
-  provider: heroku
-  api_key: 5ae60f59-32a2-458c-8afd-0e1cf123bcb4
-  app: jrcs

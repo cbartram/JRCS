@@ -142,12 +142,8 @@ include '../config/require_login.php';
 <script src="../../public/js/volunteer_profile.js"></script>
 <script src="../../public/js/library.js"></script>
 <script>
-    getVolunteerById('vol_1234', function(output){
-       console.log(output);
-    });
-
-    getVolunteerByEmail('cbartram3@gmail.com', function(output) {
-       console.log(output);
+    getNameById("vol_1234", function(output) {
+       console.log("Test" + output);
     });
 </script>
 </body>

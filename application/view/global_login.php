@@ -138,11 +138,6 @@ if(isset($_COOKIE['remember_me_email'])) {$remember_me_email = true;}
         <div class="col-lg-4"></div>
     </div>
     <!-- Volunteer CICO end -->
-
-
-
-
-
 </div> <!-- /container -->
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
