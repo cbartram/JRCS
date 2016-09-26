@@ -49,6 +49,10 @@ function getVolunteers() {
 
 
 function getVolunteer($id) {
+    //Request object makes it easy to access the request’s data e.g. JSON
+    $request = Slim::getInstance()->request();
+
+    $json = json_decode($request->getBody());
 
     try {
         $db = getConnection();
