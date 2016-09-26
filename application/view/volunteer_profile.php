@@ -58,6 +58,41 @@ include '../config/require_login.php';
         </div>
     </div>
     <!-- Modal close -->
+    <!-- Modal Add Volunteer open -->
+    <div class="modal fade" id="add-volunteer-modal" tabindex="-1" role="dialog" aria-labelledby="add-volunteer-modal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" style="color:black;" id="myModalLabel">Add a Volunteer</h4>
+                </div>
+                <div class="modal-body">
+                    <form role="form" action="../controller/register_controller.php" method="POST">
+                        <div class="input-group">
+                            <label for="first_name">Add a Volunteer</label>
+                            <input type="text" name="first_name" class="form-control" id="first_name" placeholder="First Name">
+                            <input type="text" name="last_name" class="form-control" id="last_name" placeholder="Last Name">
+                            <input type="text" name="address" class="form-control" id="address" placeholder="Address">
+                            <input type="text" name="city" class="form-control" id="city" placeholder="City">
+                            <input type="text" name="state" class="form-control" id="state" placeholder="State">
+                            <input type="text" name="zip" class="form-control" id="zip" placeholder="Zip Code">
+                            <input type="email" name="email" class="form-control" id="email" placeholder="Email">
+                            <input type="text" name="phone" class="form-control" id="phone" placeholder="Phone">
+                            <input type="text" name="volunteer_type" class="form-control" id="volunteer_type" placeholder="Volunteer Type">
+                            <input type="password" name="password" class="form-control" id="password" placeholder="Password">
+                        </div><!-- /input-group -->
+                        <div class="input-group">
+                            <button type="submit" class="btn btn-primary" name="submit" id="submit">Add Volunteer</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal Add Volunteer close -->
     <div class="row profile">
         <div class="col-md-3">
             <div class="profile-sidebar">
@@ -85,7 +120,7 @@ include '../config/require_login.php';
                             <a href="#"><i class="glyphicon glyphicon-user"></i>Account Settings</a>
                         </li>
                         <li>
-                            <a href="#"><i class="glyphicon glyphicon-plus"></i>New Volunteer</a>
+                            <a href="#" data-toggle="modal" data-target="#add-volunteer-modal"><i class="glyphicon glyphicon-plus"></i>New Volunteer</a>
                         </li>
                         <li>
                             <a href="#"><i class="glyphicon glyphicon-flag"></i>Help</a>
@@ -100,9 +135,9 @@ include '../config/require_login.php';
         <div class="col-md-9">
             <div class="profile-content">
                 <ul class="nav nav-tabs">
-                    <li role="presentation" id="add-volunteer"><a href="#"><span class="glyphicon glyphicon-plus"></span> New Volunteer </a></li>
-                    <li role="presentation" id="profile"><a href="#"><span class="glyphicon glyphicon-user"></span> Profile</a></li>
-                    <li role="presentation" id="messages"><a href="#"><span class="glyphicon glyphicon-envelope"></span> Messages</a></li>
+                    <li role="presentation" id="add-volunteer"><a href="#" data-toggle="modal" data-target="#add-volunteer-modal"><span class="glyphicon glyphicon-plus"></span> New Volunteer </a></li>
+                    <li role="presentation" id="profile"><a href="#"><span class="glyphicon glyphicon-usd"></span> New Donation</a></li>
+                    <li role="presentation" id="messages"><a href="#"><span class="glyphicon glyphicon-envelope"></span> New Event</a></li>
                     <li role="presentation" class="dropdown">
                         <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-random"></span>
                             &nbsp; Switch Organizations <span class="caret"></span></a>

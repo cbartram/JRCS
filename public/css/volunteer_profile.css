@@ -132,7 +132,7 @@ body {
     border-color: #159e82;
 }
 .icon-script-combat {
-    background-image: url(../images/sprites/bandos-sprite.png);
+   /* background-image: url(../images/sprites/sprite.png); */
 }
 
 .descr {
@@ -158,7 +158,7 @@ h4 {
     background-position: 0-64px;
 }
 .icon-script {
-    background: url(/assets/img/sprites/scripts.png) no-repeat 0 0;
+    /* BEBCO,JACO,JBC Logos can go here background: url(/assets/img/sprites/scripts.png) no-repeat 0 0; */
     height: 32px;
     width: 32px;
     margin-right: 8px;
