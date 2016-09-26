@@ -1,8 +1,8 @@
 <?php
-$remember_me_password = false;
-$remember_me_email = false;
-if(isset($_COOKIE['remember_me_password'])) {$remember_me_password = true;}
-if(isset($_COOKIE['remember_me_email'])) {$remember_me_email = true;}
+//$remember_me_password = false;
+//$remember_me_email = false;
+//if(isset($_COOKIE['remember_me_password'])) {$remember_me_password = true;}
+//if(isset($_COOKIE['remember_me_email'])) {$remember_me_email = true;}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -42,10 +42,10 @@ if(isset($_COOKIE['remember_me_email'])) {$remember_me_email = true;}
                 <div id="alert"></div>
                 <?php if(isset($_GET['response'])) { echo '<div class="alert alert-success"> <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a> You have been successfully logged out!</div>';} ?>
                 <label for="inputEmail" class="sr-only">Email address or Staff ID</label>
-                <input type="text" id="inputEmail" class="form-control" placeholder="Email address or Volunteer ID" value="<?php echo $_COOKIE['remember_me_email'] ?>">
+                <input type="text" id="inputEmail" class="form-control" placeholder="Email address or Volunteer ID" >
                 <br>
                 <label for="inputPassword" class="sr-only">Password</label>
-                <input type="password" id="inputPassword" class="form-control" placeholder="Password" value="<?php echo $_COOKIE['remember_me_password'] ?>">
+                <input type="password" id="inputPassword" class="form-control" placeholder="Password">
                 <div class="checkbox">
                     <label>
                         <input type="checkbox" id="remember-me" value="remember-me"> Remember me

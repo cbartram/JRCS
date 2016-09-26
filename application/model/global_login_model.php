@@ -10,13 +10,13 @@ require_once '../config/connect.php';
 $login_type = $_POST['login_type'];
 $email = $_POST['email'];
 $password = $_POST['password'];
-$remember_me = $_POST['remember_me'];
-
-
-if($remember_me) {
-    setcookie("remember_me_email", $email, time() + (86400 * 90), "/"); // 1 month
-    setcookie("remember_me_password", $password, time() + (86400 * 90), "/"); // 1 month
-}
+//$remember_me = $_POST['remember_me'];
+//
+//
+//if($remember_me) {
+//    setcookie("remember_me_email", $email, time() + (86400 * 90), "/"); // 1 month
+//    setcookie("remember_me_password", $password, time() + (86400 * 90), "/"); // 1 month
+//}
 
 //if the post request has been made to this page
 if(isset($login_type)) {

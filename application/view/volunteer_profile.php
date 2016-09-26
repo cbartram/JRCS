@@ -58,6 +58,38 @@ include '../config/require_login.php';
         </div>
     </div>
     <!-- Modal close -->
+    <!-- Modal Add Volunteer open -->
+    <div class="modal fade" id="add-volunteer-modal" tabindex="-1" role="dialog" aria-labelledby="add-volunteer-modal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" style="color:black;" id="myModalLabel">Add a Volunteer</h4>
+                </div>
+                <div class="modal-body">
+                    <form role="form" action="../controller/register_controller.php" method="POST">
+                        <div class="input-group">
+                            <label for="first_name">Volunteer Name</label>
+                            <input type="text" name="first_name" class="form-control" id="first_name" placeholder="First Name">
+                            <input type="text" name="last_name" class="form-control" id="last_name" placeholder="Last Name">
+                        </div><!-- /input-group -->
+                        <div class="input-group">
+                            <label for="first_name">Volunteer Name</label>
+                            <input type="text" name="first_name" class="form-control" id="first_name" placeholder="First Name">
+                            <input type="text" name="last_name" class="form-control" id="last_name" placeholder="Last Name">
+                        </div><!-- /input-group -->
+                        <div class="input-group">
+                            <button type="submit" class="btn btn-primary" name="submit" id="submit">Add Volunteer</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal Add Volunteer close -->
     <div class="row profile">
         <div class="col-md-3">
             <div class="profile-sidebar">
@@ -85,7 +117,7 @@ include '../config/require_login.php';
                             <a href="#"><i class="glyphicon glyphicon-user"></i>Account Settings</a>
                         </li>
                         <li>
-                            <a href="#"><i class="glyphicon glyphicon-plus"></i>New Volunteer</a>
+                            <a href="#" data-toggle="modal" data-target="#add-volunteer-modal"><i class="glyphicon glyphicon-plus"></i>New Volunteer</a>
                         </li>
                         <li>
                             <a href="#"><i class="glyphicon glyphicon-flag"></i>Help</a>
@@ -100,7 +132,7 @@ include '../config/require_login.php';
         <div class="col-md-9">
             <div class="profile-content">
                 <ul class="nav nav-tabs">
-                    <li role="presentation" id="add-volunteer"><a href="#"><span class="glyphicon glyphicon-plus"></span> New Volunteer </a></li>
+                    <li role="presentation" id="add-volunteer"><a href="#" data-toggle="modal" data-target="#add-volunteer-modal"><span class="glyphicon glyphicon-plus"></span> New Volunteer </a></li>
                     <li role="presentation" id="profile"><a href="#"><span class="glyphicon glyphicon-user"></span> Profile</a></li>
                     <li role="presentation" id="messages"><a href="#"><span class="glyphicon glyphicon-envelope"></span> Messages</a></li>
                     <li role="presentation" class="dropdown">
@@ -140,11 +172,5 @@ include '../config/require_login.php';
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 <script src="../../public/js/volunteer_profile.js"></script>
-<script src="../../public/js/library.js"></script>
-<script>
-    getNameById("vol_1234", function(output) {
-       console.log("Test" + output);
-    });
-</script>
 </body>
 </html>
