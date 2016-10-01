@@ -36,3 +36,14 @@ A Volunteer Management Software for Jacksonville Refugee services
 - Fixed Bug with Card titles showing volunteers group
 - Wrote JS API to query backend and reuturn JSON Objects
 
+###Version 2.0.0
+- JRCS 2.0 is here!!! 
+- New and more stable Frontend js api
+- Eloquent query building api
+- correct composer.json so project dependencies can be managed added and deleted like a breeze!
+- Fully correct MVC Design structure
+- Blade templating engine added 
+- Laravel framework and support built right in!
+- Simplified database design
+- So so so much more!
+
