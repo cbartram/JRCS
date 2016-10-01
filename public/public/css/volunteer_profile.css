@@ -1,0 +1,175 @@
+/* Created by Christian Bartram */
+
+body {
+    background: #3C3F41;
+}
+
+/* Profile container */
+.profile {
+    margin: 20px 0;
+}
+
+/* Profile sidebar */
+.profile-sidebar {
+    padding: 20px 0 10px 0;
+    background: #fff;
+}
+
+.profile-userpic img {
+    float: none;
+    margin: 0 auto;
+    width: 50%;
+    height: 50%;
+    -webkit-border-radius: 50% !important;
+    -moz-border-radius: 50% !important;
+    border-radius: 50% !important;
+}
+
+.profile-usertitle {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.profile-usertitle-name {
+    color: #5a7391;
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 7px;
+}
+
+.profile-usertitle-job {
+    text-transform: uppercase;
+    color: #5b9bd1;
+    font-size: 12px;
+    font-weight: 600;
+    margin-bottom: 15px;
+}
+
+.profile-userbuttons {
+    text-align: center;
+    margin-top: 10px;
+}
+
+.profile-userbuttons .btn {
+    text-transform: uppercase;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 6px 15px;
+    margin-right: 5px;
+}
+
+.profile-userbuttons .btn:last-child {
+    margin-right: 0px;
+}
+
+.profile-usermenu {
+    margin-top: 30px;
+}
+
+.profile-usermenu ul li {
+    border-bottom: 1px solid #f0f4f7;
+}
+
+.profile-usermenu ul li:last-child {
+    border-bottom: none;
+}
+
+.profile-usermenu ul li a {
+    color: #93a3b5;
+    font-size: 14px;
+    font-weight: 400;
+}
+
+.profile-usermenu ul li a i {
+    margin-right: 8px;
+    font-size: 14px;
+}
+
+.profile-usermenu ul li a:hover {
+    background-color: #fafcfd;
+    color: #5b9bd1;
+}
+
+.profile-usermenu ul li.active {
+    border-bottom: none;
+}
+
+.profile-usermenu ul li.active a {
+    color: #5b9bd1;
+    background-color: #f6f9fb;
+    border-left: 2px solid #5b9bd1;
+    margin-left: -2px;
+}
+
+/* Profile Content */
+.profile-content {
+    padding: 20px;
+    background: #fff;
+    min-height: 460px;
+}
+
+/* Handles Volunteer profile boxes */
+
+
+.cart-item .cart-add {
+    float: right;
+    margin-bottom: .5em;
+}
+.well {
+    background-color:#202D3B;
+}
+.btn {
+    border-width: 2px;
+}
+.btn-success {
+    color: #fff;
+    background-color: #18bc9c;
+    border-color: #18bc9c;
+    font-family: Helvetica;
+}
+.btn-success:hover {
+    background-color: #159e82;
+    border-color: #159e82;
+}
+.icon-script-combat {
+   /* background-image: url(../images/sprites/sprite.png); */
+}
+
+.descr {
+    color:#FFFFFF;
+}
+h4 {
+    color:#FFFFFF;
+}
+.price {
+    color:#FFFFFF;
+}
+
+.well-inverse .price, .well-inverse .price:before {
+    text-shadow: none;
+}
+.cart-item .price {
+    float: left;
+    font-size: 1.65em;
+    text-shadow: 0 1px 0 #fff;
+}
+
+.icon-script-combat {
+    background-position: 0-64px;
+}
+.icon-script {
+    /* BEBCO,JACO,JBC Logos can go here background: url(/assets/img/sprites/scripts.png) no-repeat 0 0; */
+    height: 32px;
+    width: 32px;
+    margin-right: 8px;
+}
+.pull-left {
+    float: left !important;
+}
+.jumbotron {color: #FFFFFF;text-align: center;background-color: #159957;background-image: linear-gradient(120deg, #43cea2, #185a9d);}
+
+.navbar-avatar {height:45px;width:45px;border-radius:50%;-moz-border-radius: 50%;-webkit-border-radius: 50%;border:1px solid gray;padding:3px;}
+
+.navbar-avatar:hover {border:1px solid white;}
+
+.logged-in {padding-top:70px; }
