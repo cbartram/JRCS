@@ -37,7 +37,7 @@ class CicoController extends Controller
                 //todo this is a primary key being inserted here which means a volunteer cant check in more than once not good
                 $cico->id = Str::random();
                 $cico->email = Input::get('email');
-                $cico->volunteer_group = $q->bebco_volunteer; //gtodo get group from their id
+                $cico->volunteer_group = $q->bebco_volunteer; //todo get group from their id
                 $cico->volunteer_program = Input::get('program');
                 $cico->volunteer_type = Input::get('type');
                 $cico->check_in_timestamp = date('Y-m-d G:i:s');
