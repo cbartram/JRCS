@@ -1,6 +1,15 @@
 # JRCS
 A Volunteer Management Software for Jacksonville Refugee services
 
+##Installation
+JRCS Can be easily installed on a local environment. Simply open up a command line utility navigate to the directory where you want JRCS installed and type `git clone https://github.com/cbartram/JRCS.git`
+
+This will clone the jrcs repository onto your local computer.
+Next Navigate to the root directory of JRCS in your command line utility
+e.g. `cd laravel-jrcs` 
+Run `php artisan serve` this will launch the JRCS application on Php's built it webserver using artisan.
+You can view the application at `http://localhost:8000/`
+
 ##Version Log
 ###Version 1.0.0
 - initial commit
