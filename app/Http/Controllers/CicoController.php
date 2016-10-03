@@ -9,6 +9,9 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Str;
 
 class CicoController extends Controller
 {
@@ -31,12 +34,13 @@ class CicoController extends Controller
             if($query == null) {
                 //insert a new record for the volunteer clocking in
                 $cico = new Cico;
-                $cico->id = $q->id;
+                //todo this is a primary key being inserted here which means a volunteer cant check in more than once not good
+                $cico->id = Str::random();
                 $cico->email = Input::get('email');
-                $cico->volunteer_group = $q->bebco_volunteer; //todo get group from their id
+                $cico->volunteer_group = $q->bebco_volunteer; //gtodo get group from their id
                 $cico->volunteer_program = Input::get('program');
                 $cico->volunteer_type = Input::get('type');
-                $cico->check_in_timestamp = Input::get('timestamp');
+                $cico->check_in_timestamp = date('Y-m-d G:i:s');
                 $cico->check_out_timestamp = 'null';
 
                 $cico->save();
@@ -49,8 +53,31 @@ class CicoController extends Controller
                 return "false";
             }
         }
+    }
 
-        return "true";
+    public function index() {
+        return view('checkout');
+    }
+
+    public function checkOut() {
+        $volunteer = Cico::where('email', '=', Input::get('email'))->get()->first();
+        if($volunteer != null) {
+            //check to see if there is a volunteer with check_out_timestamp = null
+            if ($volunteer->check_out_timestamp == "null") {
+                $timestamp = date('Y-m-d G:i:s');
+                $volunteer->check_out_timestamp = $timestamp;
+                $volunteer->save();
+
+                Session::flash('alert-success', 'You have been successfully checked out!');
+                return Redirect::back();
+            } else {
+                Session::flash('alert-danger', 'You need to check-in before you can check out!');
+                return Redirect::back();
+            }
+        } else {
+            Session::flash('alert-danger', 'The email you entered was incorrect...');
+            return Redirect::back();
+        }
     }
 
 }
