@@ -27,6 +27,10 @@ Route::get('/logout', 'LogoutController@index');
 //Handles clocking a user in/out
 Route::get('/cico', 'CicoController@checkIn');
 
+//Handles clocking a user out
+Route::post('/checkout', 'CicoController@checkOut');
+Route::get('/checkout', 'CicoController@index');
+
 
 /*
 |------------------------------------------------------------------------
