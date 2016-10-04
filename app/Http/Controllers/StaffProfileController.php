@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\Helpers;
 use App\Profile;
 use App\StaffProfile;
 use Illuminate\Http\Request;
@@ -13,11 +14,10 @@ use Illuminate\Support\Facades\Session;
 class StaffProfileController extends Controller
 {
 
-    public function index($id)
+    public function index()
     {
-
             //Searches the DB for staff profile with the $id = id submitted by the login form
-            $staff = DB::table('staff_profile2')->where('id', '=', $id)->limit(1)->get()->first();
+            $staff = DB::table('staff_profile2')->where('id', '=', Session::get('id'))->limit(1)->get()->first();
 
             //Finds the volunteers that relate to the staff members "default" group
             if(Session::has('group')) {
@@ -33,9 +33,9 @@ class StaffProfileController extends Controller
                 }
             } else {
                 //the user has not switched groups yet give them the default group
-                $volunteers = DB::table('profiles')->where($this->getDefaultGroupFromId($id), "=",  1)->get();
+                $volunteers = DB::table('profiles')->where($this->getDefaultGroupFromId(Session::get('id')), "=",  1)->get();
                 //Default group the user will be logged in as
-                $defaultGroup = $this->getTruncatedGroupName($this->getDefaultGroupFromId($id));
+                $defaultGroup = $this->getTruncatedGroupName($this->getDefaultGroupFromId(Session::get('id')));
             }
 
             //Staff members gravatar email
@@ -45,7 +45,7 @@ class StaffProfileController extends Controller
             $groups = $this->isMemberOf($staff);
 
             //return the view and attach staff & volunteer objects to be accessed by blades engine
-            return view('profile', compact('staff'), compact('volunteers'))
+             return view('profile', compact('staff'), compact('volunteers'))
                 ->with('defaultGroup', $defaultGroup)
                 ->with('gravEmail', $gravEmail)
                 ->with('groups', $groups);

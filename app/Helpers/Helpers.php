@@ -210,4 +210,70 @@ class Helpers
             return false;
         }
     }
+
+    /**
+     * Returns a staff object from the database given the ID. If no staff member can be found null is returned
+     * @param $id The staff members id
+     * @return null
+     */
+    public static function getStaffById($id) {
+        $staff = DB::table('staff_profile2')->where('id', '=', $id)->limit(1)->get()->first();
+
+        if($staff == null) {
+            return null;
+        }
+
+        return $staff;
+    }
+
+
+    /**
+     * Returns a staff object from the database given the email. If no staff member can be found null is returned
+     * @param $email The staff members email
+     * @return null
+     */
+    public static function getStaffByEmail($email) {
+        $staff = DB::table('staff_profile2')->where('email', '=', $email)->limit(1)->get()->first();
+
+        if($staff == null) {
+            return null;
+        }
+
+        return $staff;
+    }
+
+
+    /**
+     * Returns true if the staff member has access to the group specified false otherwise.
+     * Use isAdmin() if you are checking if they are an admin or not
+     * @param $group Group i.e BEBCO, JACO or JBC
+     * @param $staffId
+     * @return bool|null
+     */
+    public static function hasAccessTo($group, $staffId) {
+        $staff = DB::table('staff_profile2')->where('id', '=', $staffId)->limit(1)->get()->first();
+        $truncatedGroup = "";
+
+        if($staff == null) {
+            return null;
+        }
+        switch($group) {
+            case "BEBCO":
+                $truncatedGroup = 'bebco_access';
+                break;
+            case 'JACO':
+                $truncatedGroup = 'jaco_access';
+                break;
+            case 'JBC':
+                $truncatedGroup = 'jbc_access';
+                break;
+        }
+
+        if($staff->$truncatedGroup == 1) {
+            return true;
+        } else {
+            return false;
+        }
+
+    }
 }

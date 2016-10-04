@@ -14,6 +14,6 @@ class SwitchController extends Controller
         //The new group is the group required to switch too
         Session::put('group', $group);
 
-        return Redirect::to('/profile/' . Session::get('id'));
+        return Redirect::to('/profile');
     }
 }

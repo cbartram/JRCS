@@ -18,7 +18,7 @@ Route::get('/', 'LoginController@index');
 Route::post('/', 'LoginController@handleLogin');
 
 //When the person logs in the StaffProfile Controller comes to action to handle the request with the index() function
-Route::get('/profile/{id}', 'StaffProfileController@index');
+Route::get('/profile', 'StaffProfileController@index');
 
 Route::get('/switch/{group}', 'SwitchController@index');
 
@@ -30,6 +30,9 @@ Route::get('/cico', 'CicoController@checkIn');
 //Handles clocking a user out
 Route::post('/checkout', 'CicoController@checkOut');
 Route::get('/checkout', 'CicoController@index');
+
+//Handles when a staff member registers a new volunteer
+Route::post('/add', 'addController@index');
 
 
 /*
