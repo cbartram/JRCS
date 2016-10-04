@@ -31,6 +31,9 @@ Route::get('/cico', 'CicoController@checkIn');
 Route::post('/checkout', 'CicoController@checkOut');
 Route::get('/checkout', 'CicoController@index');
 
+//Handles when a staff member registers a new volunteer
+Route::post('/add', 'addController@index');
+
 
 /*
 |------------------------------------------------------------------------

@@ -9,18 +9,30 @@ $(document).ready(function() {
         $(this).addClass("active");
         $("#profile").removeClass("active");
         $("#messages").removeClass("active");
+        $("#checkout-volunteer").removeClass("active");
     });
 
     $("#profile").click(function() {
         $(this).addClass("active");
         $("#messages").removeClass("active");
         $("#add-volunteer").removeClass("active");
+        $("#checkout-volunteer").removeClass("active");
+
     });
 
     $("#messages").click(function() {
         $(this).addClass("active");
         $("#add-volunteer").removeClass("active");
         $("#profile").removeClass("active");
+        $("#checkout-volunteer").removeClass("active");
+
+    });
+
+    $("#checkout-volunteer").click(function() {
+        $(this).addClass('active');
+        $("#add-volunteer").removeClass("active");
+        $("#profile").removeClass("active");
+        $("#messages").removeClass("active");
     });
 
     

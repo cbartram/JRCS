@@ -68,24 +68,44 @@
                     <h4 class="modal-title" style="color:black;" id="myModalLabel">Add a Volunteer</h4>
                 </div>
                 <div class="modal-body">
-                    <form role="form" action="../controller/register_controller.php" method="POST">
+                    {{ Form::open(array('url' => '/add', 'method' => 'post')) }}
                         <div class="input-group">
                             <label for="first_name">Add a Volunteer</label>
-                            <input type="text" name="first_name" class="form-control" id="first_name" placeholder="First Name">
-                            <input type="text" name="last_name" class="form-control" id="last_name" placeholder="Last Name">
-                            <input type="text" name="address" class="form-control" id="address" placeholder="Address">
-                            <input type="text" name="city" class="form-control" id="city" placeholder="City">
-                            <input type="text" name="state" class="form-control" id="state" placeholder="State">
-                            <input type="text" name="zip" class="form-control" id="zip" placeholder="Zip Code">
-                            <input type="email" name="email" class="form-control" id="email" placeholder="Email">
-                            <input type="text" name="phone" class="form-control" id="phone" placeholder="Phone">
-                            <input type="text" name="volunteer_type" class="form-control" id="volunteer_type" placeholder="Volunteer Type">
-                            <input type="password" name="password" class="form-control" id="password" placeholder="Password">
+                            <p>{{ Form::text('first_name', Input::old('email'), array('placeholder' => 'First Name', 'class' => 'form-control')) }}</p>
+                            <p>{{ Form::text('last_name', Input::old('email'), array('placeholder' => 'Last Name', 'class' => 'form-control')) }}</p>
+                            <p>{{ Form::text('address', Input::old('email'), array('placeholder' => 'Address', 'class' => 'form-control')) }}</p>
+                            <p>{{ Form::text('city', Input::old('email'), array('placeholder' => 'City', 'class' => 'form-control')) }}</p>
+                            <p>{{ Form::text('state', Input::old('email'), array('placeholder' => 'State', 'class' => 'form-control')) }}</p>
+                            <p>{{ Form::text('zip', Input::old('email'), array('placeholder' => 'Zip Code', 'class' => 'form-control')) }}</p>
+                            <p>{{ Form::text('email', Input::old('email'), array('placeholder' => 'Email', 'class' => 'form-control')) }}</p>
+                            <p>{{ Form::text('phone', Input::old('email'), array('placeholder' => 'Phone', 'class' => 'form-control')) }}</p>
+                            <p>{{ Form::password('password', array('class' => 'form-control', 'placeholder' => 'Password')) }}</p>
+                            <p>{{ Form::select('volunteer_type', array('General' => 'General', 'Program' => 'Program', 'Board' => 'Board'), 'General'), array('class' => 'form-control')}}</p>
+
+
+
+                        @if (Helpers::hasAccessTo('BEBCO', Session::get('id')))
+                                <div class="checkbox">
+                                    <label>{{ Form::checkbox('bebco-checkbox', 'true') }} Add to BEBCO</label>
+                                </div>
+                            @endif
+                            @if (Helpers::hasAccessTo('JACO', Session::get('id')))
+                                <div class="checkbox">
+                                    <label>{{ Form::checkbox('jaco-checkbox', 'true') }} Add to JACO</label>
+
+                                </div>
+                             @endif
+                            @if (Helpers::hasAccessTo('JBC', Session::get('id')))
+                                <div class="checkbox disabled">
+                                    <label>{{ Form::checkbox('jbc-checkbox', 'true') }} Add to JBC</label>
+                                </div>
+                            @endif
+
                         </div><!-- /input-group -->
                         <div class="input-group">
-                            <button type="submit" class="btn btn-primary" name="submit" id="submit">Add Volunteer</button>
+                            {{ Form::submit('Submit', array('class' => 'btn btn-primary')) }}
                         </div>
-                    </form>
+                    {{Form::close()}}
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -139,39 +159,21 @@
                     <li role="presentation" id="add-volunteer"><a href="#" data-toggle="modal" data-target="#add-volunteer-modal"><span class="glyphicon glyphicon-plus"></span> New Volunteer </a></li>
                     <li role="presentation" id="profile"><a href="#"><span class="glyphicon glyphicon-usd"></span> New Donation</a></li>
                     <li role="presentation" id="messages"><a href="#"><span class="glyphicon glyphicon-envelope"></span> New Event</a></li>
+                    <li role="presentation" id="checkout-volunteer"><a href="#"><span class="glyphicon glyphicon-log-out"></span> Checkout Volunteer</a></li>
                     <li role="presentation" class="dropdown">
                         <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-random"></span>
                             &nbsp; Switch Organizations <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li class="dropdown-header">Organizations</li>
-                            @if($groups['BEBCO'] == true)
-                                @if($defaultGroup == 'BEBCO')
-                                <li class="disabled"><a href="#">BEBCO - Current Organization</a></li>
-                                @else
-                                    <li><a href="/switch/BEBCO">BEBCO</a></li>
+                            @foreach($groups as $k => $v)
+                                @if($groups[$k] == true)
+                                    @if($defaultGroup == $k)
+                                        <li class="disabled"><a href="#">{{$k}} - Current Organization</a></li>
+                                    @else
+                                        <li><a href="/switch/{{$k}}">{{$k}}</a></li>
+                                    @endif
                                 @endif
-                            @endif
-                            @if($groups['JACO'] == true)
-                                @if($defaultGroup == 'JACO')
-                                    <li class="disabled"><a href="#">JACO - Current Organization</a></li>
-                                @else
-                                    <li><a href="/switch/JACO">JACO</a></li>
-                                @endif
-                            @endif
-                            @if($groups['JBC'] == true)
-                                @if($defaultGroup == 'JBC')
-                                    <li class="disabled"><a href="#">JBC - Current Organization</a></li>
-                                @else
-                                    <li><a href="/switch/JBC">JBC</a></li>
-                                @endif
-                            @endif
-                            @if($groups['BEBCO'] == true && $groups['JACO'] == true && $groups['JBC'] == true)
-                                @if($defaultGroup == 'ADMIN')
-                                <li class="disabled"><a href="#">ADMIN - Current Organization</a></li>
-                                @else
-                                <li><a href="/switch/ADMIN">ADMIN</a></li>
-                                @endif
-                            @endif
+                            @endforeach
                         </ul>
                     </li>
                 </ul>
@@ -180,6 +182,16 @@
                 </div>
                 <div id="listing" class="row">
                     <!-- todo Load volunteer profile form -->
+                    @if (count($errors) > 0)
+                        <div class="alert alert-danger">
+                            <strong>Error!</strong> There were some problems with your input.<br><br>
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
                 </div>
             </div>
         </div>

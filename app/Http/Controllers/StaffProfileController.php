@@ -45,7 +45,7 @@ class StaffProfileController extends Controller
             $groups = $this->isMemberOf($staff);
 
             //return the view and attach staff & volunteer objects to be accessed by blades engine
-            return view('profile', compact('staff'), compact('volunteers'))
+             return view('profile', compact('staff'), compact('volunteers'))
                 ->with('defaultGroup', $defaultGroup)
                 ->with('gravEmail', $gravEmail)
                 ->with('groups', $groups);
