@@ -57,5 +57,10 @@ Contact *@cbartram* if you have any issues with the database or want to setup a 
 - Blade templating engine added 
 - Laravel framework and support built right in!
 - Simplified database design
+- Increased security
+- SQL Injection protection
+- CRSF Tokenization
+- Sitewide encryption
+- XSS & JS Protection Protection 
 - So so so much more!
 
