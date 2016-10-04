@@ -13,6 +13,34 @@ Run `php artisan serve` this will launch the JRCS application on Php's built it 
 ##Configuring the Database
 Contact *@cbartram* if you have any issues with the database or want to setup a local copy instead. By default JRCS will connect to the database set up in the development environment on Heroku, however, this may not be ideal for testing application components which require inserting or updating large quantities of data in the database.
 
+##Common Issues
+Ensure that you install composer (dependency manager) for php correctly from http://getcomposer.org
+
+Run this in a command prompt or terminal 
+`php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+php -r "if (hash_file('SHA384', 'composer-setup.php') === 'e115a8dc7871f15d853148a7fbac7da27d6c0030b848d9b3dc09e2a0388afed865e6a3d6b3c0fad45c48e2b5fc1196ae') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;"
+php composer-setup.php
+php -r "unlink('composer-setup.php');"`
+
+The basic script above: 
+- Downloads the installer to the current directory
+- Verifies the installer SHA-384 Hash
+- Runs the installer
+- Removes the installer
+
+(If it gives you an error run the commands as `sudo`)
+
+Now that you have composer installed run 
+`php composer-setup.php --filename=composer`
+
+*On Mac* you can simply do `sudo mv composer.phar /usr/local/bin/composer` to move composer to your classpath. 
+Access composer in terminal using the cmd `composer` from wherever you are!
+
+*On Windows* follow this tutorial http://leedavis81.github.io/global-installation-of-composer-on-windows/
+
+Navigate to your root directory for JRCS and run `composer update` after composer has been updated run `php artisan serve` to access your local webserver at http://localhost:8000/
+
+
 ##Version Log
 ###Version 1.0.0
 - initial commit
