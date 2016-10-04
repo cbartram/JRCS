@@ -21,8 +21,8 @@
         <div class="col-lg-4"></div>
         <div class="col-lg-4">
             {{ Form::open(array('url' => '/checkout', 'method' => 'post')) }}
-            <h2 align="center">Volunteer Checkout</h2>
 
+            <h2 align="center">Volunteer Checkout</h2>
             <div class="flash-message">
                 @foreach (['danger', 'warning', 'success', 'info'] as $msg)
                     @if(Session::has('alert-' . $msg))
