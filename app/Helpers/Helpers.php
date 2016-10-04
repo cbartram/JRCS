@@ -211,6 +211,37 @@ class Helpers
         }
     }
 
+    /**
+     * Returns a staff object from the database given the ID. If no staff member can be found null is returned
+     * @param $id The staff members id
+     * @return null
+     */
+    public static function getStaffById($id) {
+        $staff = DB::table('staff_profile2')->where('id', '=', $id)->limit(1)->get()->first();
+
+        if($staff == null) {
+            return null;
+        }
+
+        return $staff;
+    }
+
+
+    /**
+     * Returns a staff object from the database given the email. If no staff member can be found null is returned
+     * @param $email The staff members email
+     * @return null
+     */
+    public static function getStaffByEmail($email) {
+        $staff = DB::table('staff_profile2')->where('email', '=', $email)->limit(1)->get()->first();
+
+        if($staff == null) {
+            return null;
+        }
+
+        return $staff;
+    }
+
 
     /**
      * Returns true if the staff member has access to the group specified false otherwise.

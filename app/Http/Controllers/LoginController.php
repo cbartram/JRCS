@@ -63,7 +63,7 @@ class LoginController extends Controller
 
 
                 //Redirect the user
-                return Redirect::to('/profile/' . $staff->id);
+                return Redirect::to('/profile');
 
             } else {
 
