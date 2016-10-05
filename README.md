@@ -17,10 +17,9 @@ Contact *@cbartram* if you have any issues with the database or want to setup a 
 Ensure that you install composer (dependency manager) for php correctly from http://getcomposer.org
 
 Run this in a command prompt or terminal 
-`php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
-php -r "if (hash_file('SHA384', 'composer-setup.php') === 'e115a8dc7871f15d853148a7fbac7da27d6c0030b848d9b3dc09e2a0388afed865e6a3d6b3c0fad45c48e2b5fc1196ae') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;"
-php composer-setup.php
-php -r "unlink('composer-setup.php');"`
+`php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"`
+`php composer-setup.php`
+`php -r "unlink('composer-setup.php');"`
 
 The basic script above: 
 - Downloads the installer to the current directory
@@ -39,6 +38,8 @@ Access composer in terminal using the cmd `composer` from wherever you are!
 *On Windows* follow this tutorial http://leedavis81.github.io/global-installation-of-composer-on-windows/
 
 Navigate to your root directory for JRCS and run `composer update` after composer has been updated run `php artisan serve` to access your local webserver at http://localhost:8000/
+
+If your still recieving errors try following the composer installation guide from the beginning on their website at http://getcomposer.org 
 
 
 ##Version Log
