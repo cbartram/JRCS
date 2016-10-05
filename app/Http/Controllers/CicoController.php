@@ -16,6 +16,10 @@ use Illuminate\Support\Str;
 class CicoController extends Controller
 {
     public function checkIn() {
+       $date = date('Y-m-d');
+       $time = date('G:i:s');
+       $timestamp = $date . ' ' . date("g:i a", strtotime($time));
+
 
         //Get the first row back from the query
         $q = DB::table('profiles')->where('email', '=', Input::get('email'))->limit(1)->get()->first();
@@ -40,13 +44,12 @@ class CicoController extends Controller
                 $cico->volunteer_group = $q->bebco_volunteer; //todo get group from their id
                 $cico->volunteer_program = Input::get('program');
                 $cico->volunteer_type = Input::get('type');
-                $cico->check_in_timestamp = date('Y-m-d G:i:s');
+                $cico->check_in_timestamp = $timestamp;
                 $cico->check_out_timestamp = 'null';
 
                 $cico->save();
 
                 return "true";
-
 
             } else {
                 //we found a row where they have not yet checked out yet
@@ -64,7 +67,11 @@ class CicoController extends Controller
         if($volunteer != null) {
             //check to see if there is a volunteer with check_out_timestamp = null
             if ($volunteer->check_out_timestamp == "null") {
-                $timestamp = date('Y-m-d G:i:s');
+
+                $date = date('Y-m-d');
+                $time = date('G:i:s');
+                $timestamp = $date . ' ' . date("g:i a", strtotime($time));
+
                 $volunteer->check_out_timestamp = $timestamp;
                 $volunteer->save();
 
