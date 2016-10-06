@@ -54,16 +54,32 @@ class StaffProfileController extends Controller
     public function isMemberOf($user)
     {
         $access = [];
-        $groups = ['bebco_access', 'jaco_access', 'jbc_access'];
-        $truncatedName = ['BEBCO', 'JACO', 'JBC'];
-
-        for($i = 0; $i < 3; $i++) {
-            if(serialize($user->$groups[$i]) == 1) {
-                $access[$truncatedName[$i]] = true;
-            } else {
-                $access[$truncatedName[$i]] = false;
-            }
+//        $groups = ['bebco_access', 'jaco_access', 'jbc_access'];
+//        $truncatedName = ['BEBCO', 'JACO', 'JBC'];
+//
+//        for($i = 0; $i < 3; $i++) {
+//            if(serialize($user->$groups[$i]) == 1) {
+//                $access[$truncatedName[$i]] = true;
+//            } else {
+//                $access[$truncatedName[$i]] = false;
+//            }
+//        }
+        if($user->bebco_access == 1) {
+            $access['BEBCO'] = true;
+        } else {
+            $access['BEBCO'] = false;
         }
+        if($user->jaco_access == 1) {
+            $access['JACO'] = true;
+        } else {
+            $access['JACO'] = false;
+        }
+        if($user->jbc_access == 1) {
+            $access['JBC'] = true;
+        } else {
+            $access['JBC'] = false;
+        }
+
         //Staff member is a part of all 3 groups
         if($access['BEBCO'] == true && $access['JACO'] == true && $access['JBC'] == true) {
             $access['ADMIN']= true;
