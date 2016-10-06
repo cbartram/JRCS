@@ -38,17 +38,7 @@
                         <th>Zip</th>
                         </thead>
                         <tbody id="table-body">
-                        @foreach($volunteers as $volunteer)
-                            <tr>
-                                <td> {{$volunteer->first_name }} </td>
-                                <td> {{$volunteer->last_name }} </td>
-                                <td> {{$volunteer->id}} </td>
-                                <td> {{$volunteer->email}} </td>
-                                <td> {{$volunteer->city}} </td>
-                                <td> {{$volunteer->state}} </td>
-                                <td> {{$volunteer->zip_code}} </td>
-                            </tr>
-                        @endforeach
+                        <!-- Load Volunteer Demographic info -->
                         </tbody>
                     </table>
                 </div>
@@ -235,6 +225,7 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script src="../../public/js/VolunteerRESTLibrary.js"></script>
 <script src="../../public/js/volunteer_profile.js"></script>
 </body>
 </html>
