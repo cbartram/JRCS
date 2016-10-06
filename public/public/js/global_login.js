@@ -4,6 +4,13 @@
 $(document).ready(function() {
     var email, program, type, timestamp, alertText;
 
+
+
+    //todo test the 4 methods here
+    updateVolunteerById('vol_4v0ebjc4', 'first_name', 'Chris', function(output) {
+       console.log(output);
+    });
+
     //Hide the volunteer Login on page load
     $("#volunteer-login").hide();
 

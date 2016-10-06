@@ -60,10 +60,10 @@ Route::delete('api/v1/volunteers/id/{id}', 'RESTController@deleteById');
 Route::delete('api/v1/volunteers/email/{email}', 'RESTController@deleteByEmail');
 
 //Updates a volunteer with the specified id
-Route::patch('api/v1/volunteers/id/{id}', 'RESTController@updateById');
+Route::patch('api/v1/volunteers/id/{id}/{columnToUpdate}/{newValue}', 'RESTController@updateById');
 
 //Updates a volunteer with the specified email
-Route::patch('api/v1/volunteers/email/{email}', 'RESTController@updateByEmail');
+Route::patch('api/v1/volunteers/email/{email}/{columnToUpdate}/{newValue}', 'RESTController@updateByEmail');
 
 
 
