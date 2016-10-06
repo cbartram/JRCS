@@ -36,7 +36,7 @@ class RESTController extends Controller
     }
 
     public function updateByEmail($email, $columnToUpdate, $newValue) {
-        $volunteer = DB::table('profiles')->where('email', '=', $email)->limit(1)->get();
+        $volunteer = Profile::where('email', '=', $email)->limit(1)->first();
         $volunteer->$columnToUpdate = $newValue;
 
         $volunteer->save();

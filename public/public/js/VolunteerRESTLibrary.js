@@ -56,36 +56,44 @@ function getVolunteerByEmail(email, getResult) {
     });
 }
 
-//todo next 4 methods havent been tested
 /**
  * Deletes a volunteer given the volunteers id and a callback function
  * @param id volunteers id
  * @param getResult callback function
  */
 function deleteVolunteerById(id, getResult) {
-    $.ajax({
-        type: 'DELETE',
-        url: baseURL + "/id/" + id,
-        dataType: "json",
-        success: function(data) {
-            getResult(data);
+    var settings = {
+        "async": true,
+        "crossDomain": true,
+        "url": "http://localhost:8000/api/v1/volunteers/id/" + id,
+        "method": "DELETE",
+        "headers": {
+            "cache-control": "no-cache"
         }
+    };
+
+    $.ajax(settings).done(function (response) {
+        getResult(response);
     });
 }
-
 /**
  * Deletes a volunteer given the volunteers email and a callback function
  * @param email volunteers email
  * @param getResult callback function
  */
 function deleteVolunteerByEmail(email, getResult) {
-    $.ajax({
-        type: 'DELETE',
-        url: baseURL + "/email/" + email,
-        dataType: "json",
-        success: function(data) {
-            getResult(data);
+    var settings = {
+        "async": true,
+        "crossDomain": true,
+        "url": "http://localhost:8000/api/v1/volunteers/email/" + email,
+        "method": "DELETE",
+        "headers": {
+            "cache-control": "no-cache"
         }
+    };
+
+    $.ajax(settings).done(function (response) {
+        getResult(response);
     });
 }
 
@@ -97,16 +105,19 @@ function deleteVolunteerByEmail(email, getResult) {
  * @param getResult callback function
  */
 function updateVolunteerById(id, column, value, getResult) {
-    $.ajax({
-        url : baseURL + "/id/" + id,
-        data : {columnToUpdate: column, newValue: value},
-        type : 'PATCH',
-        contentType : 'application/json',
-        processData: false,
-        dataType: 'json',
-        success: function(data) {
-            getResult(data)
+    var settings = {
+        "async": true,
+        "crossDomain": true,
+        "url": "http://localhost:8000/api/v1/volunteers/id/" + id + "/" + column + "/" + value,
+        "method": "PATCH",
+        "headers": {
+            "cache-control": "no-cache",
+            "content-type": "application/x-www-form-urlencoded"
         }
+    };
+
+    $.ajax(settings).done(function (response) {
+        getResult(response);
     });
 }
 
@@ -118,16 +129,19 @@ function updateVolunteerById(id, column, value, getResult) {
  * @param getResult callback function
  */
 function updateVolunteerByEmail(email, column, value, getResult) {
-    $.ajax({
-        url : baseURL + "/email/" + email,
-        data : {columnToUpdate: column, newValue: value},
-        type : 'PATCH',
-        contentType : 'application/json',
-        processData: false,
-        dataType: 'json',
-        success: function(data) {
-            getResult(data)
+    var settings = {
+        "async": true,
+        "crossDomain": true,
+        "url": "http://localhost:8000/api/v1/volunteers/email/" + email + "/" + column + "/" + value,
+        "method": "PATCH",
+        "headers": {
+            "cache-control": "no-cache",
+            "content-type": "application/x-www-form-urlencoded"
         }
+    };
+
+    $.ajax(settings).done(function (response) {
+        getResult(response);
     });
 }
 
