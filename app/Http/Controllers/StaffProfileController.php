@@ -41,7 +41,6 @@ class StaffProfileController extends Controller
             //Staff members gravatar email
             $gravEmail = md5(strtolower($staff->email));
 
-            dd($this->isMemberOf($staff));
             //The groups the staff member has access to
             $groups = $this->isMemberOf($staff);
 

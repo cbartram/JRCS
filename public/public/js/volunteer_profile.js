@@ -47,6 +47,14 @@ $(document).ready(function() {
         var element = $(this).parent().parent().parent().find(".vol-id").text();
         var id = element.substr(element.length - 12, element.length);
 
+        getVolunteerById(id, function(output) {
+
+            //Load the volunteer profile details
+            $("#table-body").add('<tr><td>' + output.first_name + '</td></tr>');
+            console.log(output);
+
+        });
+
         $(".modal-title").html(user + "'s Volunteer Details");
     });
 
