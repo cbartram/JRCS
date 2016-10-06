@@ -58,8 +58,6 @@ $(document).ready(function() {
     });
 
     $("#volunteer-cico-submit").click(function(e) {
-
-        //todo needs AM/PM and its in 24 hour time needs converting to 12 hour time
         var date = new Date();
         timestamp = date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
         timestamp = formatDate(timestamp);

@@ -39,7 +39,7 @@ class CicoController extends Controller
                 //insert a new record for the volunteer clocking in
                 $cico = new Cico;
                 //todo this is a primary key being inserted here which means a volunteer cant check in more than once not good
-                $cico->id = Str::random();
+                $cico->id = $q->id;
                 $cico->email = Input::get('email');
                 $cico->volunteer_group = $q->bebco_volunteer; //todo get group from their id
                 $cico->volunteer_program = Input::get('program');
@@ -63,8 +63,9 @@ class CicoController extends Controller
     }
 
     public function checkOut() {
-        $volunteer = Cico::where('email', '=', Input::get('email'))->get()->first();
+        $volunteer = Cico::where('email', '=', Input::get('email'))->where('check_out_timestamp', '=', 'null')->get()->first();
         if($volunteer != null) {
+
             //check to see if there is a volunteer with check_out_timestamp = null
             if ($volunteer->check_out_timestamp == "null") {
 
@@ -77,12 +78,9 @@ class CicoController extends Controller
 
                 Session::flash('alert-success', 'You have been successfully checked out!');
                 return Redirect::back();
-            } else {
-                Session::flash('alert-danger', 'You need to check-in before you can check out!');
-                return Redirect::back();
             }
         } else {
-            Session::flash('alert-danger', 'The email you entered was incorrect...');
+            Session::flash('alert-danger', 'Incorrect email or volunteer has not been checked in!');
             return Redirect::back();
         }
     }
