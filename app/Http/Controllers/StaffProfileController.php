@@ -58,7 +58,7 @@ class StaffProfileController extends Controller
         $truncatedName = ['BEBCO', 'JACO', 'JBC'];
 
         for($i = 0; $i < 3; $i++) {
-            if($user->$groups[$i] == 1) {
+            if(serialize($user->$groups[$i]) == 1) {
                 $access[$truncatedName[$i]] = true;
             } else {
                 $access[$truncatedName[$i]] = false;
