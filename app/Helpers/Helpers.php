@@ -161,6 +161,7 @@ class Helpers
         return $volunteer->first_name . " " . $volunteer->last_name;
     }
 
+
     /**
      * Returns a volunteers ID given their email. If the volunteer cant be found returns null
      * @param $email volunteers email

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Cico;
+use App\Helpers\Helpers;
 use App\Profile;
 use Illuminate\Http\Request;
 
@@ -36,12 +37,21 @@ class CicoController extends Controller
                 ->first();
             //if we could not find an entry where their check-out was null
             if($query == null) {
+
+                //Find the correct group for the staff member
+                $groups = ['BEBCO', 'JACO', 'JBC'];
+                $volunteer_group = "";
+                for($i = 0; $i < 3; $i++) {
+                    if(Helpers::isMemberOf($groups[$i], $q->id)) {
+                        $volunteer_group .= ($groups[$i] . ",");
+                    }
+                }
+                
                 //insert a new record for the volunteer clocking in
                 $cico = new Cico;
-                //todo this is a primary key being inserted here which means a volunteer cant check in more than once not good
                 $cico->id = $q->id;
                 $cico->email = Input::get('email');
-                $cico->volunteer_group = $q->bebco_volunteer; //todo get group from their id
+                $cico->volunteer_group = $volunteer_group;
                 $cico->volunteer_program = Input::get('program');
                 $cico->volunteer_type = Input::get('type');
                 $cico->check_in_timestamp = $timestamp;
