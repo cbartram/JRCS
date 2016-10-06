@@ -41,6 +41,7 @@ class StaffProfileController extends Controller
             //Staff members gravatar email
             $gravEmail = md5(strtolower($staff->email));
 
+            dd($this->isMemberOf($staff));
             //The groups the staff member has access to
             $groups = $this->isMemberOf($staff);
 
@@ -54,21 +55,15 @@ class StaffProfileController extends Controller
     public function isMemberOf($user)
     {
         $access = [];
-        //todo for loop required
-        if($user->bebco_access == 1) {
-            $access['BEBCO'] = true;
-        } else {
-            $access['BEBCO'] = false;
-        }
-        if($user->jaco_access == 1) {
-            $access['JACO'] = true;
-        } else {
-            $access['JACO'] = false;
-        }
-        if($user->jbc_access == 1) {
-            $access['JBC'] = true;
-        } else {
-            $access['JBC'] = false;
+        $groups = ['bebco_access', 'jaco_access', 'jbc_access'];
+        $truncatedName = ['BEBCO', 'JACO', 'JBC'];
+
+        for($i = 0; $i < 3; $i++) {
+            if($user->$groups[$i] == 1) {
+                $access[$truncatedName[$i]] = true;
+            } else {
+                $access[$truncatedName[$i]] = false;
+            }
         }
         //Staff member is a part of all 3 groups
         if($access['BEBCO'] == true && $access['JACO'] == true && $access['JBC'] == true) {
