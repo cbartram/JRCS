@@ -50,9 +50,19 @@ $(document).ready(function() {
         getVolunteerById(id, function(output) {
 
             //Load the volunteer profile details
-            $("#table-body").add('<tr><td>' + output.first_name + '</td></tr>');
-            console.log(output);
+            $("#table-body").append('<tr><td>'
+                + output.first_name + '</td><td>'
+                + output.last_name + '</td><td>'
+                + id + '</td><td>'
+                + output.address + '</td><td>'
+                + output.city + '</td><td>'
+                + output.state + '</td><td>'
+                + output.zip_code + '</td></tr>');
 
+        });
+
+        $('#myModal').on('hidden.bs.modal', function () {
+            $("#table-body").find("tr").remove();
         });
 
         $(".modal-title").html(user + "'s Volunteer Details");
