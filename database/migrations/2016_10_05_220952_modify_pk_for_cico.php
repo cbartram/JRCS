@@ -15,7 +15,6 @@ class ModifyPkForCico extends Migration
     {
         Schema::table('volunteer_cico', function (Blueprint $table) {
             //Modify the volunteer_cico table to make id non primary
-            $table->string('id');
         });
     }
 

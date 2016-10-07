@@ -54,11 +54,12 @@ class StaffProfileController extends Controller
     public function isMemberOf($user)
     {
         $access = [];
+        //This works locally but gives a string to array error in dev... not sure why
 //        $groups = ['bebco_access', 'jaco_access', 'jbc_access'];
 //        $truncatedName = ['BEBCO', 'JACO', 'JBC'];
 //
 //        for($i = 0; $i < 3; $i++) {
-//            if(serialize($user->$groups[$i]) == 1) {
+//            if($user->$groups[$i] == 1) {
 //                $access[$truncatedName[$i]] = true;
 //            } else {
 //                $access[$truncatedName[$i]] = false;

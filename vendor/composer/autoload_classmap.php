@@ -533,4 +533,5 @@ return array(
     'SebastianBergmann\\Version' => $vendorDir . '/sebastian/version/src/Version.php',
     'TestCase' => $baseDir . '/tests/TestCase.php',
     'Text_Template' => $vendorDir . '/phpunit/php-text-template/src/Template.php',
+    'UpdateStaffProfileTable' => $baseDir . '/database/migrations/2016_10_07_191647_update_staff_profile_table.php',
 );
