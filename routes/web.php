@@ -34,6 +34,9 @@ Route::get('/checkout', 'CicoController@index');
 //Handles when a staff member registers a new volunteer
 Route::post('/add', 'addController@index');
 
+//Handles account settings for default group
+Route::post('/settings', 'SettingsController@defaultGroup');
+
 
 /*
 |------------------------------------------------------------------------

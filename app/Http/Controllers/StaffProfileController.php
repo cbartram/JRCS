@@ -32,10 +32,16 @@ class StaffProfileController extends Controller
                     $defaultGroup = Session::get('group');
                 }
             } else {
-                //the user has not switched groups yet give them the default group
-                $volunteers = DB::table('profiles')->where($this->getDefaultGroupFromId(Session::get('id')), "=",  1)->get();
-                //Default group the user will be logged in as
-                $defaultGroup = $this->getTruncatedGroupName($this->getDefaultGroupFromId(Session::get('id')));
+                //check to see if the staff member has set a default group in the default group column
+                if($staff->default_group != null || $staff->default_group != '') {
+                    $volunteers = DB::table('profiles')->where($this->getGroupNameFromTruncated($staff->default_group), "=",  1)->get();
+                    $defaultGroup = $staff->default_group;
+                } else {
+                    //the user has not switched groups yet nor have they set a default group in the settings give them the default group
+                    $volunteers = DB::table('profiles')->where($this->getDefaultGroupFromId(Session::get('id')), "=", 1)->get();
+                    //Default group the user will be logged in as
+                    $defaultGroup = $this->getTruncatedGroupName($this->getDefaultGroupFromId(Session::get('id')));
+                }
             }
 
             //Staff members gravatar email
@@ -142,6 +148,8 @@ class StaffProfileController extends Controller
      * @return string A String tht matches the column in the database for this respective group
      */
     public function getGroupNameFromTruncated($truncated) {
+        $group = '';
+
         switch($truncated) {
             case "BEBCO":
                 $group = 'bebco_volunteer';
@@ -151,6 +159,9 @@ class StaffProfileController extends Controller
                 break;
             case "JBC":
                 $group = 'jbc_volunteer';
+                break;
+            default:
+                $group = 'error';
         }
         return $group;
     }
