@@ -15,6 +15,26 @@ class Helpers
 {
 
     /**
+     * This function will parse and return elapsed time given start and end dates in UTC format 11-21-15, 12-24-15
+     * @param $start Start date in UTC with the format mm-dd-yy
+     * @param $end End date in UTC with the format mm-dd-yy
+     */
+    public static function getElapsedDate($start, $end) {
+
+    }
+
+    /**
+     * This function will parse and return elapsed time given the start time and end time in 12 hour format
+     * e.g. 12:30 PM and 1:08 AM
+     * @param $start Start time in utc time hh:ss AM/PM
+     * @param $end End time in utc time hh:ss AM/PM
+     */
+    public static function getElapsedTime($start, $end) {
+
+    }
+
+
+    /**
      * Finds all volunteer profiles in the profiles table
      * @return mixed All volunteers in the profiles table
      */

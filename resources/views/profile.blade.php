@@ -49,6 +49,26 @@
         </div>
     </div>
     <!-- Modal close -->
+
+    <!-- Modal open -->
+    <div class="modal fade" id="account-settings-modal" tabindex="-1" role="dialog" aria-labelledby="account-settings-modal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" style="color:black;" id="myModalLabel"></h4>
+                </div>
+                <div class="modal-body">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="modal-close" class="btn btn-primary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal close -->
+
+
     <!-- Modal Add Volunteer open -->
     <div class="modal fade" id="add-volunteer-modal" tabindex="-1" role="dialog" aria-labelledby="add-volunteer-modal">
         <div class="modal-dialog" role="document">
@@ -71,8 +91,6 @@
                             <p>{{ Form::text('phone', Input::old('email'), array('placeholder' => 'Phone', 'class' => 'form-control')) }}</p>
                             <p>{{ Form::password('password', array('class' => 'form-control', 'placeholder' => 'Password')) }}</p>
                             <p>{{ Form::select('volunteer_type', array('General' => 'General', 'Program' => 'Program', 'Board' => 'Board'), 'General'), array('class' => 'form-control')}}</p>
-
-
 
                         @if (Helpers::hasAccessTo('BEBCO', Session::get('id')))
                                 <div class="checkbox">
@@ -108,7 +126,7 @@
         <div class="col-md-3">
             <div class="profile-sidebar">
                 <div class="profile-userpic">
-                    <img src="https://www.gravatar.com/avatar/{{$gravEmail}}?d=http://aeroscripts.x10host.com/images/default.jpg" class="img-responsive" alt="">
+                    <img src="https://www.gravatar.com/avatar/{{$gravEmail}}?d=http://aeroscripts.x10host.com/images/default.jpg&s=350" class="img-responsive" alt="">
                 </div>
                 <div class="profile-usertitle">
                     <div class="profile-usertitle-name">
@@ -128,7 +146,7 @@
                             <a href="#"><i class="glyphicon glyphicon-home"></i>Overview</a>
                         </li>
                         <li>
-                            <a href="#"><i class="glyphicon glyphicon-user"></i>Account Settings</a>
+                            <a href="#" data-toggle="modal" data-target="#account-settings-modal"><i class="glyphicon glyphicon-user"></i>Account Settings</a>
                         </li>
                         <li>
                             <a href="#" data-toggle="modal" data-target="#add-volunteer-modal"><i class="glyphicon glyphicon-plus"></i>New Volunteer</a>
