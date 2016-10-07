@@ -56,9 +56,42 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" style="color:black;" id="myModalLabel"></h4>
+                    <h4 class="modal-title" style="color:black;" id="myModalLabel">Account Settings</h4>
                 </div>
                 <div class="modal-body">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <h5>Select your Default group</h5>
+                            <hr>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            {{Form::open(array('url' => '/settings', 'method' => 'post'))}}
+                            @if (Helpers::hasAccessTo('BEBCO', Session::get('id')))
+                                <div class="checkbox">
+                                    <label>{{ Form::radio('group-radio', 'BEBCO') }} Set BEBCO as Default</label>
+                                </div>
+                            @endif
+                            @if (Helpers::hasAccessTo('JACO', Session::get('id')))
+                                <div class="checkbox">
+                                    <label>{{ Form::radio('group-radio', 'JACO') }} Set JACO as Default</label>
+
+                                </div>
+                            @endif
+                            @if (Helpers::hasAccessTo('JBC', Session::get('id')))
+                                <div class="checkbox disabled">
+                                    <label>{{ Form::radio('group-radio', 'JBC') }} Set JBC as Default</label>
+                                </div>
+                            @endif
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            {{ Form::submit('Save', array('class' => 'btn btn-primary')) }}
+                            {{Form::close()}}
+                        </div>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" id="modal-close" class="btn btn-primary" data-dismiss="modal">Close</button>
