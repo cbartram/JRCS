@@ -12,12 +12,8 @@ use Illuminate\Support\Facades\Session;
 class LogoutController extends Controller
 {
     public function index() {
-        //Remove out sessions
-        Session::forget('is_logged_in');
-        Session::forget('id');
-        Session::forget('email');
-        Session::forget('user');
-        Session::forget('group');
+        //Remove all sessions
+        Session::flush();
 
         //Redirect user back
         return Redirect::to('/');

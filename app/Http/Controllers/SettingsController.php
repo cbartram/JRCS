@@ -30,4 +30,20 @@ class SettingsController extends Controller
         Session::flash('alert-success', 'Your default group has been updated to: ' . $defaultGroup);
         return Redirect::back();
     }
+
+
+    public function self() {
+        //The user has checked the checkbox
+        if(Input::get('self-checkbox') == 'true') {
+            //Set the session variable
+            Session::put('show-self', true);
+            Session::flash('alert-success', 'Your settings have been saved!');
+            return Redirect::back();
+        } else {
+            //Unset the session variable if the user does not want to see their card.
+            Session::forget('show-self');
+            Session::flash('alert-success', 'Your settings have been saved!');
+            return Redirect::back();
+        }
+    }
 }

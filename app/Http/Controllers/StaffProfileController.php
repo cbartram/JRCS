@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
 
 class StaffProfileController extends Controller
@@ -31,16 +32,32 @@ class StaffProfileController extends Controller
                     $volunteers = DB::table('profiles')->where($this->getGroupNameFromTruncated(Session::get('group')), "=",  1)->get();
                     $defaultGroup = Session::get('group');
                 }
+
             } else {
                 //check to see if the staff member has set a default group in the default group column
-                if($staff->default_group != null || $staff->default_group != '') {
+                if($staff != null && ($staff->default_group != null || $staff->default_group != '')) {
                     $volunteers = DB::table('profiles')->where($this->getGroupNameFromTruncated($staff->default_group), "=",  1)->get();
                     $defaultGroup = $staff->default_group;
                 } else {
-                    //the user has not switched groups yet nor have they set a default group in the settings give them the default group
-                    $volunteers = DB::table('profiles')->where($this->getDefaultGroupFromId(Session::get('id')), "=", 1)->get();
-                    //Default group the user will be logged in as
-                    $defaultGroup = $this->getTruncatedGroupName($this->getDefaultGroupFromId(Session::get('id')));
+                    try {
+                        //the user has not switched groups yet nor have they set a default group in the settings give them the default group
+                        $volunteers = DB::table('profiles')->where($this->getDefaultGroupFromId(Session::get('id')), "=", 1)->get();
+                        //Default group the user will be logged in as
+                        $defaultGroup = $this->getTruncatedGroupName($this->getDefaultGroupFromId(Session::get('id')));
+
+                    } catch (\Exception $e) {
+                        //If the user tries to access the /profile URI Directly
+                        return Redirect::to('/');
+                    }
+
+                }
+            }
+
+            //Iterate through each volunteer searching for a staff member who is also a volunteer
+            foreach($volunteers as $volunteer) {
+                if(($staff->volunteer_id == $volunteer->id) && !Session::has('show-self')) {
+                    $volunteers = $volunteers->keyBy('id');
+                    $volunteers->forget($volunteer->id);
                 }
             }
 
@@ -50,7 +67,7 @@ class StaffProfileController extends Controller
             //The groups the staff member has access to
             $groups = $this->isMemberOf($staff);
 
-            //return the view and attach staff & volunteer objects to be accessed by blades engine
+            //return the view and attach staff & volunteer objects to be accessed by blade templating engine
              return view('profile', compact('staff'), compact('volunteers'))
                 ->with('defaultGroup', $defaultGroup)
                 ->with('gravEmail', $gravEmail)
@@ -60,7 +77,7 @@ class StaffProfileController extends Controller
     public function isMemberOf($user)
     {
         $access = [];
-        //This works locally but gives a string to array error in dev... not sure why
+        //todo This works locally but gives a string to array error in dev... not sure why
 //        $groups = ['bebco_access', 'jaco_access', 'jbc_access'];
 //        $truncatedName = ['BEBCO', 'JACO', 'JBC'];
 //
