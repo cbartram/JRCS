@@ -12,6 +12,8 @@
 */
 
 //when the user first visits the site the default view 'login' in shown aka login.blade.php
+use Illuminate\Support\Facades\Route;
+
 Route::get('/', 'LoginController@index');
 
 //When the staff member POSTS the login form
@@ -36,6 +38,9 @@ Route::post('/add', 'addController@index');
 
 //Handles account settings for default group
 Route::post('/settings', 'SettingsController@defaultGroup');
+
+//Handles account settings for showing self in the volunteer cards
+Route::get('/settings/self', 'SettingsController@self');
 
 
 /*

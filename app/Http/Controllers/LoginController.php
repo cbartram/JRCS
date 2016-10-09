@@ -61,6 +61,10 @@ class LoginController extends Controller
                 Session::put('id', $staff->id);
                 Session::put('user', $staff);
 
+                //If the staff member is also a volunteer add an additional session
+                if($staff->volunteer_id != "") {
+                    Session::put('volunteer_id', $staff->volunteer_id);
+                }
 
                 //Redirect the user
                 return Redirect::to('/profile');

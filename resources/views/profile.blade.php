@@ -1,4 +1,3 @@
-@if(Session::has('is_logged_in'))
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -82,6 +81,39 @@
                             @if (Helpers::hasAccessTo('JBC', Session::get('id')))
                                 <div class="checkbox disabled">
                                     <label>{{ Form::radio('group-radio', 'JBC') }} Set JBC as Default</label>
+                                </div>
+                            @endif
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            {{ Form::submit('Save', array('class' => 'btn btn-primary')) }}
+                            {{Form::close()}}
+                        </div>
+                    </div>
+                    <!-- Start of the staff member view themselves part of the modal -->
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <h5>View yourself in the Volunteer Cards</h5>
+                            <hr>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            {{Form::open(array('url' => '/settings/self', 'method' => 'get'))}}
+                            @if(Session::has('volunteer_id'))
+                                @if(Session::has('show-self'))
+                                    <div class="checkbox">
+                                        <label>{{Form::checkbox('self-checkbox', 'true', true) }} Show Yourself</label>
+                                    </div>
+                                @else
+                            <div class="checkbox">
+                                <label>{{Form::checkbox('self-checkbox', 'true', false) }} Show Yourself</label>
+                            </div>
+                                @endif
+                            @else
+                                <div class="checkbox disabled">
+                                    <label>{{Form::checkbox('self-checkbox', 'true', false, array('disabled')) }} Show Yourself</label>
                                 </div>
                             @endif
                         </div>
@@ -252,7 +284,7 @@
                             <h2 style="color:black;">Volunteer Profiles</h2>
                             <hr>
                         </div>
-                        @foreach ($volunteers as $volunteer)
+                        @foreach($volunteers as $volunteer)
                         <div class="col-lg-4">
                             <div class="well cart-item cart-script">
                                 <h4 class="user-name"> {{$volunteer->first_name . ' ' . $volunteer->last_name}}</h4>
@@ -280,9 +312,3 @@
 <script src="../../public/js/volunteer_profile.js"></script>
 </body>
 </html>
-@else
-    <script type="text/javascript">
-        //if the user is not logged in dont let them access the staff page
-        window.location = "../";
-    </script>
-@endif
