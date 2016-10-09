@@ -100,7 +100,7 @@
                     </div>
                     <div class="row">
                         <div class="col-lg-12">
-                            {{Form::open(array('url' => '/settings/self', 'method' => 'get'))}}
+                            {{Form::open(array('url' => '/settings/self', 'method' => 'post'))}}
                             @if(Session::has('volunteer_id'))
                                 @if(Session::has('show-self'))
                                     <div class="checkbox">
@@ -121,6 +121,26 @@
                     <div class="row">
                         <div class="col-lg-12">
                             {{ Form::submit('Save', array('class' => 'btn btn-primary')) }}
+                            {{Form::close()}}
+                        </div>
+                    </div>
+                    <!-- Start of the password reset option -->
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <h5>Reset your Password</h5>
+                            <hr>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            {{Form::open(array('url' => '/password', 'method' => 'post'))}}
+                            {{Form::password('password-text', Input::old('email'), array('placeholder' => 'New Password', 'class' => 'form-control'))}}
+                            {{Form::password('password-confirm', Input::old('email'), array('placeholder' => 'Confirm Password', 'class' => 'form-control'))}}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            {{Form::submit('Reset Password', array('class' => 'btn btn-primary')) }}
                             {{Form::close()}}
                         </div>
                     </div>

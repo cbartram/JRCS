@@ -40,8 +40,10 @@ Route::post('/add', 'addController@index');
 Route::post('/settings', 'SettingsController@defaultGroup');
 
 //Handles account settings for showing self in the volunteer cards
-Route::get('/settings/self', 'SettingsController@self');
+Route::post('/settings/self', 'SettingsController@self');
 
+//Handles resetting the staff members password
+Route::post('/password', 'SettingsController@resetPassword');
 
 /*
 |------------------------------------------------------------------------
