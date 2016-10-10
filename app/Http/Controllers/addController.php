@@ -35,11 +35,11 @@ class addController extends Controller
         //if the validator fails, redirect back to the form
         if ($validator->fails()) {
 
-            return Redirect::to('/profile/' . Session::get('id'))
+            return Redirect::to('/profile')
                 ->withErrors($validator); // send back all errors to the volunteer add form
         }
 
-            //Create a new volunteer
+        //Create a new volunteer
         $volunteer = new Profile();
 
         //Creating the new volunteer for the database
@@ -55,8 +55,12 @@ class addController extends Controller
         $volunteer->phone = Input::get('phone');
         $volunteer->volunteer_type = Input::get('volunteer_type');
 
-        /*todo  if all 3 checkboxes are left blank then the volunteer wont be added to any staff members view and will
-        "dissapear" because no one will see him/her. Check to make sure at least 1 of the checkboxes is checked */
+            //ensure at least one checkbox is selected so the volunteer doesnt dissapear in the db
+            if(Input::get('bebco-checkbox') != 'true' && Input::get('jaco-checkbox') != 'true' && Input::get('jbc-checkbox') != 'true') {
+                Session::flash('alert-danger', 'You must add the volunteer to at least one group.');
+
+                return Redirect::back();
+             }
 
             if(Input::get('bebco-checkbox') == 'true') {
                 $volunteer->bebco_volunteer = 1;
