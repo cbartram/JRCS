@@ -34,6 +34,7 @@ class LoginController extends Controller
         //run the validation rules on the inputs from the form
         $validator = Validator::make(Input::all(), $rules);
 
+
         //if the validator fails, redirect back to the form
         if ($validator->fails()) {
 

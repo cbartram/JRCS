@@ -11,6 +11,6 @@ class HelperTest extends TestCase
 
 
     public function test() {
-        $this->assertEquals(true, Helpers::getElapsedDate('1-1-11', '2-2-22'));
+        $this->assertEquals(true, Helpers::fromUTC("6:45 pm", 'ABC'));
     }
 }
