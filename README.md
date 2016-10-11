@@ -95,3 +95,9 @@ If your still recieving errors try following the composer installation guide fro
 - XSS & JS Protection Protection 
 - So so so much more!
 
+###Version 2.0.1
+- Added Password Reset functionality 
+- Added ability for staff to add new volunteers to their respective groups
+- Fixed several bugs and security issues
+- Added account settings panel which gives staff several ways to manage their account
+
