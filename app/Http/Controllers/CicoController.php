@@ -19,7 +19,9 @@ class CicoController extends Controller
     public function checkIn() {
        $date = date('Y-m-d');
        $time = date('G:i:s');
-       $timestamp = $date . ' ' . date("g:i a", strtotime($time));
+
+       //subtract 4 hours from UTC time to get the current time in florida knowing 3600 seconds in one hour
+       $timestamp = $date . ' ' . date("g:i a", strtotime($time) - (4 * 3600));
 
 
         //Get the first row back from the query
@@ -27,10 +29,11 @@ class CicoController extends Controller
 
         //The wrong email was sent through the form
         if($q == null) {
+
             return "email";
+
         } else {
             //Construct a new query to see if the user has checked out from their previous checkin
-
             $query = Cico::where('email', '=', Input::get('email'))
                 ->where('check_out_timestamp', '=', 'null')
                 ->get()
@@ -81,7 +84,7 @@ class CicoController extends Controller
 
                 $date = date('Y-m-d');
                 $time = date('G:i:s');
-                $timestamp = $date . ' ' . date("g:i a", strtotime($time));
+                $timestamp = $date . ' ' . date("g:i a", strtotime($time) - (4 * 3600));
 
                 $volunteer->check_out_timestamp = $timestamp;
                 $volunteer->save();

@@ -9,6 +9,9 @@
 namespace App\Helpers;
 
 
+use App\Profile;
+use DateTime;
+use DateTimeZone;
 use Illuminate\Support\Facades\DB;
 
 class Helpers
