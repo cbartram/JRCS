@@ -1,4 +1,6 @@
 # JRCS
+[![Build Status](https://travis-ci.org/laravel/framework.svg)](https://travis-ci.com/cbartram/JRCS)
+
 A Volunteer Management Software for Jacksonville Refugee services
 
 ##Installation
