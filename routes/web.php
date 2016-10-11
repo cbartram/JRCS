@@ -42,8 +42,31 @@ Route::post('/settings', 'SettingsController@defaultGroup');
 //Handles account settings for showing self in the volunteer cards
 Route::post('/settings/self', 'SettingsController@self');
 
-//Handles resetting the staff members password
+
+/*
+|------------------------------------------------------------------------
+| Routes for Password Resetting
+|------------------------------------------------------------------------
+| These routes define the specific GET and POST requests that are required
+| for a user to be able to update or reset their password both before
+| and after being authenticated (logged in)
+|
+ */
+
+//Handles resetting the staff members password from the settings modal
 Route::post('/password', 'SettingsController@resetPassword');
+
+//Handles resetting the password from outside the authentication layer
+Route::get('/password/reset', 'LoginController@resetPassword');
+
+//Handles sending the password reset link
+Route::post('/password/send', 'PasswordController@index');
+
+//Handles what happens when the user clicks the reset link
+Route::get('/password/reset/{token}', 'PasswordController@reset');
+
+Route::post('/change', 'PasswordController@change');
+
 
 /*
 |------------------------------------------------------------------------
