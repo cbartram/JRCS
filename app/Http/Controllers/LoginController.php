@@ -79,4 +79,8 @@ class LoginController extends Controller
 
         }
     }
+
+    public function resetPassword() {
+        return view('reset');
+    }
 }

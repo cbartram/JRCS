@@ -67,6 +67,14 @@
         <div class="col-lg-4"></div>
     </div>
     <!-- End Staff Login -->
+    <div class="row">
+        <div class="col-lg-4"></div>
+        <div class="col-lg-4">
+            <br>
+            <a href="/password/reset">Forgot your password?</a>
+        </div>
+        <div class="col-lg-4"></div>
+    </div>
 
     <!-- Volunteer Login -->
     <div class="row" id="volunteer-login">
