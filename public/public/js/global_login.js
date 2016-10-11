@@ -10,9 +10,8 @@ $(document).ready(function() {
     $("#staff-login-btn").click(function() {
         if($(this).attr("class") != "btn btn-primary disabled") {
             //show the staff login hide the volunteer login
-            $("#staff-login").show("slow");
-            $("#volunteer-login").hide();
-            $("#volunteer-cico").hide();
+            $("#staff-login, #forgot-password").show("slow");
+            $("#volunteer-login, #volunteer-cico").hide();
         }
 
     });
@@ -21,7 +20,7 @@ $(document).ready(function() {
         if($("#staff-login-btn").attr("class") != "btn btn-primary disabled") {
             //show the volunteer login and hide the staff login
             $("#volunteer-login").show("slow");
-            $("#staff-login, #volunteer-program").hide();
+            $("#staff-login, #volunteer-program, #forgot-password").hide();
         }
 
     });

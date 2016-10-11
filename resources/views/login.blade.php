@@ -67,7 +67,7 @@
         <div class="col-lg-4"></div>
     </div>
     <!-- End Staff Login -->
-    <div class="row">
+    <div class="row" id="forgot-password">
         <div class="col-lg-4"></div>
         <div class="col-lg-4">
             <br>
