@@ -20,15 +20,19 @@ class PasswordController extends Controller
         $staff = StaffProfile::where('email', Input::get('email'))->first();
 
         if($staff != null) {
+
+            //create a unique token
             $token = str_random(20);
             $staff->remember_token = $token;
             $staff->save();
 
             $title = 'JRCS Password Reset';
+
             //todo this will need to be changed eventually
             $content = 'http://jrcs.herokuapp.com/password/reset/' . $token;
             $gravatar = md5(strtolower($staff->email));
 
+            //Send the email and pass the blade view as parameters
             Mail::send('email', ['title' => $title, 'token' => $content, 'gravatar' => $gravatar], function ($message) use ($staff)
             {
                 //Uses default $from set in the config
@@ -36,11 +40,11 @@ class PasswordController extends Controller
 
             });
 
-            Session::flash('alert-success', 'A password reset link has been sent to the email provided');
+            Session::flash('alert-success', 'A password reset link has been sent to the email provided check your inbox for more information.');
             return Redirect::back();
 
         } else {
-            Session::flash('alert-danger', 'Your email could not be matched with a staff member!');
+            Session::flash('alert-danger', 'Your email was incorrect and could not be matched with a staff member!');
             return Redirect::back();
         }
     }
@@ -49,6 +53,10 @@ class PasswordController extends Controller
     public function reset($token) {
         $staff = StaffProfile::where('remember_token', $token)->first();
         if($staff != null) {
+
+            //Update the token so that they cannot use the link twice
+            $staff->remember_token = '';
+            $staff->save();
 
             return view('password')
                 ->with('email', $staff->email)
