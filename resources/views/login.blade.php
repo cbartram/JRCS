@@ -78,13 +78,13 @@
 
     <!-- Volunteer Login -->
     <div class="row" id="volunteer-login">
+        <h2 class="form-signin-heading" align="center">Volunteer Login</h2>
+        <!-- Alerts will show up in this dialog -->
+
         <div class="col-lg-4"></div>
         <div class="col-lg-4">
+            <div id="alert-cico"></div>
             <form class="form-signin">
-                <h2 class="form-signin-heading" align="center">Volunteer Login</h2>
-                <!-- Alerts will show up in this dialog -->
-                <div id="alert-cico"></div>
-                <!-- //todo input is not in the proper bootstrap form needs to be fixed -->
                 <input type="email" class="form-control" placeholder="Email" id="volunteer-email">
                 <div class="row">
                     <div class="col-md-12" style="height:25px;"></div>
