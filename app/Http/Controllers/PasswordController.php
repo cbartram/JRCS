@@ -25,7 +25,8 @@ class PasswordController extends Controller
             $staff->save();
 
             $title = 'JRCS Password Reset';
-            $content = 'http://localhost:8000/password/reset/' . $token;
+            //todo this will need to be changed eventually
+            $content = 'http://jrcs.herokuapp.com/password/reset/' . $token;
             $gravatar = md5(strtolower($staff->email));
 
             Mail::send('email', ['title' => $title, 'token' => $content, 'gravatar' => $gravatar], function ($message) use ($staff)
