@@ -120,7 +120,9 @@
                             <button class="btn btn-block btn-success" id="volunteer-cico-submit" type="submit">Check-in <i class="fa fa-check-square-o"></i></button>
                         </div>
                         <div class="col-md-12" style="height:25px;"></div>
-                        <div class="col-md-12"></div>
+                        <div class="col-md-12">
+                            <button class="btn  btn-block btn-primary">File a Donation <i class="fa fa-money"></i></button>
+                        </div>
                     </div>
                 </div>
             </form>

@@ -61,9 +61,6 @@ Route::post('/cico', 'CicoController@checkIn');
 //Handles clocking a user out
 Route::post('/checkout', 'CicoController@checkOut');
 
-//Handles showing the user the checkout page
-Route::get('/checkout', 'CicoController@index');
-
 
 /*
 |------------------------------------------------------------------------
