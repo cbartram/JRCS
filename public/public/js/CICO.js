@@ -5,17 +5,29 @@
  */
 $(document).ready(function() {
     //Empty array to hold all the id's we are bulk checking out
-    var ids = [];
+    var emails = [];
 
     $(":checkbox").click(function() {
-        var id = $(this).attr('name');
+        var email = $(this).attr('name');
 
         if($(this).is(":checked")) {
-            ids.push(id);
+            emails.push(email);
         } else {
-            ids.splice(ids.indexOf(id), 1);
+            emails.splice(emails.indexOf(email), 1);
         }
-        console.log(ids);
+        console.log(emails);
+    });
+
+    $("#check-out").click(function() {
+        //for each id in the ids array check them out
+        if(emails.length > 0) {
+            for (var i = 0; i < emails.length; i++) {
+                checkOut(emails[i], function(callback) {});
+            }
+            window.location.reload();
+        } else {
+            //No emails were selected to checkout
+        }
     });
 
 });

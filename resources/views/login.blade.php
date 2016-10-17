@@ -151,7 +151,7 @@
                         <td>
                             <div class="checkbox">
                                 <label>
-                                    <input type="checkbox" name="{{$v->id}}"> Select this Volunteer
+                                    <input type="checkbox" name="{{$v->email}}"> Select this Volunteer
                                 </label>
                             </div>
                         </td>
@@ -161,6 +161,7 @@
            </table>
         </div>
     </div>
+        <button class="btn btn-primary" id="check-out">Check-Out Selected Volunteers</button>
   </div>
 </div>
 
