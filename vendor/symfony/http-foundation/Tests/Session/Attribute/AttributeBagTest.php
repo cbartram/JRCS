@@ -70,8 +70,8 @@ class AttributeBagTest extends \PHPUnit_Framework_TestCase
     public function testGetStorageKey()
     {
         $this->assertEquals('_sf2', $this->bag->getStorageKey());
-        $attributeBag = new AttributeBag('tests');
-        $this->assertEquals('tests', $attributeBag->getStorageKey());
+        $attributeBag = new AttributeBag('test');
+        $this->assertEquals('test', $attributeBag->getStorageKey());
     }
 
     public function testGetSetName()

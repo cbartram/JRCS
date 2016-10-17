@@ -146,9 +146,9 @@ class UploadedFileTest extends \PHPUnit_Framework_TestCase
 
     public function testMoveLocalFileIsAllowedInTestMode()
     {
-        $path = __DIR__.'/Fixtures/tests.copy.gif';
+        $path = __DIR__.'/Fixtures/test.copy.gif';
         $targetDir = __DIR__.'/Fixtures/directory';
-        $targetPath = $targetDir.'/tests.copy.gif';
+        $targetPath = $targetDir.'/test.copy.gif';
         @unlink($path);
         @unlink($targetPath);
         copy(__DIR__.'/Fixtures/test.gif', $path);

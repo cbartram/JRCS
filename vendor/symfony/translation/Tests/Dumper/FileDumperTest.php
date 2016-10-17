@@ -55,14 +55,14 @@ class FileDumperTest extends \PHPUnit_Framework_TestCase
     public function testDumpCreatesNestedDirectoriesAndFile()
     {
         $tempDir = sys_get_temp_dir();
-        $translationsDir = $tempDir.'/tests/translations';
+        $translationsDir = $tempDir.'/test/translations';
         $file = $translationsDir.'/messages.en.concrete';
 
         $catalogue = new MessageCatalogue('en');
         $catalogue->add(array('foo' => 'bar'));
 
         $dumper = new ConcreteFileDumper();
-        $dumper->setRelativePathTemplate('tests/translations/%domain%.%locale%.%extension%');
+        $dumper->setRelativePathTemplate('test/translations/%domain%.%locale%.%extension%');
         $dumper->dump($catalogue, array('path' => $tempDir));
 
         $this->assertTrue(file_exists($file));

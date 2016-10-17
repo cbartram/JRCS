@@ -21,7 +21,7 @@ class CrawlerTest extends \PHPUnit_Framework_TestCase
         $this->assertCount(0, $crawler, '__construct() returns an empty crawler');
 
         $doc = new \DOMDocument();
-        $node = $doc->createElement('tests');
+        $node = $doc->createElement('test');
 
         $crawler = new Crawler($node);
         $this->assertCount(1, $crawler, '__construct() takes a node as a first argument');
@@ -284,7 +284,7 @@ EOF
     public function testClear()
     {
         $doc = new \DOMDocument();
-        $node = $doc->createElement('tests');
+        $node = $doc->createElement('test');
 
         $crawler = new Crawler($node);
         $crawler->clear();

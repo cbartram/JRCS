@@ -9,5 +9,6 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Cico extends Model
 {
-    public $table = 'volunteer_cico';
+    protected $table = 'volunteer_cico';
+    public $incrementing = false;
 }

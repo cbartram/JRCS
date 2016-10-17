@@ -59,7 +59,7 @@ class TranslatorCacheTest extends \PHPUnit_Framework_TestCase
     {
         $locale = 'any_locale';
         $format = 'some_format';
-        $msgid = 'tests';
+        $msgid = 'test';
 
         // Prime the cache
         $translator = new Translator($locale, null, $this->tmpDir, $debug);
@@ -77,7 +77,7 @@ class TranslatorCacheTest extends \PHPUnit_Framework_TestCase
     public function testCatalogueIsReloadedWhenResourcesAreNoLongerFresh()
     {
         /*
-         * The testThatACacheIsUsed() tests showed that we don't need the loader as long as the cache
+         * The testThatACacheIsUsed() test showed that we don't need the loader as long as the cache
          * is fresh.
          *
          * Now we add a Resource that is never fresh and make sure that the
@@ -89,7 +89,7 @@ class TranslatorCacheTest extends \PHPUnit_Framework_TestCase
 
         $locale = 'any_locale';
         $format = 'some_format';
-        $msgid = 'tests';
+        $msgid = 'test';
 
         $catalogue = new MessageCatalogue($locale, array());
         $catalogue->addResource(new StaleResource()); // better use a helper class than a mock, because it gets serialized in the cache and re-loaded
@@ -121,13 +121,13 @@ class TranslatorCacheTest extends \PHPUnit_Framework_TestCase
     public function testDifferentTranslatorsForSameLocaleDoNotOverwriteEachOthersCache($debug)
     {
         /*
-         * Similar to the previous tests. After we used the second translator, make
+         * Similar to the previous test. After we used the second translator, make
          * sure there's still a useable cache for the first one.
          */
 
         $locale = 'any_locale';
         $format = 'some_format';
-        $msgid = 'tests';
+        $msgid = 'test';
 
         // Create a Translator and prime its cache
         $translator = new Translator($locale, null, $this->tmpDir, $debug);
@@ -208,7 +208,7 @@ class TranslatorCacheTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($fallback->defines('foo')); // "foo" is present in "a" and "b"
 
         /*
-         * Now, repeat the same tests.
+         * Now, repeat the same test.
          * Behind the scenes, the cache is used. But that should not matter, right?
          */
         $translator = new Translator('a', null, $this->tmpDir);

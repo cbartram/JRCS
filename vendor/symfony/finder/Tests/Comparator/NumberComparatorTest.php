@@ -27,9 +27,9 @@ class NumberComparatorTest extends \PHPUnit_Framework_TestCase
         foreach ($failures as $f) {
             try {
                 new NumberComparator($f);
-                $this->fail('__construct() throws an \InvalidArgumentException if the tests expression is not valid.');
+                $this->fail('__construct() throws an \InvalidArgumentException if the test expression is not valid.');
             } catch (\Exception $e) {
-                $this->assertInstanceOf('InvalidArgumentException', $e, '__construct() throws an \InvalidArgumentException if the tests expression is not valid.');
+                $this->assertInstanceOf('InvalidArgumentException', $e, '__construct() throws an \InvalidArgumentException if the test expression is not valid.');
             }
         }
     }
@@ -42,11 +42,11 @@ class NumberComparatorTest extends \PHPUnit_Framework_TestCase
         $c = new NumberComparator($test);
 
         foreach ($match as $m) {
-            $this->assertTrue($c->test($m), '->tests() tests a string against the expression');
+            $this->assertTrue($c->test($m), '->test() tests a string against the expression');
         }
 
         foreach ($noMatch as $m) {
-            $this->assertFalse($c->test($m), '->tests() tests a string against the expression');
+            $this->assertFalse($c->test($m), '->test() tests a string against the expression');
         }
     }
 

@@ -136,7 +136,7 @@ class FlattenExceptionTest extends \PHPUnit_Framework_TestCase
      */
     public function testPreviousError()
     {
-        $exception = new \Exception('tests', 123, new \ParseError('Oh noes!', 42));
+        $exception = new \Exception('test', 123, new \ParseError('Oh noes!', 42));
 
         $flattened = FlattenException::create($exception)->getPrevious();
 
@@ -173,7 +173,7 @@ class FlattenExceptionTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals(array(
             array(
-                'message' => 'tests',
+                'message' => 'test',
                 'class' => 'Exception',
                 'trace' => array(array(
                     'namespace' => '', 'short_class' => '', 'class' => '', 'type' => '', 'function' => '', 'file' => 'foo.php', 'line' => 123,
@@ -186,7 +186,7 @@ class FlattenExceptionTest extends \PHPUnit_Framework_TestCase
     public function flattenDataProvider()
     {
         return array(
-            array(new \Exception('tests', 123), 500),
+            array(new \Exception('test', 123), 500),
         );
     }
 
@@ -229,13 +229,13 @@ class FlattenExceptionTest extends \PHPUnit_Framework_TestCase
 
     public function testSetTraceIncompleteClass()
     {
-        $flattened = FlattenException::create(new \Exception('tests', 123));
+        $flattened = FlattenException::create(new \Exception('test', 123));
         $flattened->setTrace(
             array(
                 array(
                     'file' => __FILE__,
                     'line' => 123,
-                    'function' => 'tests',
+                    'function' => 'test',
                     'args' => array(
                         unserialize('O:14:"BogusTestClass":0:{}'),
                     ),
@@ -246,7 +246,7 @@ class FlattenExceptionTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals(array(
             array(
-                'message' => 'tests',
+                'message' => 'test',
                 'class' => 'Exception',
                 'trace' => array(
                     array(
@@ -255,7 +255,7 @@ class FlattenExceptionTest extends \PHPUnit_Framework_TestCase
                         'args' => array(),
                     ),
                     array(
-                        'namespace' => '', 'short_class' => '', 'class' => '', 'type' => '', 'function' => 'tests',
+                        'namespace' => '', 'short_class' => '', 'class' => '', 'type' => '', 'function' => 'test',
                         'file' => __FILE__, 'line' => 123,
                         'args' => array(
                             array(

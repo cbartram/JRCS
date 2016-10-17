@@ -78,7 +78,7 @@ class KernelTest extends \PHPUnit_Framework_TestCase
 
     public function testBootSetsTheBootedFlagToTrue()
     {
-        // use tests kernel to access isBooted()
+        // use test kernel to access isBooted()
         $kernel = $this->getKernelForTest(array('initializeBundles', 'initializeContainer'));
         $kernel->boot();
 
@@ -314,21 +314,21 @@ EOF;
 
     public function testGetRootDir()
     {
-        $kernel = new KernelForTest('tests', true);
+        $kernel = new KernelForTest('test', true);
 
         $this->assertEquals(__DIR__.DIRECTORY_SEPARATOR.'Fixtures', realpath($kernel->getRootDir()));
     }
 
     public function testGetName()
     {
-        $kernel = new KernelForTest('tests', true);
+        $kernel = new KernelForTest('test', true);
 
         $this->assertEquals('Fixtures', $kernel->getName());
     }
 
     public function testOverrideGetName()
     {
-        $kernel = new KernelForOverrideName('tests', true);
+        $kernel = new KernelForOverrideName('test', true);
 
         $this->assertEquals('overridden', $kernel->getName());
     }
@@ -570,7 +570,7 @@ EOF;
         $parent = $this->getBundle(null, null, 'ParentABundle');
         $child = $this->getBundle(null, 'ParentABundle', 'ChildABundle');
 
-        // use tests kernel so we can access getBundleMap()
+        // use test kernel so we can access getBundleMap()
         $kernel = $this->getKernelForTest(array('registerBundles'));
         $kernel
             ->expects($this->once())
@@ -589,7 +589,7 @@ EOF;
         $parent = $this->getBundle(null, 'GrandParentBBundle', 'ParentBBundle');
         $child = $this->getBundle(null, 'ParentBBundle', 'ChildBBundle');
 
-        // use tests kernel so we can access getBundleMap()
+        // use test kernel so we can access getBundleMap()
         $kernel = $this->getKernelForTest(array('registerBundles'));
         $kernel
             ->expects($this->once())
@@ -621,7 +621,7 @@ EOF;
         $parent = $this->getBundle(null, 'GrandParentCBundle', 'ParentCBundle');
         $child = $this->getBundle(null, 'ParentCBundle', 'ChildCBundle');
 
-        // use tests kernel so we can access getBundleMap()
+        // use test kernel so we can access getBundleMap()
         $kernel = $this->getKernelForTest(array('registerBundles'));
         $kernel
             ->expects($this->once())
@@ -773,7 +773,7 @@ EOF;
         $kernel = $this
             ->getMockBuilder('Symfony\Component\HttpKernel\Kernel')
             ->setMethods($methods)
-            ->setConstructorArgs(array('tests', false))
+            ->setConstructorArgs(array('test', false))
             ->getMockForAbstractClass()
         ;
         $kernel->expects($this->any())
@@ -790,7 +790,7 @@ EOF;
     protected function getKernelForTest(array $methods = array())
     {
         $kernel = $this->getMockBuilder('Symfony\Component\HttpKernel\Tests\Fixtures\KernelForTest')
-            ->setConstructorArgs(array('tests', false))
+            ->setConstructorArgs(array('test', false))
             ->setMethods($methods)
             ->getMock();
         $p = new \ReflectionProperty($kernel, 'rootDir');

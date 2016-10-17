@@ -23,12 +23,12 @@ class DateComparator extends Comparator
      *
      * @param string $test A comparison string
      *
-     * @throws \InvalidArgumentException If the tests is not understood
+     * @throws \InvalidArgumentException If the test is not understood
      */
     public function __construct($test)
     {
         if (!preg_match('#^\s*(==|!=|[<>]=?|after|since|before|until)?\s*(.+?)\s*$#i', $test, $matches)) {
-            throw new \InvalidArgumentException(sprintf('Don\'t understand "%s" as a date tests.', $test));
+            throw new \InvalidArgumentException(sprintf('Don\'t understand "%s" as a date test.', $test));
         }
 
         try {

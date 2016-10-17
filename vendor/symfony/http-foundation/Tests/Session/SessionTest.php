@@ -72,9 +72,9 @@ class SessionTest extends \PHPUnit_Framework_TestCase
     public function testSetName()
     {
         $this->assertEquals('MOCKSESSID', $this->session->getName());
-        $this->session->setName('session.tests.com');
+        $this->session->setName('session.test.com');
         $this->session->start();
-        $this->assertEquals('session.tests.com', $this->session->getName());
+        $this->assertEquals('session.test.com', $this->session->getName());
     }
 
     public function testGet()

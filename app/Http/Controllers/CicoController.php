@@ -16,7 +16,24 @@ use Illuminate\Support\Str;
 
 class CicoController extends Controller
 {
+
+
+    /**
+     * Shows the checkout view
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function index() {
+        return view('checkout');
+    }
+
+
+
+    /**
+     * Handles checking a user in via there email
+     * @return string Return status
+     */
     public function checkIn() {
+       $email = Input::get('email');
        $date = date('Y-m-d');
        $time = date('G:i:s');
 
@@ -25,19 +42,19 @@ class CicoController extends Controller
 
 
         //Get the first row back from the query
-        $q = DB::table('profiles')->where('email', '=', Input::get('email'))->limit(1)->get()->first();
+        $q = Profile::where('email', $email)->limit(1)->first();
 
         //The wrong email was sent through the form
         if($q == null) {
-
             return "email";
 
         } else {
-            //Construct a new query to see if the user has checked out from their previous checkin
-            $query = Cico::where('email', '=', Input::get('email'))
-                ->where('check_out_timestamp', '=', 'null')
+            //Construct a new query to see if the user has checked out from their previous check-in
+            $query = Cico::where('email', $email)
+                ->where('check_out_timestamp', 'null')
                 ->get()
                 ->first();
+
             //if we could not find an entry where their check-out was null
             if($query == null) {
 
@@ -53,7 +70,7 @@ class CicoController extends Controller
                 //insert a new record for the volunteer clocking in
                 $cico = new Cico;
                 $cico->id = $q->id;
-                $cico->email = Input::get('email');
+                $cico->email = $email;
                 $cico->volunteer_group = $volunteer_group;
                 $cico->volunteer_program = Input::get('program');
                 $cico->volunteer_type = Input::get('type');
@@ -65,18 +82,21 @@ class CicoController extends Controller
                 return "true";
 
             } else {
-                //we found a row where they have not yet checked out yet
+
+                //We found a row where they have not yet checked out yet
                 return "false";
             }
         }
     }
 
-    public function index() {
-        return view('checkout');
-    }
-
+    /**
+     * Handles checking out a volunteer based on their email
+     * @return mixed
+     */
     public function checkOut() {
-        $volunteer = Cico::where('email', '=', Input::get('email'))->where('check_out_timestamp', '=', 'null')->get()->first();
+
+        $volunteer = Cico::where('email', Input::get('email'))->where('check_out_timestamp', 'null')->first();
+
         if($volunteer != null) {
 
             //check to see if there is a volunteer with check_out_timestamp = null

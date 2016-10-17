@@ -19,16 +19,16 @@ class DateComparatorTest extends \PHPUnit_Framework_TestCase
     {
         try {
             new DateComparator('foobar');
-            $this->fail('__construct() throws an \InvalidArgumentException if the tests expression is not valid.');
+            $this->fail('__construct() throws an \InvalidArgumentException if the test expression is not valid.');
         } catch (\Exception $e) {
-            $this->assertInstanceOf('InvalidArgumentException', $e, '__construct() throws an \InvalidArgumentException if the tests expression is not valid.');
+            $this->assertInstanceOf('InvalidArgumentException', $e, '__construct() throws an \InvalidArgumentException if the test expression is not valid.');
         }
 
         try {
             new DateComparator('');
-            $this->fail('__construct() throws an \InvalidArgumentException if the tests expression is not valid.');
+            $this->fail('__construct() throws an \InvalidArgumentException if the test expression is not valid.');
         } catch (\Exception $e) {
-            $this->assertInstanceOf('InvalidArgumentException', $e, '__construct() throws an \InvalidArgumentException if the tests expression is not valid.');
+            $this->assertInstanceOf('InvalidArgumentException', $e, '__construct() throws an \InvalidArgumentException if the test expression is not valid.');
         }
     }
 
@@ -40,11 +40,11 @@ class DateComparatorTest extends \PHPUnit_Framework_TestCase
         $c = new DateComparator($test);
 
         foreach ($match as $m) {
-            $this->assertTrue($c->test($m), '->tests() tests a string against the expression');
+            $this->assertTrue($c->test($m), '->test() tests a string against the expression');
         }
 
         foreach ($noMatch as $m) {
-            $this->assertFalse($c->test($m), '->tests() tests a string against the expression');
+            $this->assertFalse($c->test($m), '->test() tests a string against the expression');
         }
     }
 
