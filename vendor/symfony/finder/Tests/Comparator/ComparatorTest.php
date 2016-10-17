@@ -47,11 +47,11 @@ class ComparatorTest extends \PHPUnit_Framework_TestCase
         $c->setTarget($target);
 
         foreach ($match as $m) {
-            $this->assertTrue($c->test($m), '->tests() tests a string against the expression');
+            $this->assertTrue($c->test($m), '->test() tests a string against the expression');
         }
 
         foreach ($noMatch as $m) {
-            $this->assertFalse($c->test($m), '->tests() tests a string against the expression');
+            $this->assertFalse($c->test($m), '->test() tests a string against the expression');
         }
     }
 

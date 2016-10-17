@@ -48,7 +48,7 @@ class PhpMatcherDumperTest extends \PHPUnit_Framework_TestCase
 
     public function getRouteCollections()
     {
-        /* tests case 1 */
+        /* test case 1 */
 
         $collection = new RouteCollection();
 
@@ -57,7 +57,7 @@ class PhpMatcherDumperTest extends \PHPUnit_Framework_TestCase
         // defaults and requirements
         $collection->add('foo', new Route(
             '/foo/{bar}',
-            array('def' => 'tests'),
+            array('def' => 'test'),
             array('bar' => 'baz|symfony')
         ));
         // method requirement
@@ -82,23 +82,23 @@ class PhpMatcherDumperTest extends \PHPUnit_Framework_TestCase
         ));
         // simple
         $collection->add('baz', new Route(
-            '/tests/baz'
+            '/test/baz'
         ));
         // simple with extension
         $collection->add('baz2', new Route(
-            '/tests/baz.html'
+            '/test/baz.html'
         ));
         // trailing slash
         $collection->add('baz3', new Route(
-            '/tests/baz3/'
+            '/test/baz3/'
         ));
         // trailing slash with variable
         $collection->add('baz4', new Route(
-            '/tests/{foo}/'
+            '/test/{foo}/'
         ));
         // trailing slash and method
         $collection->add('baz5', new Route(
-            '/tests/{foo}/',
+            '/test/{foo}/',
             array(),
             array(),
             array(),
@@ -108,7 +108,7 @@ class PhpMatcherDumperTest extends \PHPUnit_Framework_TestCase
         ));
         // complex name
         $collection->add('baz.baz6', new Route(
-            '/tests/{foo}/',
+            '/test/{foo}/',
             array(),
             array(),
             array(),
@@ -119,7 +119,7 @@ class PhpMatcherDumperTest extends \PHPUnit_Framework_TestCase
         // defaults without variable
         $collection->add('foofoo', new Route(
             '/foofoo',
-            array('def' => 'tests')
+            array('def' => 'test')
         ));
         // pattern with quotes
         $collection->add('quoter', new Route(
@@ -244,7 +244,7 @@ class PhpMatcherDumperTest extends \PHPUnit_Framework_TestCase
         $collection1->addPrefix('/a');
         $collection->addCollection($collection1);
 
-        /* tests case 2 */
+        /* test case 2 */
 
         $redirectCollection = clone $collection;
 
@@ -268,10 +268,10 @@ class PhpMatcherDumperTest extends \PHPUnit_Framework_TestCase
             array('http')
         ));
 
-        /* tests case 3 */
+        /* test case 3 */
 
         $rootprefixCollection = new RouteCollection();
-        $rootprefixCollection->add('static', new Route('/tests'));
+        $rootprefixCollection->add('static', new Route('/test'));
         $rootprefixCollection->add('dynamic', new Route('/{var}'));
         $rootprefixCollection->addPrefix('rootprefix');
         $route = new Route('/with-condition');

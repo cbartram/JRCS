@@ -70,9 +70,9 @@ class FileTest extends \PHPUnit_Framework_TestCase
 
     public function testMove()
     {
-        $path = __DIR__.'/Fixtures/tests.copy.gif';
+        $path = __DIR__.'/Fixtures/test.copy.gif';
         $targetDir = __DIR__.'/Fixtures/directory';
-        $targetPath = $targetDir.'/tests.copy.gif';
+        $targetPath = $targetDir.'/test.copy.gif';
         @unlink($path);
         @unlink($targetPath);
         copy(__DIR__.'/Fixtures/test.gif', $path);
@@ -90,15 +90,15 @@ class FileTest extends \PHPUnit_Framework_TestCase
 
     public function testMoveWithNewName()
     {
-        $path = __DIR__.'/Fixtures/tests.copy.gif';
+        $path = __DIR__.'/Fixtures/test.copy.gif';
         $targetDir = __DIR__.'/Fixtures/directory';
-        $targetPath = $targetDir.'/tests.newname.gif';
+        $targetPath = $targetDir.'/test.newname.gif';
         @unlink($path);
         @unlink($targetPath);
         copy(__DIR__.'/Fixtures/test.gif', $path);
 
         $file = new File($path);
-        $movedFile = $file->move($targetDir, 'tests.newname.gif');
+        $movedFile = $file->move($targetDir, 'test.newname.gif');
 
         $this->assertFileExists($targetPath);
         $this->assertFileNotExists($path);
@@ -144,9 +144,9 @@ class FileTest extends \PHPUnit_Framework_TestCase
 
     public function testMoveToAnUnexistentDirectory()
     {
-        $sourcePath = __DIR__.'/Fixtures/tests.copy.gif';
+        $sourcePath = __DIR__.'/Fixtures/test.copy.gif';
         $targetDir = __DIR__.'/Fixtures/directory/sub';
-        $targetPath = $targetDir.'/tests.copy.gif';
+        $targetPath = $targetDir.'/test.copy.gif';
         @unlink($sourcePath);
         @unlink($targetPath);
         @rmdir($targetDir);

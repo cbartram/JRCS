@@ -95,7 +95,7 @@ class FormatterHelperTest extends \PHPUnit_Framework_TestCase
         $formatter = new FormatterHelper();
         $message = 'testing truncate';
 
-        $this->assertSame('tests...', $formatter->truncate($message, 4));
+        $this->assertSame('test...', $formatter->truncate($message, 4));
         $this->assertSame('testing truncat...', $formatter->truncate($message, 15));
         $this->assertSame('testing truncate...', $formatter->truncate($message, 16));
         $this->assertSame('zażółć gęślą...', $formatter->truncate('zażółć gęślą jaźń', 12));
@@ -106,13 +106,13 @@ class FormatterHelperTest extends \PHPUnit_Framework_TestCase
         $formatter = new FormatterHelper();
         $message = 'testing truncate';
 
-        $this->assertSame('tests!', $formatter->truncate($message, 4, '!'));
+        $this->assertSame('test!', $formatter->truncate($message, 4, '!'));
     }
 
     public function testTruncatingWithLongerLengthThanMessageWithSuffix()
     {
         $formatter = new FormatterHelper();
-        $message = 'tests';
+        $message = 'test';
 
         $this->assertSame($message, $formatter->truncate($message, 10));
     }

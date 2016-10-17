@@ -104,7 +104,7 @@ class QuestionHelperTest extends \PHPUnit_Framework_TestCase
     public function testAskWithAutocomplete()
     {
         if (!$this->hasSttyAvailable()) {
-            $this->markTestSkipped('`stty` is required to tests autocomplete functionality');
+            $this->markTestSkipped('`stty` is required to test autocomplete functionality');
         }
 
         // Acm<NEWLINE>
@@ -138,7 +138,7 @@ class QuestionHelperTest extends \PHPUnit_Framework_TestCase
     public function testAskWithAutocompleteWithNonSequentialKeys()
     {
         if (!$this->hasSttyAvailable()) {
-            $this->markTestSkipped('`stty` is required to tests autocomplete functionality');
+            $this->markTestSkipped('`stty` is required to test autocomplete functionality');
         }
 
         // <UP ARROW><UP ARROW><NEWLINE><DOWN ARROW><DOWN ARROW><NEWLINE>
@@ -158,7 +158,7 @@ class QuestionHelperTest extends \PHPUnit_Framework_TestCase
     public function testAskHiddenResponse()
     {
         if ('\\' === DIRECTORY_SEPARATOR) {
-            $this->markTestSkipped('This tests is not supported on Windows');
+            $this->markTestSkipped('This test is not supported on Windows');
         }
 
         $dialog = new QuestionHelper();

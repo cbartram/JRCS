@@ -14,7 +14,10 @@ use Illuminate\Support\Facades\Session;
 
 class PasswordController extends Controller
 {
-    //Sends the password reset email and generates the link
+    /**
+     * The password reset form that generates the unique token
+     * @return mixed
+     */
     public function index() {
 
         $staff = StaffProfile::where('email', Input::get('email'))->first();
@@ -49,7 +52,11 @@ class PasswordController extends Controller
         }
     }
 
-    //Handles the link that is clicked in the email
+    /**
+     * Handles the link that is clicked in the email
+     * @param $token unique password reset token
+     * @return $this
+     */
     public function reset($token) {
         $staff = StaffProfile::where('remember_token', $token)->first();
         if($staff != null) {
@@ -58,20 +65,28 @@ class PasswordController extends Controller
             $staff->remember_token = '';
             $staff->save();
 
-            return view('password')
-                ->with('email', $staff->email)
-                ->with('token', $staff->remember_token);
+            return view('password', compact('staff'));
+
         } else {
-            //token was forged or invalid
+            //Token was forged or invalid
             Session::flash('alert-danger', 'The link you followed to reset your password is invalid, or has expired.');
             return Redirect::to('/password/reset');
         }
     }
 
-    //Handles updating the database with the users new password
+    /**
+     * Handles updating the database with the new password
+     * @return mixed
+     */
     public function change() {
         $email = Input::get('email');
         $password = Input::get('password');
+        $passwordConfirm = Input::get('password-confirm');
+
+        if($password != $passwordConfirm) {
+            Session::flash('alert-danger', 'Your passwords did not match!');
+            return Redirect::to('/password/reset');
+        }
 
         $staff = StaffProfile::where('email', $email)->first();
         $staff->password = Hash::make($password);

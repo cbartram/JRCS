@@ -325,10 +325,10 @@ class TranslatorTest extends \PHPUnit_Framework_TestCase
     {
         $translator = new Translator($locale, new MessageSelector());
         $translator->addLoader('array', new ArrayLoader());
-        $translator->addResource('array', array('tests' => 'OK'), $locale);
+        $translator->addResource('array', array('test' => 'OK'), $locale);
 
-        $this->assertEquals('OK', $translator->trans('tests'));
-        $this->assertEquals('OK', $translator->trans('tests', array(), null, $locale));
+        $this->assertEquals('OK', $translator->trans('test'));
+        $this->assertEquals('OK', $translator->trans('test', array(), null, $locale));
     }
 
     /**

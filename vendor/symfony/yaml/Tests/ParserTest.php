@@ -58,7 +58,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase
                 } else {
                     eval('$expected = '.trim($test['php']).';');
 
-                    $tests[] = array($file, var_export($expected, true), $test['yaml'], $test['tests']);
+                    $tests[] = array($file, var_export($expected, true), $test['yaml'], $test['test']);
                 }
             }
         }
@@ -68,7 +68,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase
 
     public function testTabsInYaml()
     {
-        // tests tabs in YAML
+        // test tabs in YAML
         $yamls = array(
             "foo:\n	bar",
             "foo:\n 	bar",
@@ -399,7 +399,7 @@ EOF;
     }
 
     /**
-     * Regression tests for issue #7989.
+     * Regression test for issue #7989.
      *
      * @see https://github.com/symfony/symfony/issues/7989
      */
@@ -1033,7 +1033,7 @@ EOT
         $tests[] = array($yaml, $expected);
 
         $yaml = <<<'EOT'
-tests: |
+test: |
     foo
     # bar
     baz
@@ -1048,7 +1048,7 @@ collection:
         baz
 EOT;
         $expected = array(
-            'tests' => <<<'EOT'
+            'test' => <<<'EOT'
 foo
 # bar
 baz
@@ -1121,7 +1121,7 @@ EOT;
     public function testBlankLinesAreParsedAsNewLinesInFoldedBlocks()
     {
         $yaml = <<<EOT
-tests: >
+test: >
     <h2>A heading</h2>
 
     <ul>
@@ -1132,7 +1132,7 @@ EOT;
 
         $this->assertSame(
             array(
-                'tests' => <<<EOT
+                'test' => <<<EOT
 <h2>A heading</h2>
 <ul> <li>a list</li> <li>may be a good example</li> </ul>
 EOT
@@ -1145,7 +1145,7 @@ EOT
     public function testAdditionallyIndentedLinesAreParsedAsNewLinesInFoldedBlocks()
     {
         $yaml = <<<EOT
-tests: >
+test: >
     <h2>A heading</h2>
 
     <ul>
@@ -1156,7 +1156,7 @@ EOT;
 
         $this->assertSame(
             array(
-                'tests' => <<<EOT
+                'test' => <<<EOT
 <h2>A heading</h2>
 <ul>
   <li>a list</li>

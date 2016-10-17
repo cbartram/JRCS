@@ -6,10 +6,10 @@ use Psr\Log\LoggerInterface;
 use Psr\Log\LogLevel;
 
 /**
- * Provides a base tests class for ensuring compliance with the LoggerInterface.
+ * Provides a base test class for ensuring compliance with the LoggerInterface.
  *
  * Implementors can extend the class and implement abstract methods to run this
- * as part of their tests suite.
+ * as part of their test suite.
  */
 abstract class LoggerInterfaceTest extends \PHPUnit_Framework_TestCase
 {
@@ -84,8 +84,8 @@ abstract class LoggerInterfaceTest extends \PHPUnit_Framework_TestCase
 
     public function testObjectCastToString()
     {
-        if (method_exists($this, 'createMock')) {
-            $dummy = $this->createMock('Psr\Log\Test\DummyTest', array('__toString'));
+        if (method_exists($this, 'createPartialMock')) {
+            $dummy = $this->createPartialMock('Psr\Log\Test\DummyTest', array('__toString'));
         } else {
             $dummy = $this->getMock('Psr\Log\Test\DummyTest', array('__toString'));
         }

@@ -82,7 +82,7 @@ class MockFileSessionStorageTest extends \PHPUnit_Framework_TestCase
         $this->assertNotEquals('108', $this->storage->getBag('attributes')->get('new'));
         $this->assertFalse($this->storage->getBag('flashes')->has('newkey'));
         $this->storage->getBag('attributes')->set('new', '108');
-        $this->storage->getBag('flashes')->set('newkey', 'tests');
+        $this->storage->getBag('flashes')->set('newkey', 'test');
         $this->storage->save();
 
         $storage = $this->getStorage();
@@ -90,7 +90,7 @@ class MockFileSessionStorageTest extends \PHPUnit_Framework_TestCase
         $storage->start();
         $this->assertEquals('108', $storage->getBag('attributes')->get('new'));
         $this->assertTrue($storage->getBag('flashes')->has('newkey'));
-        $this->assertEquals(array('tests'), $storage->getBag('flashes')->peek('newkey'));
+        $this->assertEquals(array('test'), $storage->getBag('flashes')->peek('newkey'));
     }
 
     public function testMultipleInstances()

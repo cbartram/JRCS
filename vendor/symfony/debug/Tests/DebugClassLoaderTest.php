@@ -64,7 +64,7 @@ class DebugClassLoaderTest extends \PHPUnit_Framework_TestCase
             $this->markTestSkipped('PHP7 throws exceptions, unsilencing is not required anymore.');
         }
         if (defined('HHVM_VERSION')) {
-            $this->markTestSkipped('HHVM is not handled in this tests case.');
+            $this->markTestSkipped('HHVM is not handled in this test case.');
         }
 
         ob_start();
@@ -83,13 +83,13 @@ class DebugClassLoaderTest extends \PHPUnit_Framework_TestCase
 
     public function testStacking()
     {
-        // the ContextErrorException must not be loaded to tests the workaround
+        // the ContextErrorException must not be loaded to test the workaround
         // for https://bugs.php.net/65322.
         if (class_exists('Symfony\Component\Debug\Exception\ContextErrorException', false)) {
             $this->markTestSkipped('The ContextErrorException class is already loaded.');
         }
         if (defined('HHVM_VERSION')) {
-            $this->markTestSkipped('HHVM is not handled in this tests case.');
+            $this->markTestSkipped('HHVM is not handled in this test case.');
         }
 
         ErrorHandler::register();
@@ -106,7 +106,7 @@ class DebugClassLoaderTest extends \PHPUnit_Framework_TestCase
             ');
             $this->fail('ContextErrorException expected');
         } catch (\ErrorException $exception) {
-            // if an exception is thrown, the tests passed
+            // if an exception is thrown, the test passed
             $this->assertStringStartsWith(__FILE__, $exception->getFile());
             if (PHP_VERSION_ID < 70000) {
                 $this->assertRegExp('/^Runtime Notice: Declaration/', $exception->getMessage());
@@ -184,7 +184,7 @@ class DebugClassLoaderTest extends \PHPUnit_Framework_TestCase
 
         $xError = array(
             'type' => E_USER_DEPRECATED,
-            'message' => 'The Test\Symfony\Component\Debug\Tests\\'.$class.' class '.$type.' Symfony\Component\Debug\Tests\Fixtures\\'.$super.' that is deprecated but this is a tests deprecation notice.',
+            'message' => 'The Test\Symfony\Component\Debug\Tests\\'.$class.' class '.$type.' Symfony\Component\Debug\Tests\Fixtures\\'.$super.' that is deprecated but this is a test deprecation notice.',
         );
 
         $this->assertSame($xError, $lastError);

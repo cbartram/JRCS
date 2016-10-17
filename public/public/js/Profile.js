@@ -54,7 +54,8 @@ $(document).ready(function() {
                 + output.first_name + '</td><td>'
                 + output.last_name + '</td><td>'
                 + id + '</td><td>'
-                + output.address + '</td><td>'
+                + output.email + '</td><td>'
+                + output.phone + '</td><td>'
                 + output.city + '</td><td>'
                 + output.state + '</td><td>'
                 + output.zip_code + '</td></tr>');

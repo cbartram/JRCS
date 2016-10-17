@@ -76,16 +76,15 @@ class DumpDataCollectorTest extends \PHPUnit_Framework_TestCase
     {
         $data = new Data(array(array(123)));
 
-        $collector = new DumpDataCollector(null, 'tests://%f:%l');
+        $collector = new DumpDataCollector(null, 'test://%f:%l');
 
         $collector->dump($data);
         $line = __LINE__ - 1;
         $file = __FILE__;
         $xOutput = <<<EOTXT
- <pre class=sf-dump id=sf-dump data-indent-pad="  "><a href="tests://{$file}:{$line}" title="{$file}"><span class=sf-dump-meta>DumpDataCollectorTest.php</span></a> on line <span class=sf-dump-meta>{$line}</span>:
+<pre class=sf-dump id=sf-dump data-indent-pad="  "><a href="test://{$file}:{$line}" title="{$file}"><span class=sf-dump-meta>DumpDataCollectorTest.php</span></a> on line <span class=sf-dump-meta>{$line}</span>:
 <span class=sf-dump-num>123</span>
 </pre>
-
 EOTXT;
 
         ob_start();
@@ -96,7 +95,7 @@ EOTXT;
         $output = preg_replace('#<(script|style).*?</\1>#s', '', $output);
         $output = preg_replace('/sf-dump-\d+/', 'sf-dump', $output);
 
-        $this->assertSame($xOutput, $output);
+        $this->assertSame($xOutput, trim($output));
         $this->assertSame(1, $collector->getDumpsCount());
         $collector->serialize();
     }

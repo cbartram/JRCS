@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\REST;
 
 use App\Profile;
 use App\Http\Requests;
 use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
 
 class RESTController extends Controller
 {

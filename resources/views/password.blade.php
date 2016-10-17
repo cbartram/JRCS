@@ -10,18 +10,14 @@
 
     <title>Volunteer Checkout</title>
 
-    <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 </head>
 <body>
 
 <div class="container">
-    <!-- Password Reset  -->
     <div class="row">
         <div class="col-lg-4"></div>
         <div class="col-lg-4">
-            {{ Form::open(array('url' => '/change', 'method' => 'post')) }}
-
             <h2 align="center">Make sure you write your new password down!</h2>
             <div class="flash-message">
                 @foreach (['danger', 'warning', 'success', 'info'] as $msg)
@@ -31,9 +27,10 @@
                 @endforeach
             </div>
 
-            <p>{{ Form::password('password', Input::old('email'), array('placeholder' => 'New Password', 'class' => 'form-control')) }}</p>
-            {{Form::hidden('email', $email)}}
+            {{ Form::open(array('url' => '/change', 'method' => 'post')) }}
 
+            <p>{{ Form::password('password', Input::old('password'), array('placeholder' => 'New Password', 'class' => 'form-control')) }}</p>
+            <p>{{ Form::password('password-confirm', Input::old('password'), array('placeholder' => 'Confirm Password', 'class' => 'form-control')) }}</p>
 
             {{ Form::submit('Reset Password', array('class' => 'btn btn-block btn-success')) }}
 
@@ -42,15 +39,15 @@
         </div>
         <div class="col-lg-4"></div>
     </div>
+
+
     <div class="row">
         <div class="col-lg-4"></div>
         <div class="col-lg-4" style="margin-top:15px;">
-            <a href="../"><button class="btn btn-block btn-default">Home</button></a>
+            <a href="/"><button class="btn btn-block btn-default">Home</button></a>
         </div>
         <div class="col-lg-4"></div>
     </div>
-    <!-- End Staff Login -->
-
 </div> <!-- /container -->
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>

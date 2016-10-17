@@ -1,13 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
-
-use App\Helpers\Helpers;
-use App\Profile;
-use App\StaffProfile;
-use Illuminate\Http\Request;
+namespace App\Http\Controllers\Profile;
 
 use App\Http\Requests;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;

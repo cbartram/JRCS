@@ -256,11 +256,11 @@ abstract class AbstractEventDispatcherTest extends \PHPUnit_Framework_TestCase
     public function testEventReceivesTheDispatcherInstanceAsArgument()
     {
         $listener = new TestWithDispatcher();
-        $this->dispatcher->addListener('tests', array($listener, 'foo'));
+        $this->dispatcher->addListener('test', array($listener, 'foo'));
         $this->assertNull($listener->name);
         $this->assertNull($listener->dispatcher);
-        $this->dispatcher->dispatch('tests');
-        $this->assertEquals('tests', $listener->name);
+        $this->dispatcher->dispatch('test');
+        $this->assertEquals('test', $listener->name);
         $this->assertSame($this->dispatcher, $listener->dispatcher);
     }
 

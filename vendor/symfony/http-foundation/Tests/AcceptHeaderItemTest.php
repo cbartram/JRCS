@@ -99,14 +99,14 @@ class AcceptHeaderItemTest extends \PHPUnit_Framework_TestCase
     {
         $item = new AcceptHeaderItem('value', array());
         $this->assertEquals(array(), $item->getAttributes());
-        $this->assertFalse($item->hasAttribute('tests'));
-        $this->assertNull($item->getAttribute('tests'));
-        $this->assertEquals('default', $item->getAttribute('tests', 'default'));
+        $this->assertFalse($item->hasAttribute('test'));
+        $this->assertNull($item->getAttribute('test'));
+        $this->assertEquals('default', $item->getAttribute('test', 'default'));
 
-        $item->setAttribute('tests', 'value');
-        $this->assertEquals(array('tests' => 'value'), $item->getAttributes());
-        $this->assertTrue($item->hasAttribute('tests'));
-        $this->assertEquals('value', $item->getAttribute('tests'));
-        $this->assertEquals('value', $item->getAttribute('tests', 'default'));
+        $item->setAttribute('test', 'value');
+        $this->assertEquals(array('test' => 'value'), $item->getAttributes());
+        $this->assertTrue($item->hasAttribute('test'));
+        $this->assertEquals('value', $item->getAttribute('test'));
+        $this->assertEquals('value', $item->getAttribute('test', 'default'));
     }
 }

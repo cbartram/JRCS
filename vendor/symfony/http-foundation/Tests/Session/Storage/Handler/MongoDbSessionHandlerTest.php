@@ -49,8 +49,8 @@ class MongoDbSessionHandlerTest extends \PHPUnit_Framework_TestCase
             'data_field' => 'data',
             'time_field' => 'time',
             'expiry_field' => 'expires_at',
-            'database' => 'sf2-tests',
-            'collection' => 'session-tests',
+            'database' => 'sf2-test',
+            'collection' => 'session-test',
         );
 
         $this->storage = new MongoDbSessionHandler($this->mongo, $this->options);
@@ -74,7 +74,7 @@ class MongoDbSessionHandlerTest extends \PHPUnit_Framework_TestCase
 
     public function testOpenMethodAlwaysReturnTrue()
     {
-        $this->assertTrue($this->storage->open('tests', 'tests'), 'The "open" method should always return true');
+        $this->assertTrue($this->storage->open('test', 'test'), 'The "open" method should always return true');
     }
 
     public function testCloseMethodAlwaysReturnTrue()
@@ -92,7 +92,7 @@ class MongoDbSessionHandlerTest extends \PHPUnit_Framework_TestCase
             ->will($this->returnValue($collection));
 
         // defining the timeout before the actual method call
-        // allows to tests for "greater than" values in the $criteria
+        // allows to test for "greater than" values in the $criteria
         $testTimeout = time() + 1;
 
         $collection->expects($this->once())
@@ -179,8 +179,8 @@ class MongoDbSessionHandlerTest extends \PHPUnit_Framework_TestCase
             'id_field' => '_id',
             'data_field' => 'data',
             'time_field' => 'time',
-            'database' => 'sf2-tests',
-            'collection' => 'session-tests',
+            'database' => 'sf2-test',
+            'collection' => 'session-test',
             'expiry_field' => 'expiresAt',
         );
 

@@ -40,7 +40,7 @@ class FragmentRendererPassTest extends \PHPUnit_Framework_TestCase
             ->method('hasDefinition')
             ->will($this->returnValue(true));
 
-        // We don't tests kernel.fragment_renderer here
+        // We don't test kernel.fragment_renderer here
         $builder->expects($this->atLeastOnce())
             ->method('findTaggedServiceIds')
             ->will($this->returnValue($services));
@@ -84,7 +84,7 @@ class FragmentRendererPassTest extends \PHPUnit_Framework_TestCase
             ->method('hasDefinition')
             ->will($this->returnValue(true));
 
-        // We don't tests kernel.fragment_renderer here
+        // We don't test kernel.fragment_renderer here
         $builder->expects($this->atLeastOnce())
             ->method('findTaggedServiceIds')
             ->will($this->returnValue($services));
@@ -106,6 +106,6 @@ class RendererService implements FragmentRendererInterface
 
     public function getName()
     {
-        return 'tests';
+        return 'test';
     }
 }

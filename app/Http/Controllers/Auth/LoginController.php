@@ -1,7 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Auth;
 
+use App\Cico;
+use App\Http\Controllers\Controller;
 use App\Profile;
 use App\StaffProfile;
 
@@ -18,12 +20,26 @@ use Validator;
 
 class LoginController extends Controller
 {
+    /**
+     * Handles Providing data used by blade and showing the default view when a user
+     * first visits the website
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function index()
     {
-        return view('login');
+        //Get all users from the table where they have not yet checked out joining with the profiles table
+        $volunteers = Cico::where('check_out_timestamp', 'null')
+            ->join('profiles', 'volunteer_cico.id', '=', 'profiles.id')
+            ->get();
+
+        return view('login', compact('volunteers'));
     }
 
 
+    /**
+     * Handles authenticating a user with the system
+     * @return mixed
+     */
     public function handleLogin()
     {
         $rules = array(
@@ -45,7 +61,7 @@ class LoginController extends Controller
         } else {
 
             //Get the first row back from the query
-           $staff = DB::table('staff_profile2')->where('email', '=', Input::get('email'))->limit(1)->get()->first();
+           $staff = DB::table('staff_profile2')->where('email', Input::get('email'))->limit(1)->first();
 
             if($staff == null) {
                 //Redirect back home with an incorrect username error
@@ -54,10 +70,9 @@ class LoginController extends Controller
                     ->withInput(Input::except('password'));
             }
 
-            // attempt to do the login
             if($staff->email == Input::get('email') && Hash::check(Input::get('password'), $staff->password)) {
 
-                //Add some sessions
+                //Add Sessions
                 Session::put('is_logged_in', true);
                 Session::put('id', $staff->id);
                 Session::put('user', $staff);
@@ -81,6 +96,10 @@ class LoginController extends Controller
         }
     }
 
+    /**
+     * Handles showing the view for a user to reset their password
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function resetPassword() {
         return view('reset');
     }

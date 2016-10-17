@@ -26,7 +26,7 @@ class GenericEventTest extends \PHPUnit_Framework_TestCase
     private $subject;
 
     /**
-     * Prepares the environment before running a tests.
+     * Prepares the environment before running a test.
      */
     protected function setUp()
     {
@@ -37,7 +37,7 @@ class GenericEventTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Cleans up the environment after running a tests.
+     * Cleans up the environment after running a test.
      */
     protected function tearDown()
     {
@@ -57,7 +57,7 @@ class GenericEventTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetArguments()
     {
-        // tests getting all
+        // test getting all
         $this->assertSame(array('name' => 'Event'), $this->event->getArguments());
     }
 
@@ -77,7 +77,7 @@ class GenericEventTest extends \PHPUnit_Framework_TestCase
 
     public function testGetArgument()
     {
-        // tests getting key
+        // test getting key
         $this->assertEquals('Event', $this->event->getArgument('name'));
     }
 
@@ -91,10 +91,10 @@ class GenericEventTest extends \PHPUnit_Framework_TestCase
 
     public function testOffsetGet()
     {
-        // tests getting key
+        // test getting key
         $this->assertEquals('Event', $this->event['name']);
 
-        // tests getting invalid arg
+        // test getting invalid arg
         $this->setExpectedException('InvalidArgumentException');
         $this->assertFalse($this->event['nameNotExist']);
     }

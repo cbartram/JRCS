@@ -21,56 +21,56 @@ class UrlGeneratorTest extends \PHPUnit_Framework_TestCase
 {
     public function testAbsoluteUrlWithPort80()
     {
-        $routes = $this->getRoutes('tests', new Route('/testing'));
-        $url = $this->getGenerator($routes)->generate('tests', array(), UrlGeneratorInterface::ABSOLUTE_URL);
+        $routes = $this->getRoutes('test', new Route('/testing'));
+        $url = $this->getGenerator($routes)->generate('test', array(), UrlGeneratorInterface::ABSOLUTE_URL);
 
         $this->assertEquals('http://localhost/app.php/testing', $url);
     }
 
     public function testAbsoluteSecureUrlWithPort443()
     {
-        $routes = $this->getRoutes('tests', new Route('/testing'));
-        $url = $this->getGenerator($routes, array('scheme' => 'https'))->generate('tests', array(), UrlGeneratorInterface::ABSOLUTE_URL);
+        $routes = $this->getRoutes('test', new Route('/testing'));
+        $url = $this->getGenerator($routes, array('scheme' => 'https'))->generate('test', array(), UrlGeneratorInterface::ABSOLUTE_URL);
 
         $this->assertEquals('https://localhost/app.php/testing', $url);
     }
 
     public function testAbsoluteUrlWithNonStandardPort()
     {
-        $routes = $this->getRoutes('tests', new Route('/testing'));
-        $url = $this->getGenerator($routes, array('httpPort' => 8080))->generate('tests', array(), UrlGeneratorInterface::ABSOLUTE_URL);
+        $routes = $this->getRoutes('test', new Route('/testing'));
+        $url = $this->getGenerator($routes, array('httpPort' => 8080))->generate('test', array(), UrlGeneratorInterface::ABSOLUTE_URL);
 
         $this->assertEquals('http://localhost:8080/app.php/testing', $url);
     }
 
     public function testAbsoluteSecureUrlWithNonStandardPort()
     {
-        $routes = $this->getRoutes('tests', new Route('/testing'));
-        $url = $this->getGenerator($routes, array('httpsPort' => 8080, 'scheme' => 'https'))->generate('tests', array(), UrlGeneratorInterface::ABSOLUTE_URL);
+        $routes = $this->getRoutes('test', new Route('/testing'));
+        $url = $this->getGenerator($routes, array('httpsPort' => 8080, 'scheme' => 'https'))->generate('test', array(), UrlGeneratorInterface::ABSOLUTE_URL);
 
         $this->assertEquals('https://localhost:8080/app.php/testing', $url);
     }
 
     public function testRelativeUrlWithoutParameters()
     {
-        $routes = $this->getRoutes('tests', new Route('/testing'));
-        $url = $this->getGenerator($routes)->generate('tests', array(), UrlGeneratorInterface::ABSOLUTE_PATH);
+        $routes = $this->getRoutes('test', new Route('/testing'));
+        $url = $this->getGenerator($routes)->generate('test', array(), UrlGeneratorInterface::ABSOLUTE_PATH);
 
         $this->assertEquals('/app.php/testing', $url);
     }
 
     public function testRelativeUrlWithParameter()
     {
-        $routes = $this->getRoutes('tests', new Route('/testing/{foo}'));
-        $url = $this->getGenerator($routes)->generate('tests', array('foo' => 'bar'), UrlGeneratorInterface::ABSOLUTE_PATH);
+        $routes = $this->getRoutes('test', new Route('/testing/{foo}'));
+        $url = $this->getGenerator($routes)->generate('test', array('foo' => 'bar'), UrlGeneratorInterface::ABSOLUTE_PATH);
 
         $this->assertEquals('/app.php/testing/bar', $url);
     }
 
     public function testRelativeUrlWithNullParameter()
     {
-        $routes = $this->getRoutes('tests', new Route('/testing.{format}', array('format' => null)));
-        $url = $this->getGenerator($routes)->generate('tests', array(), UrlGeneratorInterface::ABSOLUTE_PATH);
+        $routes = $this->getRoutes('test', new Route('/testing.{format}', array('format' => null)));
+        $url = $this->getGenerator($routes)->generate('test', array(), UrlGeneratorInterface::ABSOLUTE_PATH);
 
         $this->assertEquals('/app.php/testing', $url);
     }
@@ -80,83 +80,83 @@ class UrlGeneratorTest extends \PHPUnit_Framework_TestCase
      */
     public function testRelativeUrlWithNullParameterButNotOptional()
     {
-        $routes = $this->getRoutes('tests', new Route('/testing/{foo}/bar', array('foo' => null)));
+        $routes = $this->getRoutes('test', new Route('/testing/{foo}/bar', array('foo' => null)));
         // This must raise an exception because the default requirement for "foo" is "[^/]+" which is not met with these params.
         // Generating path "/testing//bar" would be wrong as matching this route would fail.
-        $this->getGenerator($routes)->generate('tests', array(), UrlGeneratorInterface::ABSOLUTE_PATH);
+        $this->getGenerator($routes)->generate('test', array(), UrlGeneratorInterface::ABSOLUTE_PATH);
     }
 
     public function testRelativeUrlWithOptionalZeroParameter()
     {
-        $routes = $this->getRoutes('tests', new Route('/testing/{page}'));
-        $url = $this->getGenerator($routes)->generate('tests', array('page' => 0), UrlGeneratorInterface::ABSOLUTE_PATH);
+        $routes = $this->getRoutes('test', new Route('/testing/{page}'));
+        $url = $this->getGenerator($routes)->generate('test', array('page' => 0), UrlGeneratorInterface::ABSOLUTE_PATH);
 
         $this->assertEquals('/app.php/testing/0', $url);
     }
 
     public function testNotPassedOptionalParameterInBetween()
     {
-        $routes = $this->getRoutes('tests', new Route('/{slug}/{page}', array('slug' => 'index', 'page' => 0)));
-        $this->assertSame('/app.php/index/1', $this->getGenerator($routes)->generate('tests', array('page' => 1)));
-        $this->assertSame('/app.php/', $this->getGenerator($routes)->generate('tests'));
+        $routes = $this->getRoutes('test', new Route('/{slug}/{page}', array('slug' => 'index', 'page' => 0)));
+        $this->assertSame('/app.php/index/1', $this->getGenerator($routes)->generate('test', array('page' => 1)));
+        $this->assertSame('/app.php/', $this->getGenerator($routes)->generate('test'));
     }
 
     public function testRelativeUrlWithExtraParameters()
     {
-        $routes = $this->getRoutes('tests', new Route('/testing'));
-        $url = $this->getGenerator($routes)->generate('tests', array('foo' => 'bar'), UrlGeneratorInterface::ABSOLUTE_PATH);
+        $routes = $this->getRoutes('test', new Route('/testing'));
+        $url = $this->getGenerator($routes)->generate('test', array('foo' => 'bar'), UrlGeneratorInterface::ABSOLUTE_PATH);
 
         $this->assertEquals('/app.php/testing?foo=bar', $url);
     }
 
     public function testAbsoluteUrlWithExtraParameters()
     {
-        $routes = $this->getRoutes('tests', new Route('/testing'));
-        $url = $this->getGenerator($routes)->generate('tests', array('foo' => 'bar'), UrlGeneratorInterface::ABSOLUTE_URL);
+        $routes = $this->getRoutes('test', new Route('/testing'));
+        $url = $this->getGenerator($routes)->generate('test', array('foo' => 'bar'), UrlGeneratorInterface::ABSOLUTE_URL);
 
         $this->assertEquals('http://localhost/app.php/testing?foo=bar', $url);
     }
 
     public function testUrlWithNullExtraParameters()
     {
-        $routes = $this->getRoutes('tests', new Route('/testing'));
-        $url = $this->getGenerator($routes)->generate('tests', array('foo' => null), UrlGeneratorInterface::ABSOLUTE_URL);
+        $routes = $this->getRoutes('test', new Route('/testing'));
+        $url = $this->getGenerator($routes)->generate('test', array('foo' => null), UrlGeneratorInterface::ABSOLUTE_URL);
 
         $this->assertEquals('http://localhost/app.php/testing', $url);
     }
 
     public function testUrlWithExtraParametersFromGlobals()
     {
-        $routes = $this->getRoutes('tests', new Route('/testing'));
+        $routes = $this->getRoutes('test', new Route('/testing'));
         $generator = $this->getGenerator($routes);
         $context = new RequestContext('/app.php');
         $context->setParameter('bar', 'bar');
         $generator->setContext($context);
-        $url = $generator->generate('tests', array('foo' => 'bar'));
+        $url = $generator->generate('test', array('foo' => 'bar'));
 
         $this->assertEquals('/app.php/testing?foo=bar', $url);
     }
 
     public function testUrlWithGlobalParameter()
     {
-        $routes = $this->getRoutes('tests', new Route('/testing/{foo}'));
+        $routes = $this->getRoutes('test', new Route('/testing/{foo}'));
         $generator = $this->getGenerator($routes);
         $context = new RequestContext('/app.php');
         $context->setParameter('foo', 'bar');
         $generator->setContext($context);
-        $url = $generator->generate('tests', array());
+        $url = $generator->generate('test', array());
 
         $this->assertEquals('/app.php/testing/bar', $url);
     }
 
     public function testGlobalParameterHasHigherPriorityThanDefault()
     {
-        $routes = $this->getRoutes('tests', new Route('/{_locale}', array('_locale' => 'en')));
+        $routes = $this->getRoutes('test', new Route('/{_locale}', array('_locale' => 'en')));
         $generator = $this->getGenerator($routes);
         $context = new RequestContext('/app.php');
         $context->setParameter('_locale', 'de');
         $generator->setContext($context);
-        $url = $generator->generate('tests', array());
+        $url = $generator->generate('test', array());
 
         $this->assertSame('/app.php/de', $url);
     }
@@ -167,7 +167,7 @@ class UrlGeneratorTest extends \PHPUnit_Framework_TestCase
     public function testGenerateWithoutRoutes()
     {
         $routes = $this->getRoutes('foo', new Route('/testing/{foo}'));
-        $this->getGenerator($routes)->generate('tests', array(), UrlGeneratorInterface::ABSOLUTE_URL);
+        $this->getGenerator($routes)->generate('test', array(), UrlGeneratorInterface::ABSOLUTE_URL);
     }
 
     /**
@@ -175,8 +175,8 @@ class UrlGeneratorTest extends \PHPUnit_Framework_TestCase
      */
     public function testGenerateForRouteWithoutMandatoryParameter()
     {
-        $routes = $this->getRoutes('tests', new Route('/testing/{foo}'));
-        $this->getGenerator($routes)->generate('tests', array(), UrlGeneratorInterface::ABSOLUTE_URL);
+        $routes = $this->getRoutes('test', new Route('/testing/{foo}'));
+        $this->getGenerator($routes)->generate('test', array(), UrlGeneratorInterface::ABSOLUTE_URL);
     }
 
     /**
@@ -184,8 +184,8 @@ class UrlGeneratorTest extends \PHPUnit_Framework_TestCase
      */
     public function testGenerateForRouteWithInvalidOptionalParameter()
     {
-        $routes = $this->getRoutes('tests', new Route('/testing/{foo}', array('foo' => '1'), array('foo' => 'd+')));
-        $this->getGenerator($routes)->generate('tests', array('foo' => 'bar'), UrlGeneratorInterface::ABSOLUTE_URL);
+        $routes = $this->getRoutes('test', new Route('/testing/{foo}', array('foo' => '1'), array('foo' => 'd+')));
+        $this->getGenerator($routes)->generate('test', array('foo' => 'bar'), UrlGeneratorInterface::ABSOLUTE_URL);
     }
 
     /**
@@ -193,35 +193,35 @@ class UrlGeneratorTest extends \PHPUnit_Framework_TestCase
      */
     public function testGenerateForRouteWithInvalidParameter()
     {
-        $routes = $this->getRoutes('tests', new Route('/testing/{foo}', array(), array('foo' => '1|2')));
-        $this->getGenerator($routes)->generate('tests', array('foo' => '0'), UrlGeneratorInterface::ABSOLUTE_URL);
+        $routes = $this->getRoutes('test', new Route('/testing/{foo}', array(), array('foo' => '1|2')));
+        $this->getGenerator($routes)->generate('test', array('foo' => '0'), UrlGeneratorInterface::ABSOLUTE_URL);
     }
 
     public function testGenerateForRouteWithInvalidOptionalParameterNonStrict()
     {
-        $routes = $this->getRoutes('tests', new Route('/testing/{foo}', array('foo' => '1'), array('foo' => 'd+')));
+        $routes = $this->getRoutes('test', new Route('/testing/{foo}', array('foo' => '1'), array('foo' => 'd+')));
         $generator = $this->getGenerator($routes);
         $generator->setStrictRequirements(false);
-        $this->assertNull($generator->generate('tests', array('foo' => 'bar'), UrlGeneratorInterface::ABSOLUTE_URL));
+        $this->assertNull($generator->generate('test', array('foo' => 'bar'), UrlGeneratorInterface::ABSOLUTE_URL));
     }
 
     public function testGenerateForRouteWithInvalidOptionalParameterNonStrictWithLogger()
     {
-        $routes = $this->getRoutes('tests', new Route('/testing/{foo}', array('foo' => '1'), array('foo' => 'd+')));
+        $routes = $this->getRoutes('test', new Route('/testing/{foo}', array('foo' => '1'), array('foo' => 'd+')));
         $logger = $this->getMock('Psr\Log\LoggerInterface');
         $logger->expects($this->once())
             ->method('error');
         $generator = $this->getGenerator($routes, array(), $logger);
         $generator->setStrictRequirements(false);
-        $this->assertNull($generator->generate('tests', array('foo' => 'bar'), UrlGeneratorInterface::ABSOLUTE_URL));
+        $this->assertNull($generator->generate('test', array('foo' => 'bar'), UrlGeneratorInterface::ABSOLUTE_URL));
     }
 
     public function testGenerateForRouteWithInvalidParameterButDisabledRequirementsCheck()
     {
-        $routes = $this->getRoutes('tests', new Route('/testing/{foo}', array('foo' => '1'), array('foo' => 'd+')));
+        $routes = $this->getRoutes('test', new Route('/testing/{foo}', array('foo' => '1'), array('foo' => 'd+')));
         $generator = $this->getGenerator($routes);
         $generator->setStrictRequirements(null);
-        $this->assertSame('/app.php/testing/bar', $generator->generate('tests', array('foo' => 'bar')));
+        $this->assertSame('/app.php/testing/bar', $generator->generate('test', array('foo' => 'bar')));
     }
 
     /**
@@ -229,8 +229,8 @@ class UrlGeneratorTest extends \PHPUnit_Framework_TestCase
      */
     public function testGenerateForRouteWithInvalidMandatoryParameter()
     {
-        $routes = $this->getRoutes('tests', new Route('/testing/{foo}', array(), array('foo' => 'd+')));
-        $this->getGenerator($routes)->generate('tests', array('foo' => 'bar'), UrlGeneratorInterface::ABSOLUTE_URL);
+        $routes = $this->getRoutes('test', new Route('/testing/{foo}', array(), array('foo' => 'd+')));
+        $this->getGenerator($routes)->generate('test', array('foo' => 'bar'), UrlGeneratorInterface::ABSOLUTE_URL);
     }
 
     /**
@@ -238,82 +238,82 @@ class UrlGeneratorTest extends \PHPUnit_Framework_TestCase
      */
     public function testRequiredParamAndEmptyPassed()
     {
-        $routes = $this->getRoutes('tests', new Route('/{slug}', array(), array('slug' => '.+')));
-        $this->getGenerator($routes)->generate('tests', array('slug' => ''));
+        $routes = $this->getRoutes('test', new Route('/{slug}', array(), array('slug' => '.+')));
+        $this->getGenerator($routes)->generate('test', array('slug' => ''));
     }
 
     public function testSchemeRequirementDoesNothingIfSameCurrentScheme()
     {
-        $routes = $this->getRoutes('tests', new Route('/', array(), array(), array(), '', array('http')));
-        $this->assertEquals('/app.php/', $this->getGenerator($routes)->generate('tests'));
+        $routes = $this->getRoutes('test', new Route('/', array(), array(), array(), '', array('http')));
+        $this->assertEquals('/app.php/', $this->getGenerator($routes)->generate('test'));
 
-        $routes = $this->getRoutes('tests', new Route('/', array(), array(), array(), '', array('https')));
-        $this->assertEquals('/app.php/', $this->getGenerator($routes, array('scheme' => 'https'))->generate('tests'));
+        $routes = $this->getRoutes('test', new Route('/', array(), array(), array(), '', array('https')));
+        $this->assertEquals('/app.php/', $this->getGenerator($routes, array('scheme' => 'https'))->generate('test'));
     }
 
     public function testSchemeRequirementForcesAbsoluteUrl()
     {
-        $routes = $this->getRoutes('tests', new Route('/', array(), array(), array(), '', array('https')));
-        $this->assertEquals('https://localhost/app.php/', $this->getGenerator($routes)->generate('tests'));
+        $routes = $this->getRoutes('test', new Route('/', array(), array(), array(), '', array('https')));
+        $this->assertEquals('https://localhost/app.php/', $this->getGenerator($routes)->generate('test'));
 
-        $routes = $this->getRoutes('tests', new Route('/', array(), array(), array(), '', array('http')));
-        $this->assertEquals('http://localhost/app.php/', $this->getGenerator($routes, array('scheme' => 'https'))->generate('tests'));
+        $routes = $this->getRoutes('test', new Route('/', array(), array(), array(), '', array('http')));
+        $this->assertEquals('http://localhost/app.php/', $this->getGenerator($routes, array('scheme' => 'https'))->generate('test'));
     }
 
     public function testSchemeRequirementCreatesUrlForFirstRequiredScheme()
     {
-        $routes = $this->getRoutes('tests', new Route('/', array(), array(), array(), '', array('Ftp', 'https')));
-        $this->assertEquals('ftp://localhost/app.php/', $this->getGenerator($routes)->generate('tests'));
+        $routes = $this->getRoutes('test', new Route('/', array(), array(), array(), '', array('Ftp', 'https')));
+        $this->assertEquals('ftp://localhost/app.php/', $this->getGenerator($routes)->generate('test'));
     }
 
     public function testPathWithTwoStartingSlashes()
     {
-        $routes = $this->getRoutes('tests', new Route('//path-and-not-domain'));
+        $routes = $this->getRoutes('test', new Route('//path-and-not-domain'));
 
         // this must not generate '//path-and-not-domain' because that would be a network path
-        $this->assertSame('/path-and-not-domain', $this->getGenerator($routes, array('BaseUrl' => ''))->generate('tests'));
+        $this->assertSame('/path-and-not-domain', $this->getGenerator($routes, array('BaseUrl' => ''))->generate('test'));
     }
 
     public function testNoTrailingSlashForMultipleOptionalParameters()
     {
-        $routes = $this->getRoutes('tests', new Route('/category/{slug1}/{slug2}/{slug3}', array('slug2' => null, 'slug3' => null)));
+        $routes = $this->getRoutes('test', new Route('/category/{slug1}/{slug2}/{slug3}', array('slug2' => null, 'slug3' => null)));
 
-        $this->assertEquals('/app.php/category/foo', $this->getGenerator($routes)->generate('tests', array('slug1' => 'foo')));
+        $this->assertEquals('/app.php/category/foo', $this->getGenerator($routes)->generate('test', array('slug1' => 'foo')));
     }
 
     public function testWithAnIntegerAsADefaultValue()
     {
-        $routes = $this->getRoutes('tests', new Route('/{default}', array('default' => 0)));
+        $routes = $this->getRoutes('test', new Route('/{default}', array('default' => 0)));
 
-        $this->assertEquals('/app.php/foo', $this->getGenerator($routes)->generate('tests', array('default' => 'foo')));
+        $this->assertEquals('/app.php/foo', $this->getGenerator($routes)->generate('test', array('default' => 'foo')));
     }
 
     public function testNullForOptionalParameterIsIgnored()
     {
-        $routes = $this->getRoutes('tests', new Route('/tests/{default}', array('default' => 0)));
+        $routes = $this->getRoutes('test', new Route('/test/{default}', array('default' => 0)));
 
-        $this->assertEquals('/app.php/tests', $this->getGenerator($routes)->generate('tests', array('default' => null)));
+        $this->assertEquals('/app.php/test', $this->getGenerator($routes)->generate('test', array('default' => null)));
     }
 
     public function testQueryParamSameAsDefault()
     {
-        $routes = $this->getRoutes('tests', new Route('/tests', array('page' => 1)));
+        $routes = $this->getRoutes('test', new Route('/test', array('page' => 1)));
 
-        $this->assertSame('/app.php/tests?page=2', $this->getGenerator($routes)->generate('tests', array('page' => 2)));
-        $this->assertSame('/app.php/tests', $this->getGenerator($routes)->generate('tests', array('page' => 1)));
-        $this->assertSame('/app.php/tests', $this->getGenerator($routes)->generate('tests', array('page' => '1')));
-        $this->assertSame('/app.php/tests', $this->getGenerator($routes)->generate('tests'));
+        $this->assertSame('/app.php/test?page=2', $this->getGenerator($routes)->generate('test', array('page' => 2)));
+        $this->assertSame('/app.php/test', $this->getGenerator($routes)->generate('test', array('page' => 1)));
+        $this->assertSame('/app.php/test', $this->getGenerator($routes)->generate('test', array('page' => '1')));
+        $this->assertSame('/app.php/test', $this->getGenerator($routes)->generate('test'));
     }
 
     public function testArrayQueryParamSameAsDefault()
     {
-        $routes = $this->getRoutes('tests', new Route('/tests', array('array' => array('foo', 'bar'))));
+        $routes = $this->getRoutes('test', new Route('/test', array('array' => array('foo', 'bar'))));
 
-        $this->assertSame('/app.php/tests?array%5B0%5D=bar&array%5B1%5D=foo', $this->getGenerator($routes)->generate('tests', array('array' => array('bar', 'foo'))));
-        $this->assertSame('/app.php/tests?array%5Ba%5D=foo&array%5Bb%5D=bar', $this->getGenerator($routes)->generate('tests', array('array' => array('a' => 'foo', 'b' => 'bar'))));
-        $this->assertSame('/app.php/tests', $this->getGenerator($routes)->generate('tests', array('array' => array('foo', 'bar'))));
-        $this->assertSame('/app.php/tests', $this->getGenerator($routes)->generate('tests', array('array' => array(1 => 'bar', 0 => 'foo'))));
-        $this->assertSame('/app.php/tests', $this->getGenerator($routes)->generate('tests'));
+        $this->assertSame('/app.php/test?array%5B0%5D=bar&array%5B1%5D=foo', $this->getGenerator($routes)->generate('test', array('array' => array('bar', 'foo'))));
+        $this->assertSame('/app.php/test?array%5Ba%5D=foo&array%5Bb%5D=bar', $this->getGenerator($routes)->generate('test', array('array' => array('a' => 'foo', 'b' => 'bar'))));
+        $this->assertSame('/app.php/test', $this->getGenerator($routes)->generate('test', array('array' => array('foo', 'bar'))));
+        $this->assertSame('/app.php/test', $this->getGenerator($routes)->generate('test', array('array' => array(1 => 'bar', 0 => 'foo'))));
+        $this->assertSame('/app.php/test', $this->getGenerator($routes)->generate('test'));
     }
 
     public function testGenerateWithSpecialRouteName()
@@ -328,11 +328,11 @@ class UrlGeneratorTest extends \PHPUnit_Framework_TestCase
         // This tests the encoding of reserved characters that are used for delimiting of URI components (defined in RFC 3986)
         // and other special ASCII chars. These chars are tested as static text path, variable path and query param.
         $chars = '@:[]/()*\'" +,;-._~&$<>|{}%\\^`!?foo=bar#id';
-        $routes = $this->getRoutes('tests', new Route("/$chars/{varpath}", array(), array('varpath' => '.+')));
+        $routes = $this->getRoutes('test', new Route("/$chars/{varpath}", array(), array('varpath' => '.+')));
         $this->assertSame('/app.php/@:%5B%5D/%28%29*%27%22%20+,;-._~%26%24%3C%3E|%7B%7D%25%5C%5E%60!%3Ffoo=bar%23id'
            .'/@:%5B%5D/%28%29*%27%22%20+,;-._~%26%24%3C%3E|%7B%7D%25%5C%5E%60!%3Ffoo=bar%23id'
            .'?query=%40%3A%5B%5D/%28%29%2A%27%22+%2B%2C%3B-._%7E%26%24%3C%3E%7C%7B%7D%25%5C%5E%60%21%3Ffoo%3Dbar%23id',
-            $this->getGenerator($routes)->generate('tests', array(
+            $this->getGenerator($routes)->generate('test', array(
                 'varpath' => $chars,
                 'query' => $chars,
             ))
@@ -341,50 +341,50 @@ class UrlGeneratorTest extends \PHPUnit_Framework_TestCase
 
     public function testEncodingOfRelativePathSegments()
     {
-        $routes = $this->getRoutes('tests', new Route('/dir/../dir/..'));
-        $this->assertSame('/app.php/dir/%2E%2E/dir/%2E%2E', $this->getGenerator($routes)->generate('tests'));
-        $routes = $this->getRoutes('tests', new Route('/dir/./dir/.'));
-        $this->assertSame('/app.php/dir/%2E/dir/%2E', $this->getGenerator($routes)->generate('tests'));
-        $routes = $this->getRoutes('tests', new Route('/a./.a/a../..a/...'));
-        $this->assertSame('/app.php/a./.a/a../..a/...', $this->getGenerator($routes)->generate('tests'));
+        $routes = $this->getRoutes('test', new Route('/dir/../dir/..'));
+        $this->assertSame('/app.php/dir/%2E%2E/dir/%2E%2E', $this->getGenerator($routes)->generate('test'));
+        $routes = $this->getRoutes('test', new Route('/dir/./dir/.'));
+        $this->assertSame('/app.php/dir/%2E/dir/%2E', $this->getGenerator($routes)->generate('test'));
+        $routes = $this->getRoutes('test', new Route('/a./.a/a../..a/...'));
+        $this->assertSame('/app.php/a./.a/a../..a/...', $this->getGenerator($routes)->generate('test'));
     }
 
     public function testAdjacentVariables()
     {
-        $routes = $this->getRoutes('tests', new Route('/{x}{y}{z}.{_format}', array('z' => 'default-z', '_format' => 'html'), array('y' => '\d+')));
+        $routes = $this->getRoutes('test', new Route('/{x}{y}{z}.{_format}', array('z' => 'default-z', '_format' => 'html'), array('y' => '\d+')));
         $generator = $this->getGenerator($routes);
-        $this->assertSame('/app.php/foo123', $generator->generate('tests', array('x' => 'foo', 'y' => '123')));
-        $this->assertSame('/app.php/foo123bar.xml', $generator->generate('tests', array('x' => 'foo', 'y' => '123', 'z' => 'bar', '_format' => 'xml')));
+        $this->assertSame('/app.php/foo123', $generator->generate('test', array('x' => 'foo', 'y' => '123')));
+        $this->assertSame('/app.php/foo123bar.xml', $generator->generate('test', array('x' => 'foo', 'y' => '123', 'z' => 'bar', '_format' => 'xml')));
 
         // The default requirement for 'x' should not allow the separator '.' in this case because it would otherwise match everything
         // and following optional variables like _format could never match.
         $this->setExpectedException('Symfony\Component\Routing\Exception\InvalidParameterException');
-        $generator->generate('tests', array('x' => 'do.t', 'y' => '123', 'z' => 'bar', '_format' => 'xml'));
+        $generator->generate('test', array('x' => 'do.t', 'y' => '123', 'z' => 'bar', '_format' => 'xml'));
     }
 
     public function testOptionalVariableWithNoRealSeparator()
     {
-        $routes = $this->getRoutes('tests', new Route('/get{what}', array('what' => 'All')));
+        $routes = $this->getRoutes('test', new Route('/get{what}', array('what' => 'All')));
         $generator = $this->getGenerator($routes);
 
-        $this->assertSame('/app.php/get', $generator->generate('tests'));
-        $this->assertSame('/app.php/getSites', $generator->generate('tests', array('what' => 'Sites')));
+        $this->assertSame('/app.php/get', $generator->generate('test'));
+        $this->assertSame('/app.php/getSites', $generator->generate('test', array('what' => 'Sites')));
     }
 
     public function testRequiredVariableWithNoRealSeparator()
     {
-        $routes = $this->getRoutes('tests', new Route('/get{what}Suffix'));
+        $routes = $this->getRoutes('test', new Route('/get{what}Suffix'));
         $generator = $this->getGenerator($routes);
 
-        $this->assertSame('/app.php/getSitesSuffix', $generator->generate('tests', array('what' => 'Sites')));
+        $this->assertSame('/app.php/getSitesSuffix', $generator->generate('test', array('what' => 'Sites')));
     }
 
     public function testDefaultRequirementOfVariable()
     {
-        $routes = $this->getRoutes('tests', new Route('/{page}.{_format}'));
+        $routes = $this->getRoutes('test', new Route('/{page}.{_format}'));
         $generator = $this->getGenerator($routes);
 
-        $this->assertSame('/app.php/index.mobile.html', $generator->generate('tests', array('page' => 'index', '_format' => 'mobile.html')));
+        $this->assertSame('/app.php/index.mobile.html', $generator->generate('test', array('page' => 'index', '_format' => 'mobile.html')));
     }
 
     /**
@@ -392,8 +392,8 @@ class UrlGeneratorTest extends \PHPUnit_Framework_TestCase
      */
     public function testDefaultRequirementOfVariableDisallowsSlash()
     {
-        $routes = $this->getRoutes('tests', new Route('/{page}.{_format}'));
-        $this->getGenerator($routes)->generate('tests', array('page' => 'index', '_format' => 'sl/ash'));
+        $routes = $this->getRoutes('test', new Route('/{page}.{_format}'));
+        $this->getGenerator($routes)->generate('test', array('page' => 'index', '_format' => 'sl/ash'));
     }
 
     /**
@@ -401,29 +401,29 @@ class UrlGeneratorTest extends \PHPUnit_Framework_TestCase
      */
     public function testDefaultRequirementOfVariableDisallowsNextSeparator()
     {
-        $routes = $this->getRoutes('tests', new Route('/{page}.{_format}'));
-        $this->getGenerator($routes)->generate('tests', array('page' => 'do.t', '_format' => 'html'));
+        $routes = $this->getRoutes('test', new Route('/{page}.{_format}'));
+        $this->getGenerator($routes)->generate('test', array('page' => 'do.t', '_format' => 'html'));
     }
 
     public function testWithHostDifferentFromContext()
     {
-        $routes = $this->getRoutes('tests', new Route('/{name}', array(), array(), array(), '{locale}.example.com'));
+        $routes = $this->getRoutes('test', new Route('/{name}', array(), array(), array(), '{locale}.example.com'));
 
-        $this->assertEquals('//fr.example.com/app.php/Fabien', $this->getGenerator($routes)->generate('tests', array('name' => 'Fabien', 'locale' => 'fr')));
+        $this->assertEquals('//fr.example.com/app.php/Fabien', $this->getGenerator($routes)->generate('test', array('name' => 'Fabien', 'locale' => 'fr')));
     }
 
     public function testWithHostSameAsContext()
     {
-        $routes = $this->getRoutes('tests', new Route('/{name}', array(), array(), array(), '{locale}.example.com'));
+        $routes = $this->getRoutes('test', new Route('/{name}', array(), array(), array(), '{locale}.example.com'));
 
-        $this->assertEquals('/app.php/Fabien', $this->getGenerator($routes, array('host' => 'fr.example.com'))->generate('tests', array('name' => 'Fabien', 'locale' => 'fr')));
+        $this->assertEquals('/app.php/Fabien', $this->getGenerator($routes, array('host' => 'fr.example.com'))->generate('test', array('name' => 'Fabien', 'locale' => 'fr')));
     }
 
     public function testWithHostSameAsContextAndAbsolute()
     {
-        $routes = $this->getRoutes('tests', new Route('/{name}', array(), array(), array(), '{locale}.example.com'));
+        $routes = $this->getRoutes('test', new Route('/{name}', array(), array(), array(), '{locale}.example.com'));
 
-        $this->assertEquals('http://fr.example.com/app.php/Fabien', $this->getGenerator($routes, array('host' => 'fr.example.com'))->generate('tests', array('name' => 'Fabien', 'locale' => 'fr'), UrlGeneratorInterface::ABSOLUTE_URL));
+        $this->assertEquals('http://fr.example.com/app.php/Fabien', $this->getGenerator($routes, array('host' => 'fr.example.com'))->generate('test', array('name' => 'Fabien', 'locale' => 'fr'), UrlGeneratorInterface::ABSOLUTE_URL));
     }
 
     /**
@@ -431,8 +431,8 @@ class UrlGeneratorTest extends \PHPUnit_Framework_TestCase
      */
     public function testUrlWithInvalidParameterInHost()
     {
-        $routes = $this->getRoutes('tests', new Route('/', array(), array('foo' => 'bar'), array(), '{foo}.example.com'));
-        $this->getGenerator($routes)->generate('tests', array('foo' => 'baz'), UrlGeneratorInterface::ABSOLUTE_PATH);
+        $routes = $this->getRoutes('test', new Route('/', array(), array('foo' => 'bar'), array(), '{foo}.example.com'));
+        $this->getGenerator($routes)->generate('test', array('foo' => 'baz'), UrlGeneratorInterface::ABSOLUTE_PATH);
     }
 
     /**
@@ -440,8 +440,8 @@ class UrlGeneratorTest extends \PHPUnit_Framework_TestCase
      */
     public function testUrlWithInvalidParameterInHostWhenParamHasADefaultValue()
     {
-        $routes = $this->getRoutes('tests', new Route('/', array('foo' => 'bar'), array('foo' => 'bar'), array(), '{foo}.example.com'));
-        $this->getGenerator($routes)->generate('tests', array('foo' => 'baz'), UrlGeneratorInterface::ABSOLUTE_PATH);
+        $routes = $this->getRoutes('test', new Route('/', array('foo' => 'bar'), array('foo' => 'bar'), array(), '{foo}.example.com'));
+        $this->getGenerator($routes)->generate('test', array('foo' => 'baz'), UrlGeneratorInterface::ABSOLUTE_PATH);
     }
 
     /**
@@ -449,39 +449,39 @@ class UrlGeneratorTest extends \PHPUnit_Framework_TestCase
      */
     public function testUrlWithInvalidParameterEqualsDefaultValueInHost()
     {
-        $routes = $this->getRoutes('tests', new Route('/', array('foo' => 'baz'), array('foo' => 'bar'), array(), '{foo}.example.com'));
-        $this->getGenerator($routes)->generate('tests', array('foo' => 'baz'), UrlGeneratorInterface::ABSOLUTE_PATH);
+        $routes = $this->getRoutes('test', new Route('/', array('foo' => 'baz'), array('foo' => 'bar'), array(), '{foo}.example.com'));
+        $this->getGenerator($routes)->generate('test', array('foo' => 'baz'), UrlGeneratorInterface::ABSOLUTE_PATH);
     }
 
     public function testUrlWithInvalidParameterInHostInNonStrictMode()
     {
-        $routes = $this->getRoutes('tests', new Route('/', array(), array('foo' => 'bar'), array(), '{foo}.example.com'));
+        $routes = $this->getRoutes('test', new Route('/', array(), array('foo' => 'bar'), array(), '{foo}.example.com'));
         $generator = $this->getGenerator($routes);
         $generator->setStrictRequirements(false);
-        $this->assertNull($generator->generate('tests', array('foo' => 'baz'), UrlGeneratorInterface::ABSOLUTE_PATH));
+        $this->assertNull($generator->generate('test', array('foo' => 'baz'), UrlGeneratorInterface::ABSOLUTE_PATH));
     }
 
     public function testHostIsCaseInsensitive()
     {
-        $routes = $this->getRoutes('tests', new Route('/', array(), array('locale' => 'en|de|fr'), array(), '{locale}.FooBar.com'));
+        $routes = $this->getRoutes('test', new Route('/', array(), array('locale' => 'en|de|fr'), array(), '{locale}.FooBar.com'));
         $generator = $this->getGenerator($routes);
-        $this->assertSame('//EN.FooBar.com/app.php/', $generator->generate('tests', array('locale' => 'EN'), UrlGeneratorInterface::NETWORK_PATH));
+        $this->assertSame('//EN.FooBar.com/app.php/', $generator->generate('test', array('locale' => 'EN'), UrlGeneratorInterface::NETWORK_PATH));
     }
 
     public function testGenerateNetworkPath()
     {
-        $routes = $this->getRoutes('tests', new Route('/{name}', array(), array(), array(), '{locale}.example.com', array('http')));
+        $routes = $this->getRoutes('test', new Route('/{name}', array(), array(), array(), '{locale}.example.com', array('http')));
 
-        $this->assertSame('//fr.example.com/app.php/Fabien', $this->getGenerator($routes)->generate('tests',
+        $this->assertSame('//fr.example.com/app.php/Fabien', $this->getGenerator($routes)->generate('test',
             array('name' => 'Fabien', 'locale' => 'fr'), UrlGeneratorInterface::NETWORK_PATH), 'network path with different host'
         );
-        $this->assertSame('//fr.example.com/app.php/Fabien?query=string', $this->getGenerator($routes, array('host' => 'fr.example.com'))->generate('tests',
+        $this->assertSame('//fr.example.com/app.php/Fabien?query=string', $this->getGenerator($routes, array('host' => 'fr.example.com'))->generate('test',
             array('name' => 'Fabien', 'locale' => 'fr', 'query' => 'string'), UrlGeneratorInterface::NETWORK_PATH), 'network path although host same as context'
         );
-        $this->assertSame('http://fr.example.com/app.php/Fabien', $this->getGenerator($routes, array('scheme' => 'https'))->generate('tests',
+        $this->assertSame('http://fr.example.com/app.php/Fabien', $this->getGenerator($routes, array('scheme' => 'https'))->generate('test',
             array('name' => 'Fabien', 'locale' => 'fr'), UrlGeneratorInterface::NETWORK_PATH), 'absolute URL because scheme requirement does not match context'
         );
-        $this->assertSame('http://fr.example.com/app.php/Fabien', $this->getGenerator($routes)->generate('tests',
+        $this->assertSame('http://fr.example.com/app.php/Fabien', $this->getGenerator($routes)->generate('test',
             array('name' => 'Fabien', 'locale' => 'fr'), UrlGeneratorInterface::ABSOLUTE_URL), 'absolute URL with same scheme because it is requested'
         );
     }

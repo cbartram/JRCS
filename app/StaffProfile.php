@@ -8,13 +8,7 @@ use Illuminate\Support\Facades\DB;
 
 class StaffProfile extends Model implements Authenticatable
 {
-    public $table = 'staff_profile2';
-
-
-    public static function getStaff($email) {
-       return DB::table('staff_profile2')->where('email', '=', $email)->limit(1)->get()->first();
-    }
-
+    protected $table = 'staff_profile2';
 
     /**
      * The attributes that are mass assignable.

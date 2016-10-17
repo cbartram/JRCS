@@ -86,7 +86,7 @@ class PhpGeneratorDumperTest extends \PHPUnit_Framework_TestCase
     public function testDumpWithTooManyRoutes()
     {
         if (defined('HHVM_VERSION_ID')) {
-            $this->markTestSkipped('HHVM consumes too much memory on this tests.');
+            $this->markTestSkipped('HHVM consumes too much memory on this test.');
         }
 
         $this->routeCollection->add('Test', new Route('/testing/{foo}'));
@@ -132,7 +132,7 @@ class PhpGeneratorDumperTest extends \PHPUnit_Framework_TestCase
      */
     public function testGenerateNonExistingRoute()
     {
-        $this->routeCollection->add('Test', new Route('/tests'));
+        $this->routeCollection->add('Test', new Route('/test'));
 
         file_put_contents($this->testTmpFilepath, $this->generatorDumper->dump(array('class' => 'NonExistingRoutesUrlGenerator')));
         include $this->testTmpFilepath;

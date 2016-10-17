@@ -42,13 +42,13 @@ class ArrayConverterTest extends \PHPUnit_Framework_TestCase
                 // input
                 array(
                     'foo.bar' => 'value1',
-                    'foo.bar.tests' => 'value2',
+                    'foo.bar.test' => 'value2',
                 ),
                 // expected output
                 array(
                     'foo' => array(
                         'bar' => 'value1',
-                        'bar.tests' => 'value2',
+                        'bar.test' => 'value2',
                     ),
                 ),
             ),

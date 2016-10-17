@@ -72,8 +72,8 @@ class NamespacedAttributeBagTest extends \PHPUnit_Framework_TestCase
     public function testGetStorageKey()
     {
         $this->assertEquals('_sf2', $this->bag->getStorageKey());
-        $attributeBag = new NamespacedAttributeBag('tests');
-        $this->assertEquals('tests', $attributeBag->getStorageKey());
+        $attributeBag = new NamespacedAttributeBag('test');
+        $this->assertEquals('test', $attributeBag->getStorageKey());
     }
 
     /**

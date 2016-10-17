@@ -4,14 +4,20 @@
 $(document).ready(function() {
     var email, program, type, timestamp, alertText;
 
-    //Hide the volunteer Login on page load
-    $("#volunteer-login").hide();
+    //Variables for Defining selectors
+    var alertSelector = $("#alert-cico");
+    var programSelector = $("#volunteer-program");
+    var typeSelector = $("#volunteer-type");
+    var emailSelector = $("#volunteer-email");
+
+    //Hide the Staff Login on page load
+    $("#staff-login, #forgot-password, #volunteer-program").hide();
 
     $("#staff-login-btn").click(function() {
         if($(this).attr("class") != "btn btn-primary disabled") {
             //show the staff login hide the volunteer login
             $("#staff-login, #forgot-password").show("slow");
-            $("#volunteer-login, #volunteer-cico").hide();
+            $("#volunteer-login, #volunteer-cico, #checked-in-table").hide();
         }
 
     });
@@ -27,19 +33,8 @@ $(document).ready(function() {
 
     $(".alert-danger").effect("shake");
 
-    $(".btn-danger").click(function() {
-        //clear the volunteer cico fields
-        $('#volunteer-program').prop('selectedIndex',0);
-        $('#volunteer-type').prop('selectedIndex', 0);
-        $('#volunteer-email').text("");
 
-        //Hide the volunteer Login portion
-        $("#volunteer-login").hide();
-        $("#staff-login").show("slow");
-
-    });
-
-    $('#volunteer-type').change(function() {
+    typeSelector.change(function() {
         //gets the selected attribute from the option list
          program = $(this).find(':selected').attr('name');
 
@@ -52,17 +47,16 @@ $(document).ready(function() {
 
     });
 
-    $("#volunteer-program").change(function() {
+    programSelector.change(function() {
         type = $(this).find(":selected").attr('name');
     });
 
     $("#volunteer-cico-submit").click(function(e) {
-        var date = new Date();
-        //timestamp = date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
-        timestamp = formatDate(date);
+
+        timestamp = formatDate(new Date());
         email = $("#volunteer-email").val();
 
-        if($("#volunteer-type").find(':selected').attr('name') == "default" || $("#volunteer-email").val().length == 0) {
+        if($("#volunteer-type").find(':selected').attr('name') == "default" || emailSelector.val().length == 0) {
             alertText = "You need to pick a Volunteer Type and enter a valid email before you can Check-in!";
             $("#alert-cico").addClass("alert alert-danger").html(alertText).effect("shake");
 
@@ -70,20 +64,21 @@ $(document).ready(function() {
             e.preventDefault();
 
         } else {
-            var alertSelector = $("#alert-cico");
+
             //The volunteer has selected program as the type but hasnt selected their program
-            if ($("#volunteer-program").find(':selected').attr('name') == "default" && $("#volunteer-type").find(':selected').attr('name') == "program") {
+            if (programSelector.find(':selected').attr('name') == "default" && typeSelector.find(':selected').attr('name') == "program") {
                 alertText = "You must select a specific program from the list below!";
                 alertSelector.addClass("alert alert-danger").html(alertText).effect("shake");
 
                 e.preventDefault();
             } else {
-                //define the type and program
-                type = $("#volunteer-type").find(':selected').attr('name');
-                program = $("#volunteer-program").find(':selected').attr('name');
 
-                //input looks good lets submit the GET Request
-                $.get("/cico", {email: email, program: program, type: type, timestamp: timestamp})
+                //define the Volunteer Type & Program
+                type = typeSelector.find(':selected').attr('name');
+                program = programSelector.find(':selected').attr('name');
+
+                //Input has been Validated submit the GET Request
+                $.post("/cico", {email: email, program: program, type: type, timestamp: timestamp})
                     .done(function (data) {
 
                         //Handle response from the CicoController
@@ -107,12 +102,11 @@ $(document).ready(function() {
 
                 e.preventDefault();
             }
-        } //closes second else
+        }
     });
-
-
-
 });
+
+
 function formatDate(date) {
     var hours = date.getHours();
     var minutes = date.getMinutes();

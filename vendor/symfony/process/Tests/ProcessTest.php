@@ -56,7 +56,7 @@ class ProcessTest extends \PHPUnit_Framework_TestCase
     public function testThatProcessDoesNotThrowWarningDuringRun()
     {
         if ('\\' === DIRECTORY_SEPARATOR) {
-            $this->markTestSkipped('This tests is transient on Windows');
+            $this->markTestSkipped('This test is transient on Windows');
         }
         @trigger_error('Test Error', E_USER_NOTICE);
         $process = $this->getProcess(self::$phpBin." -r 'sleep(3)'");
@@ -470,7 +470,7 @@ class ProcessTest extends \PHPUnit_Framework_TestCase
     public function testTTYInWindowsEnvironment()
     {
         if ('\\' !== DIRECTORY_SEPARATOR) {
-            $this->markTestSkipped('This tests is for Windows platform only');
+            $this->markTestSkipped('This test is for Windows platform only');
         }
 
         $process = $this->getProcess('echo "foo" >> /dev/null');
@@ -939,7 +939,7 @@ class ProcessTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider provideMethodsThatNeedATerminatedProcess
-     * @expectedException Symfony\Component\Process\Exception\LogicException
+     * @expectedException \Symfony\Component\Process\Exception\LogicException
      * @expectedExceptionMessage Process must be terminated before calling
      */
     public function testMethodsThatNeedATerminatedProcess($method)

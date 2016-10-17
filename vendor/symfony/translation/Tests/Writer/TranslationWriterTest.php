@@ -25,8 +25,8 @@ class TranslationWriterTest extends \PHPUnit_Framework_TestCase
             ->method('dump');
 
         $writer = new TranslationWriter();
-        $writer->addDumper('tests', $dumper);
-        $writer->writeTranslations(new MessageCatalogue(array()), 'tests');
+        $writer->addDumper('test', $dumper);
+        $writer->writeTranslations(new MessageCatalogue(array()), 'test');
     }
 
     public function testDisableBackup()

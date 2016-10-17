@@ -34,9 +34,9 @@ class DepthRangeFilterIteratorTest extends RealIteratorTestCase
     {
         $lessThan1 = array(
             '.git',
-            'tests.py',
+            'test.py',
             'foo',
-            'tests.php',
+            'test.php',
             'toto',
             '.foo',
             '.bar',
@@ -45,10 +45,10 @@ class DepthRangeFilterIteratorTest extends RealIteratorTestCase
 
         $lessThanOrEqualTo1 = array(
             '.git',
-            'tests.py',
+            'test.py',
             'foo',
             'foo/bar.tmp',
-            'tests.php',
+            'test.php',
             'toto',
             'toto/.git',
             '.foo',

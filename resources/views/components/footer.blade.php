@@ -1,0 +1,1 @@
+<!-- Define a global footer that can be used on any page here -->

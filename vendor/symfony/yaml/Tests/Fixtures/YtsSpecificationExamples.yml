@@ -571,7 +571,7 @@ php: |
     'date' => Date.new( 2002, 12, 14 )
   )
 ---
-test: legacy Timestamps tests
+test: legacy Timestamps test
 todo: true
 spec: legacy D4
 yaml: |
@@ -688,7 +688,7 @@ ruby: |
     "Shape Container"
   ]
 # ---
-# tests: Unordered set
+# test: Unordered set
 # spec: 2.25
 # yaml: |
 #   # sets are represented as a
@@ -1060,7 +1060,7 @@ ruby: |
     'block' => [ 'First item in top sequence', [ 'Subordinate sequence entry' ],
     "A folded sequence entry\n", 'Sixth item in top sequence' ] }
 ---
-test: Complete mapping tests
+test: Complete mapping test
 todo: true
 yaml: |
  empty: {}

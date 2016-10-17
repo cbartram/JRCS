@@ -17,7 +17,6 @@ class addController extends Controller
     public function index() {
         $rules = array(
             'email'    => 'required|email',
-            'password' => 'required',
             'first_name' => 'required',
             'last_name' => 'required',
             'address' => 'required',
@@ -31,10 +30,8 @@ class addController extends Controller
         //run the validation rules on the inputs from the form
         $validator = Validator::make(Input::all(), $rules);
 
-
         //if the validator fails, redirect back to the form
         if ($validator->fails()) {
-
             return Redirect::to('/profile')
                 ->withErrors($validator); // send back all errors to the volunteer add form
         }
@@ -44,7 +41,9 @@ class addController extends Controller
 
         //Creating the new volunteer for the database
         $volunteer->id = 'vol_' . str_random(8);
-        $volunteer->password = Hash::make(Input::get('password'));
+
+        //Makes a static password because volunteers dont need a password to log in
+        $volunteer->password = Hash::make('password');
         $volunteer->first_name = Input::get('first_name');
         $volunteer->last_name = Input::get('last_name');
         $volunteer->address = Input::get('address');

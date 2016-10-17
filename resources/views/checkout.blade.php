@@ -10,19 +10,16 @@
 
     <title>Volunteer Checkout</title>
 
-    <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 </head>
 <body>
 
 <div class="container">
-    <!-- Start Staff/Admin Login -->
     <div class="row">
         <div class="col-lg-4"></div>
         <div class="col-lg-4">
-            {{ Form::open(array('url' => '/checkout', 'method' => 'post')) }}
-
             <h2 align="center">Volunteer Checkout</h2>
+
             <div class="flash-message">
                 @foreach (['danger', 'warning', 'success', 'info'] as $msg)
                     @if(Session::has('alert-' . $msg))
@@ -31,8 +28,9 @@
                 @endforeach
             </div>
 
-            <p>{{ Form::text('email', Input::old('email'), array('placeholder' => 'Email', 'class' => 'form-control')) }}</p>
+            {{ Form::open(array('url' => '/checkout', 'method' => 'post')) }}
 
+            <p>{{ Form::text('email', Input::old('email'), array('placeholder' => 'Email', 'class' => 'form-control')) }}</p>
 
             {{ Form::submit('Checkout', array('class' => 'btn btn-block btn-success')) }}
 
@@ -41,6 +39,7 @@
         </div>
         <div class="col-lg-4"></div>
     </div>
+
     <div class="row">
         <div class="col-lg-4"></div>
         <div class="col-lg-4" style="margin-top:15px;">
@@ -48,7 +47,6 @@
         </div>
         <div class="col-lg-4"></div>
     </div>
-    <!-- End Staff Login -->
 
 </div> <!-- /container -->
 
