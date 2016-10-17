@@ -25,7 +25,7 @@ $(document).ready(function() {
     $("#volunteer-login-btn").click(function() {
         if($("#staff-login-btn").attr("class") != "btn btn-primary disabled") {
             //show the volunteer login and hide the staff login
-            $("#volunteer-login").show("slow");
+            $("#volunteer-login, #checked-in-table").show("slow");
             $("#staff-login, #volunteer-program, #forgot-password").hide();
         }
 

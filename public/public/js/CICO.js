@@ -4,11 +4,20 @@
  * and staff in the home page
  */
 $(document).ready(function() {
-    checkIn('mjohnson@gmail.com', 'general', 'default', function(callback) {
+    //Empty array to hold all the id's we are bulk checking out
+    var ids = [];
+
+    $(":checkbox").click(function() {
+        var id = $(this).attr('name');
+
+        if($(this).is(":checked")) {
+            ids.push(id);
+        } else {
+            ids.splice(ids.indexOf(id), 1);
+        }
+        console.log(ids);
     });
 
-    // checkOut('mjohnson@gmail.com', function(callback) {
-    // });
 });
 
 

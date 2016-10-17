@@ -23,10 +23,10 @@
 
     <div class="btn-group btn-group-justified" role="group">
         <div class="btn-group" role="group">
-            <button type="button" id="staff-login-btn" class="btn btn-md btn-primary">Staff Login</button>
+            <button type="button" id="staff-login-btn" class="btn btn-md btn-primary">Staff Login <i class="fa fa-sign-in"></i></button>
         </div>
         <div class="btn-group" role="group">
-            <button type="button" id="volunteer-login-btn" class="btn btn-md btn-primary">Volunteer Check In</button>
+            <button type="button" id="volunteer-login-btn" class="btn btn-md btn-primary">Volunteer Check In <i class="fa fa-check-circle-o"></i></button>
         </div>
     </div>
 
@@ -117,7 +117,7 @@
                     <div class="row">
                         <div class="col-md-12" style="height:25px;"></div>
                         <div class="col-md-12">
-                            <button class="btn btn-block btn-success" id="volunteer-cico-submit" type="submit">Check-in</button>
+                            <button class="btn btn-block btn-success" id="volunteer-cico-submit" type="submit">Check-in <i class="fa fa-check-square-o"></i></button>
                         </div>
                         <div class="col-md-12" style="height:25px;"></div>
                         <div class="col-md-12"></div>
@@ -130,8 +130,10 @@
     <!-- Volunteer Check in end -->
 
     <!-- Start of the volunteer check in table -->
-    <div class="row" id="checked-in-table">
-        <h3>Volunteers Currently Checked-in</h3>
+ <div class="panel panel-default" id="checked-in-table">
+  <div class="panel-heading"><strong>Volunteers Checked In <i class="fa fa-list"></i></strong></div>
+    <div class="panel-body">
+    <div class="row">
         <div class="col-md-12">
            <table class="table table-striped">
                <thead>
@@ -159,12 +161,18 @@
            </table>
         </div>
     </div>
+  </div>
+</div>
 
 </div> <!-- /container -->
 
+<!-- Globally Hosted Libraries -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 <script src="//code.jquery.com/ui/1.12.0/jquery-ui.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script src="https://use.fontawesome.com/09e1e27aff.js"></script>
+
+<!-- Local Libraries -->
 <script src="../../public/js/VolunteerRESTLibrary.js"></script>
 <script src="../../public/js/Login.js"></script>
 <script src="../../public/js/CICO.js"></script>
