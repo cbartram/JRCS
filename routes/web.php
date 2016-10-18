@@ -12,7 +12,10 @@
 */
 
 //when the user first visits the site the default view 'login' in shown aka login.blade.php
+use App\Cico;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Session;
 
 /*
 |------------------------------------------------------------------------
@@ -23,7 +26,14 @@ use Illuminate\Support\Facades\Route;
 |
  */
 //Handles showing the user the root page
-Route::get('/', 'Auth\LoginController@index');
+Route::get('/', function() {
+    //Get all users from the table where they have not yet checked out joining with the profiles table
+    $volunteers = Cico::where('check_out_timestamp', 'null')
+        ->join('profiles', 'volunteer_cico.id', '=', 'profiles.id')
+        ->get();
+
+    return view('login', compact('volunteers'));
+});
 
 //Handles verifying the form data and authenticating the user
 Route::post('/', 'Auth\LoginController@handleLogin');
@@ -32,10 +42,18 @@ Route::post('/', 'Auth\LoginController@handleLogin');
 Route::get('/profile', 'Profile\StaffProfileController@index');
 
 //Handles switching a users group (Bebco, Jaco, Jbc)
-Route::get('/switch/{group}', 'Profile\SwitchController@index');
+Route::get('/switch/{group}', function($group) {
+    //The new group is the group required to switch too
+    Session::put('group', $group);
+
+    return Redirect::to('/profile');
+});
 
 //Logs a user out safely
-Route::get('/logout', 'Auth\LogoutController@index');
+Route::get('/logout', function() {
+    Session::flush();
+    return Redirect::to('/');
+});
 
 //Handles when a staff member registers a new volunteer
 Route::post('/add', 'addController@index');
@@ -45,6 +63,21 @@ Route::post('/settings', 'Profile\SettingsController@defaultGroup');
 
 //Handles account settings for showing self in the volunteer cards
 Route::post('/settings/self', 'Profile\SettingsController@self');
+
+
+/*
+|------------------------------------------------------------------------
+| Routes for Donations and Handling Donations
+|------------------------------------------------------------------------
+| These routes define the specific GET and POST requests that are required
+| for a volunteer to make a donation approval request and for staff members
+| to approve donations
+ */
+Route::get('/donation', function() {
+    return view('donation');
+});
+
+Route::post('/donation', 'DonationController@handleDonation');
 
 
 /*
@@ -61,10 +94,6 @@ Route::post('/cico', 'CicoController@checkIn');
 //Handles clocking a user out
 Route::post('/checkout', 'CicoController@checkOut');
 
-//Handles showing the user the checkout page
-Route::get('/checkout', 'CicoController@index');
-
-
 /*
 |------------------------------------------------------------------------
 | Routes for Password Resetting
@@ -78,7 +107,9 @@ Route::get('/checkout', 'CicoController@index');
 Route::post('/password', 'Profile\SettingsController@resetPassword');
 
 //Handles resetting the password from outside the authentication layer
-Route::get('/password/reset', 'Auth\LoginController@resetPassword');
+Route::get('/password/reset', function() {
+    return view('reset');
+});
 
 //Handles sending the password reset link
 Route::post('/password/send', 'PasswordController@index');

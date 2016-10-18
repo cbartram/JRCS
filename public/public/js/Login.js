@@ -84,7 +84,7 @@ $(document).ready(function() {
                         //Handle response from the CicoController
                         switch(data) {
                             case 'false':
-                                alertText = "<li>You haven't checked-out yet with the email: <b>" + email + "</b></li><li>You can check-out <a href='/checkout'>here!</a></li>";
+                                alertText = "<li>You haven't checked-out yet with the email: <b>" + email + "</b></li><li>You can check-out below!</li>";
                                 alertSelector.addClass("alert alert-danger").html(alertText);
                                 break;
                             case 'email':
