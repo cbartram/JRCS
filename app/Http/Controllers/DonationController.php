@@ -43,6 +43,10 @@ class DonationController extends Controller
         $timestamp = $date . ' ' . date("g:i a", strtotime($time) - (4 * 3600));
 
         $donation = new Donations();
+
+        //Create the primary key
+        $donation->donation_id = 'don_' . str_random(10);
+
         $donation->volunteer_id = $id;
         $donation->group_name = Input::get('group');
         $donation->donation_type = Input::get('donation-type');
@@ -68,5 +72,31 @@ class DonationController extends Controller
 
         return Redirect::back()
             ->with('status', 'Successfully Submitted Donation Information');
+    }
+
+    /**
+     * Handles approving a donation request
+     * @param $id Donation id
+     */
+    public function approve($id) {
+        $donation = Donations::where('donation_id', $id)->first();
+        $donation->status = 'Approved';
+        $donation->save();
+
+        return Redirect::back()
+            ->with('alert-success', "Donation was approved successfully!");
+    }
+
+    /**
+     * Handles denying a donation request
+     * @param $id Donation id
+     */
+    public function deny($id) {
+        $donation = Donations::where('donation_id', $id)->first();
+        $donation->status = 'Deny';
+        $donation->save();
+
+        return Redirect::back()
+            ->with('alert-warning',  "Donation was denied successfully!");
     }
 }

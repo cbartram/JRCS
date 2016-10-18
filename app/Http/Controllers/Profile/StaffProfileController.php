@@ -60,6 +60,7 @@ class StaffProfileController extends Controller
 
             //Handles getting the donation data from the database
             $donations = Donations::where('status', 'pending')
+                ->where('group_name', $defaultGroup)
                 ->join('profiles', 'donations.volunteer_id', '=', 'profiles.id')
                 ->get();
 

@@ -79,6 +79,10 @@ Route::get('/donation', function() {
 
 Route::post('/donation', 'DonationController@handleDonation');
 
+//Handles approving or denying donation requests
+Route::get('/donation/approve/{id}', 'DonationController@approve');
+Route::get('/donation/deny/{id}', 'DonationController@deny');
+
 
 /*
 |------------------------------------------------------------------------
