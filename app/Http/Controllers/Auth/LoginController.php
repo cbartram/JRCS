@@ -20,21 +20,6 @@ use Validator;
 
 class LoginController extends Controller
 {
-    /**
-     * Handles Providing data used by blade and showing the default view when a user
-     * first visits the website
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
-    public function index()
-    {
-        //Get all users from the table where they have not yet checked out joining with the profiles table
-        $volunteers = Cico::where('check_out_timestamp', 'null')
-            ->join('profiles', 'volunteer_cico.id', '=', 'profiles.id')
-            ->get();
-
-        return view('login', compact('volunteers'));
-    }
-
 
     /**
      * Handles authenticating a user with the system
@@ -96,11 +81,4 @@ class LoginController extends Controller
         }
     }
 
-    /**
-     * Handles showing the view for a user to reset their password
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
-    public function resetPassword() {
-        return view('reset');
-    }
 }
