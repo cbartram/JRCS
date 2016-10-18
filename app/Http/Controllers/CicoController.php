@@ -17,17 +17,6 @@ use Illuminate\Support\Str;
 class CicoController extends Controller
 {
 
-
-    /**
-     * Shows the checkout view
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
-    public function index() {
-        return view('checkout');
-    }
-
-
-
     /**
      * Handles checking a user in via there email
      * @return string Return status
