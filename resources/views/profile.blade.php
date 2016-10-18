@@ -259,9 +259,9 @@
             <div class="profile-content">
                 <ul class="nav nav-tabs">
                     <li role="presentation" id="add-volunteer"><a href="#" data-toggle="modal" data-target="#add-volunteer-modal"><span class="glyphicon glyphicon-plus"></span> New Volunteer </a></li>
-                    <li role="presentation" id="profile"><a href="#"><span class="glyphicon glyphicon-usd"></span> Donations</a></li>
+                    <li role="presentation" id="profile"><a href="#"><span class="glyphicon glyphicon-usd"></span> Pending Donations</a></li>
                     <li role="presentation" id="messages"><a href="#"><span class="glyphicon glyphicon-envelope"></span> New Event</a></li>
-                    <li role="presentation" id="checkout-volunteer"><a href="#"><span class="glyphicon glyphicon-log-out"></span> Checkout Volunteer</a></li>
+                    <li role="presentation" id="checkout-volunteer"><a href="#"><span class="glyphicon glyphicon-log-out"></span> Checkout</a></li>
                     <li role="presentation" class="dropdown">
                         <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-random"></span>
                             &nbsp; Switch Organizations <span class="caret"></span></a>
@@ -286,11 +286,29 @@
                 </div>
                 <div id="listing" class="row">
 
+                    @if (count($errors) > 0)
+                        <div class="alert alert-danger">
+                            <strong>Error!</strong> There were some problems with your input.<br><br>
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
+                    @foreach (['danger', 'warning', 'success', 'info'] as $msg)
+                        @if(Session::has('alert-' . $msg))
+                            <div class="flash-message">
+                                <p class="alert alert-{{ $msg }}">{{ Session::get('alert-' . $msg) }}</p>
+                            </div>
+                    @endif
+                @endforeach
+
                   <!-- Donation Table -->
                   <div id="donations">
                      <table class="table table-striped">
                          <thead>
-                            <th>Volunteer ID</th>
+                            <th>Donation ID</th>
                             <th>Volunteer Name</th>
                             <th>Group Donation</th>
                             <th>Donation Type</th>
@@ -298,11 +316,12 @@
                             <th>Donation Description</th>
                             <th>Status</th>
                             <th>Donation Date</th>
+                            <th>Action</th>
                          </thead>
                          <tbody>
                             @foreach($donations as $donation)
                             <tr>
-                                <td>{{$donation->volunteer_id}}</td>
+                                <td>{{$donation->donation_id}}</td>
                                 <td>{{$donation->first_name . " " . $donation->last_name}}</td>
                                 <td>{{$donation->group_name}}</td>
                                 <td>{{$donation->donation_type}}</td>
@@ -314,29 +333,15 @@
                                 <td>{{$donation->donation_description}}</td>
                                 <td><span class="label label-warning">{{$donation->status}}</span></td>
                                 <td><span class="label label-primary">{{$donation->date}}</span></td>
+                                <td>
+                                    <a href="/donation/approve/{{$donation->donation_id}}"><button type="button" class="btn btn-success">Approve</button></a>
+                                    <a href="/donation/deny/{{$donation->donation_id}}"><button type="button" class="btn btn-danger">Deny</button></a>
+                                </td>
                             </tr>
                             @endforeach
                          </tbody>
                      </table>
                   </div>
-
-                    @if (count($errors) > 0)
-                        <div class="alert alert-danger">
-                            <strong>Error!</strong> There were some problems with your input.<br><br>
-                            <ul>
-                                @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    @endif
-                        @foreach (['danger', 'warning', 'success', 'info'] as $msg)
-                            @if(Session::has('alert-' . $msg))
-                            <div class="flash-message">
-                                <p class="alert alert-{{ $msg }}">{{ Session::get('alert-' . $msg) }}</p>
-                            </div>
-                            @endif
-                        @endforeach
                 </div>
             </div>
         </div>
