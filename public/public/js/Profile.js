@@ -4,6 +4,9 @@
 
 $(document).ready(function() {
 
+    //hide the donations div by default
+    $("#donations").hide();
+
     //Handles add and removing the "active" css class when these elements are clicked
     $("#add-volunteer").click(function() {
         $(this).addClass("active");
@@ -17,6 +20,9 @@ $(document).ready(function() {
         $("#messages").removeClass("active");
         $("#add-volunteer").removeClass("active");
         $("#checkout-volunteer").removeClass("active");
+
+        //Show the donations that have been submitted in a table
+        $("#donations").show();
 
     });
 

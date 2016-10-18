@@ -259,7 +259,7 @@
             <div class="profile-content">
                 <ul class="nav nav-tabs">
                     <li role="presentation" id="add-volunteer"><a href="#" data-toggle="modal" data-target="#add-volunteer-modal"><span class="glyphicon glyphicon-plus"></span> New Volunteer </a></li>
-                    <li role="presentation" id="profile"><a href="#"><span class="glyphicon glyphicon-usd"></span> New Donation</a></li>
+                    <li role="presentation" id="profile"><a href="#"><span class="glyphicon glyphicon-usd"></span> Donations</a></li>
                     <li role="presentation" id="messages"><a href="#"><span class="glyphicon glyphicon-envelope"></span> New Event</a></li>
                     <li role="presentation" id="checkout-volunteer"><a href="#"><span class="glyphicon glyphicon-log-out"></span> Checkout Volunteer</a></li>
                     <li role="presentation" class="dropdown">
@@ -282,10 +282,44 @@
 
 
                 <div class="row">
-                    <div class="col-xs-12" style="height:50px;"></div>
+                    <div class="col-xs-12"></div>
                 </div>
                 <div id="listing" class="row">
-                    <!-- todo Load volunteer profile form -->
+
+                  <!-- Donation Table -->
+                  <div id="donations">
+                     <table class="table table-striped">
+                         <thead>
+                            <th>Volunteer ID</th>
+                            <th>Volunteer Name</th>
+                            <th>Group Donation</th>
+                            <th>Donation Type</th>
+                            <th>Donation Value</th>
+                            <th>Donation Description</th>
+                            <th>Status</th>
+                            <th>Donation Date</th>
+                         </thead>
+                         <tbody>
+                            @foreach($donations as $donation)
+                            <tr>
+                                <td>{{$donation->volunteer_id}}</td>
+                                <td>{{$donation->first_name . " " . $donation->last_name}}</td>
+                                <td>{{$donation->group_name}}</td>
+                                <td>{{$donation->donation_type}}</td>
+                                @if($donation->donation_value != 'null')
+                                <td>{{$donation->donation_value}}</td>
+                                @else
+                                <td>$0.00</td>
+                                @endif
+                                <td>{{$donation->donation_description}}</td>
+                                <td><span class="label label-warning">{{$donation->status}}</span></td>
+                                <td><span class="label label-primary">{{$donation->date}}</span></td>
+                            </tr>
+                            @endforeach
+                         </tbody>
+                     </table>
+                  </div>
+
                     @if (count($errors) > 0)
                         <div class="alert alert-danger">
                             <strong>Error!</strong> There were some problems with your input.<br><br>
