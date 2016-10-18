@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Profile;
 
+use App\Donations;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
@@ -57,6 +58,11 @@ class StaffProfileController extends Controller
                 }
             }
 
+            //Handles getting the donation data from the database
+            $donations = Donations::where('status', 'pending')
+                ->join('profiles', 'donations.volunteer_id', '=', 'profiles.id')
+                ->get();
+
             //Staff members gravatar email
             $gravEmail = md5(strtolower($staff->email));
 
@@ -67,7 +73,8 @@ class StaffProfileController extends Controller
              return view('profile', compact('staff'), compact('volunteers'))
                 ->with('defaultGroup', $defaultGroup)
                 ->with('gravEmail', $gravEmail)
-                ->with('groups', $groups);
+                ->with('groups', $groups)
+                ->with('donations', $donations);
     }
 
     public function isMemberOf($user)
