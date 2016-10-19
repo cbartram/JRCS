@@ -1,7 +1,73 @@
 /* Created by Christian Bartram */
 
 body {
-    background: #3C3F41;
+    /* Because the navbar is fixed this spacer is required */
+    margin-top:50px;
+    background-color: #E6EAEC;
+    border-top: 1px solid #DCDEE2;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+
+/* Handles the navbar color */
+.navbar-default {
+    border-color: transparent;
+    background-color: #1999D6;
+    border-radius: 0;
+}
+
+.navbar-default .navbar-nav>li>a{
+    color:#FFFFFF;
+}
+.navbar-default .navbar-brand {
+    color: #FFFFFF;
+}
+.navbar-default .navbar-nav > li > a:hover {
+    color: #FFFFFF;
+}
+.navbar-default .navbar-brand:hover {
+    color: #FFFFFF;
+}
+.navbar-default .navbar-nav>.open>a, .navbar-default .navbar-nav>.open>a:focus, .navbar-default .navbar-nav>.open>a:hover {
+    background-color:#1999D6;
+}
+
+/* Dropdown styles */
+.dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 1000;
+    display: none;
+    float: left;
+    min-width: 160px;
+    padding: 5px 0;
+    margin: 2px 0 0;
+    font-size: 14px;
+    text-align: left;
+    list-style: none;
+    background-color: #fff;
+    -webkit-background-clip: padding-box;
+    background-clip: padding-box;
+    border: 1px solid #ccc;
+    border: 1px solid rgba(0,0,0,.15);
+    border-radius: 4px;
+    -webkit-box-shadow: 0 6px 12px rgba(0,0,0,.175);
+    box-shadow: 0 6px 12px rgba(0,0,0,.175);
+}
+
+
+
+/* Panel Styles */
+.panel-default {
+    border-radius:3px;
+}
+.panel-heading {
+    background-color: #f5f5f5;
+    border-bottom: 1px solid #E6EAEC;
+    padding: 15px 25px;
+    font-size: 12px;
+    font-weight: 700;
+    color: #7E878C;
 }
 
 /* Profile container */
@@ -18,8 +84,8 @@ body {
 .profile-userpic img {
     float: none;
     margin: 0 auto;
-    width: 50%;
-    height: 50%;
+    width: 60%;
+    height: 60%;
     -webkit-border-radius: 50% !important;
     -moz-border-radius: 50% !important;
     border-radius: 50% !important;
@@ -98,7 +164,6 @@ body {
     color: #5b9bd1;
     background-color: #f6f9fb;
     border-left: 2px solid #5b9bd1;
-    margin-left: -2px;
 }
 
 /* Profile Content */
@@ -108,7 +173,7 @@ body {
     min-height: 460px;
 }
 
-/* Handles Volunteer profile boxes */
+/* Handles Volunteer profile boxes #27245E */
 
 
 .cart-item .cart-add {
@@ -116,23 +181,33 @@ body {
     margin-bottom: .5em;
 }
 .well {
-    background-color:#202D3B;
+    background-color:#27245E;
 }
 .btn {
     border-width: 2px;
 }
 .btn-success {
     color: #fff;
-    background-color: #18bc9c;
-    border-color: #18bc9c;
-    font-family: Helvetica;
+    background-color: #222c40;
+    border: 1px solid #ffffff;
+    font-family: Helvetica, sans-serif;
 }
 .btn-success:hover {
-    background-color: #159e82;
-    border-color: #159e82;
+    background-color: #1999D6;
+    border-color: #ffffff;
 }
-.icon-script-combat {
-   /* background-image: url(../images/sprites/sprite.png); */
+.btn-success:active:focus {
+    background-color:#206CAA;
+}
+
+.btn-success.focus, .btn-success:focus {
+    color: #fff;
+    background-color: #206CAA;
+}
+
+.icon-script {
+   width:15px;
+   height:15px;
 }
 
 .descr {
@@ -166,10 +241,3 @@ h4 {
 .pull-left {
     float: left !important;
 }
-.jumbotron {color: #FFFFFF;text-align: center;background-color: #159957;background-image: linear-gradient(120deg, #43cea2, #185a9d);}
-
-.navbar-avatar {height:45px;width:45px;border-radius:50%;-moz-border-radius: 50%;-webkit-border-radius: 50%;border:1px solid gray;padding:3px;}
-
-.navbar-avatar:hover {border:1px solid white;}
-
-.logged-in {padding-top:70px; }
