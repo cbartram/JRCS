@@ -122,6 +122,30 @@ function updateVolunteerById(id, column, value, getResult) {
 }
 
 /**
+ * Updates one column with a given value given the volunteers id
+ * @param id volunteer email
+ * @param column column to update
+ * @param value value to update the column with
+ * @param getResult callback function
+ */
+function updateVolunteerByIdTest(id, column, value, getResult) {
+    var settings = {
+        "async": true,
+        "crossDomain": true,
+        "url": "http://localhost:8000/api/v1/volunteers/id/" + id + "/" + column + "/" + value,
+        "method": "PATCH",
+        "headers": {
+            "cache-control": "no-cache",
+            "content-type": "application/x-www-form-urlencoded"
+        }
+    };
+
+    $.ajax(settings).done(function (response) {
+        getResult(response);
+    });
+}
+
+/**
  * Updates one column with a given value given the volunteers email
  * @param email volunteers email
  * @param column column to update
@@ -145,7 +169,29 @@ function updateVolunteerByEmail(email, column, value, getResult) {
     });
 }
 
+/**
+ * Updates one column with a given value given the volunteers email
+ * @param email volunteers email
+ * @param column column to update
+ * @param value value to update the column with
+ * @param getResult callback function
+ */
+function updateVolunteerByEmailTest(email, column, value, getResult) {
+    var settings = {
+        "async": true,
+        "crossDomain": true,
+        "url": "http://localhost:8000/api/v1/volunteers/email/" + email + "/" + column + "/" + value,
+        "method": "PATCH",
+        "headers": {
+            "cache-control": "no-cache",
+            "content-type": "application/x-www-form-urlencoded"
+        }
+    };
 
+    $.ajax(settings).done(function (response) {
+        getResult(response);
+    });
+}
 
 /**
  * Returns true if the volunteers is part of the bebco group false otherwise
