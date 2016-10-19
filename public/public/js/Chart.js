@@ -21,7 +21,6 @@ title: {
 style: {
     fontSize: '16px',
     fontWeight: 'bold',
-    textTransform: 'uppercase'
 }
 },
 tooltip: {
@@ -50,7 +49,6 @@ yAxis: {
 minorTickInterval: 5,
 title: {
 style: {
-    textTransform: 'uppercase'
 }
 },
 labels: {

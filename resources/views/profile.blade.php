@@ -423,7 +423,6 @@
                             </div>
                         @endif
 
-
                         @foreach (['danger', 'warning', 'success', 'info'] as $msg)
                             @if(Session::has('alert-' . $msg))
                                 <div class="flash-message">
@@ -446,8 +445,19 @@
                 </div>
             </div>
 
-
             <div class="col-md-9">
+               <div class="panel panel-default">
+                   <div class="panel-heading">Events <span class="fa fa-calendar"></span></div>
+                   <div class="panel-body">
+                       <p>PlaceHolder Content</p>
+                       <p>Lorem Ipsum Dolor sit amat</p>
+                       <p>More latin phrases here</p>
+                   </div>
+               </div>
+            </div>
+
+
+            <div class="col-md-12">
                 <div class="panel panel-default">
                     <div class="panel-heading">Volunteer Profiles <span class="fa fa-users"></span></div>
                     <div class="panel-body">
