@@ -108,7 +108,7 @@ function updateVolunteerById(id, column, value, getResult) {
     var settings = {
         "async": true,
         "crossDomain": true,
-        "url": "http://localhost:8000/api/v1/volunteers/id/" + id + "/" + column + "/" + value,
+        "url": "http://jrcs.herokuapp.com/api/v1/volunteers/id/" + id + "/" + column + "/" + value,
         "method": "PATCH",
         "headers": {
             "cache-control": "no-cache",
@@ -132,7 +132,7 @@ function updateVolunteerByEmail(email, column, value, getResult) {
     var settings = {
         "async": true,
         "crossDomain": true,
-        "url": "http://localhost:8000/api/v1/volunteers/email/" + email + "/" + column + "/" + value,
+        "url": "http://jrcs.herokuapp.com/api/v1/volunteers/email/" + email + "/" + column + "/" + value,
         "method": "PATCH",
         "headers": {
             "cache-control": "no-cache",
