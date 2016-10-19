@@ -7,40 +7,10 @@ $(document).ready(function() {
     //hide the donations div by default
     $("#donations").hide();
 
-    //Handles add and removing the "active" css class when these elements are clicked
-    $("#add-volunteer").click(function() {
-        $(this).addClass("active");
-        $("#profile").removeClass("active");
-        $("#messages").removeClass("active");
-        $("#checkout-volunteer").removeClass("active");
-    });
-
     $("#profile").click(function() {
-        $(this).addClass("active");
-        $("#messages").removeClass("active");
-        $("#add-volunteer").removeClass("active");
-        $("#checkout-volunteer").removeClass("active");
-
         //Show the donations that have been submitted in a table
         $("#donations").show();
-
     });
-
-    $("#messages").click(function() {
-        $(this).addClass("active");
-        $("#add-volunteer").removeClass("active");
-        $("#profile").removeClass("active");
-        $("#checkout-volunteer").removeClass("active");
-
-    });
-
-    $("#checkout-volunteer").click(function() {
-        $(this).addClass('active');
-        $("#add-volunteer").removeClass("active");
-        $("#profile").removeClass("active");
-        $("#messages").removeClass("active");
-    });
-
     
     $(".btn-success").click(function() {
 
