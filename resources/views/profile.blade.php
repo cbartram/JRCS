@@ -55,7 +55,7 @@
             <ul class="nav navbar-nav navbar-right">
                 <!-- Authentication Links -->
                 @if (Auth::guest())
-                    <li role="presentation" id="add-volunteer"><a href="#" data-toggle="modal" data-target="#add-volunteer-modal"><span class="glyphicon glyphicon-plus"></span> New Volunteer </a></li>
+                    <li role="presentation" id="add-volunteer"><a href="#" data-toggle="modal" data-target="#add-volunteer-modal"><span class="fa fa-user-plus"></span> New Volunteer </a></li>
                     <li role="presentation" id="profile"><a href="#"><span class="glyphicon glyphicon-usd"></span> Pending Donations</a></li>
                     <li role="presentation" id="messages"><a  href="#"><span class="fa fa-calendar"></span> New Event</a></li>
                     <li role="presentation" id="checkout-volunteer"><a href="#"><span class="glyphicon glyphicon-log-out"></span> Checkout</a></li>
@@ -315,10 +315,10 @@
                             <a href="#"><i class="fa fa-tachometer"></i>Dashboard</a>
                         </li>
                         <li>
-                            <a href="#" data-toggle="modal" data-target="#account-settings-modal"><i class="glyphicon glyphicon-user"></i>Account Settings</a>
+                            <a href="#" data-toggle="modal" data-target="#account-settings-modal"><i class="fa fa-user"></i>Account Settings</a>
                         </li>
                         <li>
-                            <a href="#" data-toggle="modal" data-target="#add-volunteer-modal"><i class="glyphicon glyphicon-plus"></i>New Volunteer</a>
+                            <a href="#" data-toggle="modal" data-target="#add-volunteer-modal"><i class="fa fa-user-plus"></i>New Volunteer</a>
                         </li>
                         <li>
                             <a href="/logout"><i class="glyphicon glyphicon-log-out"></i>Logout</a>
@@ -415,7 +415,11 @@
                             <div class="well cart-item cart-script">
                                 <h4 class="user-name"> {{$volunteer->first_name . ' ' . $volunteer->last_name}}</h4>
                                 <div class="descr">
-                                    <div class="pull-left icon-script icon-script-combat"></div><span class="vol-id">Volunteer with the ID: {{$volunteer->id}}</span></div>
+                                    <div class="pull-left icon-script">
+                                      <span class="fa fa-user fa-3x"></span>
+                                    </div>
+                                        <span class="vol-id">Volunteer with the ID: {{$volunteer->id}}</span>
+                                </div>
                                 <br>
                                 <div class="row">
                                     <div class="col-md-12">
@@ -429,9 +433,9 @@
                 </div>
             </div>
         </div>
-
-
     </div>
+</div>
+</div>
 </div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
