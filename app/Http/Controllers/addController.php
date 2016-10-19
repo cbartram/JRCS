@@ -41,12 +41,11 @@ class addController extends Controller
 
         //Creating the new volunteer for the database
         $volunteer->id = 'vol_' . str_random(8);
-
-        //Makes a static password because volunteers dont need a password to log in
-        $volunteer->password = Hash::make('password');
         $volunteer->first_name = Input::get('first_name');
         $volunteer->last_name = Input::get('last_name');
         $volunteer->address = Input::get('address');
+        //todo static needs to be dynamic
+        $volunteer->nationality = 'Burmese';
         $volunteer->city = Input::get('city');
         $volunteer->state = Input::get('state');
         $volunteer->zip_code = Input::get('zip');
