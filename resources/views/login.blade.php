@@ -99,6 +99,7 @@
                             <option name="program">Program</option>
                             <option name="board">Board</option>
                             <option name="general">General</option>
+                            <option name="other">Other</option>
                         </select>
                     </div>
 
