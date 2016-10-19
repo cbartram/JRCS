@@ -14,6 +14,9 @@ body {
     background-color: #1999D6;
     border-radius: 0;
 }
+.icon-bar {
+    color:#FFFFFF;
+}
 
 .navbar-default .navbar-nav>li>a{
     color:#FFFFFF;
@@ -86,6 +89,8 @@ body {
     margin: 0 auto;
     width: 60%;
     height: 60%;
+    padding:3px;
+    border:1px solid #7E878C;
     -webkit-border-radius: 50% !important;
     -moz-border-radius: 50% !important;
     border-radius: 50% !important;
@@ -104,7 +109,6 @@ body {
 }
 
 .profile-usertitle-job {
-    text-transform: uppercase;
     color: #5b9bd1;
     font-size: 12px;
     font-weight: 600;
@@ -153,6 +157,7 @@ body {
 
 .profile-usermenu ul li a:hover {
     background-color: #fafcfd;
+    border-left:3px solid #1999D6;
     color: #5b9bd1;
 }
 
@@ -161,9 +166,9 @@ body {
 }
 
 .profile-usermenu ul li.active a {
-    color: #5b9bd1;
+    /*color: #5b9bd1;
     background-color: #f6f9fb;
-    border-left: 2px solid #5b9bd1;
+    */
 }
 
 /* Profile Content */

@@ -350,7 +350,7 @@
     <div class="row profile">
         <div class="col-md-3">
             <div class="panel panel-default">
-                <div class="panel-heading">Profile</div>
+                <div class="panel-heading">Profile <span class="fa fa-user"></span></div>
                 <div class="panel-body">
             <div class="profile-sidebar">
                 <div class="profile-userpic">
@@ -366,7 +366,7 @@
                 </div>
                 <div class="profile-usermenu">
                     <ul class="nav">
-                        <li class="active">
+                        <li>
                             <a href="#"><i class="fa fa-tachometer"></i>Dashboard</a>
                         </li>
                         <li>
@@ -387,7 +387,7 @@
 
         <div class="col-md-9">
             <div class="panel panel-default">
-                <div class="panel-heading">Dashboard</div>
+                <div class="panel-heading">Dashboard <span class="fa fa-tachometer"></span></div>
                 <div class="panel-body">
             <div class="profile-content">
                 <div class="row">
@@ -405,8 +405,9 @@
         <div class="row profile">
             <div class="col-md-3">
                 <div class="panel panel-default">
-                    <div class="panel-heading">Alerts</div>
+                    <div class="panel-heading">Alerts <span class="fa fa-bell"></span></div>
                     <div class="panel-body">
+
                         @if (count($errors) > 0)
                             <div class="alert alert-danger alert-dismissible">
                                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -420,6 +421,8 @@
                                 </ul>
                             </div>
                         @endif
+
+
                         @foreach (['danger', 'warning', 'success', 'info'] as $msg)
                             @if(Session::has('alert-' . $msg))
                                 <div class="flash-message">
@@ -432,6 +435,12 @@
                                 </div>
                             @endif
                         @endforeach
+
+                        @if(!Session::has('alert-danger') && !Session::has('alert-success'))
+                                <div class="alert alert-info">
+                                    You've got no Alerts enjoy your day!
+                                </div>
+                        @endif
                     </div>
                 </div>
             </div>
@@ -439,7 +448,7 @@
 
             <div class="col-md-9">
                 <div class="panel panel-default">
-                    <div class="panel-heading">Volunteer Profiles</div>
+                    <div class="panel-heading">Volunteer Profiles <span class="fa fa-users"></span></div>
                     <div class="panel-body">
                 <div class="profile-content" style="float:top;">
                     <div class="row">
