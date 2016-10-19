@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Profile;
 use App\Donations;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use App\Profile;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
@@ -58,6 +59,9 @@ class StaffProfileController extends Controller
                 }
             }
 
+            //Handles getting all volunteers used for switching volunteer groups
+            $all = Profile::all();
+
             //Handles getting the donation data from the database
             $donations = Donations::where('status', 'pending')
                 ->where('group_name', $defaultGroup)
@@ -75,7 +79,8 @@ class StaffProfileController extends Controller
                 ->with('defaultGroup', $defaultGroup)
                 ->with('gravEmail', $gravEmail)
                 ->with('groups', $groups)
-                ->with('donations', $donations);
+                ->with('donations', $donations)
+                ->with('all', $all);
     }
 
     public function isMemberOf($user)
