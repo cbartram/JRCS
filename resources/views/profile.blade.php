@@ -56,7 +56,7 @@
                 <!-- Authentication Links -->
                 @if (Auth::guest())
                     <li role="presentation" id="add-volunteer"><a href="#" data-toggle="modal" data-target="#add-volunteer-modal"><span class="fa fa-user-plus"></span> New Volunteer </a></li>
-                    <li role="presentation" id="profile"><a href="#"><span class="glyphicon glyphicon-usd"></span> Pending Donations</a></li>
+                    <li role="presentation" id="profile"><a href="#" data-toggle="modal" data-target="#pending-donations"><span class="glyphicon glyphicon-usd"></span> Pending Donations</a></li>
                     <li role="presentation" id="messages"><a  href="#"><span class="fa fa-calendar"></span> New Event</a></li>
                     <li role="presentation" id="checkout-volunteer"><a href="#"><span class="glyphicon glyphicon-log-out"></span> Checkout</a></li>
                     <li role="presentation" class="dropdown">
@@ -121,6 +121,61 @@
                         <!-- Load Volunteer Demographic info -->
                         </tbody>
                     </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="modal-close" class="btn btn-primary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal close -->
+
+    <!-- Modal open -->
+    <div class="modal fade" id="pending-donations" tabindex="-1" role="dialog" aria-labelledby="pending-donations">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" style="color:black;" id="myModalLabel">Pending Donations</h4>
+                </div>
+                <div class="modal-body">
+
+                    <!-- Donation Table -->
+                        <table class="table table-striped">
+                            <thead>
+                            <th>Donation ID</th>
+                            <th>Volunteer Name</th>
+                            <th>Group Donation</th>
+                            <th>Donation Type</th>
+                            <th>Donation Value</th>
+                            <th>Donation Description</th>
+                            <th>Status</th>
+                            <th>Donation Date</th>
+                            <th>Action</th>
+                            </thead>
+                            <tbody>
+                            @foreach($donations as $donation)
+                                <tr>
+                                    <td>{{$donation->donation_id}}</td>
+                                    <td>{{$donation->first_name . " " . $donation->last_name}}</td>
+                                    <td>{{$donation->group_name}}</td>
+                                    <td>{{$donation->donation_type}}</td>
+                                    @if($donation->donation_value != 'null')
+                                        <td>{{$donation->donation_value}}</td>
+                                    @else
+                                        <td>$0.00</td>
+                                    @endif
+                                    <td>{{$donation->donation_description}}</td>
+                                    <td><span class="label label-warning">{{$donation->status}}</span></td>
+                                    <td><span class="label label-primary">{{$donation->date}}</span></td>
+                                    <td>
+                                        <a href="/donation/approve/{{$donation->donation_id}}"><button type="button" class="btn btn-success">Approve</button></a>
+                                        <a href="/donation/deny/{{$donation->donation_id}}"><button type="button" class="btn btn-danger">Deny</button></a>
+                                    </td>
+                                </tr>
+                            @endforeach
+                            </tbody>
+                        </table>
                 </div>
                 <div class="modal-footer">
                     <button type="button" id="modal-close" class="btn btn-primary" data-dismiss="modal">Close</button>
@@ -339,63 +394,7 @@
                     <div class="col-xs-12"></div>
                 </div>
                 <div id="listing" class="row">
-
-                    @if (count($errors) > 0)
-                        <div class="alert alert-danger">
-                            <strong>Error!</strong> There were some problems with your input.<br><br>
-                            <ul>
-                                @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    @endif
-                    @foreach (['danger', 'warning', 'success', 'info'] as $msg)
-                        @if(Session::has('alert-' . $msg))
-                            <div class="flash-message">
-                                <p class="alert alert-{{ $msg }}">{{ Session::get('alert-' . $msg) }}</p>
-                            </div>
-                    @endif
-                @endforeach
-
-                  <!-- Donation Table -->
-                  <div id="donations">
-                     <table class="table table-striped">
-                         <thead>
-                            <th>Donation ID</th>
-                            <th>Volunteer Name</th>
-                            <th>Group Donation</th>
-                            <th>Donation Type</th>
-                            <th>Donation Value</th>
-                            <th>Donation Description</th>
-                            <th>Status</th>
-                            <th>Donation Date</th>
-                            <th>Action</th>
-                         </thead>
-                         <tbody>
-                            @foreach($donations as $donation)
-                            <tr>
-                                <td>{{$donation->donation_id}}</td>
-                                <td>{{$donation->first_name . " " . $donation->last_name}}</td>
-                                <td>{{$donation->group_name}}</td>
-                                <td>{{$donation->donation_type}}</td>
-                                @if($donation->donation_value != 'null')
-                                <td>{{$donation->donation_value}}</td>
-                                @else
-                                <td>$0.00</td>
-                                @endif
-                                <td>{{$donation->donation_description}}</td>
-                                <td><span class="label label-warning">{{$donation->status}}</span></td>
-                                <td><span class="label label-primary">{{$donation->date}}</span></td>
-                                <td>
-                                    <a href="/donation/approve/{{$donation->donation_id}}"><button type="button" class="btn btn-success">Approve</button></a>
-                                    <a href="/donation/deny/{{$donation->donation_id}}"><button type="button" class="btn btn-danger">Deny</button></a>
-                                </td>
-                            </tr>
-                            @endforeach
-                         </tbody>
-                     </table>
-                  </div>
+                    <!-- Highcharts chart is loaded here -->
                 </div>
             </div>
         </div>
@@ -404,7 +403,41 @@
 
 
         <div class="row profile">
-            <div class="col-md-9 col-md-offset-3">
+            <div class="col-md-3">
+                <div class="panel panel-default">
+                    <div class="panel-heading">Alerts</div>
+                    <div class="panel-body">
+                        @if (count($errors) > 0)
+                            <div class="alert alert-danger alert-dismissible">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                                <strong>Error!</strong> There were some problems with your input.<br><br>
+                                <ul>
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
+                        @foreach (['danger', 'warning', 'success', 'info'] as $msg)
+                            @if(Session::has('alert-' . $msg))
+                                <div class="flash-message">
+                                    <p class="alert alert-{{ $msg }} alert-dismissible">
+                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                        {{ Session::get('alert-' . $msg) }}
+                                    </p>
+                                </div>
+                            @endif
+                        @endforeach
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-md-9">
                 <div class="panel panel-default">
                     <div class="panel-heading">Volunteer Profiles</div>
                     <div class="panel-body">
