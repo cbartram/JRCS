@@ -16,6 +16,84 @@
 
 <body>
 
+<nav class="navbar navbar-default" style="background:rgba(246,246,246,.8);">
+    <div class="container">
+        <div class="navbar-header">
+
+            <!-- Collapsed Hamburger -->
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#app-navbar-collapse">
+                <span class="sr-only">Toggle Navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+
+            <!-- Branding Image -->
+            <a class="navbar-brand" href="{{ url('/') }}">
+                JRCS
+            </a>
+        </div>
+
+        <div class="collapse navbar-collapse" id="app-navbar-collapse">
+            <!-- Left Side Of Navbar -->
+            @if(!Auth::guest())
+                <ul class="nav navbar-nav">
+                    <li role="presentation" id="add-volunteer"><a href="#" data-toggle="modal" data-target="#add-volunteer-modal"><span class="glyphicon glyphicon-plus"></span> New Volunteer </a></li>
+                </ul>
+                <ul class="nav navbar-nav">
+                    <li role="presentation" id="profile"><a href="#"><span class="glyphicon glyphicon-usd"></span> Pending Donations</a></li>
+                </ul>
+                <ul class="nav navbar-nav">
+                    <li role="presentation" id="messages"><a href="#"><i class="fa fa-calendar"></i> New Event</a></li>
+                </ul>
+                <ul class="nav navbar-nav">
+                    <li role="presentation" id="checkout-volunteer"><a href="#"><span class="glyphicon glyphicon-log-out"></span> Checkout</a></li>
+                </ul>
+        @endif
+
+        <!-- Right Side Of Navbar -->
+            <ul class="nav navbar-nav navbar-right">
+                <!-- Authentication Links -->
+                @if (Auth::guest())
+                    <li role="presentation" id="add-volunteer"><a href="#" data-toggle="modal" data-target="#add-volunteer-modal"><span class="glyphicon glyphicon-plus"></span> New Volunteer </a></li>
+                    <li role="presentation" id="profile"><a href="#"><span class="glyphicon glyphicon-usd"></span> Pending Donations</a></li>
+                    <li role="presentation" id="messages"><a href="#"><span class="fa fa-calendar"></span> New Event</a></li>
+                    <li role="presentation" id="checkout-volunteer"><a href="#"><span class="glyphicon glyphicon-log-out"></span> Checkout</a></li>
+                    <li role="presentation" class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-random"></span>
+                            &nbsp; Switch Organizations <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li class="dropdown-header">Organizations</li>
+                            @foreach($groups as $k => $v)
+                                @if($groups[$k] == true)
+                                    @if($defaultGroup == $k)
+                                        <li class="disabled"><a href="#">{{$k}} - Current Organization</a></li>
+                                    @else
+                                        <li><a href="/switch/{{$k}}">{{$k}}</a></li>
+                                    @endif
+                                @endif
+                            @endforeach
+                        </ul>
+                    </li>
+                @else
+                    <li class="dropdown">
+
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{{ Auth::user()->name }} <span class="caret"></span></a>
+
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="{{ url('/availability') }}"><i class="fa fa-btn fa-bed"></i>Availability</a></li>
+                            <li><a href="{{ url('/home') }}"><i class="fa fa-btn fa-tachometer"></i>Dashboard</a></li>
+                            <li><a href="{{ url('/search') }}"><i class="fa fa-btn fa-search"></i>Search</a></li>
+                            <li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>Logout</a></li>
+                        </ul>
+                    </li>
+                @endif
+            </ul>
+        </div>
+    </div>
+</nav>
+
+
 <div class="container">
 
 
@@ -211,11 +289,14 @@
             </div>
         </div>
     </div>
-
-
     <!-- Modal Add Volunteer close -->
+
+
     <div class="row profile">
         <div class="col-md-3">
+            <div class="panel panel-default">
+                <div class="panel-heading">Profile</div>
+                <div class="panel-body">
             <div class="profile-sidebar">
                 <div class="profile-userpic">
                     <img src="https://www.gravatar.com/avatar/{{$gravEmail}}?d=http://aeroscripts.x10host.com/images/default.jpg&s=350" class="img-responsive" alt="">
@@ -228,14 +309,10 @@
                         Group - {{$defaultGroup}}
                     </div>
                 </div>
-                <div class="profile-userbuttons">
-                    <button type="button" class="btn btn-success btn-sm">Action One</button>
-                    <button type="button" class="btn btn-danger btn-sm">Action Two</button>
-                </div>
                 <div class="profile-usermenu">
                     <ul class="nav">
                         <li class="active">
-                            <a href="#"><i class="glyphicon glyphicon-home"></i>Overview</a>
+                            <a href="#"><i class="fa fa-tachometer"></i>Dashboard</a>
                         </li>
                         <li>
                             <a href="#" data-toggle="modal" data-target="#account-settings-modal"><i class="glyphicon glyphicon-user"></i>Account Settings</a>
@@ -244,43 +321,20 @@
                             <a href="#" data-toggle="modal" data-target="#add-volunteer-modal"><i class="glyphicon glyphicon-plus"></i>New Volunteer</a>
                         </li>
                         <li>
-                            <a href="#"><i class="glyphicon glyphicon-flag"></i>Help</a>
-                        </li>
-                        <li>
                             <a href="/logout"><i class="glyphicon glyphicon-log-out"></i>Logout</a>
                         </li>
                     </ul>
                 </div>
             </div>
         </div>
-
+       </div>
+     </div>
 
         <div class="col-md-9">
+            <div class="panel panel-default">
+                <div class="panel-heading">Dashboard</div>
+                <div class="panel-body">
             <div class="profile-content">
-                <ul class="nav nav-tabs">
-                    <li role="presentation" id="add-volunteer"><a href="#" data-toggle="modal" data-target="#add-volunteer-modal"><span class="glyphicon glyphicon-plus"></span> New Volunteer </a></li>
-                    <li role="presentation" id="profile"><a href="#"><span class="glyphicon glyphicon-usd"></span> Pending Donations</a></li>
-                    <li role="presentation" id="messages"><a href="#"><span class="glyphicon glyphicon-envelope"></span> New Event</a></li>
-                    <li role="presentation" id="checkout-volunteer"><a href="#"><span class="glyphicon glyphicon-log-out"></span> Checkout</a></li>
-                    <li role="presentation" class="dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-random"></span>
-                            &nbsp; Switch Organizations <span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                            <li class="dropdown-header">Organizations</li>
-                            @foreach($groups as $k => $v)
-                                @if($groups[$k] == true)
-                                    @if($defaultGroup == $k)
-                                        <li class="disabled"><a href="#">{{$k}} - Current Organization</a></li>
-                                    @else
-                                        <li><a href="/switch/{{$k}}">{{$k}}</a></li>
-                                    @endif
-                                @endif
-                            @endforeach
-                        </ul>
-                    </li>
-                </ul>
-
-
                 <div class="row">
                     <div class="col-xs-12"></div>
                 </div>
@@ -345,17 +399,17 @@
                 </div>
             </div>
         </div>
+      </div>
+    </div>
 
 
         <div class="row profile">
-            <div class="col-md-9">
-                <br>
+            <div class="col-md-9 col-md-offset-3">
+                <div class="panel panel-default">
+                    <div class="panel-heading">Volunteer Profiles</div>
+                    <div class="panel-body">
                 <div class="profile-content" style="float:top;">
                     <div class="row">
-                        <div class="col-md-12">
-                            <h2 style="color:black;">Volunteer Profiles</h2>
-                            <hr>
-                        </div>
                         @foreach($volunteers as $volunteer)
                         <div class="col-lg-4">
                             <div class="well cart-item cart-script">
@@ -382,6 +436,8 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script src="https://use.fontawesome.com/09e1e27aff.js"></script>
+
 <script src="../../public/js/VolunteerRESTLibrary.js"></script>
 <script src="../../public/js/Profile.js"></script>
 </body>

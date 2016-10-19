@@ -18,8 +18,8 @@ body {
 .profile-userpic img {
     float: none;
     margin: 0 auto;
-    width: 50%;
-    height: 50%;
+    width: 60%;
+    height: 60%;
     -webkit-border-radius: 50% !important;
     -moz-border-radius: 50% !important;
     border-radius: 50% !important;
@@ -166,10 +166,3 @@ h4 {
 .pull-left {
     float: left !important;
 }
-.jumbotron {color: #FFFFFF;text-align: center;background-color: #159957;background-image: linear-gradient(120deg, #43cea2, #185a9d);}
-
-.navbar-avatar {height:45px;width:45px;border-radius:50%;-moz-border-radius: 50%;-webkit-border-radius: 50%;border:1px solid gray;padding:3px;}
-
-.navbar-avatar:hover {border:1px solid white;}
-
-.logged-in {padding-top:70px; }
