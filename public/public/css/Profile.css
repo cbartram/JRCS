@@ -246,3 +246,30 @@ h4 {
 .pull-left {
     float: left !important;
 }
+
+
+
+.portlet {
+    margin: 0 1em 1em 0;
+    border-radius:0px;
+}
+.portlet-header {
+    margin-bottom: 0.5em;
+    position: relative;
+    border-radius:0px;
+}
+.portlet-toggle {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    margin-top: -8px;
+}
+.portlet-content {
+    padding: 0.4em;
+}
+.portlet-placeholder {
+    border: 3px dashed #1999D6;
+    background-color:rgba(244,244, 244, .8);
+    margin: 0 1em 1em 0;
+    height: 50px;
+}

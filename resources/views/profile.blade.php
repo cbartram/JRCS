@@ -12,6 +12,7 @@
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <link href="../../public/css/Profile.css" rel="stylesheet">
+    <link href="../../public/css/jquery-ui.min.css" rel="stylesheet">
 </head>
 
 <body>
@@ -436,7 +437,7 @@
                             @endif
                         @endforeach
 
-                        @if(!Session::has('alert-danger') && !Session::has('alert-success'))
+                        @if(!Session::has('alert-danger') && count($errors) == 0 && !Session::has('alert-success'))
                                 <div class="alert alert-info">
                                     You've got no Alerts enjoy your day!
                                 </div>
@@ -478,12 +479,76 @@
     </div>
 </div>
 </div>
-</div>
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="panel panel-default">
+                <div class="panel-heading">BEBCO <span class="fa fa-folder"></span></div>
+                <div class="panel-body panel-sortable">
+                    @foreach($all as $a)
+                        @if($a->bebco_volunteer == 1)
+                            <div class="portlet">
+                                <div class="portlet-header"><span class="fa fa-user"></span> {{$a->first_name . " " . $a->last_name}}</div>
+                                    <div class="portlet-content">
+                                         <p>Volunteer Id:<strong>{{$a->id}}</strong></p>
+                                        <p>Email: <strong>{{$a->email}}</strong></p>
+                                     </div>
+                                 </div>
+                        @endif
+                    @endforeach
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="panel panel-default">
+                <div class="panel-heading">JACO <span class="fa fa-folder"></span></div>
+                <div class="panel-body panel-sortable">
+                    @foreach($all as $a)
+                        @if($a->jaco_volunteer == 1)
+                            <div class="portlet">
+                                <div class="portlet-header"><span class="fa fa-user"></span> {{$a->first_name . " " . $a->last_name}}</div>
+                                <div class="portlet-content">
+                                    <p>Volunteer Id:<strong>{{$a->id}}</strong></p>
+                                    <p>Email: <strong>{{$a->email}}</strong></p>
+                                </div>
+                            </div>
+                        @endif
+                    @endforeach
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="panel panel-default">
+                <div class="panel-heading">JBC <span class="fa fa-folder"></span></div>
+                <div class="panel-body panel-sortable">
+                    @foreach($all as $a)
+                        @if($a->jbc_volunteer == 1)
+                            <div class="portlet">
+                                <div class="portlet-header"><span class="fa fa-user"></span> {{$a->first_name . " " . $a->last_name}}</div>
+                                <div class="portlet-content">
+                                    <p>Volunteer Id:<strong>{{$a->id}}</strong></p>
+                                    <p>Email: <strong>{{$a->email}}</strong></p>
+                                </div>
+                            </div>
+                        @endif
+                    @endforeach
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+</div> <!-- Closes container -->
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 <script src="https://use.fontawesome.com/09e1e27aff.js"></script>
 <script src="../../public/js/Highcharts.js"></script>
+<script src="../../public/js/jquery-ui.min.js"></script>
+
+
 
 <script src="../../public/js/Chart.js"></script>
 <script src="../../public/js/VolunteerRESTLibrary.js"></script>
