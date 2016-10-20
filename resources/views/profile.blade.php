@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <link href="../../public/css/Profile.css" rel="stylesheet">
     <link href="../../public/css/jquery-ui.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet">
 </head>
 
 <body>
@@ -130,6 +131,41 @@
         </div>
     </div>
     <!-- Modal close -->
+
+
+    <!-- Modal for copy or switch -->
+    <div class="modal fade" id="copy" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title" style="color:black;">Copy or Switch</h4>
+                </div>
+                <div class="modal-body">
+                    <p>Would you like to copy the volunteer over to the new group
+                        or switch the volunteer to the new group?</p>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <span class="label label-warning">Warning!</span>
+                            <p>This will add the volunteer to new group without removing them from their current group.</p>
+                            <button type="button" id="copy-btn" class="btn btn-primary" data-dismiss="modal">Copy Volunteer <span class="fa fa-files-o"></span></button>
+                        </div>
+                        <div class="col-md-6">
+                            <span class="label label-warning">Warning!</span>
+                            <p>This will remove the volunteer from their current group and switch them over to the new group.</p>
+                           <button type="button" id="switch-btn" class="btn btn-warning" data-dismiss="modal">Switch Volunteer <span class="fa fa-random"></span></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
     <!-- Modal open -->
     <div class="modal fade" id="pending-donations" tabindex="-1" role="dialog" aria-labelledby="pending-donations">
@@ -555,14 +591,16 @@
 
 </div> <!-- Closes container -->
 
+<!-- JS Libraries -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 <script src="https://use.fontawesome.com/09e1e27aff.js"></script>
 <script src="../../public/js/Highcharts.js"></script>
 <script src="../../public/js/jquery-ui.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
 
 
-
+<!-- Local JS Files -->
 <script src="../../public/js/Chart.js"></script>
 <script src="../../public/js/VolunteerRESTLibrary.js"></script>
 <script src="../../public/js/Profile.js"></script>

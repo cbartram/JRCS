@@ -39,6 +39,20 @@ function getVolunteerById(id, getResult) {
 }
 
 
+function getNameById(id, getResult) {
+    $.ajax({
+        type: 'GET',
+        url: baseURL + "/id/" + id,
+        dataType: "json",// data type of response
+        success: function (data) {
+            var name = data.first_name + " " + data.last_name;
+            console.log(name);
+            getResult(name)
+        }
+    });
+}
+
+
 /**
  * Returns one specific volunteer in the system as a JSON object data for a specific
  * volunteer can be accessed using 'data.volunteers[index].attribute_name'

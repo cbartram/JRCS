@@ -37,8 +37,6 @@ $(document).ready(function() {
     });
 
 
-
-
     $(function() {
         var from, to, id;
         $(".panel-body").sortable({
@@ -54,14 +52,28 @@ $(document).ready(function() {
                 id = sub.substring(sub.indexOf(':') + 1, sub.indexOf(':') + 13);
                 to = $.trim($(this).prev().text());
 
-                //Removes the volunteer from their original group
-                updateVolunteerById(id, dbSanitize(from), 0, function(callback) {
-                   console.log(callback);
+                //Show the alert
+                $("#copy").modal();
+
+                $("#copy-btn").click(function() {
+                    //Adds the volunteer to the new group without removing from the original
+                    updateVolunteerById(id, dbSanitize(to), 1, function(callback) {
+                        getNameById(id, function(callback) {
+                            toastr.success(callback + ' has been successfully <strong>copied</strong> to ' + to);
+                        });
+                    });
                 });
 
-                //Adds the volunteer to the new group
-                updateVolunteerById(id, dbSanitize(to), 1, function(callback) {
-                    console.log('Callback2' + callback);
+                $("#switch-btn").click(function() {
+                    //Removes the volunteer from their original group
+                    updateVolunteerById(id, dbSanitize(from), 0, function(callback) {});
+
+                    //Adds the volunteer to the new group
+                    updateVolunteerById(id, dbSanitize(to), 1, function(callback) {
+                        getNameById(id, function(callback) {
+                            toastr.success(callback + ' has been successfully <strong>switched</strong> to ' + to);
+                        });
+                    });
                 });
             }
         });
@@ -72,21 +84,23 @@ $(document).ready(function() {
     });
 
 
-    function dbSanitize(group) {
-        switch(group) {
-            case 'BEBCO':
-                return 'bebco_volunteer';
-                break;
-            case 'JACO':
-                return 'jaco_volunteer';
-                break;
-            case 'JBC':
-                return 'jbc_volunteer';
-                break;
-            default:
-                return 'false';
-        }
-    }
-
 
 });
+
+
+
+function dbSanitize(group) {
+    switch(group) {
+        case 'BEBCO':
+            return 'bebco_volunteer';
+            break;
+        case 'JACO':
+            return 'jaco_volunteer';
+            break;
+        case 'JBC':
+            return 'jbc_volunteer';
+            break;
+        default:
+            return 'false';
+    }
+}
