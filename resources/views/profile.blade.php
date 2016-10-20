@@ -599,7 +599,6 @@
 <script src="../../public/js/jquery-ui.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
 
-
 <!-- Local JS Files -->
 <script src="../../public/js/Chart.js"></script>
 <script src="../../public/js/VolunteerRESTLibrary.js"></script>
