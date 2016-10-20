@@ -36,7 +36,6 @@ $(document).ready(function() {
         $(".modal-title").html(user + "'s Volunteer Details");
     });
 
-
     $(function() {
         var from, to, id;
         $(".panel-body").sortable({
@@ -82,8 +81,6 @@ $(document).ready(function() {
             .find(".portlet-header")
             .addClass( "ui-widget-header ui-corner-all");
     });
-
-
 
 });
 
