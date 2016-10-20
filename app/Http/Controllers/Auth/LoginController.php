@@ -39,7 +39,7 @@ class LoginController extends Controller
         //if the validator fails, redirect back to the form
         if ($validator->fails()) {
 
-            return Redirect::to('/')
+            return Redirect::back()
                 ->withErrors($validator) // send back all errors to the login form
                 ->withInput(Input::except('password')); // send back the input (not the password) so that we can repopulate the form
 
@@ -50,7 +50,7 @@ class LoginController extends Controller
 
             if($staff == null) {
                 //Redirect back home with an incorrect username error
-                return Redirect::to('/')
+                return Redirect::back()
                     ->withErrors("Username was incorrect!")
                     ->withInput(Input::except('password'));
             }
@@ -73,7 +73,7 @@ class LoginController extends Controller
             } else {
 
                 //Redirect back home with an incorrect username and password error
-                return Redirect::to('/')
+                return Redirect::back()
                     ->withErrors("Password was incorrect!")
                     ->withInput(Input::except('password'));
             }
