@@ -31,7 +31,7 @@
 
             <!-- Branding Image -->
             <a class="navbar-brand" href="{{ url('/') }}">
-                JRCS
+                JRCS <span class="label label-warning">Beta</span>
             </a>
         </div>
 
@@ -57,7 +57,7 @@
                 <!-- Authentication Links -->
                 @if (Auth::guest())
                     <li role="presentation" id="add-volunteer"><a href="#" data-toggle="modal" data-target="#add-volunteer-modal"><span class="fa fa-user-plus"></span> New Volunteer </a></li>
-                    <li role="presentation" id="profile"><a href="#" data-toggle="modal" data-target="#pending-donations"><span class="glyphicon glyphicon-usd"></span> Pending Donations</a></li>
+                    <li role="presentation" id="profile"><a href="#" data-toggle="modal" data-target="#pending-donations"><span class="fa fa-money"></span> Pending Donations</a></li>
                     <li role="presentation" id="messages"><a  href="#"><span class="fa fa-calendar"></span> New Event</a></li>
                     <li role="presentation" id="checkout-volunteer"><a href="#"><span class="glyphicon glyphicon-log-out"></span> Checkout</a></li>
                     <li role="presentation" class="dropdown">
@@ -152,7 +152,8 @@
                             <th>Donation Description</th>
                             <th>Status</th>
                             <th>Donation Date</th>
-                            <th>Action</th>
+                            <th>Approve</th>
+                            <th>Deny</th>
                             </thead>
                             <tbody>
                             @foreach($donations as $donation)
@@ -170,8 +171,10 @@
                                     <td><span class="label label-warning">{{$donation->status}}</span></td>
                                     <td><span class="label label-primary">{{$donation->date}}</span></td>
                                     <td>
-                                        <a href="/donation/approve/{{$donation->donation_id}}"><button type="button" class="btn btn-primary">Approve</button></a>
-                                        <a href="/donation/deny/{{$donation->donation_id}}"><button type="button" class="btn btn-danger">Deny</button></a>
+                                        <a href="/donation/approve/{{$donation->donation_id}}"><button type="button" class="btn btn-primary"><span class="fa fa-thumbs-o-up"></span></button></a>
+                                    </td>
+                                    <td>
+                                        <a href="/donation/deny/{{$donation->donation_id}}"><button type="button" class="btn btn-danger"><span class="fa fa-thumbs-o-down"></span></button></a>
                                     </td>
                                 </tr>
                             @endforeach
@@ -371,7 +374,7 @@
                             <a href="#"><i class="fa fa-tachometer"></i>Dashboard</a>
                         </li>
                         <li>
-                            <a href="#" data-toggle="modal" data-target="#account-settings-modal"><i class="fa fa-user"></i>Account Settings</a>
+                            <a href="#" data-toggle="modal" data-target="#account-settings-modal"><i class="fa fa-cog"></i>Account Settings</a>
                         </li>
                         <li>
                             <a href="#" data-toggle="modal" data-target="#add-volunteer-modal"><i class="fa fa-user-plus"></i>New Volunteer</a>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Profile;
 
 use App\Donations;
+use App\Helpers\Pagination;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Profile;
@@ -58,6 +59,7 @@ class StaffProfileController extends Controller
                     $volunteers->forget($volunteer->id);
                 }
             }
+
 
             //Handles getting all volunteers used for switching volunteer groups
             $all = Profile::all();
