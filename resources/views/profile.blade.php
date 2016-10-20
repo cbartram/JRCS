@@ -170,7 +170,7 @@
                                     <td><span class="label label-warning">{{$donation->status}}</span></td>
                                     <td><span class="label label-primary">{{$donation->date}}</span></td>
                                     <td>
-                                        <a href="/donation/approve/{{$donation->donation_id}}"><button type="button" class="btn btn-success">Approve</button></a>
+                                        <a href="/donation/approve/{{$donation->donation_id}}"><button type="button" class="btn btn-primary">Approve</button></a>
                                         <a href="/donation/deny/{{$donation->donation_id}}"><button type="button" class="btn btn-danger">Deny</button></a>
                                     </td>
                                 </tr>
