@@ -38,7 +38,11 @@ function getVolunteerById(id, getResult) {
     });
 }
 
-
+/**
+ * Gets a volunteers first name and last name given their id
+ * @param id volunteers id
+ * @param getResult callback function for getting the response
+ */
 function getNameById(id, getResult) {
     $.ajax({
         type: 'GET',
@@ -46,12 +50,59 @@ function getNameById(id, getResult) {
         dataType: "json",// data type of response
         success: function (data) {
             var name = data.first_name + " " + data.last_name;
-            console.log(name);
             getResult(name)
         }
     });
 }
 
+/**
+ * Gets a volunteers first name and last name given their email
+ * @param email volunteers email
+ * @param getResult callback function for getting the response
+ */
+function getNameByEmail(email, getResult) {
+    $.ajax({
+        type: 'GET',
+        url: baseURL + "/email/" + email,
+        dataType: "json",// data type of response
+        success: function (data) {
+            var name = data.first_name + " " + data.last_name;
+            getResult(name)
+        }
+    });
+}
+
+/**
+ * Gets a volunteers id given their email
+ * @param email volunteers email
+ * @param getResult callback function
+ */
+function getId(email, getResult) {
+    $.ajax({
+        type: 'GET',
+        url: baseURL + "/email/" + email,
+        dataType: "json",// data type of response
+        success: function (data) {
+            getResult(data.id)
+        }
+    });
+}
+
+/**
+ * Gets a volunteers email given their id
+ * @param id volunteers id
+ * @param getResult callback function
+ */
+function getEmail(id, getResult) {
+    $.ajax({
+        type: 'GET',
+        url: baseURL + "/id/" + id,
+        dataType: "json",// data type of response
+        success: function (data) {
+            getResult(data.email)
+        }
+    });
+}
 
 /**
  * Returns one specific volunteer in the system as a JSON object data for a specific
