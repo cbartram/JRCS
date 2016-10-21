@@ -154,6 +154,18 @@ Route::patch('api/v1/volunteers/id/{id}/{columnToUpdate}/{newValue}', 'REST\REST
 //Updates a volunteer with the specified email
 Route::patch('api/v1/volunteers/email/{email}/{columnToUpdate}/{newValue}', 'REST\RESTController@updateByEmail');
 
+//Handles finding all calendar events
+Route::get('api/v1/events/', 'REST\RESTController@findAllEvents');
+
+//Returns event given the event id
+Route::get('api/v1/events/{id}', 'REST\RESTController@findEventById');
+
+//Handles creating a new event in the calendar
+Route::get('api/v1/events/create/{start}/{end}/{title}/{color}', 'REST\RESTController@createEvent');
+
+//Deletes an event given the id
+Route::get('api/v1/events/delete/{id}', 'REST\RESTController@deleteEventById');
+
 
 
 

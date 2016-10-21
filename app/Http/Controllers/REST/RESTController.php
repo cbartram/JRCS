@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\REST;
 
+use App\Calendar;
 use App\Profile;
 use App\Http\Requests;
 use Illuminate\Support\Facades\DB;
@@ -42,5 +43,28 @@ class RESTController extends Controller
 
         $volunteer->save();
     }
+
+    public function findAllEvents() {
+        return Calendar::all();
+    }
+
+    public function findEventById($id) {
+        return Calendar::find($id);
+    }
+
+    public function createEvent($start, $end, $title, $color) {
+        $event = new Calendar();
+        $event->start = $start;
+        $event->end = $end;
+        $event->title = str_replace('_', ' ', $title);
+        $event->color = $color;
+
+        $event->save();
+    }
+
+    public function deleteEventById($id) {
+        return Calendar::where('id', $id)->delete();
+    }
+
 
 }

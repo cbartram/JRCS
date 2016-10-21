@@ -14,6 +14,9 @@
     <link href="../../public/css/Profile.css" rel="stylesheet">
     <link href="../../public/css/jquery-ui.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet">
+    <link href="../../public/css/fullcalendar.css" rel="stylesheet">
+    <link href="../../public/css/fullcalendar.print.css" rel="stylesheet">
+
 </head>
 
 <body>
@@ -59,7 +62,8 @@
                 @if (Auth::guest())
                     <li role="presentation" id="add-volunteer"><a href="#" data-toggle="modal" data-target="#add-volunteer-modal"><span class="fa fa-user-plus"></span> New Volunteer </a></li>
                     <li role="presentation" id="profile"><a href="#" data-toggle="modal" data-target="#pending-donations"><span class="fa fa-money"></span> Pending Donations</a></li>
-                    <li role="presentation" id="messages"><a  href="#"><span class="fa fa-calendar"></span> New Event</a></li>
+                    <li role="presentation" id="events"><a data-toggle="modal" data-target="#event-modal" href="#"><span class="fa fa-calendar"></span> New Event</a></li>
+                    <li role="presentation" id="log"><a href="#"><span class="fa fa-pencil"></span> Log Event</a></li>
                     <li role="presentation" id="checkout-volunteer"><a href="#"><span class="glyphicon glyphicon-log-out"></span> Checkout</a></li>
                     <li role="presentation" class="dropdown">
                         <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-random"></span>
@@ -133,6 +137,31 @@
     <!-- Modal close -->
 
 
+    <!-- Modal add event open -->
+    <div class="modal fade" id="event-modal" tabindex="-1" role="dialog" aria-labelledby="event">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" style="color:black;" id="event-add">Add a Calendar Event</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="start-date" placeholder="Start Date">
+                        <input type="text" class="form-control" id="end-date" placeholder="End Date">
+                        <input type="text" class="form-control" id="title" placeholder="Event Title">
+                        <button type="button" class="btn btn-primary" id="create-event" data-dismiss="modal">Create Event</button>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="modal-close" class="btn btn-primary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal close -->
+
+
     <!-- Modal for copy or switch -->
     <div class="modal fade" id="copy" role="dialog">
         <div class="modal-dialog">
@@ -173,7 +202,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" style="color:black;" id="myModalLabel">Pending Donations</h4>
+                    <h4 class="modal-title" style="color:black;" id="pending-donations">Pending Donations</h4>
                 </div>
                 <div class="modal-body">
 
@@ -232,7 +261,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" style="color:black;" id="myModalLabel">Account Settings</h4>
+                    <h4 class="modal-title" style="color:black;" id="acct-settings">Account Settings</h4>
                 </div>
                 <div class="modal-body">
                     <div class="row">
@@ -339,7 +368,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" style="color:black;" id="myModalLabel">Add a Volunteer</h4>
+                    <h4 class="modal-title" style="color:black;" id="vol-add">Add a Volunteer</h4>
                 </div>
                 <div class="modal-body">
                     {{ Form::open(array('url' => '/add', 'method' => 'post')) }}
@@ -488,9 +517,7 @@
                <div class="panel panel-default">
                    <div class="panel-heading">Events <span class="fa fa-calendar"></span></div>
                    <div class="panel-body">
-                       <p>PlaceHolder Content</p>
-                       <p>Lorem Ipsum Dolor sit amat</p>
-                       <p>More latin phrases here</p>
+                       <div id="calendar"></div>
                    </div>
                </div>
             </div>
@@ -587,8 +614,6 @@
     </div>
 
 
-
-
 </div> <!-- Closes container -->
 
 <!-- JS Libraries -->
@@ -598,6 +623,8 @@
 <script src="../../public/js/Highcharts.js"></script>
 <script src="../../public/js/jquery-ui.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+<script src='../../public/js/moment.js'></script>
+<script src="../../public/js/fullcalendar.min.js"></script>
 
 <!-- Local JS Files -->
 <script src="../../public/js/Chart.js"></script>

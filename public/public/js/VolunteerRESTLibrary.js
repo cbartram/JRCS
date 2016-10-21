@@ -4,6 +4,7 @@
  * it contains methods to query and parse volunteer info
  */
 var baseURL = "api/v1/volunteers";
+var eventURL = "api/v1/events";
 
 /**
  * Returns all volunteers in the system as a JSON object data for a specific
@@ -344,5 +345,71 @@ function checkOut(email, getResult) {
 }
 
 
+/**
+ * Returns all Calendar events in the Database
+ * @param getResult callback function
+ */
+function getAllEvents(getResult) {
+    $.ajax({
+        type: 'GET',
+        url: eventURL,
+        dataType: "json",
+        success: function (data) {
+           getResult(data);
+        }
+    });
+}
+
+/**
+ * Returns a specific event given the events id
+ * @param id Event Id
+ * @param getResult callback function
+ */
+function getEventById(id, getResult) {
+    $.ajax({
+        type: 'GET',
+        url: eventURL + "/" + id,
+        dataType: "json",
+        success: function (data) {
+            getResult(data);
+        }
+    });
+}
+
+/**
+ * Creates a new calendar event
+ * @param start start date in yyyy-m-d format
+ * @param end end date in yyyy-m-d format
+ * @param title Title (spaces will be replaced with underscores)
+ * @param color Color of the event in the calendar
+ * @param getResult callback function
+ */
+function createEvent(start, end, title, color, getResult) {
+    title = title.replace(' ', '_');
+    $.ajax({
+        type: 'GET',
+        url: eventURL + "/create/" + start + "/" + end + "/" + title + "/" + color,
+        dataType: "json",
+        success: function (data) {
+            getResult(data);
+        }
+    });
+}
+
+/**
+ * Deletes an event from the calendar given the id returns 1 if the deletion was successful 0 otherwise
+ * @param id the id of the event to delete
+ * @param getResult callback function to recieve a response.
+ */
+function deleteEvent(id, getResult) {
+    $.ajax({
+        type: 'GET',
+        url: eventURL + "/delete/" + id,
+        dataType: "json",
+        success: function (data) {
+            getResult(data);
+        }
+    });
+}
 
 
