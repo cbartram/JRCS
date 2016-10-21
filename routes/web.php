@@ -27,7 +27,6 @@ use Illuminate\Support\Facades\Session;
  */
 //Handles showing the user the root page
 Route::get('/login', function() {
-
     return view('login');
 });
 

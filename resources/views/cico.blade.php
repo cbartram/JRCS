@@ -20,20 +20,18 @@
 
 <div class="container">
 <div class="row" id="volunteer-login">
-    <h2 class="form-signin-heading" align="center">Volunteer Login</h2>
-    <!-- Alerts will show up in this dialog -->
+    <h2 class="form-signin-heading" align="center">Volunteer Check-in</h2>
 
-    <div class="col-lg-4"></div>
-    <div class="col-lg-4">
+    <div class="col-lg-4 col-lg-offset-4">
         <div id="alert-cico"></div>
         <form class="form-signin">
-            <input type="email" class="form-control" placeholder="Email" id="volunteer-email">
+            <input type="email" class="form-control" placeholder="Email" id="volunteer-email" style="width:100%;">
             <div class="row">
                 <div class="col-md-12" style="height:25px;"></div>
 
                 <!-- Volunteer type selector -->
                 <div class="form-group">
-                    <select class="form-control" id="volunteer-type">
+                    <select class="form-control" id="volunteer-type" style="width:100%">
                         <option name="default" selected>Select Volunteer Type</option>
                         <option name="program">Program</option>
                         <option name="board">Board</option>
@@ -61,19 +59,20 @@
                     </div>
                     <div class="col-md-12" style="height:25px;"></div>
                     <div class="col-md-12">
-                        <a href="/donation"><button type="button" class="btn btn-block btn-primary">File a Donation <i class="fa fa-money"></i></button></a>
+                        <a href="/donation"><button type="button" class="btn btn-block btn-success">File a Donation <i class="fa fa-money"></i></button></a>
                     </div>
                 </div>
             </div>
         </form>
     </div>
-    <div class="col-lg-4"></div>
 </div>
 <!-- Volunteer Check in end -->
 
+    <div class="row">
+        <div class="col-lg-12">
 <!-- Start of the volunteer check in table -->
 <div class="panel panel-default" id="checked-in-table">
-    <div class="panel-heading"><strong>Volunteers Checked In <i class="fa fa-list"></i></strong></div>
+    <div class="panel-heading"><strong>Volunteers Checked In <i class="fa fa-check"></i></strong></div>
     <div class="panel-body">
         <div class="row">
             <div class="col-md-12">
@@ -106,6 +105,9 @@
         <button class="btn btn-danger" id="check-out">Check-Out</button>
     </div>
 </div>
+
+    </div>
+    </div>
 
 </div>
 

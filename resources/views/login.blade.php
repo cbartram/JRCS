@@ -9,11 +9,10 @@
     <meta name="author" content="">
     <link rel="icon" href="../../favicon.ico">
 
-    <title>Volunteer Login</title>
+    <title>Staff Login</title>
 
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <!-- Custom styles for this template -->
     <link href="../../public/css/Login.css" rel="stylesheet">
 </head>
 
@@ -39,20 +38,12 @@
                 </div>
             @endif
 
-            @if ($errors->has('required'))
-                <div class="alert alert-danger">
-                    <strong>Error!</strong> There were some problems with your input.<br><br>
-                    <ul>
-                        <li>Your Username or Password is incorrect</li>
-                    </ul>
-                </div>
-            @endif
+            <div class="btn-group-vertical">
+                <p>{{ Form::text('email', Input::old('email'), array('placeholder' => 'Email', 'id' => 'email-input', 'class' => 'form-control')) }}</p>
+                <p>{{ Form::password('password', array('class' => 'form-control', 'id' => 'pass', 'placeholder' => 'Password')) }}</p>
+            </div>
 
-            <p>{{ Form::text('email', Input::old('email'), array('placeholder' => 'Email', 'class' => 'form-control')) }}</p>
-
-                <p>{{ Form::password('password', array('class' => 'form-control', 'placeholder' => 'Password')) }}</p>
-
-                    {{ Form::submit('Login', array('class' => 'btn btn-block btn-success')) }}
+            {{ Form::submit('Login', array('class' => 'btn btn-block btn-success')) }}
 
             {{ Form::close() }}
         </div>
@@ -60,14 +51,11 @@
     </div>
     <!-- End Staff Login -->
 
-
     <div class="row" id="forgot-password">
-        <div class="col-lg-4"></div>
-        <div class="col-lg-4">
+        <div class="col-lg-4 col-lg-offset-4">
             <br>
             <a href="/password/reset">Forgot your password?</a>
         </div>
-        <div class="col-lg-4"></div>
     </div>
 </div> <!-- /container -->
 
