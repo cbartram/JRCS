@@ -10,28 +10,8 @@ $(document).ready(function() {
     var typeSelector = $("#volunteer-type");
     var emailSelector = $("#volunteer-email");
 
-    //Hide the Staff Login on page load
-    $("#staff-login, #forgot-password, #volunteer-program").hide();
-
-    $("#staff-login-btn").click(function() {
-        if($(this).attr("class") != "btn btn-primary disabled") {
-            //show the staff login hide the volunteer login
-            $("#staff-login, #forgot-password").show("slow");
-            $("#volunteer-login, #volunteer-cico, #checked-in-table").hide();
-        }
-
-    });
-
-    $("#volunteer-login-btn").click(function() {
-        if($("#staff-login-btn").attr("class") != "btn btn-primary disabled") {
-            //show the volunteer login and hide the staff login
-            $("#volunteer-login, #checked-in-table").show("slow");
-            $("#staff-login, #volunteer-program, #forgot-password").hide();
-        }
-
-    });
-
     $(".alert-danger").effect("shake");
+    programSelector.hide();
 
 
     typeSelector.change(function() {
