@@ -67,8 +67,6 @@ $(document).ready(function() {
                 });
 
                 $("#switch-btn").click(function() {
-                    console.log(from + "," + to);
-                    //todo doesnt correctly remove them from their original group the issue is with the from variable
                     //Removes the volunteer from their original group
                     updateVolunteerById(id, dbSanitize(from), 0, function(callback) {});
 
