@@ -8,5 +8,5 @@ class Calendar extends Model
 {
     protected $table = 'calendar_events';
     protected $primaryKey = 'id';
-    public $incrementing = true;
+    public $incrementing = false;
 }
