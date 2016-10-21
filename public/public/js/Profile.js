@@ -3,6 +3,9 @@
  */
 
 $(document).ready(function() {
+    //Holds array of id's the staff member wishes to remove from the system
+    var deleteArray = [];
+
     $(".btn-success").click(function() {
         //Travels up the DOM searching for H4 tag with the CSS class user-name could be done better
         var user = $(this).parent().parent().parent().parent().find('.user-name').text();
@@ -38,6 +41,17 @@ $(document).ready(function() {
     //Add Date pickers from jqueryUI to date selectors
     $("#start-date, #end-date").datepicker();
 
+    //Handles emptying the trash!
+    $("#delete").click(function() {
+       for(var i = 0; i < deleteArray.length; i++) {
+           deleteVolunteerById(deleteArray[i], function(callback) {
+               window.location.reload();
+               toastr.success("Volunteer has been <strong>deleted</strong> successfully!");
+           });
+
+       }
+    });
+
     //Handles sorting and dragging volunteer cards
     $(function() {
         var from, to, id;
@@ -54,8 +68,20 @@ $(document).ready(function() {
                 id = sub.substring(sub.indexOf(':') + 1, sub.indexOf(':') + 13);
                 to = $.trim($(this).prev().text());
 
-                //Show the alert
-                $("#copy").modal();
+                if(to != 'Delete Volunteer') {
+                    //Show the alert
+                    $("#copy").modal();
+                } else {
+                    deleteArray.push(id);
+                    console.log(deleteArray);
+                }
+
+                //they have moved a volunteer out of the delete box
+                if(from == 'Delete Volunteer') {
+                    var index = deleteArray.indexOf(id);
+                    deleteArray.splice(index, 1);
+                    console.log(deleteArray);
+                }
 
                 $("#copy-btn").click(function() {
                     //Adds the volunteer to the new group without removing from the original
