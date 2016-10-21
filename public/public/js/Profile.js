@@ -46,8 +46,8 @@ $(document).ready(function() {
             handle: ".portlet-header",
             cancel: ".portlet-toggle",
             placeholder: "portlet-placeholder ui-corner-all",
-            out:function(event, ui) {
-              from = $.trim($(this).prev().text());
+            remove:function(event, ui) {
+                from = $.trim($(this).prev().text());
             },
             receive:function(event, ui) {
                 var sub = ui.item.children().text();
