@@ -131,7 +131,7 @@ function deleteVolunteerById(id, getResult) {
     var settings = {
         "async": true,
         "crossDomain": true,
-        "url": "http://localhost:8000/api/v1/volunteers/id/" + id,
+        "url": "http://jrcs.herokuapp.com/api/v1/volunteers/id/" + id,
         "method": "DELETE",
         "headers": {
             "cache-control": "no-cache"
@@ -151,7 +151,7 @@ function deleteVolunteerByEmail(email, getResult) {
     var settings = {
         "async": true,
         "crossDomain": true,
-        "url": "http://localhost:8000/api/v1/volunteers/email/" + email,
+        "url": "http://jrcs.herokuapp.com/api/v1/volunteers/email/" + email,
         "method": "DELETE",
         "headers": {
             "cache-control": "no-cache"
