@@ -603,7 +603,19 @@
             </div>
         </div>
     </div>
+
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <div class="panel panel-default">
+                <div class="panel-heading">Delete Volunteer <span class="fa fa-trash"></span></div>
+                <div class="panel-body panel-sortable">
+                    <button class="btn btn-danger" id="delete">Delete Volunteers <span class="fa fa-trash"></span></button>
+                </div>
+            </div>
+        </div>
+    </div>
     @endif
+
 
 </div> <!-- Closes container -->
 @endsection
