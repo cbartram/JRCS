@@ -32,15 +32,16 @@ class EventController extends Controller
         //if the validator fails, redirect back to the form
         if ($validator->fails()) {
             return Redirect::to('/profile')
+                ->withInput()
                 ->withErrors($validator); // send back all errors to the volunteer add form
         }
 
-        $event = EventLog::where('event_id' , Input::get('event-id'))->get();
+        $event = EventLog::where('event_id' , Input::get('event-id'))->first();
 
         //Couldnt find the event
         if($event == null) {
             return Redirect::to('/profile')
-                ->withErrors('Event with that Id could not be located.');
+                ->withErrors('Event with that Id could not be located.')->get();
         }
 
         //Insert based on what the staff inputted

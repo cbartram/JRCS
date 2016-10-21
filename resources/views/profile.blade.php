@@ -72,16 +72,16 @@
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
-                        <form method="get" action="/event">
-                            <input type="text" name="event-id" class="form-control" placeholder="Event Id">
-                            <input type="text" name="attendee_count" class="form-control" id="attendee_count" placeholder="Attendee Count">
-                            <textarea name="event_description" class="form-control" id="event_description" placeholder="Event Description"></textarea>
-                            <input name="volunteer_count" type="text" class="form-control" id="volunteer_count" placeholder="Volunteer Count">
-                            <input name="volunteer_hours" type="text" class="form-control" id="volunteer_hours" placeholder="Volunteer Hours">
-                            <input name="donation_amount" type="text" class="form-control" id="donation_amount" placeholder="Donation Amount">
+                        {{Form::open(array('url' => '/event'))}}
+                            {{Form::text('event-id', Input::old('event-id'), ['placeholder' => 'Event ID', 'class' => 'form-control']) }}
+                            {{Form::text('attendee_count', Input::old('attendee_count'), ['placeholder' => 'Attendee Count', 'class' => 'form-control']) }}
+                            {{Form::textarea('event_description', Input::old('event_description'), ['placeholder' => 'Event Description', 'class' => 'form-control'])}}
+                            {{Form::text('volunteer_count', Input::old('volunteer_count'), ['placeholder' => 'Volunteer Count', 'class' => 'form-control']) }}
+                            {{Form::text('volunteer_hours', Input::old('volunteer_hours'), ['placeholder' => 'Total Volunteer Hours', 'class' => 'form-control']) }}
+                            {{Form::text('donation_amount', Input::old('donation_amount'), ['placeholder' => 'Donation Amount', 'id' => 'donation_amount', 'class' => 'form-control']) }}
 
-                            <button type="submit" class="btn btn-primary" id="log-event" data-dismiss="modal">Log Event <span class="fa fa-edit"></span></button>
-                        </form>
+                        {{Form::submit('Log Event', ['class' => 'btn btn-primary'])}}
+                        {{Form::close()}}
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -459,7 +459,52 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">Event Log <span class="fa fa-pencil"></span></div>
                     <div class="panel-body">
-
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h4 style="color:black;">Events Coming up</h4>
+                                <table class="table table-striped">
+                                    <thead>
+                                        <th>Event ID</th>
+                                        <th>Title</th>
+                                        <th>Start Date</th>
+                                    </thead>
+                                    <tbody>
+                                            @foreach($calendar as $c)
+                                           <tr>
+                                              <td>{{$c->id}}</td>
+                                              <td>{{$c->title}}</td>
+                                              <td>{{$c->start}}</td>
+                                           </tr>
+                                            @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h4 style="color:black;">Event Log</h4>
+                                <table class="table table-striped">
+                                    <thead>
+                                    <th>Event ID</th>
+                                    <th>Attendees</th>
+                                    <th>Volunteers</th>
+                                    <th>Total Hours Volunteered</th>
+                                    <th>Donations</th>
+                                    </thead>
+                                    <tbody>
+                                        @foreach($log as $l)
+                                          <tr>
+                                            <td>{{$l->event_id}}</td>
+                                            <td>{{$l->attendee_count}}</td>
+                                            <td>{{$l->volunteer_count}}</td>
+                                            <td>{{$l->total_volunteer_hours}}</td>
+                                            <td>{{$l->donation_amount}}</td>
+                                          </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

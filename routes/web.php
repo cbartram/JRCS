@@ -38,7 +38,7 @@ Route::get('/', function() {
 });
 
 //Handles staff logging the event
-Route::get('/event', 'EventController@log');
+Route::post('/event', 'EventController@log');
 
 //Handles verifying the form data and authenticating the user
 Route::post('/', 'Auth\LoginController@handleLogin');

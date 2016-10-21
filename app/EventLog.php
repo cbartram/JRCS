@@ -8,5 +8,5 @@ class EventLog extends Model
 {
     protected $table = 'event_log';
     protected $primaryKey = 'event_id';
-    public $incrementing = true;
+    public $incrementing = false;
 }

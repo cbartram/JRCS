@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Profile;
 
+use App\Calendar;
 use App\Donations;
+use App\EventLog;
 use App\Helpers\Pagination;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
@@ -76,13 +78,20 @@ class StaffProfileController extends Controller
             //The groups the staff member has access to
             $groups = $this->isMemberOf($staff);
 
+            //todo these two tables can be inner joined to show the best of both talk to team about this.
+            //Events on the calendar and events in the event log
+            $calendar = Calendar::orderBy('id', 'ASC')->get();
+            $log = EventLog::orderBy('event_id', 'ASC')->get();
+
             //return the view and attach staff & volunteer objects to be accessed by blade templating engine
              return view('profile', compact('staff'), compact('volunteers'))
                 ->with('defaultGroup', $defaultGroup)
                 ->with('gravEmail', $gravEmail)
                 ->with('groups', $groups)
                 ->with('donations', $donations)
-                ->with('all', $all);
+                ->with('all', $all)
+                ->with('calendar', $calendar)
+                ->with('log', $log);
     }
 
     public function isMemberOf($user)
