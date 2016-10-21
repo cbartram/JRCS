@@ -60,6 +60,7 @@
                     <div class="col-md-12" style="height:25px;"></div>
                     <div class="col-md-12">
                         <a href="/donation"><button type="button" class="btn btn-block btn-success">File a Donation <i class="fa fa-money"></i></button></a>
+                        <a href="/login">Staff Login</a>
                     </div>
                 </div>
             </div>
@@ -68,8 +69,8 @@
 </div>
 <!-- Volunteer Check in end -->
 
-    <div class="row">
-        <div class="col-lg-12">
+<div class="row">
+  <div class="col-lg-12">
 <!-- Start of the volunteer check in table -->
 <div class="panel panel-default" id="checked-in-table">
     <div class="panel-heading"><strong>Volunteers Checked In <i class="fa fa-check"></i></strong></div>
@@ -105,9 +106,8 @@
         <button class="btn btn-danger" id="check-out">Check-Out</button>
     </div>
 </div>
-
-    </div>
-    </div>
+</div>
+</div>
 
 </div>
 
