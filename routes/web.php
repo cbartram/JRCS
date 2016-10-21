@@ -26,13 +26,18 @@ use Illuminate\Support\Facades\Session;
 |
  */
 //Handles showing the user the root page
+Route::get('/login', function() {
+
+    return view('login');
+});
+
 Route::get('/', function() {
     //Get all users from the table where they have not yet checked out joining with the profiles table
     $volunteers = Cico::where('check_out_timestamp', 'null')
         ->join('profiles', 'volunteer_cico.id', '=', 'profiles.id')
         ->get();
 
-    return view('login', compact('volunteers'));
+   return view('cico', compact('volunteers'));
 });
 
 //Handles verifying the form data and authenticating the user
