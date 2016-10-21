@@ -93,11 +93,21 @@ $(document).ready(function() {
        var end = formatDates($("#end-date").val());
        var title = $("#title").val();
 
-        //Use js API to create a new event!
-       createEvent(start, end, title, 'black', function(response) {});
-
-       toastr.success('Successfully created new event!');
+        if(start == "" || end == "" || title == "") {
+            toastr.error('You must fill out all the event fields!');
+        } else {
+            //Use js API to create a new event!
+            createEvent(start, end, title, 'black', function (response) {
+            });
+            toastr.success('Successfully created new event!');
+        }
     });
+
+    //Handles appending the $ to the money field
+    $("#donation_amount").focus(function() {
+        $(this).val('$' + $(this).val());
+    });
+
 
     //Handles showing the calendar with events
     $('#calendar').fullCalendar({

@@ -62,6 +62,38 @@
     <!-- Modal close -->
 
 
+    <!-- Modal Log Event open -->
+    <div class="modal fade" id="log-event-modal" tabindex="-1" role="dialog" aria-labelledby="log-event-modal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" style="color:black;" id="event-add">Log a Recent Event</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <form method="get" action="/event">
+                            <input type="text" name="event-id" class="form-control" placeholder="Event Id">
+                            <input type="text" name="attendee_count" class="form-control" id="attendee_count" placeholder="Attendee Count">
+                            <textarea name="event_description" class="form-control" id="event_description" placeholder="Event Description"></textarea>
+                            <input name="volunteer_count" type="text" class="form-control" id="volunteer_count" placeholder="Volunteer Count">
+                            <input name="volunteer_hours" type="text" class="form-control" id="volunteer_hours" placeholder="Volunteer Hours">
+                            <input name="donation_amount" type="text" class="form-control" id="donation_amount" placeholder="Donation Amount">
+
+                            <button type="submit" class="btn btn-primary" id="log-event" data-dismiss="modal">Log Event <span class="fa fa-edit"></span></button>
+                        </form>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="modal-close" class="btn btn-primary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal close -->
+
+
+
     <!-- Modal for copy or switch -->
     <div class="modal fade" id="copy" role="dialog">
         <div class="modal-dialog">
@@ -417,10 +449,22 @@
                <div class="panel panel-default">
                    <div class="panel-heading">Events <span class="fa fa-calendar"></span></div>
                    <div class="panel-body">
+                       <!-- FullCal Calendar is loaded here -->
                        <div id="calendar"></div>
                    </div>
                </div>
             </div>
+
+            <div class="col-md-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">Event Log <span class="fa fa-pencil"></span></div>
+                    <div class="panel-body">
+
+                    </div>
+                </div>
+            </div>
+
+
 
 
             <div class="col-md-12">
@@ -456,6 +500,8 @@
 </div>
 </div>
 
+    @if($defaultGroup == 'ADMIN')
+    <!-- Start to Swap and Copy Volunteer Profiles -->
     <div class="row">
         <div class="col-md-4">
             <div class="panel panel-default">
@@ -512,7 +558,7 @@
             </div>
         </div>
     </div>
-
+    @endif
 
 </div> <!-- Closes container -->
 @endsection

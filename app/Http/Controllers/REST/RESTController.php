@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\REST;
 
 use App\Calendar;
+use App\EventLog;
 use App\Profile;
 use App\Http\Requests;
 use Illuminate\Support\Facades\DB;
@@ -53,12 +54,25 @@ class RESTController extends Controller
     }
 
     public function createEvent($start, $end, $title, $color) {
+        $id = 'evt_' . str_random(10);
+
         $event = new Calendar();
+        $event->id = $id;
         $event->start = $start;
         $event->end = $end;
-        $event->title = str_replace('_', ' ', $title);
+        $event->title = str_replace('_', ' ', $title) . " - " . $id;
         $event->color = $color;
 
+        //Insert dummy row into event log with the same pk id as the event we just created
+        $event_log = new EventLog();
+        $event_log->event_id = $id;
+        $event_log->attendee_count = 0;
+        $event_log->event_description = "";
+        $event_log->volunteer_count = 0;
+        $event_log->total_volunteer_hours = 0;
+        $event_log->donation_amount = 0;
+
+        $event_log->save();
         $event->save();
     }
 

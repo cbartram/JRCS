@@ -64,7 +64,7 @@
                     <li role="presentation" id="add-volunteer"><a href="#" data-toggle="modal" data-target="#add-volunteer-modal"><span class="fa fa-user-plus"></span> New Volunteer </a></li>
                     <li role="presentation" id="profile"><a href="#" data-toggle="modal" data-target="#pending-donations"><span class="fa fa-money"></span> Pending Donations</a></li>
                     <li role="presentation" id="events"><a data-toggle="modal" data-target="#event-modal" href="#"><span class="fa fa-calendar"></span> New Event</a></li>
-                    <li role="presentation" id="log"><a href="#"><span class="fa fa-pencil"></span> Log Event</a></li>
+                    <li role="presentation" id="log"><a data-toggle="modal" data-target="#log-event-modal" href="#"><span class="fa fa-pencil"></span> Log Event</a></li>
                     <li role="presentation" id="checkout-volunteer"><a href="#"><span class="glyphicon glyphicon-log-out"></span> Checkout</a></li>
                     <li role="presentation" class="dropdown">
                         <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-random"></span>

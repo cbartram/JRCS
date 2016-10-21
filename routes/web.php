@@ -26,9 +26,7 @@ use Illuminate\Support\Facades\Session;
 |
  */
 //Handles showing the user the root page
-Route::get('/login', function() {
-    return view('login');
-});
+Route::get('/login', function() { return view('login'); });
 
 Route::get('/', function() {
     //Get all users from the table where they have not yet checked out joining with the profiles table
@@ -38,6 +36,9 @@ Route::get('/', function() {
 
    return view('cico', compact('volunteers'));
 });
+
+//Handles staff logging the event
+Route::get('/event', 'EventController@log');
 
 //Handles verifying the form data and authenticating the user
 Route::post('/', 'Auth\LoginController@handleLogin');
@@ -54,10 +55,7 @@ Route::get('/switch/{group}', function($group) {
 });
 
 //Logs a user out safely
-Route::get('/logout', function() {
-    Session::flush();
-    return Redirect::to('/');
-});
+Route::get('/logout', function() { Session::flush(); return Redirect::to('/'); });
 
 //Handles when a staff member registers a new volunteer
 Route::post('/add', 'addController@index');
