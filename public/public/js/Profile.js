@@ -46,8 +46,8 @@ $(document).ready(function() {
             handle: ".portlet-header",
             cancel: ".portlet-toggle",
             placeholder: "portlet-placeholder ui-corner-all",
-            out:function(event, ui) {
-              from = $.trim($(this).prev().text());
+            remove:function(event, ui) {
+                from = $.trim($(this).prev().text());
             },
             receive:function(event, ui) {
                 var sub = ui.item.children().text();
@@ -67,6 +67,8 @@ $(document).ready(function() {
                 });
 
                 $("#switch-btn").click(function() {
+                    console.log(from + "," + to);
+                    //todo doesnt correctly remove them from their original group the issue is with the from variable
                     //Removes the volunteer from their original group
                     updateVolunteerById(id, dbSanitize(from), 0, function(callback) {});
 
