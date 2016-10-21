@@ -4,7 +4,6 @@
 
 $(document).ready(function() {
     $(".btn-success").click(function() {
-
         //Travels up the DOM searching for H4 tag with the CSS class user-name could be done better
         var user = $(this).parent().parent().parent().parent().find('.user-name').text();
 
@@ -36,6 +35,10 @@ $(document).ready(function() {
         $(".modal-title").html(user + "'s Volunteer Details");
     });
 
+    //Add Date pickers from jqueryUI to date selectors
+    $("#start-date, #end-date").datepicker();
+
+    //Handles sorting and dragging volunteer cards
     $(function() {
         var from, to, id;
         $(".panel-body").sortable({
@@ -82,9 +85,54 @@ $(document).ready(function() {
             .addClass( "ui-widget-header ui-corner-all");
     });
 
+
+    //Handles the create event form from the modal
+    $("#create-event").click(function() {
+       //get the input data
+       var start = formatDates($("#start-date").val());
+       var end = formatDates($("#end-date").val());
+       var title = $("#title").val();
+
+        //Use js API to create a new event!
+       createEvent(start, end, title, 'black', function(response) {});
+
+       toastr.success('Successfully created new event!');
+    });
+
+    //Handles showing the calendar with events
+    $('#calendar').fullCalendar({
+        header: {
+            left: 'prev,next today',
+            center: 'title',
+            right: 'month,basicWeek,basicDay'
+        },
+        defaultDate: '2016-9-12',
+        theme: true,
+        navLinks: true,
+        editable: true,
+        eventLimit: true,
+        eventSources: [
+            {
+                url: '/api/v1/events',
+                color: 'blue',
+                textColor: 'black'
+            }
+            // any other sources...
+
+        ]
+    });
+
 });
 
+//formats a date from dd/mm/yyy to yyyy-m-d
+function formatDates(date) {
+    var d = date.split('/');
+    var month = d[0];
+    var day = d[1];
+    var year = d[2];
 
+    return year + '-' + month + "-" + day;
+}
 
 function dbSanitize(group) {
     switch(group) {
