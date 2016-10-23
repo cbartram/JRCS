@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
+use Kamaln7\Toastr\Facades\Toastr;
 
 class SettingsController extends Controller
 {
@@ -32,10 +33,10 @@ class SettingsController extends Controller
             //Persist information to the database
             $staff->save();
         } else {
-            Session::flash('alert-danger', 'Could not update your default group please try again...');
+            Toastr::error('Could not update your default group please try again...', $title = 'Error', $options = []);
             return Redirect::back();
         }
-        Session::flash('alert-success', 'Your default group has been updated to: ' . $defaultGroup);
+        Toastr::success('Your default group has been updated to: ' . $defaultGroup, $title = 'Success', $options = []);
         return Redirect::back();
     }
 
@@ -57,10 +58,10 @@ class SettingsController extends Controller
                 $staff->save();
                 //Set the session variable
                 Session::put('show-self', true);
-                Session::flash('alert-success', 'Your settings have been saved!');
+                Toastr::success('Your settings have been saved successfully!', $title = 'Success', $options = []);
                 return Redirect::back();
             } else {
-                Session::flash('alert-danger', 'Could not update your preferences please try again...');
+                Toastr::error('Failed to update your account settings', $title = 'Error', $options = []);
                 return Redirect::back();
             }
 
@@ -69,7 +70,7 @@ class SettingsController extends Controller
             $staff->save();
 
             Session::forget('show-self');
-            Session::flash('alert-success', 'Showing yourself in the volunteer cards has been turned off.');
+            Toastr::success('Showing yourself in the volunteer cards has been turned off', $title = 'Success', $options = []);
             return Redirect::back();
         }
     }
@@ -86,7 +87,7 @@ class SettingsController extends Controller
         //if the validator fails, redirect back to the form
         if ($validator->fails()) {
 
-            Session::flash('alert-danger', 'You must fill out both fields to reset your password!');
+            Toastr::error('You must fill out both fields to reset your password!', $title = 'Error', $options = []);
             return Redirect::back();
 
         } else {
@@ -99,12 +100,12 @@ class SettingsController extends Controller
                 if($staff != null) {
                     $staff->password = $password;
                     $staff->save();
-                    Session::flash('alert-success', 'Your password has been successfully updated!');
+                    Toastr::success('Your password has been updated successfully!', $title = 'Success', $options = []);
                     return Redirect::back();
                 }
 
             } else {
-                Session::flash('alert-danger', 'Your password fields must match...');
+                Toastr::error('Your password fields must match!', $title = 'Error', $options = []);
                 return Redirect::back();
             }
         }

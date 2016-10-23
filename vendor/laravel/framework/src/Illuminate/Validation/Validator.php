@@ -197,7 +197,8 @@ class Validator implements ValidatorContract
      * @param  array  $customAttributes
      * @return void
      */
-    public function __construct(TranslatorInterface $translator, array $data, array $rules, array $messages = [], array $customAttributes = [])
+    public function __construct(TranslatorInterface $translator, array $data, array $rules,
+                                array $messages = [], array $customAttributes = [])
     {
         $this->initialRules = $rules;
         $this->translator = $translator;
@@ -268,10 +269,10 @@ class Validator implements ValidatorContract
     /**
      * Explode the rules into an array of rules.
      *
-     * @param  string|array  $rules
+     * @param  array  $rules
      * @return array
      */
-    protected function explodeRules($rules)
+    protected function explodeRules(array $rules)
     {
         foreach ($rules as $key => $rule) {
             if (Str::contains($key, '*')) {
