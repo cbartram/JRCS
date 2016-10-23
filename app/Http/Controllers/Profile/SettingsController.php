@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Profile;
 
+use App\Helpers\Settings;
 use App\Http\Controllers\Controller;
 use App\StaffProfile;
 use Illuminate\Http\Request;
@@ -15,6 +16,10 @@ use Illuminate\Support\Facades\Validator;
 
 class SettingsController extends Controller
 {
+    /**
+     * Handles setting the staff members default group
+     * @return mixed
+     */
     public function defaultGroup() {
         $defaultGroup = Input::get('group-radio');
 
@@ -35,17 +40,36 @@ class SettingsController extends Controller
     }
 
 
+    /**
+     * Handles the show self checkbox
+     * @return mixed
+     */
     public function self() {
+        $staff = StaffProfile::find(Session::get('id'));
+
         //The user has checked the checkbox
         if(Input::get('self-checkbox') == 'true') {
-            //Set the session variable
-            Session::put('show-self', true);
-            Session::flash('alert-success', 'Your settings have been saved!');
-            return Redirect::back();
+
+            //The staff member could be found
+            if($staff != null) {
+                $staff->show_self = true;
+
+                $staff->save();
+                //Set the session variable
+                Session::put('show-self', true);
+                Session::flash('alert-success', 'Your settings have been saved!');
+                return Redirect::back();
+            } else {
+                Session::flash('alert-danger', 'Could not update your preferences please try again...');
+                return Redirect::back();
+            }
+
         } else {
-            //Unset the session variable if the user does not want to see their card.
+            $staff->show_self = false;
+            $staff->save();
+
             Session::forget('show-self');
-            Session::flash('alert-success', 'Your settings have been saved!');
+            Session::flash('alert-success', 'Showing yourself in the volunteer cards has been turned off.');
             return Redirect::back();
         }
     }
@@ -84,6 +108,5 @@ class SettingsController extends Controller
                 return Redirect::back();
             }
         }
-
     }
 }
