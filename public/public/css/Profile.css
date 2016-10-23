@@ -12,6 +12,10 @@ h1, h2, h3, h4 {
     color:black;
 }
 
+.fa-minus, .fa-plus {
+    float:right;
+}
+
 /* Handles the navbar color */
 .navbar-default {
     border-color: transparent;
