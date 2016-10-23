@@ -6,6 +6,11 @@ $(document).ready(function() {
     //Holds array of id's the staff member wishes to remove from the system
     var deleteArray = [];
 
+    $('.fa-minus').click(function() {
+        $(this).parent().next().slideToggle("slow");
+        $(this).toggleClass('fa-plus fa-minus');
+    });
+
     $(".btn-success").click(function() {
         //Travels up the DOM searching for H4 tag with the CSS class user-name could be done better
         var user = $(this).parent().parent().parent().parent().find('.user-name').text();

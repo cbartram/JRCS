@@ -351,8 +351,8 @@
     <div class="row profile">
         <div class="col-md-3">
             <div class="panel panel-default">
-                <div class="panel-heading">Profile <span class="fa fa-user"></span></div>
-                <div class="panel-body">
+                <div class="panel-heading">Profile <span class="fa fa-user"></span> <span class="fa fa-minus fa-2x"></span></div>
+                <div class="panel-body" id="test">
             <div class="profile-sidebar">
                 <div class="profile-userpic">
                     <img src="https://www.gravatar.com/avatar/{{$gravEmail}}?d=http://aeroscripts.x10host.com/images/default.jpg&s=350" class="img-responsive" alt="">
@@ -388,7 +388,7 @@
 
         <div class="col-md-9">
             <div class="panel panel-default">
-                <div class="panel-heading">Dashboard <span class="fa fa-tachometer"></span></div>
+                <div class="panel-heading">Dashboard <span class="fa fa-tachometer"></span> <span class="fa fa-minus fa-2x"></span></div>
                 <div class="panel-body">
             <div class="profile-content">
                 <div class="row">
@@ -406,7 +406,7 @@
         <div class="row profile">
             <div class="col-md-3">
                 <div class="panel panel-default">
-                    <div class="panel-heading">Alerts <span class="fa fa-bell"></span></div>
+                    <div class="panel-heading">Alerts <span class="fa fa-bell"></span> <span class="fa fa-minus fa-2x"></span></div>
                     <div class="panel-body">
 
                         @if (count($errors) > 0)
@@ -447,7 +447,7 @@
 
             <div class="col-md-9">
                <div class="panel panel-default">
-                   <div class="panel-heading">Events <span class="fa fa-calendar"></span></div>
+                   <div class="panel-heading">Events <span class="fa fa-calendar"></span> <span class="fa fa-minus fa-2x"></span></div>
                    <div class="panel-body">
                        <!-- FullCal Calendar is loaded here -->
                        <div id="calendar"></div>
@@ -457,7 +457,7 @@
 
             <div class="col-md-12">
                 <div class="panel panel-default">
-                    <div class="panel-heading">Event Log <span class="fa fa-pencil"></span></div>
+                    <div class="panel-heading">Event Log <span class="fa fa-pencil"></span> <span class="fa fa-minus fa-2x"></span></div>
                     <div class="panel-body">
                         <div class="row">
                             <div class="col-md-12">
@@ -514,7 +514,7 @@
 
             <div class="col-md-12">
                 <div class="panel panel-default">
-                    <div class="panel-heading">Volunteer Profiles <span class="fa fa-users"></span></div>
+                    <div class="panel-heading">Volunteer Profiles <span class="fa fa-users"></span> <span class="fa fa-minus fa-2x"></span></div>
                     <div class="panel-body">
                 <div class="profile-content" style="float:top;">
                     <div class="row">
@@ -550,7 +550,7 @@
     <div class="row">
         <div class="col-md-4">
             <div class="panel panel-default">
-                <div class="panel-heading">BEBCO <span class="fa fa-folder"></span></div>
+                <div class="panel-heading">BEBCO <span class="fa fa-folder"></span> <span class="fa fa-minus fa-2x"></span></div>
                 <div class="panel-body panel-sortable">
                     @foreach($all as $a)
                         @if($a->bebco_volunteer == 1)
@@ -568,7 +568,7 @@
         </div>
         <div class="col-md-4">
             <div class="panel panel-default">
-                <div class="panel-heading">JACO <span class="fa fa-folder"></span></div>
+                <div class="panel-heading">JACO <span class="fa fa-folder"></span> <span class="fa fa-minus fa-2x"></span></div>
                 <div class="panel-body panel-sortable">
                     @foreach($all as $a)
                         @if($a->jaco_volunteer == 1)
@@ -586,7 +586,7 @@
         </div>
         <div class="col-md-4">
             <div class="panel panel-default">
-                <div class="panel-heading">JBC <span class="fa fa-folder"></span></div>
+                <div class="panel-heading">JBC <span class="fa fa-folder"></span> <span class="fa fa-minus fa-2x"></span></div>
                 <div class="panel-body panel-sortable">
                     @foreach($all as $a)
                         @if($a->jbc_volunteer == 1)
@@ -607,7 +607,7 @@
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
-                <div class="panel-heading">Delete Volunteer <span class="fa fa-trash"></span></div>
+                <div class="panel-heading">Delete Volunteer <span class="fa fa-trash"></span> <span class="fa fa-minus fa-2x"></span></div>
                 <div class="panel-body panel-sortable">
                     <button class="btn btn-danger" id="delete">Delete Volunteers <span class="fa fa-trash"></span></button>
                 </div>
