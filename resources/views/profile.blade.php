@@ -377,6 +377,9 @@
                             <a href="#" data-toggle="modal" data-target="#add-volunteer-modal"><i class="fa fa-user-plus"></i>New Volunteer</a>
                         </li>
                         <li>
+                            <a href="#" id="hide-all"><i class="fa fa-eye-slash"></i>Show/Hide All</a>
+                        </li>
+                        <li>
                             <a href="/logout"><i class="glyphicon glyphicon-log-out"></i>Logout</a>
                         </li>
                     </ul>
