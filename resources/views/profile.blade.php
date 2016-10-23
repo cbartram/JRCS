@@ -377,6 +377,9 @@
                             <a href="#" data-toggle="modal" data-target="#add-volunteer-modal"><i class="fa fa-user-plus"></i>New Volunteer</a>
                         </li>
                         <li>
+                            <a href="#" id="hide-all"><i class="fa fa-eye-slash"></i>Show/Hide All</a>
+                        </li>
+                        <li>
                             <a href="/logout"><i class="glyphicon glyphicon-log-out"></i>Logout</a>
                         </li>
                     </ul>
@@ -404,48 +407,8 @@
 
 
         <div class="row profile">
-            <div class="col-md-3">
-                <div class="panel panel-default">
-                    <div class="panel-heading">Alerts <span class="fa fa-bell"></span> <span class="fa fa-minus fa-2x"></span></div>
-                    <div class="panel-body">
 
-                        @if (count($errors) > 0)
-                            <div class="alert alert-danger alert-dismissible">
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                                <strong>Error!</strong> There were some problems with your input.<br><br>
-                                <ul>
-                                    @foreach ($errors->all() as $error)
-                                        <li>{{ $error }}</li>
-                                    @endforeach
-                                </ul>
-                            </div>
-                        @endif
-
-                        @foreach (['danger', 'warning', 'success', 'info'] as $msg)
-                            @if(Session::has('alert-' . $msg))
-                                <div class="flash-message">
-                                    <p class="alert alert-{{ $msg }} alert-dismissible">
-                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                        {{ Session::get('alert-' . $msg) }}
-                                    </p>
-                                </div>
-                            @endif
-                        @endforeach
-
-                        @if(!Session::has('alert-danger') && count($errors) == 0 && !Session::has('alert-success'))
-                                <div class="alert alert-info">
-                                    You've got no Alerts enjoy your day!
-                                </div>
-                        @endif
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-9">
+            <div class="col-md-12">
                <div class="panel panel-default">
                    <div class="panel-heading">Events <span class="fa fa-calendar"></span> <span class="fa fa-minus fa-2x"></span></div>
                    <div class="panel-body">
@@ -605,7 +568,7 @@
     </div>
 
     <div class="row">
-        <div class="col-md-8 col-md-offset-2">
+        <div class="col-md-12">
             <div class="panel panel-default">
                 <div class="panel-heading">Delete Volunteer <span class="fa fa-trash"></span> <span class="fa fa-minus fa-2x"></span></div>
                 <div class="panel-body panel-sortable">

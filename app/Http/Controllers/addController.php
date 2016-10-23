@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
+use Kamaln7\Toastr\Facades\Toastr;
 
 class addController extends Controller
 {
@@ -32,8 +33,9 @@ class addController extends Controller
 
         //if the validator fails, redirect back to the form
         if ($validator->fails()) {
+            Toastr::error('You must fill out all the fields and the email must be a valid email', $title = 'Error creating volunteer', $options = []);
             return Redirect::to('/profile')
-                ->withErrors($validator); // send back all errors to the volunteer add form
+                ->withInput();
         }
 
         //Create a new volunteer
@@ -55,7 +57,8 @@ class addController extends Controller
 
             //ensure at least one checkbox is selected so the volunteer doesnt dissapear in the db
             if(Input::get('bebco-checkbox') != 'true' && Input::get('jaco-checkbox') != 'true' && Input::get('jbc-checkbox') != 'true') {
-                Session::flash('alert-danger', 'You must add the volunteer to at least one group.');
+                Toastr::error('You must add the volunteer to at least one group.', $title = 'Error', $options = []);
+
 
                 return Redirect::back();
              }
@@ -81,7 +84,7 @@ class addController extends Controller
             //Persist and insert volunteer to the database
             $volunteer->save();
 
-        Session::flash('alert-success', 'New volunteer added successfully!');
+        Toastr::success('Volunteer created successfully!', $title = 'Success', $options = []);
         return Redirect::back();
     }
 }

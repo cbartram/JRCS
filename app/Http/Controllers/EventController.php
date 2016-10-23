@@ -10,6 +10,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
+use Kamaln7\Toastr\Facades\Toastr;
 
 class EventController extends Controller
 {
@@ -31,17 +32,18 @@ class EventController extends Controller
 
         //if the validator fails, redirect back to the form
         if ($validator->fails()) {
+
+            Toastr::error('There were some error with your input. Ensure all the fields are filled out', $title = 'Error logging event', $options = []);
             return Redirect::to('/profile')
-                ->withInput()
-                ->withErrors($validator); // send back all errors to the volunteer add form
+                ->withInput();
         }
 
         $event = EventLog::where('event_id' , Input::get('event-id'))->first();
 
         //Couldnt find the event
         if($event == null) {
-            return Redirect::to('/profile')
-                ->withErrors('Event with that Id could not be located.')->get();
+            Toastr::error('Event with that Id could not be located.', $title = 'Event ID not found', $options = []);
+            return Redirect::to('/profile');
         }
 
         //Insert based on what the staff inputted
@@ -53,7 +55,7 @@ class EventController extends Controller
 
         $event->save();
 
-        return Redirect::to('/profile')
-            ->with('alert-success', 'Successfully Logged Event!');
+        Toastr::success('Successfully logged and saved event information!', $title = 'Success', $options = []);
+        return Redirect::to('/profile');
     }
 }

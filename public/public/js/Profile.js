@@ -11,6 +11,13 @@ $(document).ready(function() {
         $(this).toggleClass('fa-plus fa-minus');
     });
 
+    $('#hide-all').click(function() {
+        //for each panel body on the page
+       $('.panel-body').each(function() {
+          $(this).slideToggle("slow");
+       });
+    });
+
     $(".btn-success").click(function() {
         //Travels up the DOM searching for H4 tag with the CSS class user-name could be done better
         var user = $(this).parent().parent().parent().parent().find('.user-name').text();
