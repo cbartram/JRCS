@@ -264,6 +264,21 @@
                             {{Form::close()}}
                         </div>
                     </div>
+
+                    <div class="row">
+                        <div class="col-lg-12">
+                            {{Form::open(array('url' => '/settings/drop', 'method' => 'post'))}}
+                                <div class="checkbox">
+                                    <label>{{Form::checkbox('drop-checkbox', 'true', false) }} Show Drag & Drop for all Groups</label>
+                                </div>
+                        </div>
+                        <div class="col-lg-12">
+                            {{ Form::submit('Save', array('class' => 'btn btn-primary')) }}
+                            {{Form::close()}}
+                        </div>
+                    </div>
+
+
                     <!-- Start of the password reset option -->
                     <div class="row">
                         <div class="col-lg-12">
@@ -414,6 +429,18 @@
                    <div class="panel-body">
                        <!-- FullCal Calendar is loaded here -->
                        <div id="calendar"></div>
+                       <div class="row">
+                       <div class="col-md-6 col-md-offset-6" style="margin-top:20px;">
+                           <form method="get" action="/event/remove">
+                           <div class="input-group input-group-lg">
+                               <input type="text" class="form-control" name="id" placeholder="Event ID">
+                               <span class="input-group-btn">
+                                    <button type="submit" class="btn btn-danger">Remove Event <span class="fa fa-trash"></span></button>
+                                </span>
+                           </div>
+                           </form>
+                       </div>
+                   </div>
                    </div>
                </div>
             </div>
@@ -508,7 +535,7 @@
 </div>
 </div>
 
-    @if($defaultGroup == 'ADMIN')
+    @if($defaultGroup == 'ADMIN' || Session::has('drop'))
     <!-- Start to Swap and Copy Volunteer Profiles -->
     <div class="row">
         <div class="col-md-4">
