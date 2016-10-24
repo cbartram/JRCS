@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Profile;
 
 use App\Helpers\Settings;
 use App\Http\Controllers\Controller;
+use App\Profile;
 use App\StaffProfile;
 use Illuminate\Http\Request;
 
@@ -38,6 +39,26 @@ class SettingsController extends Controller
         }
         Toastr::success('Your default group has been updated to: ' . $defaultGroup, $title = 'Success', $options = []);
         return Redirect::back();
+    }
+
+    /**
+     * Handles showing/hiding drag & drop features for all groups or just while viewing the admin group
+     */
+    public function drop() {
+        $checkbox = Input::get('drop-checkbox');
+
+        //Place a session
+        if($checkbox == true) {
+            Session::put('drop', true);
+
+            Toastr::success('Drag and Drop view has been turned on!', $title = 'Success', $options = []);
+            return Redirect::back();
+        } else {
+            Session::forget('drop');
+            Toastr::success('Drag and Drop view has been turned off!', $title = 'Success', $options = []);
+
+            return Redirect::back();
+        }
     }
 
 
@@ -75,6 +96,10 @@ class SettingsController extends Controller
         }
     }
 
+    /**
+     * Handles reseting the password from inside the application
+     * @return mixed
+     */
     public function resetPassword() {
         $rules = array(
             'password-text'    => 'required',

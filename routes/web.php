@@ -60,11 +60,23 @@ Route::get('/logout', function() { Session::flush(); return Redirect::to('/'); }
 //Handles when a staff member registers a new volunteer
 Route::post('/add', 'addController@index');
 
+
+/*
+|------------------------------------------------------------------------
+| Routes for Settings
+|------------------------------------------------------------------------
+| These routes define the specific GET and POST requests that are required
+| for the account settings in the staff profile page to function correctly.
+|
+ */
 //Handles account settings for default group
 Route::post('/settings', 'Profile\SettingsController@defaultGroup');
 
 //Handles account settings for showing self in the volunteer cards
 Route::post('/settings/self', 'Profile\SettingsController@self');
+
+//Handles showing/hiding drag and drop feature for all groups not just admin
+Route::post('/settings/drop', 'Profile\SettingsController@drop');
 
 
 /*

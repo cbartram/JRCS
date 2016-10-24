@@ -264,6 +264,21 @@
                             {{Form::close()}}
                         </div>
                     </div>
+
+                    <div class="row">
+                        <div class="col-lg-12">
+                            {{Form::open(array('url' => '/settings/drop', 'method' => 'post'))}}
+                                <div class="checkbox">
+                                    <label>{{Form::checkbox('drop-checkbox', 'true', false) }} Show Drag & Drop for all Groups</label>
+                                </div>
+                        </div>
+                        <div class="col-lg-12">
+                            {{ Form::submit('Save', array('class' => 'btn btn-primary')) }}
+                            {{Form::close()}}
+                        </div>
+                    </div>
+
+
                     <!-- Start of the password reset option -->
                     <div class="row">
                         <div class="col-lg-12">
@@ -508,7 +523,7 @@
 </div>
 </div>
 
-    @if($defaultGroup == 'ADMIN')
+    @if($defaultGroup == 'ADMIN' || Session::has('drop'))
     <!-- Start to Swap and Copy Volunteer Profiles -->
     <div class="row">
         <div class="col-md-4">
