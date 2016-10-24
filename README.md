@@ -109,6 +109,7 @@ If your still recieving errors try following the composer installation guide fro
 - Added Additional Account Settings
 - Highcharts integration
 - FullCalendar integration
+- Persistant storage for account settings instead of using sessions
 - Event, Calendar, and event logging functionality added
 - Donation, donation approva/denial functionality added
 - More expressive definitions between staff and admin 
