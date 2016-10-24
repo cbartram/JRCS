@@ -37,9 +37,6 @@ Route::get('/', function() {
    return view('cico', compact('volunteers'));
 });
 
-//Handles staff logging the event
-Route::post('/event', 'EventController@log');
-
 //Handles verifying the form data and authenticating the user
 Route::post('/', 'Auth\LoginController@handleLogin');
 
@@ -60,6 +57,20 @@ Route::get('/logout', function() { Session::flush(); return Redirect::to('/'); }
 //Handles when a staff member registers a new volunteer
 Route::post('/add', 'addController@index');
 
+/*
+|------------------------------------------------------------------------
+| Routes for Events
+|------------------------------------------------------------------------
+| These routes define the specific GET and POST requests that are required
+| for events to be added to the calendar, removed, and logged.
+|
+ */
+
+//Handles staff logging the event
+Route::post('/event', 'EventController@log');
+
+//Handles Removing an event given the event id
+Route::get('/event/remove', 'EventController@remove');
 
 /*
 |------------------------------------------------------------------------

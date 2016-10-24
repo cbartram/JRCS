@@ -429,6 +429,18 @@
                    <div class="panel-body">
                        <!-- FullCal Calendar is loaded here -->
                        <div id="calendar"></div>
+                       <div class="row">
+                       <div class="col-md-6 col-md-offset-6" style="margin-top:20px;">
+                           <form method="get" action="/event/remove">
+                           <div class="input-group input-group-lg">
+                               <input type="text" class="form-control" name="id" placeholder="Event ID">
+                               <span class="input-group-btn">
+                                    <button type="submit" class="btn btn-danger">Remove Event <span class="fa fa-trash"></span></button>
+                                </span>
+                           </div>
+                           </form>
+                       </div>
+                   </div>
                    </div>
                </div>
             </div>

@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Calendar;
 use App\EventLog;
-use Illuminate\Http\Request;
 
 use App\Http\Requests;
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
@@ -14,6 +13,25 @@ use Kamaln7\Toastr\Facades\Toastr;
 
 class EventController extends Controller
 {
+    /**
+     * Removes the event from the calendar given the event id
+     */
+    public function remove() {
+        $id = Input::get('id');
+
+        if(Calendar::find($id) != null) {
+           Calendar::destroy($id);
+           EventLog::destroy($id);
+
+           Toastr::success('Successfully removed calendar event!', $title = 'Event Deleted!', $options = []);
+           return Redirect::back();
+        } else {
+            Toastr::error('Could not find the calendar event.', $title = 'Invalid Event ID: ' . $id, $options = []);
+            return Redirect::back();
+        }
+    }
+
+
     /**
      * Validates data and logs an event the the database
      */
