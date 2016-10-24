@@ -13,7 +13,8 @@
         "predis/predis": "^1.1",
         "swiftmailer/swiftmailer": "^5.4",
         "guzzlehttp/guzzle": "^6.2",
-        "kamaln7/toastr": "dev-master"
+        "kamaln7/toastr": "dev-master",
+        "halleck45/phpmetrics": "^1.10"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

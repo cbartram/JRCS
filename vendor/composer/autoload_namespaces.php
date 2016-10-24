@@ -6,11 +6,13 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'Twig_' => array($vendorDir . '/twig/twig/lib'),
     'Prophecy\\' => array($vendorDir . '/phpspec/prophecy/src'),
     'Mockery' => array($vendorDir . '/mockery/mockery/library'),
     'Kamaln7\\Toastr\\' => array($vendorDir . '/kamaln7/toastr/src'),
     'JakubOnderka\\PhpConsoleHighlighter' => array($vendorDir . '/jakub-onderka/php-console-highlighter/src'),
     'JakubOnderka\\PhpConsoleColor' => array($vendorDir . '/jakub-onderka/php-console-color/src'),
+    'Hal\\' => array($vendorDir . '/halleck45/phpmetrics/src'),
     'Doctrine\\DBAL\\' => array($vendorDir . '/doctrine/dbal/lib'),
     'Doctrine\\Common\\Lexer\\' => array($vendorDir . '/doctrine/lexer/lib'),
     'Doctrine\\Common\\Inflector\\' => array($vendorDir . '/doctrine/inflector/lib'),
