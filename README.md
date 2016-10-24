@@ -101,3 +101,17 @@ If your still recieving errors try following the composer installation guide fro
 - Fixed several bugs and security issues
 - Added account settings panel which gives staff several ways to manage their account
 
+###Version 2.1.0
+- Added Redis functionality
+- Rewrote UI across the entire site
+- Show/Hide for all panels
+- New and easy to use navbar
+- Added Additional Account Settings
+- Highcharts integration
+- FullCalendar integration
+- Event, Calendar, and event logging functionality added
+- Donation, donation approva/denial functionality added
+- More expressive definitions between staff and admin 
+- Volunteer *Drag and Drop* to switch and copy volunteers between group
+- Volunteer drag and drop to delete volunteers
+
