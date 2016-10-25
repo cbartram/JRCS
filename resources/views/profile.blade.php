@@ -234,7 +234,7 @@
                     <!-- Start of the staff member view themselves part of the modal -->
                     <div class="row">
                         <div class="col-lg-12">
-                            <h5>View yourself in the Volunteer Cards</h5>
+                            <h5>Edit your Views</h5>
                             <hr>
                         </div>
                     </div>
@@ -265,6 +265,7 @@
                         </div>
                     </div>
 
+                    @if(Helpers::isAdmin(Session::get('id')))
                     <div class="row">
                         <div class="col-lg-12">
                             {{Form::open(array('url' => '/settings/drop', 'method' => 'post'))}}
@@ -277,6 +278,7 @@
                             {{Form::close()}}
                         </div>
                     </div>
+                    @endif
 
 
                     <!-- Start of the password reset option -->
@@ -451,31 +453,12 @@
                     <div class="panel-body">
                         <div class="row">
                             <div class="col-md-12">
-                                <h4 style="color:black;">Events Coming up</h4>
-                                <table class="table table-striped">
-                                    <thead>
-                                        <th>Event ID</th>
-                                        <th>Title</th>
-                                        <th>Start Date</th>
-                                    </thead>
-                                    <tbody>
-                                            @foreach($calendar as $c)
-                                           <tr>
-                                              <td>{{$c->id}}</td>
-                                              <td>{{$c->title}}</td>
-                                              <td>{{$c->start}}</td>
-                                           </tr>
-                                            @endforeach
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-12">
                                 <h4 style="color:black;">Event Log</h4>
                                 <table class="table table-striped">
                                     <thead>
                                     <th>Event ID</th>
+                                    <th>Event Title</th>
+                                    <th>Start Date</th>
                                     <th>Attendees</th>
                                     <th>Volunteers</th>
                                     <th>Total Hours Volunteered</th>
@@ -485,9 +468,11 @@
                                         @foreach($log as $l)
                                           <tr>
                                             <td>{{$l->event_id}}</td>
-                                            <td>{{$l->attendee_count}}</td>
-                                            <td>{{$l->volunteer_count}}</td>
-                                            <td>{{$l->total_volunteer_hours}}</td>
+                                            <td>{{$l->title}}</td>
+                                            <td>{{$l->start}}</td>
+                                            <td>@if($l->attendee_count == 0) - @else {{$l->attendee_count}} @endif</td>
+                                            <td>@if($l->volunteer_count == 0) - @else {{$l->volunteer_count}} @endif</td>
+                                            <td>@if($l->total_volunteer_hours == 0) - @else {{$l->total_volunteer_hours}} @endif</td>
                                             <td>{{$l->donation_amount}}</td>
                                           </tr>
                                         @endforeach

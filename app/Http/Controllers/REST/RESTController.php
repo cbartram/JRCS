@@ -60,7 +60,7 @@ class RESTController extends Controller
         $event->id = $id;
         $event->start = $start;
         $event->end = $end;
-        $event->title = str_replace('_', ' ', $title) . " - " . $id;
+        $event->title = str_replace('_', ' ', $title);
         $event->color = $color;
 
         //Insert dummy row into event log with the same pk id as the event we just created
