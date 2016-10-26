@@ -11,6 +11,7 @@ use App\Http\Controllers\Controller;
 use App\Profile;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\Session;
 
 class StaffProfileController extends Controller

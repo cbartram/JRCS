@@ -12,6 +12,7 @@ use App\Http\Requests;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 use Kamaln7\Toastr\Facades\Toastr;
@@ -49,12 +50,14 @@ class SettingsController extends Controller
 
         //Place a session
         if($checkbox == true) {
-            Session::put('drop', true);
+            //Session::put('drop', true);
+            Redis::set('drop', true);
 
             Toastr::success('Drag and Drop view has been turned on!', $title = 'Success', $options = []);
             return Redirect::back();
         } else {
-            Session::forget('drop');
+            //Session::forget('drop');
+            Redis::del('drop');
             Toastr::success('Drag and Drop view has been turned off!', $title = 'Success', $options = []);
 
             return Redirect::back();

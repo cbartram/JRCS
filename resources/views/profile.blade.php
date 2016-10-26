@@ -122,9 +122,6 @@
                 </div>
             </div>
 
-
-
-
             <div class="col-md-12">
                 <div class="panel panel-default">
                     <div class="panel-heading">Volunteer Profiles <span class="fa fa-users"></span> <span class="fa fa-minus fa-2x"></span></div>
@@ -158,7 +155,7 @@
 </div>
 </div>
 
-    @if($defaultGroup == 'ADMIN' || Session::has('drop'))
+    @if($defaultGroup == 'ADMIN' || Redis::get('drop'))
     <!-- Start to Swap and Copy Volunteer Profiles -->
     <div class="row">
         <div class="col-md-4">
