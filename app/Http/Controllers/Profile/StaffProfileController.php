@@ -11,6 +11,7 @@ use App\Http\Controllers\Controller;
 use App\Profile;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\Session;
 
 class StaffProfileController extends Controller
@@ -78,10 +79,8 @@ class StaffProfileController extends Controller
             //The groups the staff member has access to
             $groups = $this->isMemberOf($staff);
 
-            //todo these two tables can be inner joined to show the best of both talk to team about this.
             //Events on the calendar and events in the event log
-            $calendar = Calendar::orderBy('id', 'ASC')->get();
-            $log = EventLog::orderBy('event_id', 'ASC')->get();
+            $log = EventLog::join('calendar_events', 'event_log.event_id', '=', 'calendar_events.id')->orderBy('event_id', 'ASC')->get();
 
             //return the view and attach staff & volunteer objects to be accessed by blade templating engine
              return view('profile', compact('staff'), compact('volunteers'))
@@ -90,7 +89,6 @@ class StaffProfileController extends Controller
                 ->with('groups', $groups)
                 ->with('donations', $donations)
                 ->with('all', $all)
-                ->with('calendar', $calendar)
                 ->with('log', $log);
     }
 

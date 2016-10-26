@@ -57,6 +57,8 @@ Route::get('/logout', function() { Session::flush(); return Redirect::to('/'); }
 //Handles when a staff member registers a new volunteer
 Route::post('/add', 'addController@index');
 
+
+
 /*
 |------------------------------------------------------------------------
 | Routes for Events

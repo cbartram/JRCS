@@ -22,9 +22,6 @@ $(document).ready(function() {
         //Travels up the DOM searching for H4 tag with the CSS class user-name could be done better
         var user = $(this).parent().parent().parent().parent().find('.user-name').text();
 
-        //Trims the users name
-        //user = user.substr(0, user.indexOf("-") - 1);
-
         var element = $(this).parent().parent().parent().find(".vol-id").text();
         var id = element.substr(element.length - 12, element.length);
 
@@ -161,11 +158,8 @@ $(document).ready(function() {
         eventLimit: true,
         eventSources: [
             {
-                url: '/api/v1/events',
-                color: 'blue',
-                textColor: 'black'
+                url: '/api/v1/events'
             }
-            // any other sources...
 
         ]
     });

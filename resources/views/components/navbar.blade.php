@@ -100,6 +100,16 @@
     </div>
 </nav>
 
+<!-- Include all the modals with Blade -->
+@include('components.modals.add-event')
+@include('components.modals.volunteer-detail')
+@include('components.modals.log-event')
+@include('components.modals.drag-drop')
+@include('components.modals.donation')
+@include('components.modals.account-settings')
+@include('components.modals.add-volunteer')
+
+
 @yield('content')
 
 <!-- JS Libraries -->
