@@ -131,7 +131,7 @@
                         @foreach($volunteers as $volunteer)
                         <div class="col-lg-4">
                             <div class="well cart-item cart-script">
-                                <h4 class="user-name"> {{$volunteer->first_name . ' ' . $volunteer->last_name}}</h4>
+                                <h4 class="user-name"> {{$volunteer->first_name . ' ' . $volunteer->last_name . ' - ' .  Helpers::getGroups($volunteer->email)}}</h4>
                                 <div class="descr">
                                     <div class="pull-left icon-script">
                                       <span class="fa fa-user fa-3x"></span>

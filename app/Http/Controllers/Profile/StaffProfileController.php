@@ -2,16 +2,13 @@
 
 namespace App\Http\Controllers\Profile;
 
-use App\Calendar;
 use App\Donations;
 use App\EventLog;
-use App\Helpers\Pagination;
-use App\Http\Requests;
+use App\Helpers\Helpers;
 use App\Http\Controllers\Controller;
 use App\Profile;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
-use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\Session;
 
 class StaffProfileController extends Controller
@@ -20,7 +17,7 @@ class StaffProfileController extends Controller
     public function index()
     {
             //Searches the DB for staff profile with the $id = id submitted by the login form
-            $staff = DB::table('staff_profile2')->where('id', '=', Session::get('id'))->limit(1)->get()->first();
+            $staff = DB::table('staff_profile2')->where('id', Session::get('id'))->limit(1)->get()->first();
 
             //Finds the volunteers that relate to the staff members "default" group
             if(Session::has('group')) {
@@ -31,19 +28,19 @@ class StaffProfileController extends Controller
                     $defaultGroup = Session::get('group');
                 } else {
                     //get only volunteers who belong to the group that has been switched too
-                    $volunteers = Profile::where($this->getGroupNameFromTruncated(Session::get('group')), "=",  1)->get();
+                    $volunteers = Profile::where($this->getGroupNameFromTruncated(Session::get('group')),  1)->get();
                     $defaultGroup = Session::get('group');
                 }
 
             } else {
                 //check to see if the staff member has set a default group in the default group column
                 if($staff != null && ($staff->default_group != null || $staff->default_group != '')) {
-                    $volunteers = Profile::where($this->getGroupNameFromTruncated($staff->default_group), "=",  1)->get();
+                    $volunteers = Profile::where($this->getGroupNameFromTruncated($staff->default_group),  1)->get();
                     $defaultGroup = $staff->default_group;
                 } else {
                     try {
                         //the user has not switched groups yet nor have they set a default group in the settings give them the default group
-                        $volunteers = Profile::where($this->getDefaultGroupFromId(Session::get('id')), "=", 1)->get();
+                        $volunteers = Profile::where($this->getDefaultGroupFromId(Session::get('id')), 1)->get();
                         //Default group the user will be logged in as
                         $defaultGroup = $this->getTruncatedGroupName($this->getDefaultGroupFromId(Session::get('id')));
 
@@ -62,7 +59,6 @@ class StaffProfileController extends Controller
                     $volunteers->forget($volunteer->id);
                 }
             }
-
 
             //Handles getting all volunteers used for switching volunteer groups
             $all = Profile::all();

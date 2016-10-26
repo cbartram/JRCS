@@ -136,7 +136,7 @@ class Helpers
      * @return bool
      */
     public static function isMemberOfByEmail($group, $email) {
-        $volunteer = DB::table('profiles')->where('email', '=', $email)->limit(1)->get()->first();
+        $volunteer = DB::table('profiles')->where('email', $email)->limit(1)->get()->first();
 
         if($volunteer == null) {
             return false;
@@ -298,6 +298,33 @@ class Helpers
         } else {
             return false;
         }
+
+    }
+
+
+    /**
+     * Returns a List of groups the volunteer is a member of separated by commas
+     * @param $email volunteers email
+     * @return string String of groups separated by commas
+     * @throws \Exception
+     */
+    public static function getGroups($email) {
+        $groups = ['BEBCO', 'JACO', 'JBC'];
+        $volunteer = Profile::where('email', $email);
+
+        $result = "";
+
+        if($volunteer == null) {
+            throw new \Exception();
+        }
+
+        foreach($groups as $group) {
+            if(self::isMemberOfByEmail($group, $email)) {
+                $result .= $group  . ',';
+            }
+        }
+
+        return rtrim($result , ',');
 
     }
 
