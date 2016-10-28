@@ -5,6 +5,7 @@
  */
 var baseURL = "api/v1/volunteers";
 var eventURL = "api/v1/events";
+var donationURL = "api/v1/donations";
 
 /**
  * Returns all volunteers in the system as a JSON object data for a specific
@@ -320,6 +321,12 @@ function isJBCVolunteer(email, getResult) {
 }
 
 /**
+ * #######################################
+ * CICO Methods
+ * #######################################
+ */
+
+/**
  * Checks a volunteer into the system (Check-in) given the following parameters
  * @param email volunteers email
  * @param type volunteer type (general program board)
@@ -344,6 +351,11 @@ function checkOut(email, getResult) {
     });
 }
 
+/**
+ * #######################################
+ * Event Methods
+ * #######################################
+ */
 
 /**
  * Returns all Calendar events in the Database
@@ -411,5 +423,25 @@ function deleteEvent(id, getResult) {
         }
     });
 }
+
+/**
+ * #######################################
+ * Donation Methods
+ * #######################################
+ */
+
+function openDonation(id, getResult) {
+    $.ajax({
+        type: 'GET',
+        url: '../' + donationURL + "/open/" + id,
+        dataType: "json",
+        success: function (data) {
+            getResult(data);
+        }
+    });
+}
+
+
+
 
 

@@ -15,13 +15,18 @@
                     {{Form::text('volunteer_count', Input::old('volunteer_count'), ['placeholder' => 'Volunteer Count', 'class' => 'form-control']) }}
                     {{Form::text('volunteer_hours', Input::old('volunteer_hours'), ['placeholder' => 'Total Volunteer Hours', 'class' => 'form-control']) }}
                     {{Form::text('donation_amount', Input::old('donation_amount'), ['placeholder' => 'Donation Amount', 'id' => 'donation_amount', 'class' => 'form-control']) }}
-
-                    {{Form::submit('Log Event', ['class' => 'btn btn-primary'])}}
-                    {{Form::close()}}
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" id="modal-close" class="btn btn-primary" data-dismiss="modal">Close</button>
+                <div class="row">
+                    <div class="col-lg-3 col-lg-offset-7">
+                        {{Form::button('<span class="fa fa-pencil"></span> Log Event', ['class' => 'btn btn-primary', 'type' => 'submit'])}}
+                        {{Form::close()}}
+                    </div>
+                    <div class="col-lg-2">
+                        <button type="button" id="modal-close" class="btn btn-default" data-dismiss="modal"><span class="fa fa-times"></span> Close</button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

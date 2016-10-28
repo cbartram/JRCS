@@ -62,10 +62,23 @@
                 <!-- Authentication Links -->
                 @if (Auth::guest())
                     <li role="presentation" id="add-volunteer"><a href="#" data-toggle="modal" data-target="#add-volunteer-modal"><span class="fa fa-user-plus"></span> New Volunteer </a></li>
-                    <li role="presentation" id="profile"><a href="#" data-toggle="modal" data-target="#pending-donations"><span class="fa fa-money"></span> Pending Donations</a></li>
-                    <li role="presentation" id="events"><a data-toggle="modal" data-target="#event-modal" href="#"><span class="fa fa-calendar"></span> New Event</a></li>
-                    <li role="presentation" id="log"><a data-toggle="modal" data-target="#log-event-modal" href="#"><span class="fa fa-pencil"></span> Log Event</a></li>
-                    <li role="presentation" id="checkout-volunteer"><a href="#"><span class="glyphicon glyphicon-log-out"></span> Checkout</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="fa fa-calendar"></span> Events <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li class="dropdown-header">Event Actions</li>
+                            <li><a href="#" id="events" data-toggle="modal" data-target="#event-modal"><span class="fa fa-calendar"></span> Create Event</a></li>
+                            <li><a href="#" id="log" data-toggle="modal" data-target="#log-event-modal"><span class="fa fa-pencil"></span> Log Event</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="fa fa-money"></span> Donations <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li class="dropdown-header">Donation Actions</li>
+                            <li><a href="#"><span class="fa fa-plus-square"></span> New Donation</a></li>
+                            <li><a href="#" id="profile" data-toggle="modal" data-target="#pending-donations"><span class="fa fa-exclamation-triangle"></span> Pending Donations</a></li>
+                            <li><a href="/donation/history"><span class="fa fa-history"></span> Donation History</a></li>
+                        </ul>
+                    </li>
                     <li role="presentation" class="dropdown">
                         <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-random"></span>
                             &nbsp; Switch Organizations <span class="caret"></span></a>
@@ -82,6 +95,7 @@
                             @endforeach
                         </ul>
                     </li>
+                    <li role="presentation" id="checkout-volunteer"><a href="#"><span class="glyphicon glyphicon-log-out"></span> Checkout</a></li>
                 @else
                     <li class="dropdown">
 
