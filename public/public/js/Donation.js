@@ -30,6 +30,19 @@ $(document).ready(function() {
 
     });
 
+    //handles re-opening a previously approved or denied donation request
+    $(".btn-warning").click(function() {
+      var id = $(this).attr("data-id");
+       openDonation(id, function(callback) {
+          if(callback == true) {
+              toastr.success('Successfully Re-Opened Donation')
+          } else {
+              toastr.error("Could not Re-Open Donation, please try again...")
+          }
+       });
+        $(this).parent().parent().remove();
+    });
+
     //Handles appending the $ to the money field
     $("#amount").focus(function() {
         $(this).val('$' + $(this).val());

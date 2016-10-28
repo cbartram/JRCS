@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\REST;
 
 use App\Calendar;
+use App\Donations;
 use App\EventLog;
 use App\Profile;
 use App\Http\Requests;
@@ -78,6 +79,19 @@ class RESTController extends Controller
 
     public function deleteEventById($id) {
         return Calendar::where('id', $id)->delete();
+    }
+
+
+    public function openDonation($id) {
+        $donations = Donations::find($id);
+
+        if($donations == null) {
+            return "false";
+        } else {
+            $donations->status = 'pending';
+            $donations->save();
+            return "true";
+        }
     }
 
 

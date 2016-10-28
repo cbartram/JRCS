@@ -13,6 +13,7 @@
 
 //when the user first visits the site the default view 'login' in shown aka login.blade.php
 use App\Cico;
+use App\Donations;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
@@ -101,7 +102,7 @@ Route::post('/settings/drop', 'Profile\SettingsController@drop');
 | to approve donations
  */
 Route::get('/donation', function() {
-    return view('donation');
+    return view('donation.donation');
 });
 
 Route::post('/donation', 'DonationController@handleDonation');
@@ -109,6 +110,16 @@ Route::post('/donation', 'DonationController@handleDonation');
 //Handles approving or denying donation requests
 Route::get('/donation/approve/{id}', 'DonationController@approve');
 Route::get('/donation/deny/{id}', 'DonationController@deny');
+
+//Handles showing the donation history page when a staff member access's it
+Route::get('/donation/history', function() {
+    $donations = Donations::where('status', 'Approved')
+        ->orWhere('status', 'Denied')
+        ->orderBy('status', 'DESC')
+        ->get();
+
+    return view('donation.donation-history', compact('donations'));
+});
 
 
 /*
@@ -192,6 +203,9 @@ Route::get('api/v1/events/create/{start}/{end}/{title}/{color}', 'REST\RESTContr
 
 //Deletes an event given the id
 Route::get('api/v1/events/delete/{id}', 'REST\RESTController@deleteEventById');
+
+//Re-opens a donation thats been previously approved
+Route::get('api/v1/donations/open/{id}', 'REST\RESTController@openDonation');
 
 
 

@@ -76,7 +76,7 @@
                             <li class="dropdown-header">Donation Actions</li>
                             <li><a href="#"><span class="fa fa-plus-square"></span> New Donation</a></li>
                             <li><a href="#" id="profile" data-toggle="modal" data-target="#pending-donations"><span class="fa fa-exclamation-triangle"></span> Pending Donations</a></li>
-                            <li><a href="#"><span class="fa fa-clock-o"></span> Past Donations</a></li>
+                            <li><a href="/donation/history"><span class="fa fa-history"></span> Donation History</a></li>
                         </ul>
                     </li>
                     <li role="presentation" class="dropdown">

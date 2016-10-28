@@ -93,7 +93,7 @@ class DonationController extends Controller
      */
     public function deny($id) {
         $donation = Donations::where('donation_id', $id)->first();
-        $donation->status = 'Deny';
+        $donation->status = 'Denied';
         $donation->save();
 
         return Redirect::back()
