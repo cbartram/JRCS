@@ -94,5 +94,29 @@ class RESTController extends Controller
         }
     }
 
+    public function denyDonation($id) {
+        $donations = Donations::find($id);
+
+        if($donations == null) {
+            return "false";
+        } else {
+            $donations->status = 'Denied';
+            $donations->save();
+            return "true";
+        }
+    }
+
+    public function approveDonation($id) {
+        $donations = Donations::find($id);
+
+        if($donations == null) {
+            return "false";
+        } else {
+            $donations->status = 'Approved';
+            $donations->save();
+            return "true";
+        }
+    }
+
 
 }
