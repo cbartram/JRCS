@@ -121,7 +121,6 @@ Route::get('/donation/history', function() {
     return view('donation.donation-history', compact('donations'));
 });
 
-
 /*
 |------------------------------------------------------------------------
 | Routes for Checking in and Checking out
@@ -206,6 +205,16 @@ Route::get('api/v1/events/delete/{id}', 'REST\RESTController@deleteEventById');
 
 //Re-opens a donation thats been previously approved
 Route::get('api/v1/donations/open/{id}', 'REST\RESTController@openDonation');
+
+//Denies a pending donation
+Route::get('api/v1/donations/deny/{id}', 'REST\RESTController@denyDonation');
+
+//Approves a pending donation
+Route::get('api/v1/donations/approve/{id}', 'REST\RESTController@approveDonation');
+
+//Handles authenticating if a users email and password are correct
+Route::post('api/v1/authenticate/', 'REST\RESTController@authenticate');
+
 
 
 

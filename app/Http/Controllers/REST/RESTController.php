@@ -9,6 +9,8 @@ use App\Profile;
 use App\Http\Requests;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Input;
 
 class RESTController extends Controller
 {
@@ -94,5 +96,48 @@ class RESTController extends Controller
         }
     }
 
+    public function denyDonation($id) {
+        $donations = Donations::find($id);
+
+        if($donations == null) {
+            return "false";
+        } else {
+            $donations->status = 'Denied';
+            $donations->save();
+            return "true";
+        }
+    }
+
+    public function approveDonation($id) {
+        $donations = Donations::find($id);
+
+        if($donations == null) {
+            return "false";
+        } else {
+            $donations->status = 'Approved';
+            $donations->save();
+            return "true";
+        }
+    }
+
+    /**
+     * Authenticates that a provided email and un-hashed password references
+     * a row in the database
+     * @param $email Email Address
+     * @param $password Un-hashed password
+     * @return bool Returns true if the email and password match a row in the database false otherwise
+     */
+    public function authenticate() {
+        $staff = DB::table('staff_profile2')->where('email', Input::get('email'))->limit(1)->first();
+        if($staff != null) {
+            if($staff->email == Input::get('email') && Hash::check(Input::get('password'), $staff->password)) {
+                return "true";
+            } else {
+                return "false";
+            }
+        } else {
+            return "false";
+        }
+    }
 
 }
