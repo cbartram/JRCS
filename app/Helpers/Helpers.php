@@ -13,6 +13,7 @@ use App\Profile;
 use DateTime;
 use DateTimeZone;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class Helpers
 {
@@ -34,6 +35,47 @@ class Helpers
      */
     public static function getElapsedTime($start, $end) {
 
+    }
+
+
+    /**
+     * Authenticates that a provided email and un-hashed password references
+     * a row in the database
+     * @param $email Email Address
+     * @param $password Un-hashed password
+     * @return bool Returns true if the email and password match a row in the database false otherwise
+     */
+    public static function authenticate($email, $password) {
+        $staff = DB::table('staff_profile2')->where('email', $email)->limit(1)->first();
+
+        if($staff == null) {
+            return false;
+        } else {
+            if($staff->email == $email && Hash::check($password, $staff->password)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+
+    /**
+     * Authenticates a user provided a Hashed Password and email
+     * @param $email Users email
+     * @param $password users password
+     * @return bool true if the user is authenticated false otherwise
+     */
+    public static function authenticateWithHash($email, $password) {
+        $staff = DB::table('staff_profile2')->where('email', $email)->limit(1)->first();
+
+        if($staff == null) {
+            return false;
+        } else {
+            if($staff->email == $email && $password == $staff->password) {
+                return true;
+            }
+        }
+        return false;
     }
 
 

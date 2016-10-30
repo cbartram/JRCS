@@ -212,6 +212,9 @@ Route::get('api/v1/donations/deny/{id}', 'REST\RESTController@denyDonation');
 //Approves a pending donation
 Route::get('api/v1/donations/approve/{id}', 'REST\RESTController@approveDonation');
 
+//Handles authenticating if a users email and password are correct
+Route::post('api/v1/authenticate/', 'REST\RESTController@authenticate');
+
 
 
 

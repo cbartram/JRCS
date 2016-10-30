@@ -3,9 +3,26 @@
  * Not really sure how to name this file but
  * it contains methods to query and parse volunteer info
  */
-var baseURL = "api/v1/volunteers";
-var eventURL = "api/v1/events";
+var baseURL     = "api/v1/volunteers";
+var eventURL    = "api/v1/events";
 var donationURL = "api/v1/donations";
+var authURL     = "api/v1/authenticate";
+
+
+/**
+ * Handles Authenticating a staff member with the system
+ * Returns true if the email and password are correct and false otherwise
+ * @param email Staff members email
+ * @param password staff members Un-Hashed password
+ * @param getResult Callback function for getting a response
+ */
+function authenticate(email, password, getResult) {
+    $.post(authURL, {email:email, password:password}, function(data) {
+        getResult(data);
+    }, "json");
+}
+
+
 
 /**
  * Returns all volunteers in the system as a JSON object data for a specific
