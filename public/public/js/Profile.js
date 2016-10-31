@@ -127,6 +127,7 @@ $(document).ready(function() {
        var start = formatDates($("#start-date").val());
        var end = formatDates($("#end-date").val());
        var title = $("#title").val();
+       var group = $("#group-select").val();
 
         if(start == "" || title == "") {
             toastr.error('You must fill out both the start date and the title fields!');
@@ -137,7 +138,7 @@ $(document).ready(function() {
                 end = start;
             }
             //Use js API to create a new event!
-            createEvent(start, end, title, 'black', function (response) {
+            createEvent(start, end, title, 'black', group, function (response) {
             });
             toastr.success('Successfully created new event!');
         }

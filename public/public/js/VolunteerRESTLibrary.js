@@ -411,13 +411,14 @@ function getEventById(id, getResult) {
  * @param end end date in yyyy-m-d format
  * @param title Title (spaces will be replaced with underscores)
  * @param color Color of the event in the calendar
+ * @param group Group the Event belongs to (JACO, BEBCO, JBC)
  * @param getResult callback function
  */
-function createEvent(start, end, title, color, getResult) {
+function createEvent(start, end, title, color, group, getResult) {
     title = title.replace(' ', '_');
     $.ajax({
         type: 'GET',
-        url: eventURL + "/create/" + start + "/" + end + "/" + title + "/" + color,
+        url: eventURL + "/create/" + start + "/" + end + "/" + title + "/" + color + "/" + group,
         dataType: "json",
         success: function (data) {
             getResult(data);

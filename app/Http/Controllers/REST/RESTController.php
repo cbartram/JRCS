@@ -56,7 +56,7 @@ class RESTController extends Controller
         return Calendar::find($id);
     }
 
-    public function createEvent($start, $end, $title, $color) {
+    public function createEvent($start, $end, $title, $color, $group) {
         $id = 'evt_' . str_random(10);
 
         if($end == null || $end == "" ) {
@@ -78,6 +78,7 @@ class RESTController extends Controller
         $event_log->volunteer_count = 0;
         $event_log->total_volunteer_hours = 0;
         $event_log->donation_amount = 0;
+        $event_log->group = $group;
 
         $event_log->save();
         $event->save();

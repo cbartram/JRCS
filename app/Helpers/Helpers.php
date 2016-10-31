@@ -340,9 +340,26 @@ class Helpers
         } else {
             return false;
         }
-
     }
 
+    /**
+     * Returns the number of groups a staff member has access to
+     * e.g Cbartram - 3 (JACO, BEBCO, JBC) Joe Schmo - 1 (JACO)
+     * @param $staffId Staff id string
+     * @return int Number of groups the staff member has access to
+     */
+    public static function getAccessCount($staffId) {
+        $groups = ["JACO", "BEBCO", "JBC"];
+        $count = 0;
+
+        foreach($groups as $group) {
+            if(self::hasAccessTo($group, $staffId)) {
+                $count++;
+            }
+        }
+
+        return $count;
+    }
 
     /**
      * Returns a List of groups the volunteer is a member of separated by commas

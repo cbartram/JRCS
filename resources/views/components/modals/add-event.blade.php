@@ -11,6 +11,13 @@
                     <input type="text" class="form-control" id="start-date" placeholder="Start Date">
                     <input type="text" class="form-control" id="end-date" placeholder="End Date (Optional)">
                     <input type="text" class="form-control" id="title" placeholder="Event Title">
+                    <select name="group" id="group-select" class="form-control">
+                        @foreach($groups as $k => $v)
+                            @if($groups[$k] == true && $k != "ADMIN")
+                                <option value="{{$k}}">{{$k}}</option>
+                            @endif
+                        @endforeach
+                    </select>
                 </div>
             </div>
             <div class="modal-footer">

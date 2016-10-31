@@ -198,7 +198,7 @@ Route::get('api/v1/events/', 'REST\RESTController@findAllEvents');
 Route::get('api/v1/events/{id}', 'REST\RESTController@findEventById');
 
 //Handles creating a new event in the calendar
-Route::get('api/v1/events/create/{start}/{end}/{title}/{color}', 'REST\RESTController@createEvent');
+Route::get('api/v1/events/create/{start}/{end}/{title}/{color}/{group}', 'REST\RESTController@createEvent');
 
 //Deletes an event given the id
 Route::get('api/v1/events/delete/{id}', 'REST\RESTController@deleteEventById');
