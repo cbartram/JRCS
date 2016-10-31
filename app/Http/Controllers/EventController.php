@@ -71,6 +71,9 @@ class EventController extends Controller
         $event->total_volunteer_hours = Input::get('volunteer_hours');
         $event->donation_amount = Input::get('donation_amount');
 
+        //Update the status so that the event has now been logged
+        $event->log_status = 1;
+
         $event->save();
 
         Toastr::success('Successfully logged and saved event information!', $title = 'Success', $options = []);

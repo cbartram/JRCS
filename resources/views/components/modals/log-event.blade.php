@@ -11,7 +11,7 @@
                     {{Form::open(array('url' => '/event'))}}
                     <select name="event-id" class="form-control">
                         @foreach($log as $event)
-                           @if($event->attendee_count == 0)
+                           @if($event->log_status == 0)
                                <option value="{{$event->id}}">{{$event->title}}</option>
                            @endif
                         @endforeach

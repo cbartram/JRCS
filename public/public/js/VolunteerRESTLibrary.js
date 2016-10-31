@@ -22,8 +22,6 @@ function authenticate(email, password, getResult) {
     }, "json");
 }
 
-
-
 /**
  * Returns all volunteers in the system as a JSON object data for a specific
  * volunteer can be accessed using 'data.volunteers[index].attribute_name'
