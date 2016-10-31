@@ -128,9 +128,14 @@ $(document).ready(function() {
        var end = formatDates($("#end-date").val());
        var title = $("#title").val();
 
-        if(start == "" || end == "" || title == "") {
-            toastr.error('You must fill out all the event fields!');
+        if(start == "" || title == "") {
+            toastr.error('You must fill out both the start date and the title fields!');
         } else {
+
+            //if the user does not specify an end date default it to be the start date
+            if(end == "") {
+                end = start;
+            }
             //Use js API to create a new event!
             createEvent(start, end, title, 'black', function (response) {
             });
