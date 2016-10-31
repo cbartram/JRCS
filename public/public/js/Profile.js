@@ -149,19 +149,40 @@ $(document).ready(function() {
         header: {
             left: 'prev,next today',
             center: 'title',
-            right: 'month,basicWeek,basicDay'
+            right: 'month,agendaWeek,agendaDay,listWeek'
         },
-        defaultDate: '2016-9-12',
-        theme: true,
-        navLinks: true,
-        editable: true,
-        eventLimit: true,
+        defaultDate: moment(),
+        navLinks: false, // can click day/week names to navigate views and see events for a particular day
+        editable: false, //can drag and drop events onto different days todo this is a bug right now
+        eventLimit: true, // allow "more" link when too many events
         eventSources: [
             {
                 url: '/api/v1/events'
             }
 
         ]
+    });
+
+    //Handles showing the previous and next months and today
+    $('#prev').click(function() {
+       $("#calendar").fullCalendar('prev');
+    });
+
+    $("#next").click(function() {
+       $("#calendar").fullCalendar('next');
+    });
+
+    $("#today").click(function() {
+        $("#calendar").fullCalendar('today');
+    });
+
+    $("#date-btn").click(function() {
+       var date = $('#goToDate').val();
+        if(moment(date, 'MM/DD/YYYY', true).isValid() || moment(date, 'MM-DD-YYYY', true).isValid()) {
+            $('#calendar').fullCalendar('gotoDate', date);
+        } else {
+            toastr.error("Your date format is incorrect make sure its in the format: MM/DD/YYYY");
+        }
     });
 
 });
