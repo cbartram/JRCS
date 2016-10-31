@@ -67,12 +67,35 @@
                <div class="panel panel-default">
                    <div class="panel-heading">Events <span class="fa fa-calendar"></span> <span class="fa fa-minus fa-2x"></span></div>
                    <div class="panel-body">
+
+                       <div class="row">
+                           <div class="col-md-2">
+                               <div class="btn-group" role="group">
+                                   <button type="button" class="btn btn-md btn-primary" id="prev"><i class="fa fa-chevron-left"></i></button>
+                                   <button type="button" class="btn btn-md btn-primary" id="next"><i class="fa fa-chevron-right"></i></button>
+                               </div>
+                           </div>
+                           <div class="col-md-1">
+                               <button type="button" class="btn btn-default" id="today">Today</button>
+                           </div>
+                           <div class="col-md-3 col-md-offset-6">
+                               <div class="input-group">
+                                   <input type="text" class="form-control" id="goToDate" placeholder="MM/DD/YYYY">
+                                   <span class="input-group-btn">
+                                    <button type="submit" id="date-btn" class="btn btn-primary">Go To Date <span class="fa fa-arrow"></span></button>
+                                </span>
+                               </div>
+                           </div>
+                       </div>
+
                        <!-- FullCal Calendar is loaded here -->
                        <div id="calendar"></div>
+
+                       <!-- Delete Calendar event button group -->
                        <div class="row">
-                       <div class="col-md-6 col-md-offset-6" style="margin-top:20px;">
+                       <div class="col-md-4 col-md-offset-8" style="margin-top:20px;">
                            <form method="get" action="/event/remove">
-                           <div class="input-group input-group-lg">
+                           <div class="input-group">
                                <input type="text" class="form-control" name="id" placeholder="Event ID">
                                <span class="input-group-btn">
                                     <button type="submit" class="btn btn-danger">Remove Event <span class="fa fa-trash"></span></button>

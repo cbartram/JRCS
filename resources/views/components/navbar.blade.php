@@ -127,10 +127,10 @@
 @yield('content')
 
 <!-- JS Libraries -->
+<script src='../../public/js/moment.js'></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 <script src="../../public/js/jquery-ui.min.js"></script>
-<script src='../../public/js/moment.js'></script>
 
 <script src="https://use.fontawesome.com/09e1e27aff.js"></script>
 <script src="../../public/js/Highcharts.js"></script>
