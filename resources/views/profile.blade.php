@@ -17,7 +17,7 @@
                         {{$staff->first_name . ' ' . $staff->last_name}}
                     </div>
                     <div class="profile-usertitle-job">
-                        Group - {{$defaultGroup}}
+                        <p id="current-group">Group - {{$defaultGroup}}</p>
                     </div>
                 </div>
                 <div class="profile-usermenu">
@@ -97,8 +97,9 @@
                        <div class="col-md-3 col-md-offset-7" style="margin-top:20px;">
                                <select class="form-control" name="id">
                                    @foreach($log as $event)
-                                       {{--If the event has not yet taken place todo this condition can be removed depending on what laura says--}}
-                                       @if($event->attendee_count == 0)
+                                       {{--If the event is not logged it could have taken place, its just not been logged yet --}}
+                                       {{-- todo this condition can be removed depending on what laura says--}}
+                                       @if($event->log_status == 0)
                                            <option value="{{$event->id}}">{{$event->title}}</option>
                                        @endif
                                    @endforeach

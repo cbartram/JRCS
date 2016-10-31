@@ -81,7 +81,7 @@ class StaffProfileController extends Controller
                 $log = EventLog::join('calendar_events', 'event_log.event_id', '=', 'calendar_events.id')->orderBy('event_id', 'ASC')->get();
             } else {
                 //Events on the calendar and events in the event log where the group is the staff members current group
-                $log = EventLog::join('calendar_events', 'event_log.event_id', '=', 'calendar_events.id')->where('event_log.group', $defaultGroup)->orderBy('event_id', 'ASC')->get();
+                $log = EventLog::where('event_log.group', $defaultGroup)->join('calendar_events', 'event_log.event_id', '=', 'calendar_events.id')->orderBy('event_id', 'ASC')->get();
             }
             //return the view and attach staff & volunteer objects to be accessed by blade templating engine
              return view('profile', compact('staff'), compact('volunteers'))

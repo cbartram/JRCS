@@ -3,6 +3,9 @@
  */
 
 $(document).ready(function() {
+    var text = $("#current-group").html();
+    var currentGroup = text.substring(8, text.length);
+
     //Holds array of id's the staff member wishes to remove from the system
     var deleteArray = [];
 
@@ -144,30 +147,53 @@ $(document).ready(function() {
         }
     });
 
+
     //Handles appending the $ to the money field
     $("#donation_amount").focus(function() {
         $(this).val('$' + $(this).val());
     });
 
 
-    //Handles showing the calendar with events
-    $('#calendar').fullCalendar({
-        header: {
-            left: 'prev,next today',
-            center: 'title',
-            right: 'month,agendaWeek,agendaDay,listWeek'
-        },
-        defaultDate: moment(),
-        navLinks: false, // can click day/week names to navigate views and see events for a particular day
-        editable: false, //can drag and drop events onto different days todo this is a bug right now
-        eventLimit: true, // allow "more" link when too many events
-        eventSources: [
-            {
-                url: '/api/v1/events'
-            }
+    if(currentGroup == "ADMIN") {
+        //Handles showing the calendar with events
+        $('#calendar').fullCalendar({
+            header: {
+                left: 'prev,next today',
+                center: 'title',
+                right: 'month,agendaWeek,agendaDay,listWeek'
+            },
+            defaultDate: moment(),
+            navLinks: false, // can click day/week names to navigate views and see events for a particular day
+            editable: false, //can drag and drop events onto different days todo this is a bug right now
+            eventLimit: true, // allow "more" link when too many events
+            eventSources: [
+                {
+                    url: '/api/v1/events'
+                }
 
-        ]
-    });
+            ]
+        });
+
+    } else {
+
+        $('#calendar').fullCalendar({
+            header: {
+                left: 'prev,next today',
+                center: 'title',
+                right: 'month,agendaWeek,agendaDay,listWeek'
+            },
+            defaultDate: moment(),
+            navLinks: false, // can click day/week names to navigate views and see events for a particular day
+            editable: false, //can drag and drop events onto different days todo this is a bug right now
+            eventLimit: true, // allow "more" link when too many events
+            eventSources: [
+                {
+                    url: '/api/v1/events/' + currentGroup
+                }
+
+            ]
+        });
+    }
 
     //Handles showing the previous and next months and today
     $('#prev').click(function() {

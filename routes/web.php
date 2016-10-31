@@ -194,6 +194,8 @@ Route::patch('api/v1/volunteers/email/{email}/{columnToUpdate}/{newValue}', 'RES
 //Handles finding all calendar events
 Route::get('api/v1/events/', 'REST\RESTController@findAllEvents');
 
+Route::get('api/v1/events/{group}', 'REST\RESTController@findEventsByGroup');
+
 //Returns event given the event id
 Route::get('api/v1/events/{id}', 'REST\RESTController@findEventById');
 

@@ -7,6 +7,7 @@ use App\Donations;
 use App\EventLog;
 use App\Profile;
 use App\Http\Requests;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
@@ -56,6 +57,26 @@ class RESTController extends Controller
         return Calendar::find($id);
     }
 
+    /**
+     * This method is tricky because it queries eventlog for all the events with the proper group
+     * we then use those event id's to look up the calendar_events to end up with calendar safe events
+     * for the specific group given
+     * @param $group
+     * @return Collection
+     */
+    public function findEventsByGroup($group) {
+        $events =  EventLog::where('group', $group)->get();
+
+        //Create a new collection to house the objects
+        $result = new Collection();
+
+        //Iterate over each item in the events collection adding to the result collection
+        foreach($events as $event) {
+            $result->add(Calendar::find($event->event_id));
+        }
+        return $result;
+    }
+
     public function createEvent($start, $end, $title, $color, $group) {
         $id = 'evt_' . str_random(10);
 
@@ -79,6 +100,9 @@ class RESTController extends Controller
         $event_log->total_volunteer_hours = 0;
         $event_log->donation_amount = 0;
         $event_log->group = $group;
+
+        //The event is unlogged by default
+        $event_log->log_status = 0;
 
         $event_log->save();
         $event->save();
