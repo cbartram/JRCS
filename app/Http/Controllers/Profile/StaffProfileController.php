@@ -75,9 +75,14 @@ class StaffProfileController extends Controller
             //The groups the staff member has access to
             $groups = $this->isMemberOf($staff);
 
-            //Events on the calendar and events in the event log
-            $log = EventLog::join('calendar_events', 'event_log.event_id', '=', 'calendar_events.id')->orderBy('event_id', 'ASC')->get();
 
+            //If the user is browsing the admin group show all events
+            if($defaultGroup == "ADMIN") {
+                $log = EventLog::join('calendar_events', 'event_log.event_id', '=', 'calendar_events.id')->orderBy('event_id', 'ASC')->get();
+            } else {
+                //Events on the calendar and events in the event log where the group is the staff members current group
+                $log = EventLog::join('calendar_events', 'event_log.event_id', '=', 'calendar_events.id')->where('event_log.group', $defaultGroup)->orderBy('event_id', 'ASC')->get();
+            }
             //return the view and attach staff & volunteer objects to be accessed by blade templating engine
              return view('profile', compact('staff'), compact('volunteers'))
                 ->with('defaultGroup', $defaultGroup)
