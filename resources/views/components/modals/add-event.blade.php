@@ -9,13 +9,19 @@
             <div class="modal-body">
                 <div class="form-group">
                     <input type="text" class="form-control" id="start-date" placeholder="Start Date">
-                    <input type="text" class="form-control" id="end-date" placeholder="End Date">
+                    <input type="text" class="form-control" id="end-date" placeholder="End Date (Optional)">
                     <input type="text" class="form-control" id="title" placeholder="Event Title">
-                    <button type="button" class="btn btn-primary" id="create-event" data-dismiss="modal">Create Event</button>
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" id="modal-close" class="btn btn-default" data-dismiss="modal"><span class="fa fa-times"></span> Close</button>
+                <div class="row">
+                    <div class="col-lg-3 col-lg-offset-7">
+                        <button type="button" class="btn btn-primary" id="create-event" data-dismiss="modal">Create Event</button>
+                    </div>
+                    <div class="col-lg-2">
+                        <button type="button" id="modal-close" class="btn btn-default" data-dismiss="modal"><span class="fa fa-times"></span> Close</button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

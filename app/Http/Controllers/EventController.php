@@ -56,6 +56,7 @@ class EventController extends Controller
                 ->withInput();
         }
 
+
         $event = EventLog::where('event_id' , Input::get('event-id'))->first();
 
         //Couldnt find the event
@@ -63,7 +64,6 @@ class EventController extends Controller
             Toastr::error('Event with that Id could not be located.', $title = 'Event ID not found', $options = []);
             return Redirect::to('/profile');
         }
-
         //Insert based on what the staff inputted
         $event->attendee_count = Input::get('attendee_count');
         $event->event_description = Input::get('event_description');

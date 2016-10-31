@@ -59,6 +59,10 @@ class RESTController extends Controller
     public function createEvent($start, $end, $title, $color) {
         $id = 'evt_' . str_random(10);
 
+        if($end == null || $end == "" ) {
+            $end = $start;
+        }
+
         $event = new Calendar();
         $event->id = $id;
         $event->start = $start;

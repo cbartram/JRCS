@@ -10,6 +10,7 @@ use App\Http\Requests;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
+use Kamaln7\Toastr\Facades\Toastr;
 
 class DonationController extends Controller
 {
@@ -83,8 +84,8 @@ class DonationController extends Controller
         $donation->status = 'Approved';
         $donation->save();
 
-        return Redirect::back()
-            ->with('alert-success', "Donation was approved successfully!");
+        Toastr::success('Donation has been approved successfully!', $title = "Donation Approved", $options = []);
+        return Redirect::back();
     }
 
     /**
@@ -96,7 +97,7 @@ class DonationController extends Controller
         $donation->status = 'Denied';
         $donation->save();
 
-        return Redirect::back()
-            ->with('alert-warning',  "Donation was denied successfully!");
+        Toastr::success('Donation has been Denied successfully!', $title = "Donation Denied", $options = []);
+        return Redirect::back();
     }
 }

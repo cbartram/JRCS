@@ -93,14 +93,19 @@
 
                        <!-- Delete Calendar event button group -->
                        <div class="row">
-                       <div class="col-md-4 col-md-offset-8" style="margin-top:20px;">
                            <form method="get" action="/event/remove">
-                           <div class="input-group">
-                               <input type="text" class="form-control" name="id" placeholder="Event ID">
-                               <span class="input-group-btn">
-                                    <button type="submit" class="btn btn-danger">Remove Event <span class="fa fa-trash"></span></button>
-                                </span>
-                           </div>
+                       <div class="col-md-3 col-md-offset-7" style="margin-top:20px;">
+                               <select class="form-control" name="id">
+                                   @foreach($log as $event)
+                                       {{--If the event has not yet taken place todo this condition can be removed depending on what laura says--}}
+                                       @if($event->attendee_count == 0)
+                                           <option value="{{$event->id}}">{{$event->title}}</option>
+                                       @endif
+                                   @endforeach
+                               </select>
+                       </div>
+                       <div class="col-md-2" style="margin-top:20px;">
+                           <button type="submit" class="btn btn-danger">Remove Event <span class="fa fa-trash"></span></button>
                            </form>
                        </div>
                    </div>

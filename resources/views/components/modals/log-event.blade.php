@@ -9,7 +9,13 @@
             <div class="modal-body">
                 <div class="form-group">
                     {{Form::open(array('url' => '/event'))}}
-                    {{Form::text('event-id', Input::old('event-id'), ['placeholder' => 'Event ID', 'class' => 'form-control']) }}
+                    <select name="event-id" class="form-control">
+                        @foreach($log as $event)
+                           @if($event->attendee_count == 0)
+                               <option value="{{$event->id}}">{{$event->title}}</option>
+                           @endif
+                        @endforeach
+                    </select>
                     {{Form::text('attendee_count', Input::old('attendee_count'), ['placeholder' => 'Attendee Count', 'class' => 'form-control']) }}
                     {{Form::textarea('event_description', Input::old('event_description'), ['placeholder' => 'Event Description', 'class' => 'form-control'])}}
                     {{Form::text('volunteer_count', Input::old('volunteer_count'), ['placeholder' => 'Volunteer Count', 'class' => 'form-control']) }}
