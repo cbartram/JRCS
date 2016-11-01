@@ -45,9 +45,9 @@
                     <label for="program">Select Volunteer Program</label>
                     <select class="form-control" id="program">
                         <option name="default" selected>Select Program</option>
-                        <option name="SAT">SAT Prep</option>
-                        <option name="ACT">ACT Prep</option>
-                        <option name="Career">Career Counseling</option>
+                        @foreach($programs as $program)
+                            <option name="{{$program->program_name}}">{{$program->program_name}}</option>
+                        @endforeach
                     </select>
                 </div>
 
