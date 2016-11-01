@@ -34,6 +34,7 @@ class ProgramController extends Controller
         $program = new Programs();
 
         //Create new row in the database and mark it as active
+        $program->id = 'prog_' . str_random(10);
         $program->program_name = Input::get('program-name');
         $program->staff_id = Input::get('id');
         $program->status = 1;
@@ -43,5 +44,16 @@ class ProgramController extends Controller
         Toastr::success('Successfully added new program!', $title = "New Program Added");
         return Redirect::back();
 
+    }
+
+    /**
+     * Handles an admin deleting a program
+     */
+    public function delete() {
+        //find the program with the given id
+        Programs::destroy(Input::get('program'));
+
+        Toastr::success('Successfully deleted program!', $title = 'Deletion Successfully');
+        return Redirect::back();
     }
 }

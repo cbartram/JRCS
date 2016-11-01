@@ -62,10 +62,9 @@ Route::get('/logout', function() { Session::flush(); return Redirect::to('/'); }
 //Handles when a staff member registers a new volunteer
 Route::post('/add', 'addController@index');
 
-//Handles adding a new program
+//Handles adding & deleting a program
 Route::post('/program/add', 'ProgramController@add');
-
-
+Route::post('/program/delete', 'ProgramController@delete');
 
 
 /*

@@ -85,7 +85,7 @@
                             <li class="dropdown-header">Program Actions</li>
                             <li><a href="#" data-toggle="modal" data-target="#add-program"><span class="fa fa-plus-square"></span> Add Program</a></li>
                             @if($defaultGroup == "ADMIN")
-                            <li><a href="#" id="profile" data-toggle="modal" data-target="#"><span class="fa fa-trash"></span> Delete Program</a></li>
+                            <li><a href="#" id="profile" data-toggle="modal" data-target="#delete-program"><span class="fa fa-trash"></span> Delete Program</a></li>
                             @endif
                         </ul>
                     </li>
@@ -134,6 +134,7 @@
 @include('components.modals.add-volunteer')
 @include('components.modals.add-donation')
 @include('components.modals.add-program')
+@include('components.modals.delete-program')
 
 
 @yield('content')
