@@ -105,7 +105,11 @@ Route::get('/donation', function() {
     return view('donation.donation');
 });
 
+//Handles a donation made by a volunteer
 Route::post('/donation', 'DonationController@handleDonation');
+
+//Handles a donation made by a staff member
+Route::post('/donation/add', 'DonationController@addDonation');
 
 //Handles approving or denying donation requests
 Route::get('/donation/approve/{id}', 'DonationController@approve');

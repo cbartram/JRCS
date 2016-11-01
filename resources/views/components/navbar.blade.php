@@ -74,7 +74,7 @@
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="fa fa-money"></span> Donations <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li class="dropdown-header">Donation Actions</li>
-                            <li><a href="#"><span class="fa fa-plus-square"></span> New Donation</a></li>
+                            <li><a href="#" data-toggle="modal" data-target="#add-donation"><span class="fa fa-plus-square"></span> New Donation</a></li>
                             <li><a href="#" id="profile" data-toggle="modal" data-target="#pending-donations"><span class="fa fa-exclamation-triangle"></span> Pending Donations</a></li>
                             <li><a href="/donation/history"><span class="fa fa-history"></span> Donation History</a></li>
                         </ul>
@@ -122,6 +122,7 @@
 @include('components.modals.donation')
 @include('components.modals.account-settings')
 @include('components.modals.add-volunteer')
+@include('components.modals.add-donation')
 
 
 @yield('content')
