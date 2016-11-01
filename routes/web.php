@@ -14,6 +14,7 @@
 //when the user first visits the site the default view 'login' in shown aka login.blade.php
 use App\Cico;
 use App\Donations;
+use App\Programs;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
@@ -35,7 +36,10 @@ Route::get('/', function() {
         ->join('profiles', 'volunteer_cico.id', '=', 'profiles.id')
         ->get();
 
-   return view('cico', compact('volunteers'));
+    //Handles all the programs added by staff
+    $programs = Programs::where('status', 1)->get();
+
+   return view('cico', compact('volunteers'), compact('programs'));
 });
 
 //Handles verifying the form data and authenticating the user
@@ -57,6 +61,10 @@ Route::get('/logout', function() { Session::flush(); return Redirect::to('/'); }
 
 //Handles when a staff member registers a new volunteer
 Route::post('/add', 'addController@index');
+
+//Handles adding a new program
+Route::post('/program/add', 'ProgramController@add');
+
 
 
 

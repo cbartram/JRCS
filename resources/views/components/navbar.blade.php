@@ -79,6 +79,16 @@
                             <li><a href="/donation/history"><span class="fa fa-history"></span> Donation History</a></li>
                         </ul>
                     </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="fa fa-list"></span> Programs <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li class="dropdown-header">Program Actions</li>
+                            <li><a href="#" data-toggle="modal" data-target="#add-program"><span class="fa fa-plus-square"></span> Add Program</a></li>
+                            @if($defaultGroup == "ADMIN")
+                            <li><a href="#" id="profile" data-toggle="modal" data-target="#"><span class="fa fa-trash"></span> Delete Program</a></li>
+                            @endif
+                        </ul>
+                    </li>
                     <li role="presentation" class="dropdown">
                         <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-random"></span>
                             &nbsp; Switch Organizations <span class="caret"></span></a>
@@ -123,6 +133,7 @@
 @include('components.modals.account-settings')
 @include('components.modals.add-volunteer')
 @include('components.modals.add-donation')
+@include('components.modals.add-program')
 
 
 @yield('content')
