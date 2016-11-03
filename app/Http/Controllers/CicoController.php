@@ -107,4 +107,17 @@ class CicoController extends Controller
         }
     }
 
+
+    /**
+     * Handles showing the bulk checkout view when
+     * the checkout link in the navbar is clicked
+     */
+    public function bulkCheckout() {
+        $volunteers = Profile::join('volunteer_cico', 'profiles.id', '=', 'volunteer_cico.id')
+            ->where('check_out_timestamp', 'null')
+            ->get();
+
+        return view('checkout', compact('volunteers'));
+    }
+
 }
