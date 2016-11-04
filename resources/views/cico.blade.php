@@ -17,18 +17,23 @@
 </head>
 
 <body>
+<!-- Nav Bar at Top -->
+<ul>
+    <li><a href="#home">Volunteer Check-In</a></li>
+    <li><a href="/login">Staff Login</a></li>
+    <li style="float: right; background-color: darkred"><a href="/donation">Donation</a></li>
+</ul>
 
-<div class="container">
-<div class="row" id="volunteer-login">
-    <h2 class="form-signin-heading" align="center">Volunteer Check-in</h2>
-
-    <div class="col-lg-4 col-lg-offset-4">
-        <div id="alert-cico"></div>
-        <form class="form-signin">
-            <input type="email" class="form-control" placeholder="Email" id="volunteer-email" style="width:100%;">
-            <div class="row">
-                <div class="col-md-12" style="height:25px;"></div>
-
+<!-- Container -->
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-4">
+            <div id="alert-cico"></div>
+            <br><br><br><br>
+            <h2 align="center"> Volunteer Check-in</h2>
+            <form class="form-signin">
+                <input type="email" class="form-control" placeholder="Email" id="volunteer-email" style="width:100%;">
+                <br>
                 <!-- Volunteer type selector -->
                 <div class="form-group">
                     <select class="form-control" id="volunteer-type" style="width:100%">
@@ -39,7 +44,6 @@
                         <option name="other">Other</option>
                     </select>
                 </div>
-
                 <!-- Hidden form only visible to program volunteers -->
                 <div class="form-group" id="volunteer-program">
                     <label for="program">Select Volunteer Program</label>
@@ -50,65 +54,54 @@
                         @endforeach
                     </select>
                 </div>
-
                 <!-- Submit & back buttons -->
                 <div class="row">
                     <div class="col-md-12" style="height:25px;"></div>
-                    <div class="col-md-12">
-                        <button class="btn btn-block btn-success" id="volunteer-cico-submit" type="submit">Check-in <i class="fa fa-check-square-o"></i></button>
-                    </div>
+                    <center>
+                        <button class="buttonDef button2" id="volunteer-cico-submit" type="submit">Check-in</button>
+                    </center>
                     <div class="col-md-12" style="height:25px;"></div>
-                    <div class="col-md-12">
-                        <a href="/donation"><button type="button" class="btn btn-block btn-success">File a Donation <i class="fa fa-money"></i></button></a>
-                        <a href="/login">Staff Login</a>
-                    </div>
                 </div>
-            </div>
-        </form>
-    </div>
-</div>
-<!-- Volunteer Check in end -->
+            </form>
+        </div>
+        <!-- Volunteer Check in end -->
+        <!-- Start of the volunteer check in table -->
+        <div class="col-sm-8">
+            <br><br><br>
+            <div class="panel panel-default" id="checked-in-table">
+                <div class="panel-heading"><strong>Volunteers Checked In</strong></div>
 
-<div class="row">
-  <div class="col-lg-12">
-<!-- Start of the volunteer check in table -->
-<div class="panel panel-default" id="checked-in-table">
-    <div class="panel-heading"><strong>Volunteers Checked In <i class="fa fa-check"></i></strong></div>
-    <div class="panel-body">
-        <div class="row">
-            <div class="col-md-12">
-                <table class="table table-striped">
-                    <thead>
-                    <th>Id</th>
-                    <th>Name</th>
-                    <th>Checked-In</th>
-                    <th>Check-Out</th>
-                    </thead>
-                    <tbody>
-                    @foreach($volunteers as $v)
-                        <tr>
-                            <td>{{$v->id}}</td>
-                            <td>{{$v->first_name . ' ' . $v->last_name }}</td>
-                            <td><span class="label label-success">{{$v->check_in_timestamp}}</span></td>
-                            <td>
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" name="{{$v->email}}"> Select this Volunteer
-                                    </label>
-                                </div>
-                            </td>
-                        </tr>
-                    @endforeach
-                    </tbody>
-                </table>
+                <div class="panel-body">
+                    <table class="table table-striped">
+                        <thead>
+                        <th>Name</th>
+                        <th>Id</th>
+                        <th>Checked-In</th>
+                        <th>Check-Out</th>
+                        </thead>
+                        <tbody>
+                        @foreach($volunteers as $v)
+                            <tr>
+                                <td>{{$v->first_name . ' ' . $v->last_name }}</td>
+                                <td>{{$v->id}}</td>
+                                <td><span class="label label-success">{{$v->check_in_timestamp}}</span></td>
+                                <td>
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" name="{{$v->email}}">
+                                        </label>
+                                    </div>
+                                </td>
+                            </tr>
+                        @endforeach
+                        </tbody>
+                    </table>
+                    <center><button class="btn btn-danger" id="check-out">Check-Out</button></center>
+                </div>
+
             </div>
         </div>
-        <button class="btn btn-danger" id="check-out">Check-Out</button>
     </div>
-</div>
-</div>
-</div>
-
 </div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>

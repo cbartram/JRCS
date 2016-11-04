@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -20,6 +19,7 @@
 
 <div class="container">
 
+    <a class="button" href="/login">Volunteer Check-In</a>
     <!-- Start Staff/Admin Login -->
     <div class="row" id="staff-login">
         <div class="col-lg-4"></div>
@@ -46,9 +46,11 @@
             {{ Form::submit('Login', array('class' => 'btn btn-block btn-success')) }}
 
             {{ Form::close() }}
-        </div>
-        <div class="col-lg-4"></div>
+        </div><center>
+            <div class="col-lg-4"></div>
+        </center>
     </div>
+
     <!-- End Staff Login -->
 
     <div class="row" id="forgot-password">
