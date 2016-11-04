@@ -7,6 +7,7 @@ use App\EventLog;
 use App\Helpers\Helpers;
 use App\Http\Controllers\Controller;
 use App\Profile;
+use App\Programs;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
@@ -75,6 +76,8 @@ class StaffProfileController extends Controller
             //The groups the staff member has access to
             $groups = $this->isMemberOf($staff);
 
+            //Programs for the delete-program modal
+            $programs = Programs::where('status', 1)->get();
 
             //If the user is browsing the admin group show all events
             if($defaultGroup == "ADMIN") {
@@ -90,7 +93,8 @@ class StaffProfileController extends Controller
                 ->with('groups', $groups)
                 ->with('donations', $donations)
                 ->with('all', $all)
-                ->with('log', $log);
+                ->with('log', $log)
+                ->with('programs', $programs);
     }
 
     public function isMemberOf($user)
