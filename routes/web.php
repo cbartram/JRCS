@@ -11,7 +11,6 @@
 |
 */
 
-//when the user first visits the site the default view 'login' in shown aka login.blade.php
 use App\Cico;
 use App\Donations;
 use App\Programs;
@@ -143,8 +142,11 @@ Route::get('/donation/history', function() {
 //Handles clocking a user in/out
 Route::post('/cico', 'CicoController@checkIn');
 
-//Handles clocking a user out
+//Handles clocking a user out via the checkout form
 Route::post('/checkout', 'CicoController@checkOut');
+
+//Handles a staff member clicking the checkout button
+Route::get('/checkout', 'CicoController@bulkCheckout');
 
 /*
 |------------------------------------------------------------------------

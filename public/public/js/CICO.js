@@ -25,7 +25,9 @@ $(document).ready(function() {
                 checkOut(emails[i], function(callback) {});
             }
             window.location.reload();
+            toastr.success('Volunteers checked out successfully!');
         } else {
+            toastr.error('No volunteers were selected to check out!');
             //No emails were selected to checkout
         }
     });

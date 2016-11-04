@@ -36,7 +36,7 @@
 
             <!-- Branding Image -->
             <a class="navbar-brand" href="{{ url('/') }}">
-                JRCS <span class="label label-warning">Beta</span>
+                JRCS <span class="label label-primary">Beta</span>
             </a>
         </div>
 
@@ -53,7 +53,7 @@
                     <li role="presentation" id="messages"><a href="#"><i class="fa fa-calendar"></i> New Event</a></li>
                 </ul>
                 <ul class="nav navbar-nav">
-                    <li role="presentation" id="checkout-volunteer"><a href="#"><span class="glyphicon glyphicon-log-out"></span> Checkout</a></li>
+                    <li role="presentation" id="checkout-volunteer"><a href="/checkout"><span class="glyphicon glyphicon-log-out"></span> Checkout</a></li>
                 </ul>
         @endif
 
@@ -105,7 +105,7 @@
                             @endforeach
                         </ul>
                     </li>
-                    <li role="presentation" id="checkout-volunteer"><a href="#"><span class="glyphicon glyphicon-log-out"></span> Checkout</a></li>
+                    <li role="presentation" id="checkout-volunteer"><a href="/checkout"><span class="glyphicon glyphicon-log-out"></span> Checkout</a></li>
                 @else
                     <li class="dropdown">
 
