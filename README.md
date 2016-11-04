@@ -116,3 +116,15 @@ If your still recieving errors try following the composer installation guide fro
 - Volunteer *Drag and Drop* to switch and copy volunteers between group
 - Volunteer drag and drop to delete volunteers
 
+###Version 2.1.1
+- Multiple Bug fixes
+- Much more verbose JS API
+- Functions to interact with volunteer events, donations, data and more
+- more account settings
+- bulk checkout feature
+- dynamic programs and events
+- More controls for the calendar on the profile page
+- client requested changes (2 password reset fields, nationality, switching login and cico pages etc...)
+
+
+
