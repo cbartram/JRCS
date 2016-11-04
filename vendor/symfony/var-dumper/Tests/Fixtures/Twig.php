@@ -33,4 +33,12 @@ class __TwigTemplate_VarDumperFixture_u75a09 extends Twig_Template
     {
         return new Twig_Source("   foo bar\n     twig source\n\n", 'foo.twig', $this->filename);
     }
+
+    public function getSource()
+    {
+        return "   foo bar
+     twig source
+
+";
+    }
 }
