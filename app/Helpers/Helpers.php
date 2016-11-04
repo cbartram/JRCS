@@ -10,6 +10,7 @@ namespace App\Helpers;
 
 
 use App\Profile;
+use App\StaffProfile;
 use DateTime;
 use DateTimeZone;
 use Illuminate\Support\Facades\DB;
@@ -56,6 +57,112 @@ class Helpers
             }
         }
         return false;
+    }
+
+
+    /**
+     * This function promotes a volunteer to a staff member. It is different from the promote
+     * admin function because it provides the flexibility to designate which groups the staff
+     * member will have access too. This function can serve as promoteAdmin() if all three groups
+     * are true.
+     * @param $volunteerID string volunteer's id
+     * @param $password string Staff members password
+     * @param $bebco boolean Bebco Access
+     * @param $jaco boolean Jaco Access
+     * @param $jbc boolean jbc access
+     * @return boolean True if the staff was successfully copied false otherwise
+     */
+    public static function promoteToStaff($volunteerID, $password, $bebco, $jaco, $jbc) {
+        $volunteer = Profile::find($volunteerID);
+        $staff = new StaffProfile();
+
+        //todo possibly could be done much simpler with replicate()->save();
+
+        //check to make sure the volunteer exists
+        if($volunteer != null) {
+            $staff->id = 'stf_' . str_random(8);
+            $staff->email = $volunteer->email;
+            $staff->password = Hash::make($password);
+            $staff->first_name = $volunteer->first_name;
+            $staff->last_name = $volunteer->last_name;
+            $staff->address = $volunteer->address;
+            $staff->city = $volunteer->city;
+            $staff->state = $volunteer->state;
+            $staff->zip_code = $volunteer->zip_code;
+
+            //Check staff members access and grant access accordingly
+            if($bebco) {
+                $staff->bebco_access = 1;
+            } else {
+                $staff->bebco_access = 0;
+            }
+
+            if($jaco) {
+                $staff->jaco_access = 1;
+            } else {
+                $staff->jaco_access = 0;
+            }
+
+            if($jbc) {
+                $staff->jbc_access = 1;
+            } else {
+                $staff->jbc_access = 0;
+            }
+
+            $staff->volunteer_id = $volunteer->id;
+            $staff->save();
+
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * Removes staff row from the Staff_profile2 table in the database
+     * @param $staffID string Staff members ID
+     * @return boolean true if the deletion was successful false otherwise
+     */
+    public static function demoteFromStaff($staffID) {
+        StaffProfile::destroy($staffID);
+        return true;
+    }
+
+    /**
+     * Promotes a staff member to admin.
+     * @param $staffID string Staff members ID
+     * @return bool True if the operation was successful false otherwise
+     */
+    public static function promoteToAdmin($staffID) {
+        $staff = StaffProfile::find($staffID);
+
+        $staff->bebco_access = 1;
+        $staff->jaco_access  = 1;
+        $staff->jbc_access   = 1;
+
+        $staff->save();
+        return true;
+    }
+
+    /**
+     * This method simply deletes access from all 3 of their groups but does not however delete their
+     * profile from the table use demoteFromStaff() instead
+     * @param $staffID
+     * @return boolean True if the operation was successful false otherwise
+     */
+    public static function demoteFromAdmin($staffID) {
+        $staff = StaffProfile::find($staffID);
+
+        if($staff != null) {
+            $staff->bebco_access = 0;
+            $staff->jaco_access  = 0;
+            $staff->jbc_access   = 0;
+
+            $staff->save();
+            return true;
+        } else {
+            return false;
+        }
     }
 
 
