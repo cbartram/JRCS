@@ -41,7 +41,7 @@
                                 <a href="/donation/approve/{{$donation->donation_id}}"><button type="button" class="btn btn-primary"><span class="fa fa-thumbs-o-up"></span></button></a>
                             </td>
                             <td>
-                                <a href="/donation/deny/{{$donation->donation_id}}"><button type="button" class="btn btn-danger"><span class="fa fa-thumbs-o-down"></span></button></a>
+                               <button type="button" data-toggle="modal" data-target="#donation-denied" data-dismiss="modal" class="btn btn-danger"><span class="fa fa-thumbs-o-down"></span></button>
                             </td>
                         </tr>
                     @endforeach

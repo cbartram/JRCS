@@ -21,6 +21,13 @@ $(document).ready(function() {
        });
     });
 
+
+    //Handles getting the Donation ID from a donation denied request
+    $('.fa-thumbs-o-down').parent().click(function() {
+       var donationID = $(this).parent().siblings(":first").text();
+        $("#donation-denied-form").attr('action', "/donation/deny/" + donationID);
+    });
+
     $(".btn-success").click(function() {
         //Travels up the DOM searching for H4 tag with the CSS class user-name could be done better
         var user = $(this).parent().parent().parent().parent().find('.user-name').text();
