@@ -119,7 +119,7 @@ Route::post('/donation/add', 'DonationController@addDonation');
 
 //Handles approving or denying donation requests
 Route::get('/donation/approve/{id}', 'DonationController@approve');
-Route::get('/donation/deny/{id}', 'DonationController@deny');
+Route::post('/donation/deny/{id}', 'DonationController@deny');
 
 //Handles showing the donation history page when a staff member access's it
 Route::get('/donation/history', function() {

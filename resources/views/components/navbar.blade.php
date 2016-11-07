@@ -135,6 +135,7 @@
 @include('components.modals.add-donation')
 @include('components.modals.add-program')
 @include('components.modals.delete-program')
+@include('components.modals.donation-denied')
 
 
 @yield('content')

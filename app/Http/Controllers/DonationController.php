@@ -159,9 +159,11 @@ class DonationController extends Controller
     public function deny($id) {
         $donation = Donations::where('donation_id', $id)->first();
         $donation->status = 'Denied';
+        $donation->donation_denied_description = Input::get('description');
         $donation->save();
 
         Toastr::success('Donation has been Denied successfully!', $title = "Donation Denied", $options = []);
         return Redirect::back();
     }
+
 }
