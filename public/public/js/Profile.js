@@ -54,7 +54,7 @@ $(document).ready(function() {
             $("#table-body").find("tr").remove();
         });
 
-        $(".modal-title").html(user + "'s Volunteer Details");
+        $("#modal-title").html(user.substr(0, user.indexOf('-') - 1) + "'s Volunteer Details");
     });
 
     //Add Date pickers from jqueryUI to date selectors
