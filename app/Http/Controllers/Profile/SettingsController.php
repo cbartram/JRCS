@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Profile;
 
+use App\Helpers\Helpers;
 use App\Helpers\Settings;
 use App\Http\Controllers\Controller;
 use App\Profile;
@@ -136,6 +137,46 @@ class SettingsController extends Controller
                 Toastr::error('Your password fields must match!', $title = 'Error', $options = []);
                 return Redirect::back();
             }
+        }
+    }
+
+    /**
+     * Handles staff rights & promoting and demoting
+     * a staff member or volunteer
+     */
+    public function rights() {
+
+        dd(Input::all());
+
+        $rules = [
+          'password' => 'required'
+        ];
+        //run the validation rules on the inputs from the form
+        $validator = Validator::make(Input::all(), $rules);
+
+        //if the validator fails, redirect back to the form
+        if ($validator->fails()) {
+            Toastr::error('You must fill out all the fields to promote a volunteer', $title = 'Promotion Failed', $options = []);
+            return Redirect::to('/profile')
+                ->withInput();
+        }
+
+
+        if(Input::get('promote')) {
+            //we promote volunteers but not staff
+            $volunteer = Input::get('volunteer');
+
+            //todo Input::get('bebco') must be a boolean of true not a string, the helper method converts
+            //todo it into a type safe format for storage in the database
+            Helpers::promoteToStaff($volunteer,
+                Input::get('password'),
+                Input::get('bebco'),
+                Input::get('jaco'),
+                Input::get('jbc'));
+
+        } else {
+            //we demote staff but not volunteers
+            return "Demote";
         }
     }
 }

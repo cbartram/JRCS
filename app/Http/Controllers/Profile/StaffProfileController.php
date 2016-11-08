@@ -8,6 +8,7 @@ use App\Helpers\Helpers;
 use App\Http\Controllers\Controller;
 use App\Profile;
 use App\Programs;
+use App\StaffProfile;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
@@ -82,12 +83,17 @@ class StaffProfileController extends Controller
             //If the user is browsing the admin group show all events
             if($defaultGroup == "ADMIN") {
                 $log = EventLog::join('calendar_events', 'event_log.event_id', '=', 'calendar_events.id')->orderBy('event_id', 'ASC')->get();
+                $allStaff = StaffProfile::all();
             } else {
                 //Events on the calendar and events in the event log where the group is the staff members current group
                 $log = EventLog::where('event_log.group', $defaultGroup)->join('calendar_events', 'event_log.event_id', '=', 'calendar_events.id')->orderBy('event_id', 'ASC')->get();
+                //Get all staff members who match the current group
+                $allStaff = StaffProfile::where($this->getAttributeName($defaultGroup), 1)->get();
             }
+
             //return the view and attach staff & volunteer objects to be accessed by blade templating engine
              return view('profile', compact('staff'), compact('volunteers'))
+                ->with('allStaff', $allStaff)
                 ->with('defaultGroup', $defaultGroup)
                 ->with('gravEmail', $gravEmail)
                 ->with('groups', $groups)
@@ -138,7 +144,7 @@ class StaffProfileController extends Controller
 
     /**
      * Returns the first group that the staff member has access to in no particular order.
-     * @param $id Staff members ID
+     * @param $id String staff members ID
      * @return null|string
      */
     public function getDefaultGroupFromId($id)
@@ -161,7 +167,7 @@ class StaffProfileController extends Controller
 
     /**
      * Gets a plain text version of the staffs default group instead of the database columns name
-     * @param $column Database column's name
+     * @param $column string database column's name
      * @return string group name as plain text
      */
     public function getTruncatedGroupName($column) {
@@ -184,7 +190,7 @@ class StaffProfileController extends Controller
 
     /**
      * Returns the column name for a group passed as the parameter (opposite of the getTruncatedGroupName function)
-     * @param $truncated The shortened (truncated) group name
+     * @param $truncated string shortened (truncated) group name
      * @return string A String tht matches the column in the database for this respective group
      */
     public function getGroupNameFromTruncated($truncated) {
@@ -199,6 +205,30 @@ class StaffProfileController extends Controller
                 break;
             case "JBC":
                 $group = 'jbc_volunteer';
+                break;
+            default:
+                $group = 'error';
+        }
+        return $group;
+    }
+
+    /**
+     * Returns the column name for a group passed as the parameter (opposite of the getTruncatedGroupName function)
+     * @param $truncated string shortened (truncated) group name
+     * @return string A String tht matches the column in the database for this respective group
+     */
+    public function getAttributeName($truncated) {
+        $group = '';
+
+        switch($truncated) {
+            case "BEBCO":
+                $group = 'bebco_access';
+                break;
+            case "JACO":
+                $group = 'jaco_access';
+                break;
+            case "JBC":
+                $group = 'jbc_access';
                 break;
             default:
                 $group = 'error';

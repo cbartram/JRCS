@@ -98,6 +98,8 @@ Route::post('/settings/self', 'Profile\SettingsController@self');
 //Handles showing/hiding drag and drop feature for all groups not just admin
 Route::post('/settings/drop', 'Profile\SettingsController@drop');
 
+//Handles promoting/demoting staff members and volunteers
+Route::post('/settings/rights', 'Profile\SettingsController@rights');
 
 /*
 |------------------------------------------------------------------------

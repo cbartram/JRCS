@@ -10,56 +10,55 @@ Highcharts.createElement('link', {
 }, null, document.getElementsByTagName('head')[0]);
 
 Highcharts.theme = {
-colors: ["#72c6ef", "#2484C6", "#832A81", "#D7DEE2", "#72C6EF", "#39BB9D"],
-chart: {
-backgroundColor: null,
-style: {
-    fontFamily: "Open Sans, sans-serif"
-}
-},
-title: {
-style: {
-    fontSize: '16px',
-    fontWeight: 'bold',
-}
-},
-tooltip: {
-    borderWidth: 0,
-    backgroundColor: 'rgba(219,219,216,0.8)',
-    shadow: false
-},
-legend: {
-itemStyle: {
-    fontWeight: 'normal',
-    fontSize: '11px'
-}
-},
-credits: {
-    enabled: false   // Whether to show the credits text.
-},
-xAxis: {
-gridLineWidth: 0,
-labels: {
-style: {
-    fontSize: '10px'
-}
-}
-},
-yAxis: {
-minorTickInterval: 5,
-title: {
-style: {
-}
-},
-labels: {
-style: {
-    fontSize: '10px'
-}
-}
-},
+    colors: ["#72c6ef", "#2484C6", "#832A81", "#D7DEE2", "#72C6EF", "#39BB9D"],
+    chart: {
+        backgroundColor: null,
+        style: {
+            fontFamily: "Open Sans, sans-serif"
+        }
+    },
+    title: {
+        style: {
+            fontSize: '16px',
+            fontWeight: 'bold',
+        }
+    },
+    tooltip: {
+        borderWidth: 0,
+        backgroundColor: 'rgba(219,219,216,0.8)',
+        shadow: false
+    },
+    legend: {
+        itemStyle: {
+            fontWeight: 'normal',
+            fontSize: '11px'
+        }
+    },
+    credits: {
+        enabled: false   // Whether to show the credits text.
+    },
+    xAxis: {
+        gridLineWidth: 0,
+        labels: {
+            style: {
+                fontSize: '10px'
+            }
+        }
+    },
+    yAxis: {
+        minorTickInterval: 5,
+        title: {
+            style: {}
+        },
+        labels: {
+            style: {
+                fontSize: '10px'
+            }
+        }
+    },
 
 // General
-   background2: '#fff'
+    background2: '#fff'
 
 };
 
@@ -74,9 +73,7 @@ $(function () {
         title: {
             text: 'Volunteer Donations over Time'
         },
-        subtitle: {
-
-        },
+        subtitle: {},
         xAxis: {
             allowDecimals: false,
             labels: {
