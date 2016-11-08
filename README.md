@@ -118,11 +118,13 @@ If your still recieving errors try following the composer installation guide fro
 
 ###Version 2.1.1
 - Multiple Bug fixes
-- Much more verbose JS API
+- Much more verbose JS API 
+  - includes functions to: interact with events (CRUD), authenticate user emails and passwords, check-in and check-out volunteers, and open, close, approve, and deny donations
 - Functions to interact with volunteer events, donations, data and more
-- more account settings
-- bulk checkout feature
-- dynamic programs and events
+- Account settings update to include showing drag and drop for all groups
+- bulk checkout feature for staff members
+- ability to delete/re-open a previously approved donation
+- dynamic programs and events (ability to remove events from the calendar, and add and delete programs) 
 - More controls for the calendar on the profile page
 - client requested changes (2 password reset fields, nationality, switching login and cico pages etc...)
 
