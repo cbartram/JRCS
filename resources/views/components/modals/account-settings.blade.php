@@ -55,17 +55,17 @@
 
                         {{Form::open(array('url' => '/settings/rights', 'method' => 'post'))}}
                         <div class="radio">
-                            <label for="promote">
+                            <label for="promote" id="promote">
                                 {{Form::radio('rights', 'promote')}} Promote
                             </label>
                         </div>
                         <div class="radio">
-                            <label for="demote">
+                            <label for="demote" id="demote">
                                 {{Form::radio('rights', 'demote')}} Demote
                             </label>
                         </div>
 
-                        <div class="input-group">
+                        <div class="input-group" id="volunteers">
                             <select name="volunteers">
                                 @foreach($volunteers as $volunteer)
                                     <option value="{{$volunteer->id}}">{{$volunteer->id . '-' . $volunteer->first_name . ' ' .  $volunteer->last_name }}</option>
@@ -73,33 +73,33 @@
                             </select>
                         </div>
 
-                          <div class="input-group" style="margin-top:15px;">
+                          <div class="input-group" style="margin-top:15px;" id="password">
                                 <label for="password">
                                     {{Form::password('password', array('class' => 'form-control', 'placeholder' => 'Volunteers Password'))}}
                                 </label>
                           </div>
 
-                        <div class="input-group">
+                        <div class="input-group" id="checkbox-access">
                             <div class="checkbox">
                                 @if(Helpers::hasAccessTo('JACO', Session::get('id')))
-                                <label><input type="checkbox" name="jaco" value="true">JACO Access</label>
+                                <label>{{Form::checkbox('jaco', 'true')}} JACO Access</label>
                                 @endif
                             </div>
                             <div class="checkbox">
                                 @if(Helpers::hasAccessTo('BEBCO', Session::get('id')))
-                                <label><input type="checkbox" name="bebco" value="true">BEBCO Access</label>
+                                <label>{{Form::checkbox('bebco', 'true')}} BEBCO Access</label>
                                 @endif
                             </div>
                             <div class="checkbox">
                                 @if(Helpers::hasAccessTo('JBC', Session::get('id')))
-                                <label><input type="checkbox" name="jbc" value="true">JBC Access</label>
+                                <label>{{Form::checkbox('jbc', 'true')}} JBC Access</label>
                                 @endif
                             </div>
                         </div>
 
-                        <div class="input-group" style="margin-bottom:15px;">
-                            Staff members
-                            <select name="staff">
+                        <div class="input-group" style="margin-bottom:15px;" id="staff">
+                            Staff Members
+                            <select name="staff" >
                                 @foreach($allStaff as $s)
                                     <option value="{{$s->id}}">{{$s->id . '-' . $s->first_name . ' ' . $s->last_name}}</option>
                                 @endforeach

@@ -145,38 +145,59 @@ class SettingsController extends Controller
      * a staff member or volunteer
      */
     public function rights() {
+        $input = Input::all();
 
-        dd(Input::all());
+        //groups the new staff member will have access to, false by default
+        $groups = ['bebco' => false,
+                   'jaco'  => false,
+                   'jbc'   => false
+                  ];
+
+        //iterate over the Input results and update the groups array accordingly
+        foreach($input as $k => $v){
+            if($k == 'bebco') {
+                $groups['bebco'] = true;
+            }
+
+            if($k == 'jaco') {
+                $groups['jaco'] = true;
+            }
+
+            if($k == 'jbc') {
+                $groups['jbc'] = true;
+            }
+        }
 
         $rules = [
           'password' => 'required'
         ];
-        //run the validation rules on the inputs from the form
-        $validator = Validator::make(Input::all(), $rules);
 
-        //if the validator fails, redirect back to the form
-        if ($validator->fails()) {
-            Toastr::error('You must fill out all the fields to promote a volunteer', $title = 'Promotion Failed', $options = []);
-            return Redirect::to('/profile')
-                ->withInput();
-        }
+        if(Input::get('rights') == "promote") {
 
+            //run the validation rules on the inputs from the form
+            $validator = Validator::make(Input::all(), $rules);
 
-        if(Input::get('promote')) {
-            //we promote volunteers but not staff
-            $volunteer = Input::get('volunteer');
+            //if the validator fails, redirect back to the form
+            if ($validator->fails()) {
+                Toastr::error('You must fill out all the fields to promote a volunteer', $title = 'Promotion Failed', $options = []);
+                return Redirect::to('/profile')
+                    ->withInput();
+            }
 
-            //todo Input::get('bebco') must be a boolean of true not a string, the helper method converts
-            //todo it into a type safe format for storage in the database
-            Helpers::promoteToStaff($volunteer,
+            Helpers::promoteToStaff(Input::get('volunteers'),
                 Input::get('password'),
-                Input::get('bebco'),
-                Input::get('jaco'),
-                Input::get('jbc'));
+                $groups['bebco'],
+                $groups['jaco'],
+                $groups['jbc']);
+
+            Toastr::success('Volunteer has been promoted to a staff member successfully', $title = 'Promotion Succeeded', $options = []);
+            return Redirect::back();
 
         } else {
-            //we demote staff but not volunteers
-            return "Demote";
+            //Handle demoting
+            Helpers::demoteFromStaff(Input::get('staff'));
+            Toastr::success('Volunteer has been demoted successfully', $title = 'Demotion Succeeded', $options = []);
+            return Redirect::back();
         }
     }
 }
