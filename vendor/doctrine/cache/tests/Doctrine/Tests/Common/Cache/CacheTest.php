@@ -402,12 +402,12 @@ abstract class CacheTest extends \Doctrine\Tests\DoctrineTestCase
 
         $cache->setNamespace('ns1');
         $this->assertFalse($cache->contains('key1'));
-        $cache->save('key1', 'tests');
+        $cache->save('key1', 'test');
         $this->assertTrue($cache->contains('key1'));
 
         $cache->setNamespace('ns2');
         $this->assertFalse($cache->contains('key1'));
-        $cache->save('key1', 'tests');
+        $cache->save('key1', 'test');
         $this->assertTrue($cache->contains('key1'));
 
         $cache->setNamespace('ns1');

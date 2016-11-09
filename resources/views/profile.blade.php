@@ -10,7 +10,7 @@
                 <div class="panel-body" id="test">
             <div class="profile-sidebar">
                 <div class="profile-userpic">
-                    <img src="https://www.gravatar.com/avatar/{{$gravEmail}}?d=http://aeroscripts.x10host.com/images/default.jpg&s=350" class="img-responsive" alt="">
+                    <img src="https://www.gravatar.com/avatar/{{$gravEmail}}?d=http://i.imgur.com/Hrsj2vq.jpg&s=350" class="img-responsive" alt="">
                 </div>
                 <div class="profile-usertitle">
                     <div class="profile-usertitle-name">
@@ -184,7 +184,7 @@
 </div>
 </div>
 
-    @if($defaultGroup == 'ADMIN' || Redis::get('drop'))
+    @if($defaultGroup == 'ADMIN' || Session::get('drop'))
     <!-- Start to Swap and Copy Volunteer Profiles -->
     <div class="row">
         <div class="col-md-4">

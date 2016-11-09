@@ -16,7 +16,7 @@ class SQLite3Test extends CacheTest
 
     protected function setUp()
     {
-        $this->file = tempnam(null, 'doctrine-cache-tests-');
+        $this->file = tempnam(null, 'doctrine-cache-test-');
         unlink($this->file);
         $this->sqlite = new SQLite3($this->file);
     }

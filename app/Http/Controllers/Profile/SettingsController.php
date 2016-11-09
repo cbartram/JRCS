@@ -51,14 +51,14 @@ class SettingsController extends Controller
 
         //Place a session
         if($checkbox == true) {
-            //Session::put('drop', true);
-            Redis::set('drop', true);
+            Session::put('drop', true);
+            //Redis::set('drop', true);
 
             Toastr::success('Drag and Drop view has been turned on!', $title = 'Success', $options = []);
             return Redirect::back();
         } else {
-            //Session::forget('drop');
-            Redis::del('drop');
+            Session::forget('drop');
+            //Redis::del('drop');
             Toastr::success('Drag and Drop view has been turned off!', $title = 'Success', $options = []);
 
             return Redirect::back();
