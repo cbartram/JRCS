@@ -16,19 +16,19 @@
                 <div class="row">
                     <div class="col-lg-12">
                         {{Form::open(array('url' => '/settings', 'method' => 'post'))}}
-                        @if (Helpers::hasAccessTo('BEBCO', Session::get('id')))
+                        @if(Helpers::hasAccessTo('BEBCO', Session::get('id')))
                             <div class="checkbox">
                                 <label>{{ Form::radio('group-radio', 'BEBCO') }} Set BEBCO as Default</label>
                             </div>
                         @endif
-                        @if (Helpers::hasAccessTo('JACO', Session::get('id')))
+                        @if(Helpers::hasAccessTo('JACO', Session::get('id')))
                             <div class="checkbox">
                                 <label>{{ Form::radio('group-radio', 'JACO') }} Set JACO as Default</label>
 
                             </div>
                         @endif
-                        @if (Helpers::hasAccessTo('JBC', Session::get('id')))
-                            <div class="checkbox disabled">
+                        @if(Helpers::hasAccessTo('JBC', Session::get('id')))
+                            <div class="checkbox">
                                 <label>{{ Form::radio('group-radio', 'JBC') }} Set JBC as Default</label>
                             </div>
                         @endif
@@ -37,6 +37,76 @@
                 <div class="row">
                     <div class="col-lg-12">
                         {{ Form::submit('Save', array('class' => 'btn btn-primary')) }}
+                        {{Form::close()}}
+                    </div>
+                </div>
+
+
+                <!-- Start of the staff promote/demote -->
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h5>Promote/Demote Staff</h5>
+                        <hr>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+
+                        {{Form::open(array('url' => '/settings/rights', 'method' => 'post'))}}
+                        <div class="radio">
+                            <label for="promote" id="promote">
+                                {{Form::radio('rights', 'promote')}} Promote
+                            </label>
+                        </div>
+                        <div class="radio">
+                            <label for="demote" id="demote">
+                                {{Form::radio('rights', 'demote')}} Demote
+                            </label>
+                        </div>
+
+                        <div class="input-group" id="volunteers">
+                            <select name="volunteers">
+                                @foreach($volunteers as $volunteer)
+                                    <option value="{{$volunteer->id}}">{{$volunteer->id . '-' . $volunteer->first_name . ' ' .  $volunteer->last_name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                          <div class="input-group" style="margin-top:15px;" id="password">
+                                <label for="password">
+                                    {{Form::password('password', array('class' => 'form-control', 'placeholder' => 'Volunteers Password'))}}
+                                </label>
+                          </div>
+
+                        <div class="input-group" id="checkbox-access">
+                            <div class="checkbox">
+                                @if(Helpers::hasAccessTo('JACO', Session::get('id')))
+                                <label>{{Form::checkbox('jaco', 'true')}} JACO Access</label>
+                                @endif
+                            </div>
+                            <div class="checkbox">
+                                @if(Helpers::hasAccessTo('BEBCO', Session::get('id')))
+                                <label>{{Form::checkbox('bebco', 'true')}} BEBCO Access</label>
+                                @endif
+                            </div>
+                            <div class="checkbox">
+                                @if(Helpers::hasAccessTo('JBC', Session::get('id')))
+                                <label>{{Form::checkbox('jbc', 'true')}} JBC Access</label>
+                                @endif
+                            </div>
+                        </div>
+
+                        <div class="input-group" style="margin-bottom:15px;" id="staff">
+                            Staff Members
+                            <select name="staff" >
+                                @foreach($allStaff as $s)
+                                    <option value="{{$s->id}}">{{$s->id . '-' . $s->first_name . ' ' . $s->last_name}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        {{Form::submit('Save', array('class' => 'btn btn-primary'))}}
                         {{Form::close()}}
                     </div>
                 </div>
@@ -94,20 +164,20 @@
 
             <!-- Start of the password reset option -->
                 <div class="row">
-                    <div class="col-lg-12">
+                    <div class="col-md-12">
                         <h5>Reset your Password</h5>
                         <hr>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-lg-12">
+                    <div class="col-md-6">
                         {{Form::open(array('url' => '/password', 'method' => 'post'))}}
-                        {{Form::password('password-text', Input::old('email'), array('placeholder' => 'New Password', 'class' => 'form-control'))}}
-                        {{Form::password('password-confirm', Input::old('email'), array('placeholder' => 'Confirm Password', 'class' => 'form-control'))}}
+                        {{Form::password('password-text', array('placeholder' => 'New Password', 'class' => 'form-control'))}}
+                        {{Form::password('password-confirm', array('placeholder' => 'Confirm Password', 'class' => 'form-control'))}}
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-lg-12">
+                    <div class="col-md-6" style="margin-top:15px;">
                         {{Form::submit('Reset Password', array('class' => 'btn btn-primary')) }}
                         {{Form::close()}}
                     </div>

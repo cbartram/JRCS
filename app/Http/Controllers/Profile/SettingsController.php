@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Profile;
 
+use App\Helpers\Helpers;
 use App\Helpers\Settings;
 use App\Http\Controllers\Controller;
 use App\Profile;
@@ -136,6 +137,67 @@ class SettingsController extends Controller
                 Toastr::error('Your password fields must match!', $title = 'Error', $options = []);
                 return Redirect::back();
             }
+        }
+    }
+
+    /**
+     * Handles staff rights & promoting and demoting
+     * a staff member or volunteer
+     */
+    public function rights() {
+        $input = Input::all();
+
+        //groups the new staff member will have access to, false by default
+        $groups = ['bebco' => false,
+                   'jaco'  => false,
+                   'jbc'   => false
+                  ];
+
+        //iterate over the Input results and update the groups array accordingly
+        foreach($input as $k => $v){
+            if($k == 'bebco') {
+                $groups['bebco'] = true;
+            }
+
+            if($k == 'jaco') {
+                $groups['jaco'] = true;
+            }
+
+            if($k == 'jbc') {
+                $groups['jbc'] = true;
+            }
+        }
+
+        $rules = [
+          'password' => 'required'
+        ];
+
+        if(Input::get('rights') == "promote") {
+
+            //run the validation rules on the inputs from the form
+            $validator = Validator::make(Input::all(), $rules);
+
+            //if the validator fails, redirect back to the form
+            if ($validator->fails()) {
+                Toastr::error('You must fill out all the fields to promote a volunteer', $title = 'Promotion Failed', $options = []);
+                return Redirect::to('/profile')
+                    ->withInput();
+            }
+
+            Helpers::promoteToStaff(Input::get('volunteers'),
+                Input::get('password'),
+                $groups['bebco'],
+                $groups['jaco'],
+                $groups['jbc']);
+
+            Toastr::success('Volunteer has been promoted to a staff member successfully', $title = 'Promotion Succeeded', $options = []);
+            return Redirect::back();
+
+        } else {
+            //Handle demoting
+            Helpers::demoteFromStaff(Input::get('staff'));
+            Toastr::success('Volunteer has been demoted successfully', $title = 'Demotion Succeeded', $options = []);
+            return Redirect::back();
         }
     }
 }

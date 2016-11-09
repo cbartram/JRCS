@@ -21,6 +21,22 @@ $(document).ready(function() {
        });
     });
 
+    $("#volunteers, #checkbox-access, #password, #staff").hide();
+    //promote on click show volunteers, checkbox-access, password
+    $("#promote").find('input').change(function() {
+        $("#staff").hide("slow");
+        $("#volunteers, #checkbox-access, #password").show("slow");
+    });
+
+
+    $("#demote").find('input').change(function() {
+        $("#volunteers, #checkbox-access, #password").hide("slow");
+       $("#staff").show("slow");
+
+    });
+
+    //demote on click show staff
+
 
     //Handles getting the Donation ID from a donation denied request
     $('.fa-thumbs-o-down').parent().click(function() {
