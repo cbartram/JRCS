@@ -164,6 +164,7 @@ return [
         Illuminate\View\ViewServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
         Kamaln7\Toastr\ToastrServiceProvider::class,
+        Maatwebsite\Excel\ExcelServiceProvider::class,
 
         /*
          * Package Service Providers...
@@ -232,6 +233,7 @@ return [
         'Input' => Illuminate\Support\Facades\Input::class,
         'Helpers' => App\Helpers\Helpers::class,
         'Toastr' => Kamaln7\Toastr\Facades\Toastr::class,
+        'Excel' => Maatwebsite\Excel\Facades\Excel::class,
 
     ],
 
