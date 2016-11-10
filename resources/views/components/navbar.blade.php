@@ -89,6 +89,7 @@
                             @endif
                         </ul>
                     </li>
+                    <li role="presentation"><a href="#" data-toggle="modal" data-target="#export-modal"><span class="fa fa-file-excel-o"></span> Export</a></li>
                     <li role="presentation" class="dropdown">
                         <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-random"></span>
                             &nbsp; Switch Organizations <span class="caret"></span></a>
@@ -136,6 +137,7 @@
 @include('components.modals.add-program')
 @include('components.modals.delete-program')
 @include('components.modals.donation-denied')
+@include('components.modals.excel-export')
 
 
 @yield('content')
