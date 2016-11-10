@@ -11,31 +11,33 @@ namespace App\Helpers;
 
 use App\Profile;
 use App\StaffProfile;
+use Carbon\Carbon;
 use DateTime;
 use DateTimeZone;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use phpDocumentor\Reflection\Types\String_;
 
 class Helpers
 {
 
     /**
-     * This function will parse and return elapsed time given start and end dates in UTC format 11-21-15, 12-24-15
-     * @param $start Start date in UTC with the format mm-dd-yy
-     * @param $end End date in UTC with the format mm-dd-yy
+     * This function will parse and return elapsed time given a row in the database with a created_at and updated_at fields
+     * @param $model String collection object from eloquent query on the database
+     * @return Integer difference between the two timestamps in days rounded down to the nearest day
      */
-    public static function getElapsedDate($start, $end) {
-
+    public static function getElapsedDate($model) {
+        return $model->updated_at->diffInDays($model->created_at);
     }
 
     /**
-     * This function will parse and return elapsed time given the start time and end time in 12 hour format
-     * e.g. 12:30 PM and 1:08 AM
-     * @param $start Start time in utc time hh:ss AM/PM
-     * @param $end End time in utc time hh:ss AM/PM
+     * This function will parse and return elapsed time given a row in the database with a created_at and updated_at field
+     * accessed through an eloquent laravel collection object
+     * @param $model String collection object returned from db query
+     * @return Integer difference between the start time and end time in hours
      */
-    public static function getElapsedTime($start, $end) {
-
+    public static function getElapsedTime($model) {
+        return $model->updated_at->diffInHours($model->created_at);
     }
 
 

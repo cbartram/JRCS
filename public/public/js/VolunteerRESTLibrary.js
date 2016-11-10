@@ -349,7 +349,7 @@ function isJBCVolunteer(email, getResult) {
  * @param getResult callback function to return the result in the console.
  */
 function checkIn(email, type, program, getResult) {
-    $.post('http://localhost:8000/cico', {email: email, type: type, program: program}).done(function (response) {
+    $.post('http://jrcs.herokuapp.com/cico', {email: email, type: type, program: program}).done(function (response) {
         getResult(response);
     });
 }
