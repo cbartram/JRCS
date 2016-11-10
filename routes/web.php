@@ -63,7 +63,20 @@ Route::post('/add', 'addController@index');
 
 //Handles adding & deleting a program
 Route::post('/program/add', 'ProgramController@add');
+
 Route::post('/program/delete', 'ProgramController@delete');
+
+
+/*
+|------------------------------------------------------------------------
+| Routes for Excel Exporting
+|------------------------------------------------------------------------
+| These routes define the specific GET and POST requests that are required
+| for volunteer data to be exported to an excel format
+|
+ */
+Route::get('/excel/export', 'ExportController@export');
+
 
 
 /*
