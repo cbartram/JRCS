@@ -77,8 +77,6 @@ Route::post('/program/delete', 'ProgramController@delete');
  */
 Route::get('/excel/export', 'ExportController@export');
 
-
-
 /*
 |------------------------------------------------------------------------
 | Routes for Events

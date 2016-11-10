@@ -15,6 +15,24 @@ h2 {
     color:white;
 }
 
+.footer .container .row {
+    padding-bottom:8px;
+}
+
+.footer {
+    margin-top:15px;
+    position:fixed;
+    bottom: 0;
+    width: 100%;
+    height: 60px;
+    background-color: #27245E;
+
+}
+
+.panel-default {
+    margin-bottom:15px;
+}
+
  #email-input {
     margin-bottom: -10px;
     border-bottom-right-radius: 0;
@@ -43,10 +61,31 @@ h2 {
     width: 185%;
 }
 
-.btn-success, .btn-success:hover, .btn-success:active, .btn-success:focus {
+.navbar-default {
+    background-color:#27245E;
+    border-color:#27245E;
+    position:absolute;
+}
+
+.navbar-default .navbar-nav > li > a {
+    color: white; /*Change active text color here*/
+}
+
+.navbar-default .navbar-nav > li > a:hover {
+    color: #1999D6; /*Change active text color here*/
+}
+
+.text-muted {
+    color:white;
+}
+
+#volunteer-program {
+    margin-bottom:15px;
+}
+
+.btn-success, .btn-success:active, .btn-success:focus {
     -moz-user-select: none;
     background-image: none;
-    border: 1px solid transparent;
     border-radius: 4px;
     cursor: pointer;
     display: inline-block;
@@ -71,12 +110,19 @@ h2 {
     width: 100%;
 }
 
+.btn-success:hover {
+    background-color: #35365e;
+    border-color: #27245E;
+    color: #fff;
+    width: 100%;
+}
 
 /* Panel Styles */
 .panel-default {
     border-radius:3px;
     margin-top:20px;
 }
+
 .panel-heading {
     background-color: #f5f5f5;
     border-bottom: 1px solid #E6EAEC;
