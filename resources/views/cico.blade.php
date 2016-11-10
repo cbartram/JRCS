@@ -20,8 +20,7 @@
 
 <div class="container">
 
-
-    <nav class="navbar navbar-default navbar-fixed-top closed" role="navigation">
+    <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
         <div class="container">
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
@@ -62,7 +61,7 @@
     </nav>
 
     <div class="row">
-        <div class="col-lg-6 col-lg-offset-2">
+        <div class="col-lg-6 col-lg-offset-2" style="margin-top:15px">
             <h2 class="form-signin-heading" align="center">Volunteer Check-in</h2>
         </div>
     </div>
@@ -160,7 +159,11 @@
 
 <footer class="footer">
     <div class="container">
-        <p class="text-muted">Place sticky footer content here.</p>
+        <div class="row">
+            <div class="col-md-4 col-md-offset-5">
+                <p class="text-muted">&copy; JRCS Volunteer Organization</p>
+            </div>
+        </div>
     </div>
 </footer>
 
@@ -168,6 +171,8 @@
 <script src="//code.jquery.com/ui/1.12.0/jquery-ui.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 <script src="https://use.fontawesome.com/09e1e27aff.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+
 
 <!-- Local Libraries -->
 <script src="../../public/js/VolunteerRESTLibrary.js"></script>
