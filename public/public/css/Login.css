@@ -15,6 +15,15 @@ h2 {
     color:white;
 }
 
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    /* Set the fixed height of the footer here */
+    height: 60px;
+    background-color: #27245E;
+}
+
  #email-input {
     margin-bottom: -10px;
     border-bottom-right-radius: 0;
@@ -43,10 +52,22 @@ h2 {
     width: 185%;
 }
 
-.btn-success, .btn-success:hover, .btn-success:active, .btn-success:focus {
+.navbar-default {
+    background-color:#27245E;
+    border-color:#27245E;
+}
+
+.navbar-default .navbar-nav > li > a {
+    color: white; /*Change active text color here*/
+}
+
+.text-muted {
+    color:white;
+}
+
+.btn-success, .btn-success:active, .btn-success:focus {
     -moz-user-select: none;
     background-image: none;
-    border: 1px solid transparent;
     border-radius: 4px;
     cursor: pointer;
     display: inline-block;
@@ -66,6 +87,13 @@ h2 {
 
 .btn-success:active {
     background-color: #27245E;
+    border-color: #27245E;
+    color: #fff;
+    width: 100%;
+}
+
+.btn-success:hover {
+    background-color: #35365e;
     border-color: #27245E;
     color: #fff;
     width: 100%;

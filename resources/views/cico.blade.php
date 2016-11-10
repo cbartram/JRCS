@@ -19,97 +19,150 @@
 <body>
 
 <div class="container">
-<div class="row" id="volunteer-login">
-    <h2 class="form-signin-heading" align="center">Volunteer Check-in</h2>
 
-    <div class="col-lg-4 col-lg-offset-4">
-        <div id="alert-cico"></div>
-        <form class="form-signin">
-            <input type="email" class="form-control" placeholder="Email" id="volunteer-email" style="width:100%;">
-            <div class="row">
-                <div class="col-md-12" style="height:25px;"></div>
 
-                <!-- Volunteer type selector -->
-                <div class="form-group">
-                    <select class="form-control" id="volunteer-type" style="width:100%">
-                        <option name="default" selected>Select Volunteer Type</option>
-                        <option name="program">Program</option>
-                        <option name="board">Board</option>
-                        <option name="general">General</option>
-                        <option name="other">Other</option>
-                    </select>
-                </div>
-
-                <!-- Hidden form only visible to program volunteers -->
-                <div class="form-group" id="volunteer-program">
-                    <label for="program">Select Volunteer Program</label>
-                    <select class="form-control" id="program">
-                        <option name="default" selected>Select Program</option>
-                        @foreach($programs as $program)
-                            <option name="{{$program->program_name}}">{{$program->program_name}}</option>
-                        @endforeach
-                    </select>
-                </div>
-
-                <!-- Submit & back buttons -->
-                <div class="row">
-                    <div class="col-md-12" style="height:25px;"></div>
-                    <div class="col-md-12">
-                        <button class="btn btn-block btn-success" id="volunteer-cico-submit" type="submit">Check-in <i class="fa fa-check-square-o"></i></button>
-                    </div>
-                    <div class="col-md-12" style="height:25px;"></div>
-                    <div class="col-md-12">
-                        <a href="/donation"><button type="button" class="btn btn-block btn-success">File a Donation <i class="fa fa-money"></i></button></a>
-                        <a href="/login">Staff Login</a>
-                    </div>
-                </div>
+    <nav class="navbar navbar-default navbar-fixed-top closed" role="navigation">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar_collapse_fixed">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-logo" href="/"></a>
             </div>
-        </form>
-    </div>
-</div>
-<!-- Volunteer Check in end -->
 
-<div class="row">
-  <div class="col-lg-12">
-<!-- Start of the volunteer check in table -->
-<div class="panel panel-default" id="checked-in-table">
-    <div class="panel-heading"><strong>Volunteers Checked In <i class="fa fa-check"></i></strong></div>
-    <div class="panel-body">
-        <div class="row">
-            <div class="col-md-12">
-                <table class="table table-striped">
-                    <thead>
-                    <th>Id</th>
-                    <th>Name</th>
-                    <th>Checked-In</th>
-                    <th>Check-Out</th>
-                    </thead>
-                    <tbody>
-                    @foreach($volunteers as $v)
-                        <tr>
-                            <td>{{$v->id}}</td>
-                            <td>{{$v->first_name . ' ' . $v->last_name }}</td>
-                            <td><span class="label label-success">{{$v->check_in_timestamp}}</span></td>
-                            <td>
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" name="{{$v->email}}"> Select this Volunteer
-                                    </label>
-                                </div>
-                            </td>
-                        </tr>
-                    @endforeach
-                    </tbody>
-                </table>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="navbar_collapse_fixed">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/donation" target="_blank">
+                            Donation <span class="fa fa-money"></span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" target="_blank">
+                            Help <span class="fa fa-question"></span>
+                        </a>
+                    </li>
+
+                    <li class="navbar-button-item">
+                        <div class="navbar-form">
+                            <a class="signup-btn btn btn-default" href="/login/">
+                                Staff Login <span class="fa fa-sign-in"></span>
+                            </a>
+                        </div>
+                    </li>
+
+                </ul>
+            </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+    </nav>
+
+    <div class="row">
+        <div class="col-lg-6 col-lg-offset-2">
+            <h2 class="form-signin-heading" align="center">Volunteer Check-in</h2>
+        </div>
+    </div>
+
+    <div class="row" id="volunteer-login">
+        <div class="col-lg-6" style="margin-top:25px">
+            <div id="alert-cico"></div>
+            <form class="form-signin">
+
+                <input type="email" class="form-control" placeholder="Email" id="volunteer-email" style="width:100%;">
+
+                <div class="row">
+
+                    <div class="col-md-12" style="margin-top:25px">
+
+                        <!-- Volunteer type selector -->
+                        <div class="form-group">
+                            <select class="form-control" id="volunteer-type" style="width:100%">
+                                <option name="default" selected>Select Volunteer Type</option>
+                                <option name="program">Program</option>
+                                <option name="board">Board</option>
+                                <option name="general">General</option>
+                                <option name="other">Other</option>
+                            </select>
+                        </div>
+
+                        <!-- Hidden form only visible to program volunteers -->
+                        <div class="input-group" id="volunteer-program">
+                            <label for="program">Select Volunteer Program</label>
+                            <select class="form-control" id="program">
+                                <option name="default" selected>Select Program</option>
+                                @foreach($programs as $program)
+                                    <option name="{{$program->program_name}}">{{$program->program_name}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Submit & back buttons -->
+                    <div class="row">
+                        <div class="col-md-8 col-md-offset-2">
+                            <button class="btn btn-block btn-success" id="volunteer-cico-submit" type="submit">Check-in <i class="fa fa-check-square-o"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <!-- Volunteer Check in end -->
+
+        <div class="col-lg-5">
+            <!-- Start of the volunteer check in table -->
+            <div class="panel panel-default" id="checked-in-table">
+                <div class="panel-heading"><strong>Volunteers Checked In <i class="fa fa-check"></i></strong></div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <table class="table table-striped">
+                                <thead>
+                                <th>Id</th>
+                                <th>Name</th>
+                                <th>Checked-In</th>
+                                <th>Check-Out</th>
+                                </thead>
+                                <tbody>
+                                @foreach($volunteers as $v)
+                                    <tr>
+                                        <td>{{$v->id}}</td>
+                                        <td>{{$v->first_name . ' ' . $v->last_name }}</td>
+                                        <td><span class="label label-success">{{$v->check_in_timestamp}}</span></td>
+                                        <td>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" name="{{$v->email}}"> Select this Volunteer
+                                                </label>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-6 col-lg-offset-3">
+                            <button class="btn btn-block btn-danger" id="check-out">Check-Out <span class="fa fa-sign-out"></span></button>
+                        </div>
+                    </div>
+
+                </div>
             </div>
         </div>
-        <button class="btn btn-danger" id="check-out">Check-Out</button>
     </div>
 </div>
-</div>
-</div>
 
-</div>
+<footer class="footer">
+    <div class="container">
+        <p class="text-muted">Place sticky footer content here.</p>
+    </div>
+</footer>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 <script src="//code.jquery.com/ui/1.12.0/jquery-ui.js"></script>
