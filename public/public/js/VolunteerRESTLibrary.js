@@ -354,17 +354,30 @@ function checkIn(email, type, program, getResult) {
     });
 }
 
+function checkInTest(email, type, program, getResult) {
+    $.post('http://localhost:8000/cico', {email: email, type: type, program: program}).done(function (response) {
+        getResult(response);
+    });
+}
+
 
 /**
  * Checks a volunteer out of the system (Check-out) given the following parameters
  * @param email volunteers email
  * @param getResult callback function to return the result in the console.
  */
-function checkOut(email, getResult) {
+function checkOutTest(email, getResult) {
     $.post('http://localhost:8000/checkout', {email: email}).done(function (response) {
         getResult(response);
     });
 }
+
+function checkOut(email, getResult) {
+    $.post('http://jrcs.herokuapp.com/checkout', {email: email}).done(function (response) {
+        getResult(response);
+    });
+}
+
 
 /**
  * #######################################
