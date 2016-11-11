@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Cico;
 use App\Helpers\Helpers;
 use App\Profile;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -24,11 +25,6 @@ class CicoController extends Controller
     public function checkIn() {
        $email = Input::get('email');
        $date = date('Y-m-d');
-       $time = date('G:i:s');
-
-       //subtract 4 hours from UTC time to get the current time in florida knowing 3600 seconds in one hour
-       $timestamp = $date . ' ' . date("g:i a", strtotime($time) - (4 * 3600));
-
 
         //Get the first row back from the query
         $q = Profile::where('email', $email)->limit(1)->first();
@@ -63,7 +59,7 @@ class CicoController extends Controller
                 $cico->volunteer_group = $volunteer_group;
                 $cico->volunteer_program = Input::get('program');
                 $cico->volunteer_type = Input::get('type');
-                $cico->check_in_timestamp = $timestamp;
+                $cico->check_in_timestamp = $date . ' ' . Carbon::now()->format('g:i A');
                 $cico->check_out_timestamp = 'null';
 
                 $cico->save();
@@ -71,7 +67,6 @@ class CicoController extends Controller
                 return "true";
 
             } else {
-
                 //We found a row where they have not yet checked out yet
                 return "false";
             }
@@ -92,15 +87,16 @@ class CicoController extends Controller
             if ($volunteer->check_out_timestamp == "null") {
 
                 $date = date('Y-m-d');
-                $time = date('G:i:s');
-                $timestamp = $date . ' ' . date("g:i a", strtotime($time) - (4 * 3600));
 
-                $volunteer->check_out_timestamp = $timestamp;
+                $volunteer->check_out_timestamp = $date . ' ' . Carbon::now()->format('g:i A');
+                $volunteer->minutes_volunteered = $volunteer->created_at->diffInMinutes();
+
                 $volunteer->save();
 
                 Session::flash('alert-success', 'You have been successfully checked out!');
                 return Redirect::back();
             }
+
         } else {
             Session::flash('alert-danger', 'Incorrect email or volunteer has not been checked in!');
             return Redirect::back();

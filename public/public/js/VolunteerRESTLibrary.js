@@ -361,7 +361,7 @@ function checkIn(email, type, program, getResult) {
  * @param getResult callback function to return the result in the console.
  */
 function checkOut(email, getResult) {
-    $.post('http://jrcs.herokuapp.com/checkout', {email: email}).done(function (response) {
+    $.post('http://localhost:8000/checkout', {email: email}).done(function (response) {
         getResult(response);
     });
 }
