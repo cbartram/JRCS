@@ -5,26 +5,24 @@
  */
 $(document).ready(function() {
     //Empty array to hold all the id's we are bulk checking out
-    var emails = [];
+    var ids = [];
 
     $(":checkbox").click(function() {
-        var email = $(this).attr('name');
+        var id = $(this).attr('name');
 
         if($(this).is(":checked")) {
-            emails.push(email);
+            ids.push(id);
         } else {
-            emails.splice(emails.indexOf(email), 1);
+            ids.splice(ids.indexOf(id), 1);
         }
-        console.log(emails);
+        console.log(ids);
     });
 
     $("#check-out").click(function() {
         //for each id in the ids array check them out
-        if(emails.length > 0) {
-            for (var i = 0; i < emails.length; i++) {
-                checkOut(emails[i], function(callback) {
-                    console.log(callback);
-                });
+        if(ids.length > 0) {
+            for (var i = 0; i < ids.length; i++) {
+                checkOut(ids[i], function(callback) {});
             }
             window.location.reload();
             toastr.success('Volunteers checked out successfully!');

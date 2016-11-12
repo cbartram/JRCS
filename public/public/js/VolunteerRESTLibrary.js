@@ -100,7 +100,7 @@ function getId(email, getResult) {
         url: baseURL + "/email/" + email,
         dataType: "json",// data type of response
         success: function (data) {
-            getResult(data.id)
+            getResult(data.id);
         }
     });
 }
@@ -366,8 +366,8 @@ function checkInTest(email, type, program, getResult) {
  * @param email volunteers email
  * @param getResult callback function to return the result in the console.
  */
-function checkOutTest(email, getResult) {
-    $.post('http://localhost:8000/checkout', {email: email}).done(function (response) {
+function checkOutTest(id, getResult) {
+    $.post('http://localhost:8000/checkout', {id: id}).done(function (response) {
         getResult(response);
     });
 }

@@ -30,9 +30,17 @@ use Illuminate\Support\Facades\Session;
 Route::get('/login', function() { return view('login'); });
 
 Route::get('/', function() {
+
+    /*
+       todo inner join returns id from volunteer_cico and id from profiles.id but profile.id overwrites volunteer_cico id  so we
+       todo cant actually get the first_name and last name because the inner join will overwrite the id we need to distinguish the
+       todo volunteer cico row when checking out
+    */
+
     //Get all users from the table where they have not yet checked out joining with the profiles table
     $volunteers = Cico::where('check_out_timestamp', 'null')
-        ->join('profiles', 'volunteer_cico.id', '=', 'profiles.id')
+        ->join('profiles', 'volunteer_cico.volunteer_id', '=', 'profiles.id')
+        ->select('volunteer_cico.*')
         ->get();
 
     //Handles all the programs added by staff

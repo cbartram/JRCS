@@ -320,6 +320,32 @@ class Helpers
         }
     }
 
+
+    /**
+     * Returns the column name for a group passed as the parameter (opposite of the getTruncatedGroupName function)
+     * @param $truncated string shortened (truncated) group name
+     * @return string A String tht matches the column in the database for this respective group
+     */
+    public static function getGroupNameFromTruncated($truncated) {
+        $group = '';
+
+        switch($truncated) {
+            case "BEBCO":
+                $group = 'bebco_volunteer';
+                break;
+            case "JACO":
+                $group = 'jaco_volunteer';
+                break;
+            case "JBC":
+                $group = 'jbc_volunteer';
+                break;
+            default:
+                $group = 'error';
+        }
+        return $group;
+    }
+
+
     /**
      * Returns the volunteers first name and last name given their id
      * @param $id Volunteer ID
