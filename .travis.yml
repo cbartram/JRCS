@@ -7,4 +7,7 @@ php:
   - hhvm
   - nightly
 
+notifications:
+  slack: dynamictechnologies:QMzOTe9EFgTgVgO9Pyvx0c8e
+
 script: sh build.sh
