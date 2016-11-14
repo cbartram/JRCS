@@ -31,12 +31,6 @@ Route::get('/login', function() { return view('login'); });
 
 Route::get('/', function() {
 
-    /*
-       todo inner join returns id from volunteer_cico and id from profiles.id but profile.id overwrites volunteer_cico id  so we
-       todo cant actually get the first_name and last name because the inner join will overwrite the id we need to distinguish the
-       todo volunteer cico row when checking out
-    */
-
     //Get all users from the table where they have not yet checked out joining with the profiles table
     $volunteers = Cico::where('check_out_timestamp', 'null')
         ->join('profiles', 'volunteer_cico.volunteer_id', '=', 'profiles.id')
@@ -263,3 +257,17 @@ Route::get('api/v1/donations/approve/{id}', 'REST\RESTController@approveDonation
 
 //Handles authenticating if a users email and password are correct
 Route::post('api/v1/authenticate/', 'REST\RESTController@authenticate');
+
+Route::get('api/v1/hours/', 'REST\RESTController@getAllHours');
+
+//Handles aggregating the volunteers hours
+Route::get('/api/v1/hours/{id}', 'REST\RESTController@getHoursById');
+
+//Handles aggregating volunteer hours between given dates
+Route::get('/api/v1/hours/{id}/{start}/{end}', 'REST\RESTController@getHoursBetween');
+
+//Handles Aggregating volunteer hours by group
+Route::get('/api/v1/hours/group/{group}', 'REST\RESTController@getHoursByGroup');
+
+//Aggregates sum of hours by group between given start and end date
+Route::get('/api/v1/hours/group/{group}/{start}/{end}', 'REST\RESTController@getHoursByGroupBetween');

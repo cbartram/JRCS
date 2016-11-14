@@ -6,6 +6,7 @@
 var baseURL     = "api/v1/volunteers";
 var eventURL    = "api/v1/events";
 var donationURL = "api/v1/donations";
+var hoursURL    = "api/v1/hours";
 var authURL     = "api/v1/authenticate";
 
 
@@ -21,6 +22,111 @@ function authenticate(email, password, getResult) {
         getResult(data);
     }, "json");
 }
+
+
+/**
+ * Returns all hours volunteered for all three groups combined
+ * @param getResult callback function
+ */
+function getAllHours(getResult) {
+    $.ajax({
+        type: 'GET',
+        url: hoursURL,
+        dataType: "json",
+        success: function (data) {
+            getResult(data);
+        }
+    });
+}
+
+/**
+ * Gets the sum of all of a volunteers hours since epoch
+ * in the format HH:MM
+ * @param id Volunteers id
+ * @param getResult Callback function
+ */
+function getHoursById(id, getResult) {
+    $.ajax({
+        type: 'GET',
+        url: hoursURL + "/" + id,
+        dataType: "json",
+        success: function (data) {
+            getResult(data);
+        }
+    });
+}
+
+/**
+ * Gets all hours of a volunteer between the given start date
+ * and end date.
+ * @param start Start date in the form yyyy-mm-dd
+ * @param end end date in the form yyyy-mm-dd
+ * @param id Volunteers id
+ * @param getResult callback function
+ */
+function getHoursBetween(id, start, end, getResult) {
+    $.ajax({
+        type: 'GET',
+        url: hoursURL + "/" + id + "/" + start + "/" + end,
+        dataType: "json",
+        success: function (data) {
+            getResult(data);
+        }
+    });
+}
+
+/**
+ * Gets the sum of all hours for a given group
+ * @param group Group name BEBCO, JACO, JBC
+ * @param getResult callback function
+ */
+function getHoursByGroup(group, getResult) {
+    $.ajax({
+        type: 'GET',
+        url: hoursURL + "/group/" + group,
+        dataType: "json",
+        success: function (data) {
+            getResult(data);
+        }
+    });
+}
+
+/**
+ * Gets sum of all hours volunteered for a group between
+ * a given start and end date
+ * @param group group name BEBCO, JACO, JBC
+ * @param start Start date in the format yyyy-mm-dd
+ * @param end end date in the format yyyy-mm-dd
+ * @param getResult callback function
+ */
+function getHoursByGroupBetween(group, start, end, getResult) {
+    $.ajax({
+        type: 'GET',
+        url: hoursURL + "/group/" + group + "/" + start + "/" + end,
+        dataType: "json",
+        success: function (data) {
+            getResult(data);
+        }
+    });
+}
+
+/**
+ * Gets sum of all hours given a volunteer id on a specific date
+ * @param id
+ * @param date
+ * @param getResult
+ */
+function getHoursByIdOnDate(id, date, getResult) {
+    $.ajax({
+        type: 'GET',
+        url: hoursURL + "/" + id + "/" + date + "/" + date,
+        dataType: "json",
+        success: function (data) {
+            getResult(data);
+        }
+    });
+}
+
 
 /**
  * Returns all volunteers in the system as a JSON object data for a specific
