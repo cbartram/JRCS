@@ -20,27 +20,6 @@ use phpDocumentor\Reflection\Types\String_;
 
 class Helpers
 {
-
-    /**
-     * This function will parse and return elapsed time given a row in the database with a created_at and updated_at fields
-     * @param $model String collection object from eloquent query on the database
-     * @return Integer difference between the two timestamps in days rounded down to the nearest day
-     */
-    public static function getElapsedDate($model) {
-        return $model->updated_at->diffInDays($model->created_at);
-    }
-
-    /**
-     * This function will parse and return elapsed time given a row in the database with a created_at and updated_at field
-     * accessed through an eloquent laravel collection object
-     * @param $model String collection object returned from db query
-     * @return Integer difference between the start time and end time in hours
-     */
-    public static function getElapsedTime($model) {
-        return $model->updated_at->diffInHours($model->created_at);
-    }
-
-
     /**
      * Authenticates that a provided email and un-hashed password references
      * a row in the database
@@ -242,12 +221,12 @@ class Helpers
 
     /**
      * Returns true if volunteer with the given id is a member of the given group. It will return false if they are not part of that group
-     * @param $group Group to check BEBCO, JACO, or JBC
-     * @param $id id of the volunteer to check
+     * @param $group string Group to check BEBCO, JACO, or JBC
+     * @param $id string id of the volunteer to check
      * @return bool
      */
     public static function isMemberOf($group, $id) {
-        $volunteer = DB::table('profiles')->where('id', '=', $id)->limit(1)->get()->first();
+        $volunteer = DB::table('profiles')->where('id', '=', $id)->first();
 
         if($volunteer == null) {
             return false;
@@ -255,25 +234,13 @@ class Helpers
 
         switch($group) {
             case 'BEBCO':
-                if($volunteer->bebco_volunteer == 1) {
-                    return true;
-                } else {
-                    return false;
-                }
+                if($volunteer->bebco_volunteer == 1) {return true;} else {return false;}
                 break;
             case 'JACO':
-                if($volunteer->jaco_volunteer == 1) {
-                    return true;
-                } else {
-                    return false;
-                }
+                if($volunteer->jaco_volunteer == 1) {return true;} else {return false;}
                 break;
             case 'JBC':
-                if($volunteer->jbc_volunteer == 1) {
-                    return true;
-                } else {
-                    return false;
-                }
+                if($volunteer->jbc_volunteer == 1) {return true;} else {return false;}
                 break;
             default:
                 return false;
@@ -295,25 +262,13 @@ class Helpers
 
         switch($group) {
             case 'BEBCO':
-                if($volunteer->bebco_volunteer == 1) {
-                    return true;
-                } else {
-                    return false;
-                }
+                $volunteer->bebco_volunteer == 1 ? true : false;
                 break;
             case 'JACO':
-                if($volunteer->jaco_volunteer == 1) {
-                    return true;
-                } else {
-                    return false;
-                }
+                $volunteer->jaco_volunteer == 1 ? true : false;
                 break;
             case 'JBC':
-                if($volunteer->jbc_volunteer == 1) {
-                    return true;
-                } else {
-                    return false;
-                }
+                $volunteer->jbc_volunteer == 1 ? true :  false;
                 break;
             default:
                 return false;

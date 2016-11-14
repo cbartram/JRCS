@@ -120,16 +120,16 @@
                         <div class="col-md-12">
                             <table class="table table-striped">
                                 <thead>
+                                <th>Name</th>
                                 <th>Email</th>
-                                <th>Id</th>
                                 <th>Checked-In</th>
                                 <th>Check-Out</th>
                                 </thead>
                                 <tbody>
                                 @foreach($volunteers as $v)
                                     <tr>
-                                        <td>{{$v->email}}</td>
-                                        <td>{{$v->volunteer_id}}{{-- First name and last name goes here --}}</td>
+                                        <td>{{Helpers::getName($v->volunteer_id)}}</td>
+                                        <td>{{$v->email}}{{-- First name and last name goes here --}}</td>
                                         <td><span class="label label-success">{{$v->check_in_timestamp}}</span></td>
                                         <td>
                                             <div class="checkbox">

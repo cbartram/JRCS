@@ -154,6 +154,19 @@ Route::get('/donation/history', function() {
 
 /*
 |------------------------------------------------------------------------
+| Routes for Testing
+|------------------------------------------------------------------------
+| These routes define the specific GET and POST requests that are optional
+| to test out certain functions methods or code that will not affect
+| other portions of the application
+|
+ */
+Route::get('/test', 'Test\TestController@testGet');
+Route::post('/test', 'Test\TestController@testPost');
+
+
+/*
+|------------------------------------------------------------------------
 | Routes for Checking in and Checking out
 |------------------------------------------------------------------------
 | These routes define the specific GET and POST requests that are required

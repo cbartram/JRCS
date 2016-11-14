@@ -45,27 +45,17 @@ class CicoController extends Controller
                 //insert a new record for the volunteer clocking in
                 $cico = new Cico();
 
-                /*
-                 * todo causes an error this determines what groups the volunteers are a part of
-                //Find the correct group for the staff member
                 $groups = ['BEBCO', 'JACO', 'JBC'];
-                $columnName = "";
-
                 foreach($groups as $group) {
-                    if(Helpers::isMemberOf($group, $q->volunteer_id)) {
 
-                        //gets bebco_volunteer from string BEBCO
-                       $columnName = Helpers::getGroupNameFromTruncated($group);
+                    $columnName = Helpers::getGroupNameFromTruncated($group);
 
-                        //e.g. $cico->bebco_volunteer = 1
-                       $cico->$columnName = 1;
-
+                    if(Helpers::isMemberOf($group, $q->id)) {
+                        $cico->$columnName = 1;
                     } else {
-                        //e.g. $cico->bebco_volunteer = 0
                         $cico->$columnName = 0;
                     }
                 }
-                */
 
                 //Assign the rest of the values for the row
                 $cico->id = 'cico_' . str_random(10);
