@@ -11,6 +11,7 @@
     <title>Volunteer Check-in</title>
 
     <!-- Latest compiled and minified CSS -->
+   <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <!-- Custom styles for this template -->
     <link href="../../public/css/Login.css" rel="stylesheet">
@@ -54,7 +55,6 @@
                             </a>
                         </div>
                     </li>
-
                 </ul>
             </div><!-- /.navbar-collapse -->
         </div><!-- /.container-fluid -->
@@ -67,7 +67,7 @@
     </div>
 
     <div class="row" id="volunteer-login">
-        <div class="col-lg-6" style="margin-top:25px">
+        <div class="col-lg-5" style="margin-top:25px">
             <div id="alert-cico"></div>
             <form class="form-signin">
 
@@ -111,7 +111,7 @@
         </div>
         <!-- Volunteer Check in end -->
 
-        <div class="col-lg-5">
+        <div class="col-lg-6">
             <!-- Start of the volunteer check in table -->
             <div class="panel panel-default" id="checked-in-table">
                 <div class="panel-heading"><strong>Volunteers Checked In <i class="fa fa-check"></i></strong></div>
@@ -120,21 +120,21 @@
                         <div class="col-md-12">
                             <table class="table table-striped">
                                 <thead>
-                                <th>Id</th>
                                 <th>Name</th>
+                                <th>Email</th>
                                 <th>Checked-In</th>
                                 <th>Check-Out</th>
                                 </thead>
                                 <tbody>
                                 @foreach($volunteers as $v)
                                     <tr>
-                                        <td>{{$v->id}}</td>
-                                        <td>{{$v->first_name . ' ' . $v->last_name }}</td>
+                                        <td>{{Helpers::getName($v->volunteer_id)}}</td>
+                                        <td>{{$v->email}}{{-- First name and last name goes here --}}</td>
                                         <td><span class="label label-success">{{$v->check_in_timestamp}}</span></td>
                                         <td>
                                             <div class="checkbox">
                                                 <label>
-                                                    <input type="checkbox" name="{{$v->email}}"> Select this Volunteer
+                                                    <input type="checkbox" name="{{$v->id}}"> Select this Volunteer
                                                 </label>
                                             </div>
                                         </td>

@@ -30,9 +30,17 @@ use Illuminate\Support\Facades\Session;
 Route::get('/login', function() { return view('login'); });
 
 Route::get('/', function() {
+
+    /*
+       todo inner join returns id from volunteer_cico and id from profiles.id but profile.id overwrites volunteer_cico id  so we
+       todo cant actually get the first_name and last name because the inner join will overwrite the id we need to distinguish the
+       todo volunteer cico row when checking out
+    */
+
     //Get all users from the table where they have not yet checked out joining with the profiles table
     $volunteers = Cico::where('check_out_timestamp', 'null')
-        ->join('profiles', 'volunteer_cico.id', '=', 'profiles.id')
+        ->join('profiles', 'volunteer_cico.volunteer_id', '=', 'profiles.id')
+        ->select('volunteer_cico.*')
         ->get();
 
     //Handles all the programs added by staff
@@ -146,6 +154,19 @@ Route::get('/donation/history', function() {
 
 /*
 |------------------------------------------------------------------------
+| Routes for Testing
+|------------------------------------------------------------------------
+| These routes define the specific GET and POST requests that are optional
+| to test out certain functions methods or code that will not affect
+| other portions of the application
+|
+ */
+Route::get('/test', 'Test\TestController@testGet');
+Route::post('/test', 'Test\TestController@testPost');
+
+
+/*
+|------------------------------------------------------------------------
 | Routes for Checking in and Checking out
 |------------------------------------------------------------------------
 | These routes define the specific GET and POST requests that are required
@@ -242,8 +263,3 @@ Route::get('api/v1/donations/approve/{id}', 'REST\RESTController@approveDonation
 
 //Handles authenticating if a users email and password are correct
 Route::post('api/v1/authenticate/', 'REST\RESTController@authenticate');
-
-
-
-
-

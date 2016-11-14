@@ -11,34 +11,15 @@ namespace App\Helpers;
 
 use App\Profile;
 use App\StaffProfile;
+use Carbon\Carbon;
 use DateTime;
 use DateTimeZone;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use phpDocumentor\Reflection\Types\String_;
 
 class Helpers
 {
-
-    /**
-     * This function will parse and return elapsed time given start and end dates in UTC format 11-21-15, 12-24-15
-     * @param $start Start date in UTC with the format mm-dd-yy
-     * @param $end End date in UTC with the format mm-dd-yy
-     */
-    public static function getElapsedDate($start, $end) {
-
-    }
-
-    /**
-     * This function will parse and return elapsed time given the start time and end time in 12 hour format
-     * e.g. 12:30 PM and 1:08 AM
-     * @param $start Start time in utc time hh:ss AM/PM
-     * @param $end End time in utc time hh:ss AM/PM
-     */
-    public static function getElapsedTime($start, $end) {
-
-    }
-
-
     /**
      * Authenticates that a provided email and un-hashed password references
      * a row in the database
@@ -240,12 +221,12 @@ class Helpers
 
     /**
      * Returns true if volunteer with the given id is a member of the given group. It will return false if they are not part of that group
-     * @param $group Group to check BEBCO, JACO, or JBC
-     * @param $id id of the volunteer to check
+     * @param $group string Group to check BEBCO, JACO, or JBC
+     * @param $id string id of the volunteer to check
      * @return bool
      */
     public static function isMemberOf($group, $id) {
-        $volunteer = DB::table('profiles')->where('id', '=', $id)->limit(1)->get()->first();
+        $volunteer = DB::table('profiles')->where('id', '=', $id)->first();
 
         if($volunteer == null) {
             return false;
@@ -253,25 +234,13 @@ class Helpers
 
         switch($group) {
             case 'BEBCO':
-                if($volunteer->bebco_volunteer == 1) {
-                    return true;
-                } else {
-                    return false;
-                }
+                if($volunteer->bebco_volunteer == 1) {return true;} else {return false;}
                 break;
             case 'JACO':
-                if($volunteer->jaco_volunteer == 1) {
-                    return true;
-                } else {
-                    return false;
-                }
+                if($volunteer->jaco_volunteer == 1) {return true;} else {return false;}
                 break;
             case 'JBC':
-                if($volunteer->jbc_volunteer == 1) {
-                    return true;
-                } else {
-                    return false;
-                }
+                if($volunteer->jbc_volunteer == 1) {return true;} else {return false;}
                 break;
             default:
                 return false;
@@ -293,30 +262,44 @@ class Helpers
 
         switch($group) {
             case 'BEBCO':
-                if($volunteer->bebco_volunteer == 1) {
-                    return true;
-                } else {
-                    return false;
-                }
+                $volunteer->bebco_volunteer == 1 ? true : false;
                 break;
             case 'JACO':
-                if($volunteer->jaco_volunteer == 1) {
-                    return true;
-                } else {
-                    return false;
-                }
+                $volunteer->jaco_volunteer == 1 ? true : false;
                 break;
             case 'JBC':
-                if($volunteer->jbc_volunteer == 1) {
-                    return true;
-                } else {
-                    return false;
-                }
+                $volunteer->jbc_volunteer == 1 ? true :  false;
                 break;
             default:
                 return false;
         }
     }
+
+
+    /**
+     * Returns the column name for a group passed as the parameter (opposite of the getTruncatedGroupName function)
+     * @param $truncated string shortened (truncated) group name
+     * @return string A String tht matches the column in the database for this respective group
+     */
+    public static function getGroupNameFromTruncated($truncated) {
+        $group = '';
+
+        switch($truncated) {
+            case "BEBCO":
+                $group = 'bebco_volunteer';
+                break;
+            case "JACO":
+                $group = 'jaco_volunteer';
+                break;
+            case "JBC":
+                $group = 'jbc_volunteer';
+                break;
+            default:
+                $group = 'error';
+        }
+        return $group;
+    }
+
 
     /**
      * Returns the volunteers first name and last name given their id

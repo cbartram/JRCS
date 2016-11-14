@@ -1,9 +1,8 @@
 <?php
 
+use App\Cico;
 use App\Helpers\Helpers;
-use Illuminate\Foundation\Testing\WithoutMiddleware;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
+
 
 class HelperTest extends TestCase
 {
@@ -11,6 +10,7 @@ class HelperTest extends TestCase
 
 
     public function test() {
-        $this->assertEquals(true, Helpers::fromUTC("6:45 pm", 'ABC'));
+        $timestamp = Cico::where('check_in_timestamp', '2016-10-17 1:59 pm')->get();
+        $this->assertEquals(true, Helpers::getElapsedTime($timestamp->created_at, $timestamp->updated_at));
     }
 }

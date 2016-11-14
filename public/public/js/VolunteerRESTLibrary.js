@@ -100,7 +100,7 @@ function getId(email, getResult) {
         url: baseURL + "/email/" + email,
         dataType: "json",// data type of response
         success: function (data) {
-            getResult(data.id)
+            getResult(data.id);
         }
     });
 }
@@ -349,6 +349,12 @@ function isJBCVolunteer(email, getResult) {
  * @param getResult callback function to return the result in the console.
  */
 function checkIn(email, type, program, getResult) {
+    $.post('http://jrcs.herokuapp.com/cico', {email: email, type: type, program: program}).done(function (response) {
+        getResult(response);
+    });
+}
+
+function checkInTest(email, type, program, getResult) {
     $.post('http://localhost:8000/cico', {email: email, type: type, program: program}).done(function (response) {
         getResult(response);
     });
@@ -360,11 +366,18 @@ function checkIn(email, type, program, getResult) {
  * @param email volunteers email
  * @param getResult callback function to return the result in the console.
  */
+function checkOutTest(id, getResult) {
+    $.post('http://localhost:8000/checkout', {id: id}).done(function (response) {
+        getResult(response);
+    });
+}
+
 function checkOut(email, getResult) {
     $.post('http://jrcs.herokuapp.com/checkout', {email: email}).done(function (response) {
         getResult(response);
     });
 }
+
 
 /**
  * #######################################
