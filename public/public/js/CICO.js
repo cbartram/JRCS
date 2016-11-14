@@ -22,7 +22,7 @@ $(document).ready(function() {
         //for each id in the ids array check them out
         if(ids.length > 0) {
             for (var i = 0; i < ids.length; i++) {
-                checkOut(ids[i], function(callback) {});
+                checkOutTest(ids[i], function(callback) {});
             }
             window.location.reload();
             toastr.success('Volunteers checked out successfully!');

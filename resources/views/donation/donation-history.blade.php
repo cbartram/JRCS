@@ -20,7 +20,7 @@
 
 <div class="container">
     <div class="row" style="margin-top:25px;">
-        <div class="col-lg-8 col-lg-offset-1">
+        <div class="col-lg-9 col-lg-offset-1">
             <div class="panel panel-success">
                 <div class="panel-heading">Donation History <i class="fa fa-history"></i></div>
                 <div class="panel-body">
@@ -32,6 +32,7 @@
                                 <th>Donation Value</th>
                                 <th>Donation Date</th>
                                 <th>Status</th>
+                                <th>Approved/Denied By</th>
                                 <th>Action</th>
                             </thead>
                             <tbody>
@@ -47,6 +48,7 @@
                                     @else
                                     <td><span class="label label-danger">{{$donation->status}}</span></td>
                                     @endif
+                                    <td>{{Helpers::getStaffName($donation->action_by)}}</td>
                                     <td><button class="btn btn-sm btn-warning" data-id="{{$donation->donation_id}}">Re-Open <i class="fa fa-refresh"></i></button></td>
                                 </tr>
                               @endforeach

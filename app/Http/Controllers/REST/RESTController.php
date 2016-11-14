@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\REST;
 
 use App\Calendar;
+use App\Cico;
 use App\Donations;
 use App\EventLog;
+use App\Helpers\Helpers;
 use App\Profile;
 use App\Http\Requests;
 use Illuminate\Database\Eloquent\Collection;
@@ -12,6 +14,7 @@ use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Session;
 
 class RESTController extends Controller
 {
@@ -120,6 +123,7 @@ class RESTController extends Controller
             return "false";
         } else {
             $donations->status = 'pending';
+            $donations->action_by = Session::get('id');
             $donations->save();
             return "true";
         }
@@ -132,6 +136,7 @@ class RESTController extends Controller
             return "false";
         } else {
             $donations->status = 'Denied';
+            $donations->action_by = Session::get('id');
             $donations->save();
             return "true";
         }
@@ -144,6 +149,7 @@ class RESTController extends Controller
             return "false";
         } else {
             $donations->status = 'Approved';
+            $donations->action_by = Session::get('id');
             $donations->save();
             return "true";
         }
@@ -168,5 +174,85 @@ class RESTController extends Controller
             return "false";
         }
     }
+
+    /**
+     * Gets all hours volunteered for all three organizations
+     * @return array JSON String
+     */
+    public function getAllHours() {
+        $hours = Cico::sum('minutes_volunteered');
+
+        return ['group' => 'all', 'hours' => Helpers::minutesToHours($hours)];
+    }
+
+
+    /**
+     * Aggregates the sum of the volunteers hours with a given id from epoc till now.
+     * @param $id string volunteer Id
+     * @return String total hours volunteered in the format HH:MM
+     */
+    public function getHoursById($id) {
+        $minutes = Cico::where('volunteer_id', $id)->sum('minutes_volunteered');
+
+        if($minutes != null) {
+
+            return ['id' => $id, 'hours' =>  Helpers::minutesToHours($minutes)];
+
+        } else {
+            return "0:00";
+        }
+    }
+
+    /**
+     * Aggregates the sum of the volunteers hours between the start date and
+     * the end date given the id
+     * @param $start string Start date in the format yyyy-mm-dd
+     * @param $end string end date in the format yyyy-mm-dd
+     * @param $id string volunteers id
+     * @return mixed Collection object
+     */
+    public function getHoursBetween($id, $start, $end) {
+        //Get objects between the given dates
+        $resultSet = Cico::where('volunteer_id', $id)
+            ->where('check_in_date', '>=', $start)
+            ->where('check_out_date', '<=', $end)
+            ->sum('minutes_volunteered');
+
+        return ['id' => $id, 'hours' => Helpers::minutesToHours($resultSet)];
+    }
+
+    /**
+     * Gets the sum of all hours volunteered for the group given
+     * @param $group string Group Name BEBCO,JACO,JBC
+     * @return array JSON String
+     */
+    public function getHoursByGroup($group) {
+        $groupName = Helpers::getGroupNameFromTruncated($group);
+
+        $result = Cico::where($groupName, 1)
+            ->sum('minutes_volunteered');
+
+        return ['group' => $group, 'hours' => Helpers::minutesToHours($result)];
+    }
+
+    /**
+     * Gets the sum of all hours volunteered for the given group
+     * between the given start date and end date
+     * @param $group string group BEBCO, JACO, JBC
+     * @param $start string Start date in the format yyyy-mm-dd
+     * @param $end string End date in the format yyyy-mm-dd
+     * @return array JSON String
+     */
+    public function getHoursByGroupBetween($group, $start, $end) {
+        $groupName = Helpers::getGroupNameFromTruncated($group);
+
+        $result = Cico::where($groupName, 1)
+            ->where('check_in_date', '>=', $start)
+            ->where('check_out_date', '<=', $end)
+            ->sum('minutes_volunteered');
+
+        return ['group' => $group, 'hours' => Helpers::minutesToHours($result)];
+    }
+
 
 }

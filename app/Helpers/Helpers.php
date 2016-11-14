@@ -42,6 +42,19 @@ class Helpers
 
 
     /**
+     * Converts minutes to hours in the format HH:MM
+     * @param minutes integer Int value in minutes
+     * @return string Hours in the format HH:MM
+     */
+    public static function minutesToHours($minutes) {
+        $m = $minutes % 60;
+        $h = ($minutes - $m) / 60;
+
+        return $h . ":" . ($m < 10 ? "0" : "") . $m;
+    }
+
+
+    /**
      * This function promotes a volunteer to a staff member. It is different from the promote
      * admin function because it provides the flexibility to designate which groups the staff
      * member will have access too. This function can serve as promoteAdmin() if all three groups
@@ -365,6 +378,21 @@ class Helpers
         } else {
             return false;
         }
+    }
+
+    /**
+     * Returns staff members first and last name given their id
+     * @param $id String staff id
+     * @return null|string Firstname concatenated by a space then the staff members last name
+     */
+    public static function getStaffName($id) {
+        $staff = DB::table('staff_profile2')->where('id', '=', $id)->first();
+
+        if($staff == null) {
+            return null;
+        }
+
+        return $staff->first_name . " " . $staff->last_name;
     }
 
     /**
