@@ -368,6 +368,21 @@ class Helpers
     }
 
     /**
+     * Returns staff members first and last name given their id
+     * @param $id String staff id
+     * @return null|string Firstname concatenated by a space then the staff members last name
+     */
+    public static function getStaffName($id) {
+        $staff = DB::table('staff_profile2')->where('id', '=', $id)->first();
+
+        if($staff == null) {
+            return null;
+        }
+
+        return $staff->first_name . " " . $staff->last_name;
+    }
+
+    /**
      * Returns a staff object from the database given the ID. If no staff member can be found null is returned
      * @param $id The staff members id
      * @return null

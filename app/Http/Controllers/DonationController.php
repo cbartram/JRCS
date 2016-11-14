@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 use Kamaln7\Toastr\Facades\Toastr;
 
@@ -131,6 +132,7 @@ class DonationController extends Controller
         }
 
         //Donations made by staff are automatically approved
+        $donation->action_by = Session::get('id');
         $donation->status = 'Approved';
         $donation->date = $timestamp;
         $donation->save();
@@ -146,6 +148,7 @@ class DonationController extends Controller
     public function approve($id) {
         $donation = Donations::where('donation_id', $id)->first();
         $donation->status = 'Approved';
+        $donation->action_by = Session::get('id');
         $donation->save();
 
         Toastr::success('Donation has been approved successfully!', $title = "Donation Approved", $options = []);
@@ -158,6 +161,7 @@ class DonationController extends Controller
      */
     public function deny($id) {
         $donation = Donations::where('donation_id', $id)->first();
+        $donation->action_by = Session::get('id');
         $donation->status = 'Denied';
         $donation->donation_denied_description = Input::get('description');
         $donation->save();

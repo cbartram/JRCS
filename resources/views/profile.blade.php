@@ -145,6 +145,7 @@
                                         @endforeach
                                     </tbody>
                                 </table>
+                                {{ $log->links() }}
                             </div>
                         </div>
                     </div>
@@ -179,6 +180,11 @@
                     </div>
                 </div>
             </div>
+               <div class="row">
+                   <div class="col-lg-4 col-lg-offset-5">
+                       {{$volunteers->links()}}
+                   </div>
+               </div>
         </div>
     </div>
 </div>
@@ -203,6 +209,11 @@
                         @endif
                     @endforeach
                 </div>
+                {{--<div class="row">--}}
+                    {{--<div class="col-lg-8 col-lg-offset-3">--}}
+                        {{--{{$all->links()}}--}}
+                    {{--</div>--}}
+                {{--</div>--}}
             </div>
         </div>
         <div class="col-md-4">
@@ -221,6 +232,11 @@
                         @endif
                     @endforeach
                 </div>
+                {{--<div class="row">--}}
+                    {{--<div class="col-lg-8 col-lg-offset-3">--}}
+                        {{--{{$all->links()}}--}}
+                    {{--</div>--}}
+                {{--</div>--}}
             </div>
         </div>
         <div class="col-md-4">
@@ -239,6 +255,11 @@
                         @endif
                     @endforeach
                 </div>
+                {{--<div class="row">--}}
+                    {{--<div class="col-lg-8 col-lg-offset-3">--}}
+                        {{--{{$all->links()}}--}}
+                    {{--</div>--}}
+                {{--</div>--}}
             </div>
         </div>
     </div>
@@ -248,7 +269,11 @@
             <div class="panel panel-default">
                 <div class="panel-heading">Delete Volunteer <span class="fa fa-trash"></span> <span class="fa fa-minus fa-2x"></span></div>
                 <div class="panel-body panel-sortable">
-                    <button class="btn btn-danger" id="delete">Delete Volunteers <span class="fa fa-trash"></span></button>
+                   <div class="row">
+                       <div class="col-lg-4 col-lg-offset-4">
+                           <button class="btn btn-block btn-danger" id="delete">Delete Volunteers <span class="fa fa-trash"></span></button>
+                       </div>
+                   </div>
                 </div>
             </div>
         </div>

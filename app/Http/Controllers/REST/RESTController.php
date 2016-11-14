@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Session;
 
 class RESTController extends Controller
 {
@@ -120,6 +121,7 @@ class RESTController extends Controller
             return "false";
         } else {
             $donations->status = 'pending';
+            $donations->action_by = Session::get('id');
             $donations->save();
             return "true";
         }
@@ -132,6 +134,7 @@ class RESTController extends Controller
             return "false";
         } else {
             $donations->status = 'Denied';
+            $donations->action_by = Session::get('id');
             $donations->save();
             return "true";
         }
@@ -144,6 +147,7 @@ class RESTController extends Controller
             return "false";
         } else {
             $donations->status = 'Approved';
+            $donations->action_by = Session::get('id');
             $donations->save();
             return "true";
         }

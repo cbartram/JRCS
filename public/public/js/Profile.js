@@ -35,9 +35,6 @@ $(document).ready(function() {
 
     });
 
-    //demote on click show staff
-
-
     //Handles getting the Donation ID from a donation denied request
     $('.fa-thumbs-o-down').parent().click(function() {
        var donationID = $(this).parent().siblings(":first").text();

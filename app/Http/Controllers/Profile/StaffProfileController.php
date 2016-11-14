@@ -26,23 +26,23 @@ class StaffProfileController extends Controller
                 //AKA the user switched his/her group
                 if(Session::get('group') == "ADMIN") {
                     //No Where clause get all the Volunteers in the system
-                    $volunteers = Profile::all();
+                    $volunteers = Profile::paginate(9);
                     $defaultGroup = Session::get('group');
                 } else {
                     //get only volunteers who belong to the group that has been switched too
-                    $volunteers = Profile::where($this->getGroupNameFromTruncated(Session::get('group')),  1)->get();
+                    $volunteers = Profile::where($this->getGroupNameFromTruncated(Session::get('group')),  1)->paginate(9);
                     $defaultGroup = Session::get('group');
                 }
 
             } else {
                 //check to see if the staff member has set a default group in the default group column
                 if($staff != null && ($staff->default_group != null || $staff->default_group != '')) {
-                    $volunteers = Profile::where($this->getGroupNameFromTruncated($staff->default_group),  1)->get();
+                    $volunteers = Profile::where($this->getGroupNameFromTruncated($staff->default_group),  1)->paginate(9);
                     $defaultGroup = $staff->default_group;
                 } else {
                     try {
                         //the user has not switched groups yet nor have they set a default group in the settings give them the default group
-                        $volunteers = Profile::where($this->getDefaultGroupFromId(Session::get('id')), 1)->get();
+                        $volunteers = Profile::where($this->getDefaultGroupFromId(Session::get('id')), 1)->paginate(9);
                         //Default group the user will be logged in as
                         $defaultGroup = $this->getTruncatedGroupName($this->getDefaultGroupFromId(Session::get('id')));
 
@@ -82,11 +82,20 @@ class StaffProfileController extends Controller
 
             //If the user is browsing the admin group show all events
             if($defaultGroup == "ADMIN") {
-                $log = EventLog::join('calendar_events', 'event_log.event_id', '=', 'calendar_events.id')->orderBy('event_id', 'ASC')->get();
+                $log = EventLog::join('calendar_events', 'event_log.event_id', '=', 'calendar_events.id')
+                    ->orderBy('start', 'ASC')
+                    ->paginate(5);
+
                 $allStaff = StaffProfile::all();
             } else {
+
                 //Events on the calendar and events in the event log where the group is the staff members current group
-                $log = EventLog::where('event_log.group', $defaultGroup)->join('calendar_events', 'event_log.event_id', '=', 'calendar_events.id')->orderBy('event_id', 'ASC')->get();
+                $log = EventLog::where('event_log.group', $defaultGroup)
+                    ->join('calendar_events', 'event_log.event_id', '=', 'calendar_events.id')
+                    ->orderBy('start', 'ASC')
+                    ->paginate(5);
+
+
                 //Get all staff members who match the current group
                 $allStaff = StaffProfile::where($this->getAttributeName($defaultGroup), 1)->get();
             }
