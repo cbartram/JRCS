@@ -271,3 +271,5 @@ Route::get('/api/v1/hours/group/{group}', 'REST\RESTController@getHoursByGroup')
 
 //Aggregates sum of hours by group between given start and end date
 Route::get('/api/v1/hours/group/{group}/{start}/{end}', 'REST\RESTController@getHoursByGroupBetween');
+
+Route::get('/api/v1/hours/date/{date}', 'REST\RESTController@getAllHoursOnDate');
