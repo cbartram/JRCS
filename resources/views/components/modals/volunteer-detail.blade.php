@@ -22,6 +22,12 @@
                     <!-- Load Volunteer Demographic info -->
                     </tbody>
                 </table>
+
+                <div class="row">
+                    <div class="col-lg-12 volunteer-chart">
+                        <!-- Individual Volunteer Highcharts are loaded here -->
+                    </div>
+                </div>
             </div>
             <div class="modal-footer">
                 <button type="button" id="modal-close" class="btn btn-default" data-dismiss="modal"><span class="fa fa-times"></span> Close</button>

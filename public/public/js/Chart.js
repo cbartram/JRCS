@@ -102,7 +102,7 @@ if(currentGroup != "ADMIN") {
 
         getHoursByGroupBetween(currentGroup, date, date, function(data) {
             hours[0].hours.push(data.minutes);
-            createChart(hours[0].hours);
+            createChart(hours[0].hours, "#listing");
         });
     }
 
@@ -114,27 +114,33 @@ if(currentGroup != "ADMIN") {
 
         getAllHoursOnDate(adminDate, function(data) {
             adminHours[0].hours.push(data.minutes);
-            createChart(adminHours[0].hours);
+            createChart(adminHours[0].hours, "#listing");
         });
     }
 }
 
-
+//When the user changes the timeframe we need to adapt to display it
 $("#timeframe").change(function() {
 
+    //get the number of days we need to display
     var days = $(this).val();
 
     if(currentGroup != "ADMIN") {
+        //iterate over the number of days
         for (var i = 0; i < days; i++) {
+            //for each day subtract a day and add it to an array
             var date = moment().subtract(i, 'd').format("YYYY-MM-DD");
             week[0].data.push(date);
 
+            //get hours for each group given a start date and an end date
             getHoursByGroupBetween(currentGroup, date, date, function(data) {
                 hours[0].hours.push(data.minutes);
-                createChart(hours[0].hours);
+                //create the chart and pass in the data
+                createChart(hours[0].hours, "#listing");
             });
         }
 
+        //after the chart is displayed remove the data from the array to prepare for another timeframe change
         hours[0].hours = [];
 
     } else {
@@ -145,7 +151,7 @@ $("#timeframe").change(function() {
 
             getAllHoursOnDate(adminDate, function(data) {
                 adminHours[0].hours.push(data.minutes);
-                createChart(adminHours[0].hours);
+                createChart(adminHours[0].hours, "#listing");
             });
         }
 
@@ -169,9 +175,9 @@ function minutesToHours(minutes) {
 /**
  * Create the highcharts bar chart
  */
-function createChart(data) {
+function createChart(data, id) {
     $(function () {
-        $('#listing').highcharts({
+        $(id).highcharts({
             chart: {
                 type: 'column'
             },
@@ -212,3 +218,30 @@ function createChart(data) {
         });
     });
 }
+
+/**
+ * Start of Individual volunteer profile card charts
+ */
+$('.btn-success').click(function() {
+    var element = $(this).parent().parent().parent().find(".vol-id").text();
+    var id = element.substr(element.length - 12, element.length);
+
+    for (var i = 0; i < 4; i++) {
+        //for each day subtract a day and add it to an array
+        var date = moment().subtract(i, 'd').format("YYYY-MM-DD");
+        week[0].data.push(date);
+
+        //get hours for each group given a start date and an end date
+        getHoursByIdOnDate(id, date, function(data) {
+            hours[0].hours.push(data.minutes);
+            //create the chart and pass in the data
+            createChart(hours[0].hours, ".volunteer-chart");
+        });
+    }
+
+    hours[0].hours = [];
+});
+
+
+
+
