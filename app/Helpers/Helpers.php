@@ -481,22 +481,17 @@ class Helpers
 
     /**
      * Returns a List of groups the volunteer is a member of separated by commas
-     * @param $email volunteers email
+     * @param $id string volunteer id
      * @return string String of groups separated by commas
      * @throws \Exception
      */
-    public static function getGroups($email) {
+    public static function getGroups($id) {
         $groups = ['BEBCO', 'JACO', 'JBC'];
-        $volunteer = Profile::where('email', $email);
 
         $result = "";
 
-        if($volunteer == null) {
-            throw new \Exception();
-        }
-
         foreach($groups as $group) {
-            if(self::isMemberOfByEmail($group, $email)) {
+            if(self::isMemberOf($group, $id)) {
                 $result .= $group  . ',';
             }
         }

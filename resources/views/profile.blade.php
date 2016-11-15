@@ -50,7 +50,17 @@
                 <div class="panel-body">
             <div class="profile-content">
                 <div class="row">
-                    <div class="col-xs-12"></div>
+                    <div class="col-md-3">
+                        <select id="timeframe" class="form-control">
+                            <option value="1">1 Day</option>
+                            <option value="3">3 Days</option>
+                            <option value="5">5 Days</option>
+                            <option value="7" selected>1 Week</option>
+                            <option value="14">2 Weeks</option>
+                            <option value="21">3 Weeks</option>
+                            <option value="31" id="month">1 Month</option>
+                        </select>
+                    </div>
                 </div>
                 <div id="listing" class="row">
                     <!-- Highcharts chart is loaded here -->
@@ -161,7 +171,7 @@
                         @foreach($volunteers as $volunteer)
                         <div class="col-lg-4">
                             <div class="well cart-item cart-script">
-                                <h4 class="user-name"> {{$volunteer->first_name . ' ' . $volunteer->last_name . ' - ' .  Helpers::getGroups($volunteer->email)}}</h4>
+                                <h4 class="user-name"> {{$volunteer->first_name . ' ' . $volunteer->last_name . ' - ' .  Helpers::getGroups($volunteer->id)}}</h4>
                                 <div class="descr">
                                     <div class="pull-left icon-script">
                                       <span class="fa fa-user fa-3x"></span>

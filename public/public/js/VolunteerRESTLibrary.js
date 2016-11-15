@@ -39,6 +39,17 @@ function getAllHours(getResult) {
     });
 }
 
+function getAllHoursOnDate(date, getResult) {
+    $.ajax({
+        type: 'GET',
+        url: hoursURL + "/date/" + date,
+        dataType: "json",
+        success: function (data) {
+            getResult(data);
+        }
+    });
+}
+
 /**
  * Gets the sum of all of a volunteers hours since epoch
  * in the format HH:MM

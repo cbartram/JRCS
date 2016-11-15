@@ -75,7 +75,9 @@ class RESTController extends Controller
 
         //Iterate over each item in the events collection adding to the result collection
         foreach($events as $event) {
-            $result->add(Calendar::find($event->event_id));
+            if($event != null) {
+                $result->add(Calendar::find($event->event_id));
+            }
         }
         return $result;
     }
@@ -182,7 +184,16 @@ class RESTController extends Controller
     public function getAllHours() {
         $hours = Cico::sum('minutes_volunteered');
 
-        return ['group' => 'all', 'hours' => Helpers::minutesToHours($hours)];
+        return ['group' => 'all', 'hours' => Helpers::minutesToHours($hours), 'minutes' => intval($hours)];
+    }
+
+
+    public function getAllHoursOnDate($date) {
+        $result = Cico::where('check_in_date', '>=', $date)
+            ->where('check_out_date', '<=', $date)
+            ->sum('minutes_volunteered');
+
+        return ['group' => 'all', 'hours' => Helpers::minutesToHours($result), 'minutes' => intval($result)];
     }
 
 
@@ -196,7 +207,7 @@ class RESTController extends Controller
 
         if($minutes != null) {
 
-            return ['id' => $id, 'hours' =>  Helpers::minutesToHours($minutes)];
+            return ['id' => $id, 'hours' =>  Helpers::minutesToHours($minutes), 'minutes' => intval($minutes)];
 
         } else {
             return "0:00";
@@ -218,7 +229,7 @@ class RESTController extends Controller
             ->where('check_out_date', '<=', $end)
             ->sum('minutes_volunteered');
 
-        return ['id' => $id, 'hours' => Helpers::minutesToHours($resultSet)];
+        return ['id' => $id, 'hours' => Helpers::minutesToHours($resultSet), 'minutes' => intval($resultSet)];
     }
 
     /**
@@ -232,7 +243,7 @@ class RESTController extends Controller
         $result = Cico::where($groupName, 1)
             ->sum('minutes_volunteered');
 
-        return ['group' => $group, 'hours' => Helpers::minutesToHours($result)];
+        return ['group' => $group, 'hours' => Helpers::minutesToHours($result), 'minutes' => intval($result)];
     }
 
     /**
@@ -251,7 +262,7 @@ class RESTController extends Controller
             ->where('check_out_date', '<=', $end)
             ->sum('minutes_volunteered');
 
-        return ['group' => $group, 'hours' => Helpers::minutesToHours($result)];
+        return ['group' => $group, 'hours' => Helpers::minutesToHours($result), 'minutes' => intval($result)];
     }
 
 
