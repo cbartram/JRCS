@@ -51,9 +51,13 @@ class ProgramController extends Controller
      */
     public function delete() {
         //find the program with the given id
-        Programs::destroy(Input::get('program'));
+        $program = Programs::find(Input::get('program'));
 
-        Toastr::success('Successfully deleted program!', $title = 'Deletion Successfully');
+        $program->status = 0;
+
+        $program->save();
+
+        Toastr::success('Successfully archived program!', $title = 'Archived Successfully');
         return Redirect::back();
     }
 }

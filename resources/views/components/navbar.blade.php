@@ -100,6 +100,7 @@
                             <li><a href="#" data-toggle="modal" data-target="#add-program"><span class="fa fa-plus-square"></span> Add Program</a></li>
                             @if($defaultGroup == "ADMIN")
                             <li><a href="#" id="profile" data-toggle="modal" data-target="#delete-program"><span class="fa fa-trash"></span> Delete Program</a></li>
+                            <li><a href="/archive"><span class="fa fa-archive"></span> Archived Programs</a></li>
                             @endif
                         </ul>
                     </li>

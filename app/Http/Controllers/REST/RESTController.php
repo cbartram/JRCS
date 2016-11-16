@@ -9,6 +9,7 @@ use App\EventLog;
 use App\Helpers\Helpers;
 use App\Profile;
 use App\Http\Requests;
+use App\Programs;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
@@ -294,6 +295,25 @@ class RESTController extends Controller
         if($volunteer != null) {
             $volunteer->active = 1;
             $volunteer->save();
+
+            return "true";
+        } else {
+            return "false";
+        }
+    }
+
+
+    /**
+     * Renews the volunteer program to active
+     * @param $id string id
+     * @return string true if the operation is successful false otherwise
+     */
+    public function renewProgram($id) {
+        $program = Programs::find($id);
+
+        if($program != null) {
+            $program->status = 1;
+            $program->save();
 
             return "true";
         } else {
