@@ -96,6 +96,9 @@ $(document).ready(function() {
                 $("#myModal").modal('toggle');
                 toastr.success('Successfully Archived Volunteer: ' + id);
                 //todo reload changes?
+            } else {
+                $("#myModal").modal('toggle');
+                toastr.error('Failed to Archive Volunteer, make sure their profile is fully loaded before you try to archive them!');
             }
 
         });

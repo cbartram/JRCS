@@ -265,15 +265,40 @@ class RESTController extends Controller
         return ['group' => $group, 'hours' => Helpers::minutesToHours($result), 'minutes' => intval($result)];
     }
 
-
+    /**
+     * Updates the volunteer profile to archive status
+     * @param $id string volunteer id
+     * @return string true if the operation is successful false otherwise
+     */
     public function archiveVolunteer($id) {
         $volunteer = Profile::find($id);
 
-        $volunteer->active = 0;
+        if($volunteer != null) {
+            $volunteer->active = 0;
+            $volunteer->save();
 
-        $volunteer->save();
+            return "true";
+        } else {
+            return "false";
+        }
+    }
 
-        return "true";
+    /**
+     * Updates the volunteer profile to active status
+     * @param $id string volunteer id
+     * @return string  if the operation is successful false otherwise
+     */
+    public function renewVolunteer($id) {
+        $volunteer = Profile::find($id);
+
+        if($volunteer != null) {
+            $volunteer->active = 1;
+            $volunteer->save();
+
+            return "true";
+        } else {
+            return "false";
+        }
     }
 
 

@@ -137,15 +137,8 @@ Route::post('/donation/add', 'DonationController@addDonation');
 Route::get('/donation/approve/{id}', 'DonationController@approve');
 Route::post('/donation/deny/{id}', 'DonationController@deny');
 
-//Handles showing the donation history page when a staff member access's it
-Route::get('/donation/history', function() {
-    $donations = Donations::where('status', 'Approved')
-        ->orWhere('status', 'Denied')
-        ->orderBy('status', 'DESC')
-        ->get();
-
-    return view('donation.donation-history', compact('donations'));
-});
+//Handles showing the archives when a staff member access's it
+Route::get('/archive', 'ArchiveController@index');
 
 /*
 |------------------------------------------------------------------------
@@ -276,5 +269,9 @@ Route::get('/api/v1/hours/group/{group}/{start}/{end}', 'REST\RESTController@get
 //Aggregates sum of all groups one a specific date
 Route::get('/api/v1/hours/date/{date}', 'REST\RESTController@getAllHoursOnDate');
 
+//Handles archiving a volunteer
 Route::post('/api/v1/archive/volunteer/{id}', 'REST\RESTController@archiveVolunteer');
+
+//Handles renewing a previously archived volunteered
+Route::post('/api/v1/renew/volunteer/{id}', 'REST\RESTController@renewVolunteer');
 

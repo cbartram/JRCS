@@ -309,6 +309,18 @@ function archiveVolunteerById(id, getResult) {
     });
 }
 
+/**
+ * Renews a volunteer profile. This method performs the opposite of archiving a volunteer
+ * by 'un-archiving' a volunteer given their id
+ * @param id volunteer id
+ * @param getResult callback function
+ */
+function renewVolunteerById(id, getResult) {
+    $.post('api/v1/renew/volunteer/' + id).done(function (response) {
+        getResult(response);
+    });
+}
+
 
 /**
  * Updates one column with a given value given the volunteers id
