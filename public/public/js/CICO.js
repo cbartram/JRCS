@@ -24,7 +24,6 @@ $(document).ready(function() {
             for (var i = 0; i < ids.length; i++) {
                 checkOutTest(ids[i], function(callback) {});
             }
-            window.location.reload();
             toastr.success('Volunteers checked out successfully!');
         } else {
             toastr.error('No volunteers were selected to check out!');

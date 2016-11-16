@@ -35,7 +35,9 @@ Route::get('/', function() {
     $volunteers = Cico::where('check_out_timestamp', 'null')
         ->join('profiles', 'volunteer_cico.volunteer_id', '=', 'profiles.id')
         ->select('volunteer_cico.*')
-        ->get();
+        ->where('active', 1)
+        ->orderBy('check_in_timestamp', 'ASC')
+        ->paginate(4);
 
     //Handles all the programs added by staff
     $programs = Programs::where('status', 1)->get();
@@ -67,7 +69,6 @@ Route::post('/add', 'addController@index');
 Route::post('/program/add', 'ProgramController@add');
 
 Route::post('/program/delete', 'ProgramController@delete');
-
 
 /*
 |------------------------------------------------------------------------
@@ -136,15 +137,8 @@ Route::post('/donation/add', 'DonationController@addDonation');
 Route::get('/donation/approve/{id}', 'DonationController@approve');
 Route::post('/donation/deny/{id}', 'DonationController@deny');
 
-//Handles showing the donation history page when a staff member access's it
-Route::get('/donation/history', function() {
-    $donations = Donations::where('status', 'Approved')
-        ->orWhere('status', 'Denied')
-        ->orderBy('status', 'DESC')
-        ->get();
-
-    return view('donation.donation-history', compact('donations'));
-});
+//Handles showing the archives when a staff member access's it
+Route::get('/archive', 'ArchiveController@index');
 
 /*
 |------------------------------------------------------------------------
@@ -272,4 +266,12 @@ Route::get('/api/v1/hours/group/{group}', 'REST\RESTController@getHoursByGroup')
 //Aggregates sum of hours by group between given start and end date
 Route::get('/api/v1/hours/group/{group}/{start}/{end}', 'REST\RESTController@getHoursByGroupBetween');
 
+//Aggregates sum of all groups one a specific date
 Route::get('/api/v1/hours/date/{date}', 'REST\RESTController@getAllHoursOnDate');
+
+//Handles archiving a volunteer
+Route::post('/api/v1/archive/volunteer/{id}', 'REST\RESTController@archiveVolunteer');
+
+//Handles renewing a previously archived volunteered
+Route::post('/api/v1/renew/volunteer/{id}', 'REST\RESTController@renewVolunteer');
+

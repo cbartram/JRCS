@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,9 +18,11 @@
 <body>
 
 <div class="container">
+
+    <!-- Row for donations that are approved or denied -->
     <div class="row" style="margin-top:25px;">
         <div class="col-lg-9 col-lg-offset-1">
-            <div class="panel panel-success">
+            <div class="panel panel-default">
                 <div class="panel-heading">Donation History <i class="fa fa-history"></i></div>
                 <div class="panel-body">
                         <table class="table table-bordered">
@@ -59,6 +60,37 @@
         </div>
     </div>
 
+    <!-- Row for archived volunteers -->
+    <div class="row" style="margin-top:25px;">
+        <div class="col-lg-9 col-lg-offset-1">
+            <div class="panel panel-default">
+                <div class="panel-heading">Archived Volunteers <i class="fa fa-archive"></i></div>
+                <div class="panel-body">
+                    <table class="table table-bordered">
+                        <thead>
+                        <th>Volunteer ID</th>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Email</th>
+                        <th>Action</th>
+                        </thead>
+                        <tbody>
+                        @foreach($volunteers as $volunteer)
+                            <tr>
+                                <td>{{$volunteer->id}}</td>
+                                <td>{{$volunteer->first_name}}</td>
+                                <td>{{$volunteer->last_name}}</td>
+                                <td>{{$volunteer->email}}</td>
+                                <td><button class="btn btn-sm btn-success un-archive" data-id="{{$volunteer->id}}">Renew Volunteer <i class="fa fa-refresh"></i></button></td>
+                            </tr>
+                        @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="row">
         <div class="col-lg-4 col-lg-offset-3">
             <a href="../profile"><button class="btn btn-block btn-default">
@@ -77,6 +109,6 @@
 
 <!-- Local JS Files -->
 <script src="../../public/js/VolunteerRESTLibrary.js"></script>
-<script src="../../public/js/Donation.js"></script>
+<script src="../../public/js/Archive.js"></script>
 </body>
 </html>

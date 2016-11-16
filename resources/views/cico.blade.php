@@ -50,7 +50,12 @@
 
                     <li class="navbar-button-item">
                         <div class="navbar-form">
-                            <a class="signup-btn btn btn-default" href="/login/">
+                            <a class="signup-btn btn btn-default"
+                               @if(Session::has('is_logged_in'))
+                                    href="/profile/"
+                               @else
+                                    href="/login/"
+                               @endif>
                                 Staff Login <span class="fa fa-sign-in"></span>
                             </a>
                         </div>
@@ -114,7 +119,7 @@
         <div class="col-lg-6">
             <!-- Start of the volunteer check in table -->
             <div class="panel panel-default" id="checked-in-table">
-                <div class="panel-heading"><strong>Volunteers Checked In <i class="fa fa-check"></i></strong></div>
+                <div class="panel-heading"><strong>Volunteers Checked In <i class="fa fa-check"></i></strong> </div>
                 <div class="panel-body">
                     <div class="row">
                         <div class="col-md-12">
@@ -146,8 +151,11 @@
                     </div>
 
                     <div class="row">
-                        <div class="col-lg-6 col-lg-offset-3">
+                        <div class="col-lg-6">
                             <button class="btn btn-block btn-danger" id="check-out">Check-Out <span class="fa fa-sign-out"></span></button>
+                        </div>
+                        <div class="col-lg-6">
+                            {{$volunteers->links()}}
                         </div>
                     </div>
 

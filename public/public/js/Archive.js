@@ -37,7 +37,7 @@ $(document).ready(function() {
           if(callback == true) {
               toastr.success('Successfully Re-Opened Donation')
           } else {
-              toastr.error("Could not Re-Open Donation, please try again...")
+              toastr.error("Failed to perform operation requested please try again...")
           }
        });
         $(this).parent().parent().remove();
@@ -47,4 +47,18 @@ $(document).ready(function() {
     $("#amount").focus(function() {
         $(this).val('$' + $(this).val());
     });
+
+
+    //Handles when a volunteer is un-archived
+    $(".un-archive").click(function() {
+       renewVolunteerById($(this).attr('data-id'), function(response) {
+          if(response == "true") {
+              toastr.success('Volunteer Profile has been renewed successfully');
+              window.location.reload();
+          }
+       });
+    });
+
+
+
 });

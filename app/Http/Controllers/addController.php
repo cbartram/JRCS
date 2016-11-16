@@ -54,6 +54,7 @@ class addController extends Controller
         $volunteer->email = Input::get('email');
         $volunteer->phone = Input::get('phone');
         $volunteer->volunteer_type = Input::get('volunteer_type');
+        $volunteer->active = 1;
 
             //ensure at least one checkbox is selected so the volunteer doesnt dissapear in the db
             if(Input::get('bebco-checkbox') != 'true' && Input::get('jaco-checkbox') != 'true' && Input::get('jbc-checkbox') != 'true') {

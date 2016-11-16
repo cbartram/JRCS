@@ -61,7 +61,17 @@
             <ul class="nav navbar-nav navbar-right">
                 <!-- Authentication Links -->
                 @if (true)
-                    <li role="presentation" id="add-volunteer"><a href="#" data-toggle="modal" data-target="#add-volunteer-modal"><span class="fa fa-user-plus"></span> New Volunteer </a></li>
+                    <!-- Volunteer Dropdown -->
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="fa fa-user"></span> Volunteers <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li class="dropdown-header">Volunteer Actions</li>
+                            <li><a href="#" id="add-volunteer" data-toggle="modal" data-target="#add-volunteer-modal"><span class="fa fa-user-plus"></span> New Volunteer</a></li>
+                            <li><a href="/archive"><span class="fa fa-archive"></span> Volunteer Archive</a></li>
+                        </ul>
+                    </li>
+
+                    <!-- Event Dropdown -->
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="fa fa-calendar"></span> Events <span class="caret"></span></a>
                         <ul class="dropdown-menu">
@@ -70,15 +80,19 @@
                             <li><a href="#" id="log" data-toggle="modal" data-target="#log-event-modal"><span class="fa fa-pencil"></span> Log Event</a></li>
                         </ul>
                     </li>
+
+                    <!-- Donation Dropdown -->
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="fa fa-money"></span> Donations <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li class="dropdown-header">Donation Actions</li>
                             <li><a href="#" data-toggle="modal" data-target="#add-donation"><span class="fa fa-plus-square"></span> New Donation</a></li>
                             <li><a href="#" id="profile" data-toggle="modal" data-target="#pending-donations"><span class="fa fa-exclamation-triangle"></span> Pending Donations</a></li>
-                            <li><a href="/donation/history"><span class="fa fa-history"></span> Donation History</a></li>
+                            <li><a href="/archive"><span class="fa fa-history"></span> Donation History</a></li>
                         </ul>
                     </li>
+
+                    <!-- Programs Dropdown -->
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="fa fa-list"></span> Programs <span class="caret"></span></a>
                         <ul class="dropdown-menu">
@@ -89,7 +103,11 @@
                             @endif
                         </ul>
                     </li>
+
+                    <!-- Export Dropdown -->
                     <li role="presentation"><a href="#" data-toggle="modal" data-target="#export-modal"><span class="fa fa-file-excel-o"></span> Export</a></li>
+
+                    <!-- Switch Dropdown -->
                     <li role="presentation" class="dropdown">
                         <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-random"></span>
                             &nbsp; Switch Organizations <span class="caret"></span></a>

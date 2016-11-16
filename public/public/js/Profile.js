@@ -53,7 +53,7 @@ $(document).ready(function() {
             //Load the volunteer profile details
             $("#table-body").append('<tr><td>'
                 + output.first_name + '</td><td>'
-                + output.last_name + '</td><td>'
+                + output.last_name + '</td><td class="vol-id">'
                 + id + '</td><td>'
                 + output.email + '</td><td>'
                 + output.phone + '</td><td>'
@@ -82,6 +82,26 @@ $(document).ready(function() {
            });
 
        }
+    });
+
+    //handles archiving a volunteer through the REST API
+    $("#archive-volunteer").click(function() {
+        var id = $(this).parent().parent().parent().prev().find('.vol-id').text();
+
+        //Archive the volunteer
+        archiveVolunteerById(id, function(response) {
+            console.log(response);
+
+            if(response == "true") {
+                $("#myModal").modal('toggle');
+                toastr.success('Successfully Archived Volunteer: ' + id);
+                //todo reload changes?
+            } else {
+                $("#myModal").modal('toggle');
+                toastr.error('Failed to Archive Volunteer, make sure their profile is fully loaded before you try to archive them!');
+            }
+
+        });
     });
 
     //Handles sorting and dragging volunteer cards
