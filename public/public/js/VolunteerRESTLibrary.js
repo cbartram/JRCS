@@ -6,7 +6,7 @@
 var baseURL     = "api/v1/volunteers";
 var eventURL    = "api/v1/events";
 var donationURL = "api/v1/donations";
-var hoursURL    = "api/v1/hours";
+var hoursURL    = "../api/v1/hours";
 var authURL     = "api/v1/authenticate";
 
 
