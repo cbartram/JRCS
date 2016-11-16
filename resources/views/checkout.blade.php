@@ -23,21 +23,21 @@
                 <div class="panel-body">
                     <table class="table table-striped">
                         <thead>
-                        <th>Id</th>
                         <th>Name</th>
+                        <th>Email</th>
                         <th>Checked-In</th>
                         <th>Check-Out</th>
                         </thead>
                         <tbody>
                         @foreach($volunteers as $v)
                             <tr>
-                                <td>{{$v->id}}</td>
-                                <td>{{$v->first_name . ' ' . $v->last_name }}</td>
+                                <td>{{Helpers::getName($v->volunteer_id)}}</td>
+                                <td>{{$v->email}}{{-- First name and last name goes here --}}</td>
                                 <td><span class="label label-success">{{$v->check_in_timestamp}}</span></td>
                                 <td>
                                     <div class="checkbox">
                                         <label>
-                                            <input type="checkbox" name="{{$v->email}}"> Select this Volunteer
+                                            <input type="checkbox" name="{{$v->id}}"> Select this Volunteer
                                         </label>
                                     </div>
                                 </td>

@@ -27,7 +27,9 @@ class CicoController extends Controller
        $date = date('Y-m-d');
 
         //Get the first row back from the query
-        $q = Profile::where('email', $email)->limit(1)->first();
+        $q = Profile::where('email', $email)
+            ->where('active', 1)
+            ->limit(1)->first();
 
         //The wrong email was sent through the form
         if($q == null) {

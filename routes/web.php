@@ -35,7 +35,9 @@ Route::get('/', function() {
     $volunteers = Cico::where('check_out_timestamp', 'null')
         ->join('profiles', 'volunteer_cico.volunteer_id', '=', 'profiles.id')
         ->select('volunteer_cico.*')
-        ->get();
+        ->where('active', 1)
+        ->orderBy('check_in_timestamp', 'ASC')
+        ->paginate(4);
 
     //Handles all the programs added by staff
     $programs = Programs::where('status', 1)->get();
