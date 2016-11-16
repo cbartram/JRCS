@@ -53,13 +53,16 @@ class RESTController extends Controller
         $volunteer->save();
     }
 
+
     public function findAllEvents() {
-        return Calendar::where('active', 1);
+        return Calendar::where('active', 1)
+            ->get();
     }
 
     public function findEventById($id) {
         return Calendar::where('id', $id)
-            ->where('active', 1);
+            ->where('active', 1)
+            ->get();
     }
 
     /**
