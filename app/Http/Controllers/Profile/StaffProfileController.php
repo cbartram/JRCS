@@ -90,6 +90,8 @@ class StaffProfileController extends Controller
             //If the user is browsing the admin group show all events
             if($defaultGroup == "ADMIN") {
                 $log = EventLog::join('calendar_events', 'event_log.event_id', '=', 'calendar_events.id')
+                    ->where('event_log.active', 1)
+                    ->where('calendar_events.active', 1)
                     ->orderBy('start', 'ASC')
                     ->paginate(5);
 
