@@ -19,9 +19,15 @@ class EventController extends Controller
     public function remove() {
         $id = Input::get('id');
 
-        if(Calendar::find($id) != null) {
-           Calendar::destroy($id);
-           EventLog::destroy($id);
+        $calendarEvent = Calendar::find($id);
+        $eventLog = EventLog::find($id);
+
+        if($calendarEvent != null && $eventLog != null) {
+           $calendarEvent->active = 0;
+           $eventLog->active = 0;
+
+            $calendarEvent->save();
+            $eventLog->save();
 
            Toastr::success('Successfully removed calendar event!', $title = 'Event Deleted!', $options = []);
            return Redirect::back();
@@ -57,7 +63,9 @@ class EventController extends Controller
         }
 
 
-        $event = EventLog::where('event_id' , Input::get('event-id'))->first();
+        $event = EventLog::where('event_id' , Input::get('event-id'))
+            ->where('active', 1)
+            ->first();
 
         //Couldnt find the event
         if($event == null) {

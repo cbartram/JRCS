@@ -99,6 +99,8 @@ class StaffProfileController extends Controller
                 //Events on the calendar and events in the event log where the group is the staff members current group
                 $log = EventLog::where('event_log.group', $defaultGroup)
                     ->join('calendar_events', 'event_log.event_id', '=', 'calendar_events.id')
+                    ->where('event_log.active', 1)
+                    ->where('calendar_events.active', 1)
                     ->orderBy('start', 'ASC')
                     ->paginate(5);
 

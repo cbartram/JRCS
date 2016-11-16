@@ -275,3 +275,13 @@ Route::post('/api/v1/archive/volunteer/{id}', 'REST\RESTController@archiveVolunt
 //Handles renewing a previously archived volunteered
 Route::post('/api/v1/renew/volunteer/{id}', 'REST\RESTController@renewVolunteer');
 
+//Handles renewing a previously archived program
+Route::post('/api/v1/renew/program/{id}', 'REST\RESTController@renewProgram');
+
+//Handles archiving an event instead of deleting it
+Route::post('/api/v1/archive/event/{id}', 'REST\RESTController@archiveEvent');
+
+//Handles renewing an event that has been previously archived
+Route::post('/api/v1/renew/event/{id}', 'REST\RESTController@renewEvent');
+
+

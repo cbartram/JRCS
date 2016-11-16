@@ -9,6 +9,7 @@ use App\EventLog;
 use App\Helpers\Helpers;
 use App\Profile;
 use App\Http\Requests;
+use App\Programs;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
@@ -53,11 +54,12 @@ class RESTController extends Controller
     }
 
     public function findAllEvents() {
-        return Calendar::all();
+        return Calendar::where('active', 1);
     }
 
     public function findEventById($id) {
-        return Calendar::find($id);
+        return Calendar::where('id', $id)
+            ->where('active', 1);
     }
 
     /**
@@ -68,7 +70,9 @@ class RESTController extends Controller
      * @return Collection
      */
     public function findEventsByGroup($group) {
-        $events =  EventLog::where('group', $group)->get();
+        $events =  EventLog::where('group', $group)
+            ->where('active', 1)
+            ->get();
 
         //Create a new collection to house the objects
         $result = new Collection();
@@ -95,6 +99,7 @@ class RESTController extends Controller
         $event->end = $end;
         $event->title = str_replace('_', ' ', $title);
         $event->color = $color;
+        $event->active = 1;
 
         //Insert dummy row into event log with the same pk id as the event we just created
         $event_log = new EventLog();
@@ -108,13 +113,27 @@ class RESTController extends Controller
 
         //The event is unlogged by default
         $event_log->log_status = 0;
+        $event_log->active     = 1;
 
         $event_log->save();
         $event->save();
     }
 
     public function deleteEventById($id) {
-        return Calendar::where('id', $id)->delete();
+         $calendar = Calendar::find($id);
+         $eventLog = EventLog::find($id);
+
+         if($calendar != null && $eventLog != null) {
+             $calendar->active = 0;
+             $eventLog->active = 0;
+
+             $calendar->save();
+             $eventLog->save();
+
+             return "true";
+         } else {
+             return "false";
+         }
     }
 
 
@@ -294,6 +313,71 @@ class RESTController extends Controller
         if($volunteer != null) {
             $volunteer->active = 1;
             $volunteer->save();
+
+            return "true";
+        } else {
+            return "false";
+        }
+    }
+
+
+    /**
+     * Renews the volunteer program to active
+     * @param $id string id
+     * @return string true if the operation is successful false otherwise
+     */
+    public function renewProgram($id) {
+        $program = Programs::find($id);
+
+        if($program != null) {
+            $program->status = 1;
+            $program->save();
+
+            return "true";
+        } else {
+            return "false";
+        }
+    }
+
+
+    /**
+     * Archives an event hiding it from being shown from the calendar
+     * and on the event log
+     * @param $id string event id
+     * @return string true if the operation is successful false otherwise
+     */
+    public function archiveEvent($id) {
+        $eventLog = EventLog::find($id);
+        $calendarEvent = Calendar::find($id);
+
+        if($eventLog != null && $calendarEvent != null) {
+            $eventLog->active = 0;
+            $calendarEvent->active = 0;
+
+            $eventLog->save();
+            $calendarEvent->save();
+
+            return "true";
+        } else {
+            return "false";
+        }
+    }
+
+    /**
+     * Handles renewing an event after it has been archived
+     * @param $id string event id
+     * @return string true if the operation is successful false otherwise
+     */
+    public function renewEvent($id) {
+        $eventLog = EventLog::find($id);
+        $calendarEvent = Calendar::find($id);
+
+        if($eventLog != null && $calendarEvent != null) {
+            $eventLog->active = 1;
+            $calendarEvent->active = 1;
+
+            $eventLog->save();
+            $calendarEvent->save();
 
             return "true";
         } else {

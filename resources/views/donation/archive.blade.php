@@ -91,6 +91,67 @@
         </div>
     </div>
 
+
+    <!-- Row for archived programs -->
+    <div class="row" style="margin-top:25px;">
+        <div class="col-lg-9 col-lg-offset-1">
+            <div class="panel panel-default">
+                <div class="panel-heading">Archived Programs <i class="fa fa-archive"></i></div>
+                <div class="panel-body">
+                    <table class="table table-bordered">
+                        <thead>
+                        <th>Program Id</th>
+                        <th>Program Name</th>
+                        <th>Staff Name</th>
+                        <th>Action</th>
+                        </thead>
+                        <tbody>
+                        @foreach($programs as $p)
+                            <tr>
+                                <td>{{$p->id}}</td>
+                                <td>{{$p->program_name}}</td>
+                                <td>{{Helpers::getStaffName($p->staff_id)}}</td>
+                                <td><button class="btn btn-sm btn-primary renew-program" data-id="{{$p->id}}">Renew Program <i class="fa fa-refresh"></i></button></td>
+                            </tr>
+                        @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Row for archived events -->
+    <div class="row" style="margin-top:25px;">
+        <div class="col-lg-9 col-lg-offset-1">
+            <div class="panel panel-default">
+                <div class="panel-heading">Archived Events <i class="fa fa-archive"></i></div>
+                <div class="panel-body">
+                    <table class="table table-bordered">
+                        <thead>
+                        <th>Event Id</th>
+                        <th>Start</th>
+                        <th>End</th>
+                        <th>Title</th>
+                        <th>Action</th>
+                        </thead>
+                        <tbody>
+                        @foreach($events as $e)
+                            <tr>
+                                <td>{{$e->id}}</td>
+                                <td><span class="label label-success">{{$e->start}}</span></td>
+                                <td><span class="label label-danger">{{$e->end}}</span></td>
+                                <td>{{$e->title}}</td>
+                                <td><button class="btn btn-sm btn-primary renew-event" data-id="{{$e->id}}">Renew Event <i class="fa fa-refresh"></i></button></td>
+                            </tr>
+                        @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="row">
         <div class="col-lg-4 col-lg-offset-3">
             <a href="../profile"><button class="btn btn-block btn-default">

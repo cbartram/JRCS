@@ -39,6 +39,11 @@ function getAllHours(getResult) {
     });
 }
 
+/**
+ * Gets aggregation of all volunteer hours for all groups on a specific date
+ * @param date Date in the format YYYY-MM-DD
+ * @param getResult
+ */
 function getAllHoursOnDate(date, getResult) {
     $.ajax({
         type: 'GET',
@@ -318,6 +323,30 @@ function archiveVolunteerById(id, getResult) {
 function renewVolunteerById(id, getResult) {
     $.post('api/v1/renew/volunteer/' + id).done(function (response) {
         getResult(response);
+    });
+}
+
+/**
+ * Renews an archived program given the id
+ * @param id Program Id
+ * @param getResult callback function
+ */
+function renewProgramById(id, getResult) {
+    $.post('api/v1/renew/program/' + id).done(function (response) {
+        getResult(response);
+    });
+}
+
+
+function archiveEvent(id, getResult) {
+    $.post('api/v1/archive/event/' + id).done(function (response) {
+        getResult(response);
+    });
+}
+
+function renewEvent(id, getResult) {
+    $.post('api/v1/renew/event/' + id).done(function (response) {
+       getResult(response);
     });
 }
 

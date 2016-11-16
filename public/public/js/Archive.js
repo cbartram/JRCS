@@ -59,6 +59,26 @@ $(document).ready(function() {
        });
     });
 
+    //Handles when a program is un-archived
+    $(".renew-program").click(function() {
+        renewProgramById($(this).attr('data-id'), function(response) {
+           if(response == "true") {
+               toastr.success('Program has been renewed successfully');
+               window.location.reload();
+           }
+        });
+    });
+
+    //Handles when an event is renewed
+    $(".renew-event").click(function() {
+       renewEvent($(this).attr('data-id'), function(response) {
+          if(response == "true") {
+              toastr.success('Event has been renewed successfully');
+              window.location.reload();
+          }
+       });
+    });
+
 
 
 });
