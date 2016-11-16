@@ -338,6 +338,19 @@ function renewProgramById(id, getResult) {
 }
 
 
+function archiveEvent(id, getResult) {
+    $.post('api/v1/archive/event/' + id).done(function (response) {
+        getResult(response);
+    });
+}
+
+function renewEvent(id, getResult) {
+    $.post('api/v1/renew/event/' + id).done(function (response) {
+       getResult(response);
+    });
+}
+
+
 /**
  * Updates one column with a given value given the volunteers id
  * @param id volunteer email

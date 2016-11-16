@@ -69,6 +69,16 @@ $(document).ready(function() {
         });
     });
 
+    //Handles when an event is renewed
+    $(".renew-event").click(function() {
+       renewEvent($(this).attr('data-id'), function(response) {
+          if(response == "true") {
+              toastr.success('Event has been renewed successfully');
+              window.location.reload();
+          }
+       });
+    });
+
 
 
 });

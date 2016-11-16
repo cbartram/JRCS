@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Calendar;
 use App\Donations;
 use App\Profile;
 use App\Programs;
@@ -23,8 +24,13 @@ class ArchiveController extends Controller
             ->orderBy('program_name', 'ASC')
             ->get();
 
+        $events = Calendar::where('active', 0)
+            ->orderBy('start', 'ASC')
+            ->get();
+
         return view('donation.archive', compact('donations'), compact('volunteers'))
-            ->with('programs', $programs);
+            ->with('programs', $programs)
+            ->with('events', $events);
     }
 
 }

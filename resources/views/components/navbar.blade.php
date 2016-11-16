@@ -78,6 +78,7 @@
                             <li class="dropdown-header">Event Actions</li>
                             <li><a href="#" id="events" data-toggle="modal" data-target="#event-modal"><span class="fa fa-calendar"></span> Create Event</a></li>
                             <li><a href="#" id="log" data-toggle="modal" data-target="#log-event-modal"><span class="fa fa-pencil"></span> Log Event</a></li>
+                            <li><a href="/archive"><span class="fa fa-archive"></span> Event Archive</a></li>
                         </ul>
                     </li>
 
