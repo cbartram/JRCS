@@ -266,4 +266,15 @@ class RESTController extends Controller
     }
 
 
+    public function archiveVolunteer($id) {
+        $volunteer = Profile::find($id);
+
+        $volunteer->active = 0;
+
+        $volunteer->save();
+
+        return "true";
+    }
+
+
 }

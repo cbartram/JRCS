@@ -9,14 +9,14 @@
             <div class="modal-body">
                 <table class="table table-striped">
                     <thead>
-                    <th>First Name</th>
-                    <th>Last Name</th>
-                    <th>Volunteer ID</th>
-                    <th>Email</th>
-                    <th>Phone</th>
-                    <th>City</th>
-                    <th>State</th>
-                    <th>Zip</th>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Volunteer ID</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th>City</th>
+                        <th>State</th>
+                        <th>Zip</th>
                     </thead>
                     <tbody id="table-body">
                     <!-- Load Volunteer Demographic info -->
@@ -30,7 +30,14 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" id="modal-close" class="btn btn-default" data-dismiss="modal"><span class="fa fa-times"></span> Close</button>
+                <div class="row">
+                    <div class="col-lg-3 col-lg-offset-6">
+                        <button type="button" id="archive-volunteer" class="btn btn-primary">Archive Volunteer <span class="fa fa-archive"></span></button>
+                    </div>
+                    <div class="col-lg-3">
+                        <button type="button" id="modal-close" class="btn btn-default" data-dismiss="modal"><span class="fa fa-times"></span> Close</button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

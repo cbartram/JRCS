@@ -3,11 +3,11 @@
  * Not really sure how to name this file but
  * it contains methods to query and parse volunteer info
  */
-var baseURL     = "api/v1/volunteers";
-var eventURL    = "api/v1/events";
-var donationURL = "api/v1/donations";
+var baseURL     = "../api/v1/volunteers";
+var eventURL    = "../api/v1/events";
+var donationURL = "../api/v1/donations";
 var hoursURL    = "../api/v1/hours";
-var authURL     = "api/v1/authenticate";
+var authURL     = "../api/v1/authenticate";
 
 
 /**
@@ -295,6 +295,20 @@ function deleteVolunteerByEmail(email, getResult) {
         getResult(response);
     });
 }
+
+/**
+ * Archives a volunteer in the database given their id. This method differes from deleting
+ * a volunteer because the volunteer data is saved in the database its just 'hidden' from
+ * the frontend
+ * @param id volunteer id to archive
+ * @param getResult callbakc function
+ */
+function archiveVolunteerById(id, getResult) {
+    $.post('api/v1/archive/volunteer/' + id).done(function (response) {
+        getResult(response);
+    });
+}
+
 
 /**
  * Updates one column with a given value given the volunteers id

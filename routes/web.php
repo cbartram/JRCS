@@ -70,7 +70,6 @@ Route::post('/program/add', 'ProgramController@add');
 
 Route::post('/program/delete', 'ProgramController@delete');
 
-
 /*
 |------------------------------------------------------------------------
 | Routes for Excel Exporting
@@ -274,4 +273,8 @@ Route::get('/api/v1/hours/group/{group}', 'REST\RESTController@getHoursByGroup')
 //Aggregates sum of hours by group between given start and end date
 Route::get('/api/v1/hours/group/{group}/{start}/{end}', 'REST\RESTController@getHoursByGroupBetween');
 
+//Aggregates sum of all groups one a specific date
 Route::get('/api/v1/hours/date/{date}', 'REST\RESTController@getAllHoursOnDate');
+
+Route::post('/api/v1/archive/volunteer/{id}', 'REST\RESTController@archiveVolunteer');
+
