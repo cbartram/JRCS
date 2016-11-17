@@ -18,6 +18,7 @@ $(document).ready(function() {
         console.log(ids);
     });
 
+    //todo remove the row in the table that was checked out by sliding left
     $("#check-out").click(function() {
         //for each id in the ids array check them out
         if(ids.length > 0) {
