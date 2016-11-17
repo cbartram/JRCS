@@ -246,6 +246,7 @@ $(document).ready(function() {
 
     $("#today").click(function() {
         $("#calendar").fullCalendar('today');
+        toastr.info('Loading Calendar Events Hold on!');
     });
 
     $("#date-btn").click(function() {

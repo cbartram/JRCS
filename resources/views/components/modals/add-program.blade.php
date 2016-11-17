@@ -10,7 +10,7 @@
             <div class="modal-body">
                 <form method="post" action="program/add">
                     <div class="row">
-                        <div class="col-lg-6 col-lg-offset-2">
+                        <div class="col-lg-6 col-lg-offset-3">
                                 {{ csrf_field() }}
                                 <p><input type="text" name="program-name" placeholder="Program Name" class="form-control"></p>
                                 <p><input type="hidden" name="id" value="{{Session::get('id')}}"></p>
