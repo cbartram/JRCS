@@ -20,7 +20,7 @@
 <div class="container">
     <div class="row" style="margin-top:25px;">
         <div class="col-lg-6 col-lg-offset-3">
-        <div class="panel panel-success">
+        <div class="panel panel-default">
             <div class="panel-heading">Submit Donation Information <i class="fa fa-money"></i></div>
             <div class="panel-body">
 
@@ -42,27 +42,37 @@
 
                 <form action="/donation" method="post">
                     {{Form::token()}}
-                    <input type="email" name="email" class="form-control" placeholder="Email">
+                    <p><input type="email" name="email" class="form-control" placeholder="Email"></p>
 
-                    <select name="group" class="form-control" id="group">
+                    <p><select name="group" class="form-control" id="group"></p>
                         <option name="JACO">JACO</option>
                         <option name="BEBCO">BEBCO</option>
                         <option name="JBC">JBC</option>
                     </select>
 
-                    <select name="donation-type" class="form-control" id="donation-type">
+                    <p><select name="donation-type" class="form-control" id="donation-type"></p>
                       <option name="monetary">Monetary</option>
                       <option name="supplies">Supplies</option>
                       <option name="inkind">In Kind</option>
                     </select>
 
-                    <input type="text" class="form-control" name="amount" id="amount" placeholder="Amount">
-                    <input type="text" class="form-control" name="type" id="type" placeholder="Type of Supplies">
-                    <input type="text" class="form-control" name="inkind" id="inkind" placeholder="Type of Work">
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <p><input type="text" class="form-control" name="amount" id="amount" placeholder="Amount"></p>
+                    <p><input type="text" class="form-control" name="type" id="type" placeholder="Type of Supplies"></p>
+                    <p><input type="text" class="form-control" name="inkind" id="inkind" placeholder="Type of Work"></p>
+                    <div class="row">
+                        <div class="col-lg-5 col-lg-offset-3">
+                            <p><button type="submit" class="btn btn-block btn-primary"><span class="fa fa-plus"></span> Submit</button></p>
+                        </div>
+                    </div>
                 </form>
             </div>
         </div>
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <a href="/"><button class="btn btn-block btn-default">Home</button></a>
+                </div>
+            </div>
         </div>
     </div>
 </div> <!-- /container -->
