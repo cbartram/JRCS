@@ -25,6 +25,7 @@
             <div class="panel panel-default">
                 <div class="panel-heading">Donation History <i class="fa fa-history"></i></div>
                 <div class="panel-body">
+                    <div class="table-responsive">
                         <table class="table table-bordered">
                             <thead>
                                 <th>Volunteer ID</th>
@@ -55,6 +56,7 @@
                               @endforeach
                             </tbody>
                         </table>
+                        </div>
                 </div>
             </div>
         </div>
@@ -66,6 +68,7 @@
             <div class="panel panel-default">
                 <div class="panel-heading">Archived Volunteers <i class="fa fa-archive"></i></div>
                 <div class="panel-body">
+                    <div class="table-responsive">
                     <table class="table table-bordered">
                         <thead>
                         <th>Volunteer ID</th>
@@ -86,6 +89,7 @@
                         @endforeach
                         </tbody>
                     </table>
+                    </div>
                 </div>
             </div>
         </div>
@@ -98,6 +102,7 @@
             <div class="panel panel-default">
                 <div class="panel-heading">Archived Programs <i class="fa fa-archive"></i></div>
                 <div class="panel-body">
+                    <div class="table-responsive">
                     <table class="table table-bordered">
                         <thead>
                         <th>Program Id</th>
@@ -116,6 +121,7 @@
                         @endforeach
                         </tbody>
                     </table>
+                    </div>
                 </div>
             </div>
         </div>
@@ -127,6 +133,7 @@
             <div class="panel panel-default">
                 <div class="panel-heading">Archived Events <i class="fa fa-archive"></i></div>
                 <div class="panel-body">
+                    <div class="table-responsive">
                     <table class="table table-bordered">
                         <thead>
                         <th>Event Id</th>
@@ -147,6 +154,7 @@
                         @endforeach
                         </tbody>
                     </table>
+                   </div>
                 </div>
             </div>
         </div>

@@ -7,7 +7,11 @@
                 <h4 class="modal-title" style="color:black;" id="event-add">Export Volunteer Data</h4>
             </div>
             <div class="modal-body">
-
+                <div class="row">
+                    <div class="col-lg-6 col-lg-offset-4">
+                        <h2 style="color:darkgray">Coming Soon!</h2>
+                    </div>
+                </div>
             </div>
             <div class="modal-footer">
                 <div class="row">

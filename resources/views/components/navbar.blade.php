@@ -169,6 +169,7 @@
 <script src='../../public/js/moment.js'></script>
 
 <script src="https://use.fontawesome.com/09e1e27aff.js"></script>
+<script src="http://spin.js.org/spin.min.js"></script>
 <script src="../../public/js/Highcharts.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
 <script src="../../public/js/fullcalendar.min.js"></script>

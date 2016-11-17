@@ -9,17 +9,24 @@
             </div>
             <div class="modal-body">
                 <form method="post" action="program/add">
-
-                    <div class="input-group">
-                        {{ csrf_field() }}
-                        <input type="text" class="form-control" name="program-name" placeholder="Program Name">
-                        <input type="hidden" name="id" value="{{Session::get('id')}}">
-                        <button type="submit" class="btn btn-primary" name="submit">Submit</button>
+                    <div class="row">
+                        <div class="col-lg-6 col-lg-offset-3">
+                                {{ csrf_field() }}
+                                <p><input type="text" name="program-name" placeholder="Program Name" class="form-control"></p>
+                                <p><input type="hidden" name="id" value="{{Session::get('id')}}"></p>
+                        </div>
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal"><span class="fa fa-times"></span> Close</button>
+                <div class="row">
+                    <div class="col-lg-7 col-lg-offset-3">
+                        <button type="submit" class="btn btn-primary" name="submit"><span style="margin-left:4px; margin-top:4px;" class="fa fa-plus"></span> Add</button>
+                    </div>
+                    <div class="col-lg-2">
+                        <button type="button" class="btn btn-default" data-dismiss="modal"><span class="fa fa-times"></span> Close</button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
