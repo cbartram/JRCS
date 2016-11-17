@@ -24,6 +24,8 @@ $(document).ready(function() {
         if(ids.length > 0) {
             for (var i = 0; i < ids.length; i++) {
                 checkOutTest(ids[i], function(callback) {});
+
+                $('#' + ids[i]).hide("slide", {direction: "up"}, 500);
             }
             toastr.success('Volunteers checked out successfully!');
         } else {
