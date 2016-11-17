@@ -93,6 +93,32 @@ var adminHours = [
     }
 ];
 
+var opts = {
+    lines: 11 // The number of lines to draw
+    , length: 15 // The length of each line
+    , width: 5 // The line thickness
+    , radius: 61 // The radius of the inner circle
+    , scale: 1 // Scales overall size of the spinner
+    , corners: 0.4 // Corner roundness (0..1)
+    , color: '#000' // #rgb or #rrggbb or array of colors
+    , opacity: 0.15 // Opacity of the lines
+    , rotate: 0 // The rotation offset
+    , direction: 1 // 1: clockwise, -1: counterclockwise
+    , speed: 1.4 // Rounds per second
+    , trail: 36 // Afterglow percentage
+    , fps: 20 // Frames per second when using setTimeout() as a fallback for CSS
+    , zIndex: 2e9 // The z-index (defaults to 2000000000)
+    , className: 'spinner' // The CSS class to assign to the spinner
+    , top: '50%' // Top position relative to parent
+    , left: '50%' // Left position relative to parent
+    , shadow: false // Whether to render a shadow
+    , hwaccel: false // Whether to use hardware acceleration
+    , position: 'absolute' // Element positioning
+};
+
+var target = document.getElementById('listing');
+var spinner = new Spinner(opts).spin(target);
+
 $("#month").val(moment().daysInMonth());
 
 if(currentGroup != "ADMIN") {
@@ -100,9 +126,18 @@ if(currentGroup != "ADMIN") {
         var date = moment().subtract(i, 'd').format("YYYY-MM-DD");
         week[0].data.push(date);
 
-        getHoursByGroupBetween(currentGroup, date, date, function(data) {
-            hours[0].hours.push(data.minutes);
-            createChart(hours[0].hours, "#listing");
+        $.ajax({
+            type: 'GET',
+            url: "api/v1/hours/group/" + currentGroup + "/" + date + "/" + date,
+            dataType: "json",
+            success: function (data) {
+                hours[0].hours.push(data.minutes);
+
+                //the array is full
+                if(hours[0].hours.length == 7) {
+                    createChart(hours[0].hours, "#listing");
+                }
+            }
         });
     }
 
@@ -112,11 +147,22 @@ if(currentGroup != "ADMIN") {
         var adminDate = moment().subtract(j, 'd').format("YYYY-MM-DD");
         week[0].data.push(adminDate);
 
-        getAllHoursOnDate(adminDate, function(data) {
-            adminHours[0].hours.push(data.minutes);
-            createChart(adminHours[0].hours, "#listing");
+        $.ajax({
+            type: 'GET',
+            url: "api/v1/hours/date/" + adminDate,
+            dataType: "json",
+            success: function (data) {
+                adminHours[0].hours.push(data.minutes);
+
+                //the array is full
+                if(adminHours[0].hours.length == 7) {
+                    createChart(adminHours[0].hours, "#listing");
+                }
+            }
         });
+
     }
+
 }
 
 //When the user changes the timeframe we need to adapt to display it
@@ -135,10 +181,10 @@ $("#timeframe").change(function() {
             //get hours for each group given a start date and an end date
             getHoursByGroupBetween(currentGroup, date, date, function(data) {
                 hours[0].hours.push(data.minutes);
-                //create the chart and pass in the data
-                createChart(hours[0].hours, "#listing");
             });
         }
+        //create the chart and pass in the data
+        createChart(hours[0].hours, "#listing");
 
         //after the chart is displayed remove the data from the array to prepare for another timeframe change
         hours[0].hours = [];
@@ -151,10 +197,10 @@ $("#timeframe").change(function() {
 
             getAllHoursOnDate(adminDate, function(data) {
                 adminHours[0].hours.push(data.minutes);
-                createChart(adminHours[0].hours, "#listing");
             });
         }
 
+        createChart(adminHours[0].hours, "#listing");
         adminHours[0].hours = [];
     }
 
