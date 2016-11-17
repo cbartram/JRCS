@@ -131,6 +131,7 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <h4 style="color:black;">Event Log</h4>
+                                <div class="table-responsive">
                                 <table class="table table-striped">
                                     <thead>
                                     <th>Event ID</th>
@@ -155,6 +156,7 @@
                                         @endforeach
                                     </tbody>
                                 </table>
+                                </div>
                                 {{ $log->links() }}
                             </div>
                         </div>
