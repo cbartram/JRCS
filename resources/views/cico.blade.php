@@ -48,17 +48,10 @@
                         </a>
                     </li>
 
-                    <li class="navbar-button-item">
-                        <div class="navbar-form">
-                            <a class="signup-btn btn btn-default"
-                               @if(Session::has('is_logged_in'))
-                                    href="/profile/"
-                               @else
-                                    href="/login/"
-                               @endif>
-                                Staff Login <span class="fa fa-sign-in"></span>
-                            </a>
-                        </div>
+                    <li class="active">
+                        <a href="#" class="dropdown-toggle" type="button" id="dropdownProfile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-original-title="" title="">
+                            Staff Profile <span class="fa fa-chevron-right user"></span>
+                        </a>
                     </li>
                 </ul>
             </div><!-- /.navbar-collapse -->
@@ -121,7 +114,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="table-responsive">
-                            <table class="table table-striped">
+                            <table class="table table-bordered">
                                 <thead>
                                 <th>Name</th>
                                 <th>Email</th>
@@ -137,7 +130,7 @@
                                         <td>
                                             <div class="checkbox">
                                                 <label>
-                                                    <input type="checkbox" name="{{$v->id}}"> Select this Volunteer
+                                                    <input type="checkbox" name="{{$v->id}}"> Select
                                                 </label>
                                             </div>
                                         </td>
