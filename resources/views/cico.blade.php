@@ -38,7 +38,7 @@
             <div class="collapse navbar-collapse" id="navbar_collapse_fixed">
                 <ul class="nav navbar-nav navbar-right">
                     <li>
-                        <a href="/donation" target="_blank">
+                        <a href="/donation">
                             Donation <span class="fa fa-money"></span>
                         </a>
                     </li>
@@ -49,7 +49,7 @@
                     </li>
 
                     <li class="active">
-                        <a href="#" class="dropdown-toggle" type="button" id="dropdownProfile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-original-title="" title="">
+                        <a href="/login" id="dropdownProfile">
                             Staff Profile <span class="fa fa-chevron-right user"></span>
                         </a>
                     </li>
