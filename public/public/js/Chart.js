@@ -275,9 +275,9 @@ function createChart(data, id) {
 }
 
 //Hides the last chart so it does not show up when a new volunteer is selected
-$('.btn-default').click(function() {
-    $('.highcharts-container').hide();
-});
+// $('.btn-default').click(function() {
+//     $('.highcharts-container').hide();
+// });
 
 /**
  * Start of Individual volunteer profile card charts
