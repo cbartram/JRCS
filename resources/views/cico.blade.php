@@ -38,7 +38,7 @@
             <div class="collapse navbar-collapse" id="navbar_collapse_fixed">
                 <ul class="nav navbar-nav navbar-right">
                     <li>
-                        <a href="/donation" target="_blank">
+                        <a href="/donation">
                             Donation <span class="fa fa-money"></span>
                         </a>
                     </li>
@@ -48,17 +48,10 @@
                         </a>
                     </li>
 
-                    <li class="navbar-button-item">
-                        <div class="navbar-form">
-                            <a class="signup-btn btn btn-default"
-                               @if(Session::has('is_logged_in'))
-                                    href="/profile/"
-                               @else
-                                    href="/login/"
-                               @endif>
-                                Staff Login <span class="fa fa-sign-in"></span>
-                            </a>
-                        </div>
+                    <li class="active">
+                        <a href="/login" id="dropdownProfile">
+                            Staff Profile <span class="fa fa-chevron-right user"></span>
+                        </a>
                     </li>
                 </ul>
             </div><!-- /.navbar-collapse -->
@@ -121,7 +114,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="table-responsive">
-                            <table class="table table-striped">
+                            <table class="table table-bordered">
                                 <thead>
                                 <th>Name</th>
                                 <th>Email</th>
@@ -137,7 +130,7 @@
                                         <td>
                                             <div class="checkbox">
                                                 <label>
-                                                    <input type="checkbox" name="{{$v->id}}"> Select this Volunteer
+                                                    <input type="checkbox" name="{{$v->id}}"> Select
                                                 </label>
                                             </div>
                                         </td>
