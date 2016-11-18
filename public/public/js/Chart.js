@@ -94,30 +94,19 @@ var adminHours = [
 ];
 
 var opts = {
-    lines: 11 // The number of lines to draw
-    , length: 15 // The length of each line
-    , width: 5 // The line thickness
-    , radius: 61 // The radius of the inner circle
-    , scale: 1 // Scales overall size of the spinner
-    , corners: 0.4 // Corner roundness (0..1)
-    , color: '#000' // #rgb or #rrggbb or array of colors
-    , opacity: 0.15 // Opacity of the lines
-    , rotate: 0 // The rotation offset
-    , direction: 1 // 1: clockwise, -1: counterclockwise
-    , speed: 1.4 // Rounds per second
-    , trail: 36 // Afterglow percentage
-    , fps: 20 // Frames per second when using setTimeout() as a fallback for CSS
-    , zIndex: 2e9 // The z-index (defaults to 2000000000)
-    , className: 'spinner' // The CSS class to assign to the spinner
-    , top: '50%' // Top position relative to parent
-    , left: '50%' // Left position relative to parent
-    , shadow: false // Whether to render a shadow
-    , hwaccel: false // Whether to use hardware acceleration
-    , position: 'absolute' // Element positioning
+    lines: 11, length: 15, width: 5, radius: 61, scale: 1, corners: 0.4, color: '#000', opacity: 0.15
+    , rotate: 0, direction: 1, speed: 1.4, trail: 36, fps: 20, zIndex: 2e9, className: 'spinner', top: '50%'
+    , left: '50%', shadow: false, hwaccel: false, position: 'absolute'
+};
+
+var spinnerSmall = {
+    lines: 11, length: 15, width: 5, radius: 61, scale: .3, corners: 0.4, color: '#000', opacity: 0.15
+    , rotate: 0, direction: 1, speed: 1.4, trail: 36, fps: 20, zIndex: 2e9, className: 'spinner', top: '50%'
+    , left: '50%', shadow: false, hwaccel: false, position: 'absolute'
 };
 
 var target = document.getElementById('listing');
-var spinner = new Spinner(opts).spin(target);
+new Spinner(opts).spin(target);
 
 $("#month").val(moment().daysInMonth());
 
@@ -168,6 +157,11 @@ if(currentGroup != "ADMIN") {
 //When the user changes the timeframe we need to adapt to display it
 $("#timeframe").change(function() {
 
+    $('#listing').find('.highcharts-container').hide();
+
+    var target = document.getElementById('listing');
+    new Spinner(opts).spin(target);
+
     //get the number of days we need to display
     var days = $(this).val();
 
@@ -178,13 +172,20 @@ $("#timeframe").change(function() {
             var date = moment().subtract(i, 'd').format("YYYY-MM-DD");
             week[0].data.push(date);
 
-            //get hours for each group given a start date and an end date
-            getHoursByGroupBetween(currentGroup, date, date, function(data) {
-                hours[0].hours.push(data.minutes);
+            $.ajax({
+                type: 'GET',
+                url: "api/v1/hours/group/" + currentGroup + "/" + date + "/" + date,
+                dataType: "json",
+                success: function (data) {
+                    hours[0].hours.push(data.minutes);
+
+                    //the array is full
+                    if(hours[0].hours.length == days) {
+                        createChart(hours[0].hours, "#listing");
+                    }
+                }
             });
         }
-        //create the chart and pass in the data
-        createChart(hours[0].hours, "#listing");
 
         //after the chart is displayed remove the data from the array to prepare for another timeframe change
         hours[0].hours = [];
@@ -195,12 +196,20 @@ $("#timeframe").change(function() {
             var adminDate = moment().subtract(j, 'd').format("YYYY-MM-DD");
             week[0].data.push(adminDate);
 
-            getAllHoursOnDate(adminDate, function(data) {
-                adminHours[0].hours.push(data.minutes);
+            $.ajax({
+                type: 'GET',
+                url: "api/v1/hours/date/" + adminDate,
+                dataType: "json",
+                success: function (data) {
+                    adminHours[0].hours.push(data.minutes);
+
+                    //the array is full
+                    if(adminHours[0].hours.length == days) {
+                        createChart(adminHours[0].hours, "#listing");
+                    }
+                }
             });
         }
-
-        createChart(adminHours[0].hours, "#listing");
         adminHours[0].hours = [];
     }
 
@@ -265,6 +274,11 @@ function createChart(data, id) {
     });
 }
 
+//Hides the last chart so it does not show up when a new volunteer is selected
+$('.btn-default').click(function() {
+    $('.highcharts-container').hide();
+});
+
 /**
  * Start of Individual volunteer profile card charts
  */
@@ -272,17 +286,28 @@ $('.btn-success').click(function() {
     var element = $(this).parent().parent().parent().find(".vol-id").text();
     var id = element.substr(element.length - 12, element.length);
 
+    var target = document.getElementById('.volunteer-chart');
+    new Spinner(spinnerSmall).spin(target);
+
     for (var i = 0; i < 4; i++) {
         //for each day subtract a day and add it to an array
         var date = moment().subtract(i, 'd').format("YYYY-MM-DD");
         week[0].data.push(date);
 
-        //get hours for each group given a start date and an end date
-        getHoursByIdOnDate(id, date, function(data) {
-            hours[0].hours.push(data.minutes);
-            //create the chart and pass in the data
-            createChart(hours[0].hours, ".volunteer-chart");
+        $.ajax({
+            type: 'GET',
+            url: "api/v1/hours/" + id + "/" + date + "/" + date,
+            dataType: "json",
+            success: function (data) {
+                hours[0].hours.push(data.minutes);
+
+                //the array is full
+                if(hours[0].hours.length == 4) {
+                    createChart(hours[0].hours, ".volunteer-chart");
+                }
+            }
         });
+
     }
 
     hours[0].hours = [];
