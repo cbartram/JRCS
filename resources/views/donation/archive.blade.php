@@ -161,7 +161,7 @@
     </div>
 
     <div class="row">
-        <div class="col-lg-4 col-lg-offset-3">
+        <div class="col-lg-4 col-lg-offset-3" style="margin-bottom:20px">
             <a href="../profile"><button class="btn btn-block btn-default">
                 Back <i class="fa fa-undo"></i>
             </button></a>

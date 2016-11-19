@@ -9,15 +9,23 @@
             </div>
             <div class="modal-body">
                 <form method="post" id="donation-denied-form" action="">
-                    <div class="input-group">
-                        {{ csrf_field() }}
-                        <textarea class="form-control" placeholder="Brief Description" maxlength="200" name="description"></textarea>
-                        <button type="submit" class="btn btn-primary" name="submit">Submit</button>
+                    <div class="row">
+                        <div class="col-lg-8 col-lg-offset-2">
+                            {{ csrf_field() }}
+                            <textarea class="form-control" placeholder="Brief Description" maxlength="200" name="description"></textarea>
+                        </div>
                     </div>
-                </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal"><span class="fa fa-times"></span> Close</button>
+                <div class="row">
+                    <div class="col-lg-3 col-lg-offset-7">
+                        <button type="submit" class="btn btn-primary" name="submit">Submit <span style="margin-top:4px; margin-left:5px;" class="fa fa-plus"></span></button>
+                        </form>
+                    </div>
+                    <div class="col-lg-2">
+                        <button type="button" class="btn btn-default" data-dismiss="modal"><span class="fa fa-times"></span> Close</button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

@@ -283,7 +283,7 @@
                 <div class="panel-body panel-sortable">
                    <div class="row">
                        <div class="col-lg-4 col-lg-offset-4">
-                           <button class="btn btn-block btn-danger" id="delete">Delete Volunteers <span class="fa fa-trash"></span></button>
+                           <button class="btn btn-block btn-danger" id="delete">Archive Volunteers <span class="fa fa-trash"></span></button>
                        </div>
                    </div>
                 </div>
