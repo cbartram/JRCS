@@ -163,7 +163,7 @@
         <footer class="footer">
     <div class="container">
         <div class="row">
-            <div class="col-md-4 col-md-offset-5">
+            <div class="col-md-5 col-md-offset-4">
                 <p class="text-muted">&copy; JRCS Volunteer Management Solutions</p>
             </div>
         </div>

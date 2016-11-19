@@ -2,6 +2,18 @@
 
 All notable changes of the PHPUnit 5.6 release series are documented in this file using the [Keep a CHANGELOG](http://keepachangelog.com/) principles.
 
+## [5.6.4] - 2016-11-18
+
+### Fixed
+
+* Fixed [#2361](https://github.com/sebastianbergmann/phpunit/issues/2361): Conflic with newer versions of `sebastian/recursion-context`
+
+## [5.6.3] - 2016-11-14
+
+### Fixed
+
+* Improved the fix for [#1955](https://github.com/sebastianbergmann/phpunit/issues/1955): Process isolation fails when running tests with `phpdbg -qrr`
+
 ## [5.6.2] - 2016-10-25
 
 New PHAR release due to updated dependencies
@@ -26,6 +38,8 @@ New PHAR release due to updated dependencies
 * Deprecated `PHPUnit\Framework\TestCase::setExpectedExceptionRegExp()`
 * `PHPUnit_Util_Printer` no longer optionally cleans up HTML output using `ext/tidy`
 
+[5.6.4]: https://github.com/sebastianbergmann/phpunit/compare/5.6.3...5.6.4
+[5.6.3]: https://github.com/sebastianbergmann/phpunit/compare/5.6.2...5.6.3
 [5.6.2]: https://github.com/sebastianbergmann/phpunit/compare/5.6.1...5.6.2
 [5.6.1]: https://github.com/sebastianbergmann/phpunit/compare/5.6.0...5.6.1
 [5.6.0]: https://github.com/sebastianbergmann/phpunit/compare/5.5...5.6.0

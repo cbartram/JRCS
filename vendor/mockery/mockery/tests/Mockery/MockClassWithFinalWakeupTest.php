@@ -37,7 +37,7 @@ class MockClassWithFinalWakeupTest extends MockeryTestCase
     }
 
     /**
-     * @tests
+     * @test
      *
      * Test that we are able to create partial mocks of classes that have
      * a __wakeup method marked as final. As long as __wakeup is not one of the
@@ -45,19 +45,19 @@ class MockClassWithFinalWakeupTest extends MockeryTestCase
      */
     public function testCreateMockForClassWithFinalWakeup()
     {
-        $mock = $this->container->mock("tests\Mockery\TestWithFinalWakeup");
-        $this->assertInstanceOf("tests\Mockery\TestWithFinalWakeup", $mock);
-        $this->assertEquals('tests\Mockery\TestWithFinalWakeup::__wakeup', $mock->__wakeup());
+        $mock = $this->container->mock("test\Mockery\TestWithFinalWakeup");
+        $this->assertInstanceOf("test\Mockery\TestWithFinalWakeup", $mock);
+        $this->assertEquals('test\Mockery\TestWithFinalWakeup::__wakeup', $mock->__wakeup());
 
-        $mock = $this->container->mock('tests\Mockery\SubclassWithFinalWakeup');
-        $this->assertInstanceOf('tests\Mockery\SubclassWithFinalWakeup', $mock);
-        $this->assertEquals('tests\Mockery\TestWithFinalWakeup::__wakeup', $mock->__wakeup());
+        $mock = $this->container->mock('test\Mockery\SubclassWithFinalWakeup');
+        $this->assertInstanceOf('test\Mockery\SubclassWithFinalWakeup', $mock);
+        $this->assertEquals('test\Mockery\TestWithFinalWakeup::__wakeup', $mock->__wakeup());
     }
 
     public function testCreateMockForClassWithNonFinalWakeup()
     {
-        $mock = $this->container->mock('tests\Mockery\TestWithNonFinalWakeup');
-        $this->assertInstanceOf('tests\Mockery\TestWithNonFinalWakeup', $mock);
+        $mock = $this->container->mock('test\Mockery\TestWithNonFinalWakeup');
+        $this->assertInstanceOf('test\Mockery\TestWithNonFinalWakeup', $mock);
 
         // Make sure __wakeup is overridden and doesn't return anything.
         $this->assertNull($mock->__wakeup());

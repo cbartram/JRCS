@@ -24,8 +24,8 @@ class TestListener implements \PHPUnit_Framework_TestListener
 {
 
     /**
-     * After each tests, perform Mockery verification tasks and cleanup the
-     * statically stored Mockery container for the next tests.
+     * After each test, perform Mockery verification tasks and cleanup the
+     * statically stored Mockery container for the next test.
      *
      * @param  PHPUnit_Framework_Test $test
      * @param  float                  $time

@@ -36,10 +36,10 @@ class MockingVariadicArgumentsTest extends MockeryTestCase
         $this->container->mockery_close();
     }
 
-    /** @tests */
+    /** @test */
     public function shouldAllowMockingVariadicArguments()
     {
-        $mock = $this->container->mock("tests\Mockery\TestWithVariadicArguments");
+        $mock = $this->container->mock("test\Mockery\TestWithVariadicArguments");
 
         $mock->shouldReceive("foo")->andReturn("notbar");
         $this->assertEquals("notbar", $mock->foo());

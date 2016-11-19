@@ -8,8 +8,8 @@ namespace Mockery\Adapter\Phpunit;
 trait MockeryPHPUnitIntegration
 {
     /**
-     * Performs assertions shared by all tests of a tests case. This method is
-     * called before execution of a tests ends and before the tearDown method.
+     * Performs assertions shared by all tests of a test case. This method is
+     * called before execution of a test ends and before the tearDown method.
      */
     protected function assertPostConditions()
     {
