@@ -84,6 +84,6 @@
 <script src="https://use.fontawesome.com/09e1e27aff.js"></script>
 
 <!-- Local JS Files -->
-<script src="../../public/js/Donation.js"></script>
+<script src="../../public/js/archive.js"></script>
 </body>
 </html>

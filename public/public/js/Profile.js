@@ -76,9 +76,9 @@ $(document).ready(function() {
     //Handles emptying the trash!
     $("#delete").click(function() {
        for(var i = 0; i < deleteArray.length; i++) {
-           deleteVolunteerById(deleteArray[i], function(callback) {
+           archiveVolunteerById(deleteArray[i], function(callback) {
                window.location.reload();
-               toastr.success("Volunteer has been <strong>deleted</strong> successfully!");
+               toastr.success("Volunteer has been <strong>archived</strong> successfully!");
            });
 
        }

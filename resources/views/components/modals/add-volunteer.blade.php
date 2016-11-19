@@ -49,7 +49,6 @@
                         @endif
                     </div>
                 </div>
-                {{Form::close()}}
             </div>
 
             <div class="modal-footer">
@@ -61,6 +60,7 @@
                         <button type="button" class="btn btn-default" data-dismiss="modal"><span class="fa fa-times"></span> Close</button>
                     </div>
                 </div>
+                {{Form::close()}}
             </div>
         </div>
     </div>
