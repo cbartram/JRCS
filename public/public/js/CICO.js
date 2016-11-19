@@ -22,11 +22,16 @@ $(document).ready(function() {
         //for each id in the ids array check them out
         if(ids.length > 0) {
             for (var i = 0; i < ids.length; i++) {
-                checkOut(ids[i], function(callback) {});
-
+                checkOut(ids[i], function(callback) {
+                    if(callback == "true") {
+                        toastr.success('Volunteers checked out successfully!');
+                    } else {
+                        toastr.error('An error occurred when attempting to checkout please try again....');
+                    }
+                });
+                //todo even if the checkout fails it still hides the row so you cant retry
                 $('#' + ids[i]).hide("slide", {direction: "up"}, 500);
             }
-            toastr.success('Volunteers checked out successfully!');
         } else {
             toastr.error('No volunteers were selected to check out!');
             //No emails were selected to checkout
