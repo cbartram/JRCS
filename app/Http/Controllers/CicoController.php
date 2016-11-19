@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
@@ -87,19 +88,24 @@ class CicoController extends Controller
      */
     public function checkOut() {
 
-
         $volunteer = Cico::where('id', Input::get('id'))->limit(1)->first();
 
-        $date = date('Y-m-d');
+        if(!is_null($volunteer)) {
 
-        $volunteer->check_out_timestamp = $date . ' ' . Carbon::now()->subHours(5)->format('g:i A');
-        $volunteer->check_out_date = $date;
-        $volunteer->minutes_volunteered = $volunteer->created_at->diffInMinutes();
+            $date = date('Y-m-d');
 
-        $volunteer->save();
+            $volunteer->check_out_timestamp = $date . ' ' . Carbon::now()->subHours(5)->format('g:i A');
+            $volunteer->check_out_date = $date;
+            $volunteer->minutes_volunteered = $volunteer->created_at->diffInMinutes();
 
-        Session::flash('alert-success', 'You have been successfully checked out!');
-        return Redirect::back();
+            $volunteer->save();
+
+            return "true";
+
+        } else {
+            //checkout failed
+            return "false";
+        }
 
     }
 
