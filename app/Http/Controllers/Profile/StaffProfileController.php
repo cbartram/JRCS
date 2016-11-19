@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 use App\Profile;
 use App\Programs;
 use App\StaffProfile;
+use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
@@ -25,9 +26,11 @@ class StaffProfileController extends Controller
             if(Session::has('group')) {
                 //AKA the user switched his/her group
                 if(Session::get('group') == "ADMIN") {
+
                     //No Where clause get all the Volunteers in the system
                     $volunteers = Profile::where('active', 1)->paginate(9);
                     $defaultGroup = Session::get('group');
+
                 } else {
                     //get only volunteers who belong to the group that has been switched too
                     $volunteers = Profile::where($this->getGroupNameFromTruncated(Session::get('group')),  1)

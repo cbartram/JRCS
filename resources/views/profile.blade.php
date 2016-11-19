@@ -168,6 +168,19 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">Volunteer Profiles <span class="fa fa-users"></span> <span class="fa fa-minus fa-2x"></span></div>
                     <div class="panel-body">
+                        @if(Input::get('page') > $volunteers->lastPage())
+                        <div class="row">
+                            <div class="col-lg-10 col-lg-offset-1">
+                                    <h3 class="text-muted">There are no volunteers to show on page {{Input::get('page')}} try switching to a previous page</h3>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6 col-lg-offset-5">
+                                <img src="../public/images/404.gif">
+                            </div>
+                        </div>
+                        @else
+
                 <div class="profile-content" style="float:top;">
                     <div class="row">
                         @foreach($volunteers as $volunteer)
@@ -192,6 +205,7 @@
                     </div>
                 </div>
             </div>
+                    @endif
                <div class="row">
                    <div class="col-lg-4 col-lg-offset-5">
                        {{$volunteers->links()}}
