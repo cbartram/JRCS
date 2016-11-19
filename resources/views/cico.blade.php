@@ -143,25 +143,28 @@
                     </div>
 
                     <div class="row">
-                        <div class="col-lg-6">
+                        <div class="col-lg-7 col-lg-offset-3">
                             <button class="btn btn-block btn-danger" id="check-out">Check-Out <span class="fa fa-sign-out"></span></button>
                         </div>
-                        <div class="col-lg-6">
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-6 col-lg-offset-5">
                             {{$volunteers->links()}}
                         </div>
                     </div>
 
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</div>
 
-<footer class="footer">
+        <footer class="footer">
     <div class="container">
         <div class="row">
             <div class="col-md-4 col-md-offset-5">
-                <p class="text-muted">&copy; JRCS Volunteer Organization</p>
+                <p class="text-muted">&copy; JRCS Volunteer Management Solutions</p>
             </div>
         </div>
     </div>
