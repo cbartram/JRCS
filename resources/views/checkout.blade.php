@@ -21,7 +21,8 @@
             <div class="panel panel-default" style="margin-top:25px;">
                 <div class="panel-heading">Checkout Volunteers</div>
                 <div class="panel-body">
-                    <table class="table table-striped">
+                    <div class="table-responsive">
+                    <table class="table table-bordered">
                         <thead>
                         <th>Name</th>
                         <th>Email</th>
@@ -45,14 +46,23 @@
                         @endforeach
                         </tbody>
                     </table>
-                    <button id="check-out" class="btn btn-primary">Check Out</button>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6 col-lg-offset-3">
+                            <button id="check-out" class="btn btn-block btn-danger">Check Out <span class="fa fa-sign-out"></span></button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
     <div class="row">
-        <div class="col-lg-6 col-lg-offset-3" style="margin-top:15px;"><a href="../"><button class="btn btn-block btn-default">Home</button></a></div>
+        <div class="col-lg-6 col-lg-offset-3" style="margin-top:15px;">
+            <a href="/profile">
+                <button class="btn btn-block btn-default">Back <span class="fa fa-undo"></span></button>
+            </a>
+        </div>
     </div>
 
 </div> <!-- /container -->
@@ -61,6 +71,8 @@
 <script src="//code.jquery.com/ui/1.12.0/jquery-ui.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+<script src="https://use.fontawesome.com/09e1e27aff.js"></script>
+
 
 <script src="../../public/js/VolunteerRESTLibrary.js"></script>
 <script src="../../public/js/CICO.js"></script>
