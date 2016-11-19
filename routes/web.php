@@ -14,6 +14,7 @@
 use App\Cico;
 use App\Donations;
 use App\Programs;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
@@ -30,6 +31,8 @@ use Illuminate\Support\Facades\Session;
 Route::get('/login', function() { return view('login'); });
 
 Route::get('/', function() {
+
+    Config::set('app.debug', false);
 
     //Get all users from the table where they have not yet checked out joining with the profiles table
     $volunteers = Cico::where('check_out_timestamp', 'null')

@@ -26,8 +26,8 @@
             </div>
             <div class="modal-footer">
                 <div class="row">
-                    <div class="col-lg-3 col-lg-offset-7">
-                        <button type="button" class="btn btn-primary" id="create-event" data-dismiss="modal"><span class="fa fa-plus"></span> Create Event</button>
+                    <div class="col-lg-4 col-lg-offset-6">
+                        <button type="button" class="btn btn-primary" id="create-event" data-dismiss="modal">Create Event <span style="margin-left:5px; margin-top:4px" class="fa fa-plus"></span></button>
                     </div>
                     <div class="col-lg-2">
                         <button type="button" id="modal-close" class="btn btn-default" data-dismiss="modal"><span class="fa fa-times"></span> Close</button>

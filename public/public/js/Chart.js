@@ -94,14 +94,8 @@ var adminHours = [
 ];
 
 var opts = {
-    lines: 11, length: 15, width: 5, radius: 61, scale: 1, corners: 0.4, color: '#000', opacity: 0.15
-    , rotate: 0, direction: 1, speed: 1.4, trail: 36, fps: 20, zIndex: 2e9, className: 'spinner', top: '50%'
-    , left: '50%', shadow: false, hwaccel: false, position: 'absolute'
-};
-
-var spinnerSmall = {
-    lines: 11, length: 15, width: 5, radius: 61, scale: .3, corners: 0.4, color: '#000', opacity: 0.15
-    , rotate: 0, direction: 1, speed: 1.4, trail: 36, fps: 20, zIndex: 2e9, className: 'spinner', top: '50%'
+    lines: 14, length: 18, width: 5, radius: 61, scale: .7, corners: 0.4, color: '#000', opacity: 0.15
+    , rotate: 0, direction: 1, speed: 1.4, trail: 36, fps: 20, zIndex: 1, className: 'spinner', top: '50%'
     , left: '50%', shadow: false, hwaccel: false, position: 'absolute'
 };
 
@@ -278,20 +272,12 @@ function createChart(data, id) {
     });
 }
 
-//Hides the last chart so it does not show up when a new volunteer is selected
-// $('.btn-default').click(function() {
-//     $('.highcharts-container').hide();
-// });
-
 /**
  * Start of Individual volunteer profile card charts
  */
 $('.btn-success').click(function() {
     var element = $(this).parent().parent().parent().find(".vol-id").text();
     var id = element.substr(element.length - 12, element.length);
-
-    var target = document.getElementById('.volunteer-chart');
-    new Spinner(spinnerSmall).spin(target);
 
     week[0].data = [];
 
