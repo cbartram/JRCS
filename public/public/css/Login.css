@@ -15,6 +15,7 @@ h2 {
     color:white;
 }
 
+
  #email-input {
     margin-bottom: -10px;
     border-bottom-right-radius: 0;
@@ -40,13 +41,12 @@ h2 {
     height: 34px;
     line-height: 1.42857;
     padding: 6px 12px;
-    width: 185%;
+    width: 100%;
 }
 
-.btn-success, .btn-success:hover, .btn-success:active, .btn-success:focus {
+.btn-success, .btn-success:active, .btn-success:focus {
     -moz-user-select: none;
     background-image: none;
-    border: 1px solid transparent;
     border-radius: 4px;
     cursor: pointer;
     display: inline-block;
@@ -71,17 +71,9 @@ h2 {
     width: 100%;
 }
 
-
-/* Panel Styles */
-.panel-default {
-    border-radius:3px;
-    margin-top:20px;
-}
-.panel-heading {
-    background-color: #f5f5f5;
-    border-bottom: 1px solid #E6EAEC;
-    padding: 15px 25px;
-    font-size: 12px;
-    font-weight: 700;
-    color: #7E878C;
+.btn-success:hover {
+    background-color: #35365e;
+    border-color: #27245E;
+    color: #fff;
+    width: 100%;
 }

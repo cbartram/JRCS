@@ -37,8 +37,7 @@ $(document).ready(function() {
         email = $("#volunteer-email").val();
 
         if($("#volunteer-type").find(':selected').attr('name') == "default" || emailSelector.val().length == 0) {
-            alertText = "You need to pick a Volunteer Type and enter a valid email before you can Check-in!";
-            $("#alert-cico").addClass("alert alert-danger").html(alertText).effect("shake");
+            toastr.warning('You need to pick a Volunteer Type and enter a valid email before you can Check-in!');
 
             //prevent the statements from processing further issues in the form
             e.preventDefault();
@@ -47,8 +46,7 @@ $(document).ready(function() {
 
             //The volunteer has selected program as the type but hasnt selected their program
             if (programSelector.find(':selected').attr('name') == "default" && typeSelector.find(':selected').attr('name') == "program") {
-                alertText = "You must select a specific program from the list below!";
-                alertSelector.addClass("alert alert-danger").html(alertText).effect("shake");
+                toastr.warning('You must select a specific program from the list below!');
 
                 e.preventDefault();
             } else {
@@ -64,20 +62,17 @@ $(document).ready(function() {
                         //Handle response from the CicoController
                         switch(data) {
                             case 'false':
-                                alertText = "<li>You haven't checked-out yet with the email: <b>" + email + "</b></li><li>You can check-out below!</li>";
-                                alertSelector.addClass("alert alert-danger").html(alertText);
+                                toastr.error("You haven't checked out yet with the email: <b>" + email + "</b>");
                                 break;
                             case 'email':
-                                alertText = "<li>The email you entered was incorrect</li><li> No volunteer found with the email: <b>" + email + "</b></li>";
-                                alertSelector.addClass("alert alert-danger").html(alertText);
+                                toastr.error("The email you entered could not be found <b>" + email + "</b>");
                                 break;
                             case 'true':
-                                alertText = "Checked in <b>" + email + "</b> at " + timestamp;
-                                alertSelector.attr("class", "alert alert-success").html(alertText);
+                                toastr.success("Checked in <b>" + email + "</b> at " + timestamp);
+                                window.location.reload();
                                 break;
 
                         }
-                        console.log(data);
                     });
 
                 e.preventDefault();

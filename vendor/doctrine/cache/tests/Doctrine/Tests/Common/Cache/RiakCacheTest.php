@@ -8,7 +8,7 @@ use Riak\Exception;
 use Doctrine\Common\Cache\RiakCache;
 
 /**
- * RiakCache tests
+ * RiakCache test
  *
  * @group Riak
  * @requires extension riak
@@ -29,7 +29,7 @@ class RiakCacheTest extends CacheTest
     {
         try {
             $this->connection = new Connection('127.0.0.1', 8087);
-            $this->bucket     = new Bucket($this->connection, 'tests');
+            $this->bucket     = new Bucket($this->connection, 'test');
         } catch (Exception\RiakException $e) {
             $this->markTestSkipped('Cannot connect to Riak.');
         }

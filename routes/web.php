@@ -11,8 +11,9 @@
 |
 */
 
-//when the user first visits the site the default view 'login' in shown aka login.blade.php
 use App\Cico;
+use App\Donations;
+use App\Programs;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
@@ -29,12 +30,19 @@ use Illuminate\Support\Facades\Session;
 Route::get('/login', function() { return view('login'); });
 
 Route::get('/', function() {
+
     //Get all users from the table where they have not yet checked out joining with the profiles table
     $volunteers = Cico::where('check_out_timestamp', 'null')
-        ->join('profiles', 'volunteer_cico.id', '=', 'profiles.id')
-        ->get();
+        ->join('profiles', 'volunteer_cico.volunteer_id', '=', 'profiles.id')
+        ->select('volunteer_cico.*')
+        ->where('active', 1)
+        ->orderBy('check_in_timestamp', 'ASC')
+        ->paginate(4);
 
-   return view('cico', compact('volunteers'));
+    //Handles all the programs added by staff
+    $programs = Programs::where('status', 1)->get();
+
+   return view('cico', compact('volunteers'), compact('programs'));
 });
 
 //Handles verifying the form data and authenticating the user
@@ -56,6 +64,21 @@ Route::get('/logout', function() { Session::flush(); return Redirect::to('/'); }
 
 //Handles when a staff member registers a new volunteer
 Route::post('/add', 'addController@index');
+
+//Handles adding & deleting a program
+Route::post('/program/add', 'ProgramController@add');
+
+Route::post('/program/delete', 'ProgramController@delete');
+
+/*
+|------------------------------------------------------------------------
+| Routes for Excel Exporting
+|------------------------------------------------------------------------
+| These routes define the specific GET and POST requests that are required
+| for volunteer data to be exported to an excel format
+|
+ */
+Route::get('/excel/export', 'ExportController@export');
 
 /*
 |------------------------------------------------------------------------
@@ -89,6 +112,8 @@ Route::post('/settings/self', 'Profile\SettingsController@self');
 //Handles showing/hiding drag and drop feature for all groups not just admin
 Route::post('/settings/drop', 'Profile\SettingsController@drop');
 
+//Handles promoting/demoting staff members and volunteers
+Route::post('/settings/rights', 'Profile\SettingsController@rights');
 
 /*
 |------------------------------------------------------------------------
@@ -99,14 +124,33 @@ Route::post('/settings/drop', 'Profile\SettingsController@drop');
 | to approve donations
  */
 Route::get('/donation', function() {
-    return view('donation');
+    return view('donation.donation');
 });
 
+//Handles a donation made by a volunteer
 Route::post('/donation', 'DonationController@handleDonation');
+
+//Handles a donation made by a staff member
+Route::post('/donation/add', 'DonationController@addDonation');
 
 //Handles approving or denying donation requests
 Route::get('/donation/approve/{id}', 'DonationController@approve');
-Route::get('/donation/deny/{id}', 'DonationController@deny');
+Route::post('/donation/deny/{id}', 'DonationController@deny');
+
+//Handles showing the archives when a staff member access's it
+Route::get('/archive', 'ArchiveController@index');
+
+/*
+|------------------------------------------------------------------------
+| Routes for Testing
+|------------------------------------------------------------------------
+| These routes define the specific GET and POST requests that are optional
+| to test out certain functions methods or code that will not affect
+| other portions of the application
+|
+ */
+Route::get('/test', 'Test\TestController@testGet');
+Route::post('/test', 'Test\TestController@testPost');
 
 
 /*
@@ -120,8 +164,11 @@ Route::get('/donation/deny/{id}', 'DonationController@deny');
 //Handles clocking a user in/out
 Route::post('/cico', 'CicoController@checkIn');
 
-//Handles clocking a user out
+//Handles clocking a user out via the checkout form
 Route::post('/checkout', 'CicoController@checkOut');
+
+//Handles a staff member clicking the checkout button
+Route::get('/checkout', 'CicoController@bulkCheckout');
 
 /*
 |------------------------------------------------------------------------
@@ -182,15 +229,59 @@ Route::patch('api/v1/volunteers/email/{email}/{columnToUpdate}/{newValue}', 'RES
 //Handles finding all calendar events
 Route::get('api/v1/events/', 'REST\RESTController@findAllEvents');
 
+Route::get('api/v1/events/{group}', 'REST\RESTController@findEventsByGroup');
+
 //Returns event given the event id
 Route::get('api/v1/events/{id}', 'REST\RESTController@findEventById');
 
 //Handles creating a new event in the calendar
-Route::get('api/v1/events/create/{start}/{end}/{title}/{color}', 'REST\RESTController@createEvent');
+Route::get('api/v1/events/create/{start}/{end}/{title}/{color}/{group}', 'REST\RESTController@createEvent');
 
 //Deletes an event given the id
 Route::get('api/v1/events/delete/{id}', 'REST\RESTController@deleteEventById');
 
+//Re-opens a donation thats been previously approved
+Route::get('api/v1/donations/open/{id}', 'REST\RESTController@openDonation');
 
+//Denies a pending donation
+Route::get('api/v1/donations/deny/{id}', 'REST\RESTController@denyDonation');
+
+//Approves a pending donation
+Route::get('api/v1/donations/approve/{id}', 'REST\RESTController@approveDonation');
+
+//Handles authenticating if a users email and password are correct
+Route::post('api/v1/authenticate/', 'REST\RESTController@authenticate');
+
+Route::get('api/v1/hours/', 'REST\RESTController@getAllHours');
+
+//Handles aggregating the volunteers hours
+Route::get('/api/v1/hours/{id}', 'REST\RESTController@getHoursById');
+
+//Handles aggregating volunteer hours between given dates
+Route::get('/api/v1/hours/{id}/{start}/{end}', 'REST\RESTController@getHoursBetween');
+
+//Handles Aggregating volunteer hours by group
+Route::get('/api/v1/hours/group/{group}', 'REST\RESTController@getHoursByGroup');
+
+//Aggregates sum of hours by group between given start and end date
+Route::get('/api/v1/hours/group/{group}/{start}/{end}', 'REST\RESTController@getHoursByGroupBetween');
+
+//Aggregates sum of all groups one a specific date
+Route::get('/api/v1/hours/date/{date}', 'REST\RESTController@getAllHoursOnDate');
+
+//Handles archiving a volunteer
+Route::post('/api/v1/archive/volunteer/{id}', 'REST\RESTController@archiveVolunteer');
+
+//Handles renewing a previously archived volunteered
+Route::post('/api/v1/renew/volunteer/{id}', 'REST\RESTController@renewVolunteer');
+
+//Handles renewing a previously archived program
+Route::post('/api/v1/renew/program/{id}', 'REST\RESTController@renewProgram');
+
+//Handles archiving an event instead of deleting it
+Route::post('/api/v1/archive/event/{id}', 'REST\RESTController@archiveEvent');
+
+//Handles renewing an event that has been previously archived
+Route::post('/api/v1/renew/event/{id}', 'REST\RESTController@renewEvent');
 
 

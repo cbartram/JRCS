@@ -19,9 +19,15 @@ class EventController extends Controller
     public function remove() {
         $id = Input::get('id');
 
-        if(Calendar::find($id) != null) {
-           Calendar::destroy($id);
-           EventLog::destroy($id);
+        $calendarEvent = Calendar::find($id);
+        $eventLog = EventLog::find($id);
+
+        if($calendarEvent != null && $eventLog != null) {
+           $calendarEvent->active = 0;
+           $eventLog->active = 0;
+
+            $calendarEvent->save();
+            $eventLog->save();
 
            Toastr::success('Successfully removed calendar event!', $title = 'Event Deleted!', $options = []);
            return Redirect::back();
@@ -56,20 +62,25 @@ class EventController extends Controller
                 ->withInput();
         }
 
-        $event = EventLog::where('event_id' , Input::get('event-id'))->first();
+
+        $event = EventLog::where('event_id' , Input::get('event-id'))
+            ->where('active', 1)
+            ->first();
 
         //Couldnt find the event
         if($event == null) {
             Toastr::error('Event with that Id could not be located.', $title = 'Event ID not found', $options = []);
             return Redirect::to('/profile');
         }
-
         //Insert based on what the staff inputted
         $event->attendee_count = Input::get('attendee_count');
         $event->event_description = Input::get('event_description');
         $event->volunteer_count = Input::get('volunteer_count');
         $event->total_volunteer_hours = Input::get('volunteer_hours');
         $event->donation_amount = Input::get('donation_amount');
+
+        //Update the status so that the event has now been logged
+        $event->log_status = 1;
 
         $event->save();
 

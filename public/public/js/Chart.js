@@ -1,8 +1,6 @@
 /**
  * Highcharts theme
  */
-
-
 Highcharts.createElement('link', {
     href: 'https://fonts.googleapis.com/css?family=Open+Sans:400',
     rel: 'stylesheet',
@@ -10,127 +8,317 @@ Highcharts.createElement('link', {
 }, null, document.getElementsByTagName('head')[0]);
 
 Highcharts.theme = {
-colors: ["#72c6ef", "#2484C6", "#832A81", "#D7DEE2", "#72C6EF", "#39BB9D"],
-chart: {
-backgroundColor: null,
-style: {
-    fontFamily: "Open Sans, sans-serif"
-}
-},
-title: {
-style: {
-    fontSize: '16px',
-    fontWeight: 'bold',
-}
-},
-tooltip: {
-    borderWidth: 0,
-    backgroundColor: 'rgba(219,219,216,0.8)',
-    shadow: false
-},
-legend: {
-itemStyle: {
-    fontWeight: 'normal',
-    fontSize: '11px'
-}
-},
-credits: {
-    enabled: false   // Whether to show the credits text.
-},
-xAxis: {
-gridLineWidth: 0,
-labels: {
-style: {
-    fontSize: '10px'
-}
-}
-},
-yAxis: {
-minorTickInterval: 5,
-title: {
-style: {
-}
-},
-labels: {
-style: {
-    fontSize: '10px'
-}
-}
-},
+    colors: ["#72c6ef", "#2484C6", "#832A81", "#D7DEE2", "#72C6EF", "#39BB9D"],
+    chart: {
+        backgroundColor: null,
+        style: {
+            fontFamily: "Open Sans, sans-serif"
+        }
+    },
+    title: {
+        style: {
+            fontSize: '16px',
+            fontWeight: 'bold'
+        }
+    },
+    tooltip: {
+        borderWidth: 0,
+        backgroundColor: 'rgba(219,219,216,0.8)',
+        shadow: false
+    },
+    legend: {
+        itemStyle: {
+            fontWeight: 'normal',
+            fontSize: '11px'
+        }
+    },
+    credits: {
+        enabled: false   // Whether to show the credits text.
+    },
+    xAxis: {
+        gridLineWidth: 0,
+        labels: {
+            style: {
+                fontSize: '10px'
+            }
+        }
+    },
+    yAxis: {
+        minorTickInterval: 5,
+        title: {
+            style: {}
+        },
+        labels: {
+            style: {
+                fontSize: '10px'
+            }
+        }
+    },
 
 // General
-   background2: '#fff'
+    background2: '#fff'
 
 };
 
 // Apply the theme
 Highcharts.setOptions(Highcharts.theme);
 
-$(function () {
-    $('#listing').highcharts({
-        chart: {
-            type: 'area'
-        },
-        title: {
-            text: 'Volunteer Donations over Time'
-        },
-        subtitle: {
+/*
+ * Handle preparing the data to show
+ */
 
-        },
-        xAxis: {
-            allowDecimals: false,
-            labels: {
-                formatter: function () {
-                    return this.value; // clean, unformatted number for year
+var text = $("#current-group").html();
+var currentGroup = text.substring(8, text.length);
+
+
+//add previous week to an array in RESTLib Format
+var week = [
+    {
+        name:'dates',
+        data:[]
+    }
+];
+
+var hours = [
+    {
+        group:currentGroup,
+        hours:[]
+    }
+];
+
+var adminHours = [
+    {
+        group:currentGroup,
+        hours:[]
+    }
+];
+
+var opts = {
+    lines: 11, length: 15, width: 5, radius: 61, scale: 1, corners: 0.4, color: '#000', opacity: 0.15
+    , rotate: 0, direction: 1, speed: 1.4, trail: 36, fps: 20, zIndex: 2e9, className: 'spinner', top: '50%'
+    , left: '50%', shadow: false, hwaccel: false, position: 'absolute'
+};
+
+var spinnerSmall = {
+    lines: 11, length: 15, width: 5, radius: 61, scale: .3, corners: 0.4, color: '#000', opacity: 0.15
+    , rotate: 0, direction: 1, speed: 1.4, trail: 36, fps: 20, zIndex: 2e9, className: 'spinner', top: '50%'
+    , left: '50%', shadow: false, hwaccel: false, position: 'absolute'
+};
+
+var target = document.getElementById('listing');
+new Spinner(opts).spin(target);
+
+$("#month").val(moment().daysInMonth());
+
+if(currentGroup != "ADMIN") {
+    for (var i = 0; i < 7; i++) {
+        var date = moment().subtract(i, 'd').format("YYYY-MM-DD");
+        week[0].data.push(date);
+
+        $.ajax({
+            type: 'GET',
+            url: "api/v1/hours/group/" + currentGroup + "/" + date + "/" + date,
+            dataType: "json",
+            success: function (data) {
+                hours[0].hours.push(data.minutes);
+
+                //the array is full
+                if(hours[0].hours.length == 7) {
+                    createChart(hours[0].hours, "#listing");
                 }
             }
-        },
-        yAxis: {
-            title: {
-                text: 'Donation Amount'
-            },
-            labels: {
-                formatter: function () {
-                    return '$' + this.value / 1000;
+        });
+    }
+
+} else {
+    //They are viewing the admin group
+    for(var j = 0; j < 7; j++) {
+        var adminDate = moment().subtract(j, 'd').format("YYYY-MM-DD");
+        week[0].data.push(adminDate);
+
+        $.ajax({
+            type: 'GET',
+            url: "api/v1/hours/date/" + adminDate,
+            dataType: "json",
+            success: function (data) {
+                adminHours[0].hours.push(data.minutes);
+
+                //the array is full
+                if(adminHours[0].hours.length == 7) {
+                    createChart(adminHours[0].hours, "#listing");
                 }
             }
-        },
-        tooltip: {
-            pointFormat: '{series.name} donated <b>{point.y:,.0f}</b><br/>dollars in {point.x}'
-        },
-        plotOptions: {
-            area: {
-                pointStart: 1940,
-                marker: {
-                    enabled: false,
-                    symbol: 'circle',
-                    radius: 2,
-                    states: {
-                        hover: {
-                            enabled: true
-                        }
+        });
+
+    }
+
+}
+
+//When the user changes the timeframe we need to adapt to display it
+$("#timeframe").change(function() {
+
+    $('#listing').find('.highcharts-container').hide();
+
+    var target = document.getElementById('listing');
+    new Spinner(opts).spin(target);
+
+    //get the number of days we need to display
+    var days = $(this).val();
+    week[0].data   = [];
+
+    if(currentGroup != "ADMIN") {
+        //iterate over the number of days
+        for (var i = 0; i < days; i++) {
+            //for each day subtract a day and add it to an array
+            var date = moment().subtract(i, 'd').format("YYYY-MM-DD");
+            week[0].data.push(date);
+
+            $.ajax({
+                type: 'GET',
+                url: "api/v1/hours/group/" + currentGroup + "/" + date + "/" + date,
+                dataType: "json",
+                success: function (data) {
+                    hours[0].hours.push(data.minutes);
+
+                    //the array is full
+                    if(hours[0].hours.length == days) {
+                        createChart(hours[0].hours, "#listing");
                     }
                 }
-            }
-        },
-        series: [{
-            name: 'Jane',
-            data: [500, 3000, 2500, 1900, 710, 600, 110, 322, 110, 235, 369, 640,
-                1005, 1436, 2063, 3057, 4618, 6444, 9822, 15468, 20434, 24126,
-                27387, 29459, 31056, 31982, 32040, 31233, 29224, 27342, 26662,
-                26956, 27912, 28999, 28965, 27826, 25579, 25722, 24826, 24605,
-                24304, 23464, 23708, 24099, 24357, 24237, 24401, 24344, 23586,
-                22380, 21004, 17287, 14747, 13076, 12555, 12144, 11009, 10950,
-                10871, 10824, 10577, 10527, 10475, 10421, 10358, 10295, 10104]
-        }, {
-            name: 'John',
-            data: [1000, 1049, 5000, 3000, 2000, 600, 899, 559, 440, 300,
-                544, 205, 500, 120, 150, 200, 426, 660, 869, 1060, 1605, 2471, 3322,
-                4238, 5221, 6129, 7089, 8339, 9399, 10538, 11643, 13092, 14478,
-                15915, 17385, 19055, 21205, 23044, 25393, 27935, 30062, 32049,
-                33952, 35804, 37431, 39197, 43000, 43000, 41000, 38000, 37000,
-                35000, 33000, 31000, 22000, 27000, 25000, 24000, 23000, 22000,
-                21000, 20000, 19000, 18000, 18000, 17000, 16000]
-        }]
-    });
+            });
+        }
+
+        //after the chart is displayed remove the data from the array to prepare for another timeframe change
+        hours[0].hours = [];
+
+    } else {
+        //Clear out the previous week data before pushing new data onto the stack
+        week[0].data = [];
+
+        //They are viewing the admin group
+        for(var j = 0; j < days; j++) {
+            var adminDate = moment().subtract(j, 'd').format("YYYY-MM-DD");
+            week[0].data.push(adminDate);
+
+            $.ajax({
+                type: 'GET',
+                url: "api/v1/hours/date/" + adminDate,
+                dataType: "json",
+                success: function (data) {
+                    adminHours[0].hours.push(data.minutes);
+
+                    //the array is full
+                    if(adminHours[0].hours.length == days) {
+                        createChart(adminHours[0].hours, "#listing");
+                    }
+                }
+            });
+        }
+        adminHours[0].hours = [];
+    }
+
 });
+
+/**
+ * Converts minutes to hours in the format HH:MM
+ * @param minutes integer Int value in minutes
+ * @return string Hours in the format HH:MM
+ */
+function minutesToHours(minutes) {
+    var m = minutes % 60;
+    var h = (minutes - m) / 60;
+
+    return h + " hours and " + (m < 10 ? "0" : "") + m + " minutes";
+}
+
+/**
+ * Create the highcharts bar chart
+ */
+function createChart(data, id) {
+    $(function () {
+        $(id).highcharts({
+            chart: {
+                type: 'column'
+            },
+            title: {
+                text: 'Hours Volunteered'
+            },
+            subtitle: {
+                text: ''
+            },
+            xAxis: {
+                categories: week[0].data,
+                crosshair: true
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: 'Minutes Vounteered'
+                }
+            },
+            tooltip: {
+                formatter: function() {
+                    return "Volunteered <b>" + minutesToHours(this.y) + "</b>";
+                },
+                shared: true,
+                useHTML: true
+            },
+            plotOptions: {
+                column: {
+                    pointPadding: 0.2,
+                    borderWidth: 0
+                }
+            },
+            series: [{
+                name: 'Date',
+                data: data
+
+            }]
+        });
+    });
+}
+
+//Hides the last chart so it does not show up when a new volunteer is selected
+// $('.btn-default').click(function() {
+//     $('.highcharts-container').hide();
+// });
+
+/**
+ * Start of Individual volunteer profile card charts
+ */
+$('.btn-success').click(function() {
+    var element = $(this).parent().parent().parent().find(".vol-id").text();
+    var id = element.substr(element.length - 12, element.length);
+
+    var target = document.getElementById('.volunteer-chart');
+    new Spinner(spinnerSmall).spin(target);
+
+    week[0].data = [];
+
+    for (var i = 0; i < 4; i++) {
+        //for each day subtract a day and add it to an array
+        var date = moment().subtract(i, 'd').format("YYYY-MM-DD");
+        week[0].data.push(date);
+
+        $.ajax({
+            type: 'GET',
+            url: "api/v1/hours/" + id + "/" + date + "/" + date,
+            dataType: "json",
+            success: function (data) {
+                hours[0].hours.push(data.minutes);
+
+                //the array is full
+                if(hours[0].hours.length == 4) {
+                    createChart(hours[0].hours, ".volunteer-chart");
+                }
+            }
+        });
+
+    }
+
+    hours[0].hours = [];
+});
+
+
+
+

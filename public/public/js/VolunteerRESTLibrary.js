@@ -3,8 +3,146 @@
  * Not really sure how to name this file but
  * it contains methods to query and parse volunteer info
  */
-var baseURL = "api/v1/volunteers";
-var eventURL = "api/v1/events";
+var baseURL     = "../api/v1/volunteers";
+var eventURL    = "../api/v1/events";
+var donationURL = "../api/v1/donations";
+var hoursURL    = "../api/v1/hours";
+var authURL     = "../api/v1/authenticate";
+
+
+/**
+ * Handles Authenticating a staff member with the system
+ * Returns true if the email and password are correct and false otherwise
+ * @param email Staff members email
+ * @param password staff members Un-Hashed password
+ * @param getResult Callback function for getting a response
+ */
+function authenticate(email, password, getResult) {
+    $.post(authURL, {email:email, password:password}, function(data) {
+        getResult(data);
+    }, "json");
+}
+
+
+/**
+ * Returns all hours volunteered for all three groups combined
+ * @param getResult callback function
+ */
+function getAllHours(getResult) {
+    $.ajax({
+        type: 'GET',
+        url: hoursURL,
+        dataType: "json",
+        success: function (data) {
+            getResult(data);
+        }
+    });
+}
+
+/**
+ * Gets aggregation of all volunteer hours for all groups on a specific date
+ * @param date Date in the format YYYY-MM-DD
+ * @param getResult
+ */
+function getAllHoursOnDate(date, getResult) {
+    $.ajax({
+        type: 'GET',
+        url: hoursURL + "/date/" + date,
+        dataType: "json",
+        success: function (data) {
+            getResult(data);
+        }
+    });
+}
+
+/**
+ * Gets the sum of all of a volunteers hours since epoch
+ * in the format HH:MM
+ * @param id Volunteers id
+ * @param getResult Callback function
+ */
+function getHoursById(id, getResult) {
+    $.ajax({
+        type: 'GET',
+        url: hoursURL + "/" + id,
+        dataType: "json",
+        success: function (data) {
+            getResult(data);
+        }
+    });
+}
+
+/**
+ * Gets all hours of a volunteer between the given start date
+ * and end date.
+ * @param start Start date in the form yyyy-mm-dd
+ * @param end end date in the form yyyy-mm-dd
+ * @param id Volunteers id
+ * @param getResult callback function
+ */
+function getHoursBetween(id, start, end, getResult) {
+    $.ajax({
+        type: 'GET',
+        url: hoursURL + "/" + id + "/" + start + "/" + end,
+        dataType: "json",
+        success: function (data) {
+            getResult(data);
+        }
+    });
+}
+
+/**
+ * Gets the sum of all hours for a given group
+ * @param group Group name BEBCO, JACO, JBC
+ * @param getResult callback function
+ */
+function getHoursByGroup(group, getResult) {
+    $.ajax({
+        type: 'GET',
+        url: hoursURL + "/group/" + group,
+        dataType: "json",
+        success: function (data) {
+            getResult(data);
+        }
+    });
+}
+
+/**
+ * Gets sum of all hours volunteered for a group between
+ * a given start and end date
+ * @param group group name BEBCO, JACO, JBC
+ * @param start Start date in the format yyyy-mm-dd
+ * @param end end date in the format yyyy-mm-dd
+ * @param getResult callback function
+ */
+function getHoursByGroupBetween(group, start, end, getResult) {
+    $.ajax({
+        type: 'GET',
+        url: hoursURL + "/group/" + group + "/" + start + "/" + end,
+        dataType: "json",
+        success: function (data) {
+            getResult(data);
+        }
+    });
+}
+
+/**
+ * Gets sum of all hours given a volunteer id on a specific date
+ * @param id
+ * @param date
+ * @param getResult
+ */
+function getHoursByIdOnDate(id, date, getResult) {
+    $.ajax({
+        type: 'GET',
+        url: hoursURL + "/" + id + "/" + date + "/" + date,
+        dataType: "json",
+        success: function (data) {
+            getResult(data);
+        }
+    });
+}
+
 
 /**
  * Returns all volunteers in the system as a JSON object data for a specific
@@ -84,7 +222,7 @@ function getId(email, getResult) {
         url: baseURL + "/email/" + email,
         dataType: "json",// data type of response
         success: function (data) {
-            getResult(data.id)
+            getResult(data.id);
         }
     });
 }
@@ -162,6 +300,56 @@ function deleteVolunteerByEmail(email, getResult) {
         getResult(response);
     });
 }
+
+/**
+ * Archives a volunteer in the database given their id. This method differes from deleting
+ * a volunteer because the volunteer data is saved in the database its just 'hidden' from
+ * the frontend
+ * @param id volunteer id to archive
+ * @param getResult callbakc function
+ */
+function archiveVolunteerById(id, getResult) {
+    $.post('api/v1/archive/volunteer/' + id).done(function (response) {
+        getResult(response);
+    });
+}
+
+/**
+ * Renews a volunteer profile. This method performs the opposite of archiving a volunteer
+ * by 'un-archiving' a volunteer given their id
+ * @param id volunteer id
+ * @param getResult callback function
+ */
+function renewVolunteerById(id, getResult) {
+    $.post('api/v1/renew/volunteer/' + id).done(function (response) {
+        getResult(response);
+    });
+}
+
+/**
+ * Renews an archived program given the id
+ * @param id Program Id
+ * @param getResult callback function
+ */
+function renewProgramById(id, getResult) {
+    $.post('api/v1/renew/program/' + id).done(function (response) {
+        getResult(response);
+    });
+}
+
+
+function archiveEvent(id, getResult) {
+    $.post('api/v1/archive/event/' + id).done(function (response) {
+        getResult(response);
+    });
+}
+
+function renewEvent(id, getResult) {
+    $.post('api/v1/renew/event/' + id).done(function (response) {
+       getResult(response);
+    });
+}
+
 
 /**
  * Updates one column with a given value given the volunteers id
@@ -320,6 +508,12 @@ function isJBCVolunteer(email, getResult) {
 }
 
 /**
+ * #######################################
+ * CICO Methods
+ * #######################################
+ */
+
+/**
  * Checks a volunteer into the system (Check-in) given the following parameters
  * @param email volunteers email
  * @param type volunteer type (general program board)
@@ -327,23 +521,29 @@ function isJBCVolunteer(email, getResult) {
  * @param getResult callback function to return the result in the console.
  */
 function checkIn(email, type, program, getResult) {
-    $.post('http://localhost:8000/cico', {email: email, type: type, program: program}).done(function (response) {
+    $.post('/cico', {email: email, type: type, program: program}).done(function (response) {
         getResult(response);
     });
 }
-
 
 /**
  * Checks a volunteer out of the system (Check-out) given the following parameters
  * @param email volunteers email
  * @param getResult callback function to return the result in the console.
  */
-function checkOut(email, getResult) {
-    $.post('http://localhost:8000/checkout', {email: email}).done(function (response) {
+
+function checkOut(id, getResult) {
+    $.post('/checkout', {id: id}).done(function (response) {
         getResult(response);
     });
 }
 
+
+/**
+ * #######################################
+ * Event Methods
+ * #######################################
+ */
 
 /**
  * Returns all Calendar events in the Database
@@ -382,13 +582,14 @@ function getEventById(id, getResult) {
  * @param end end date in yyyy-m-d format
  * @param title Title (spaces will be replaced with underscores)
  * @param color Color of the event in the calendar
+ * @param group Group the Event belongs to (JACO, BEBCO, JBC)
  * @param getResult callback function
  */
-function createEvent(start, end, title, color, getResult) {
+function createEvent(start, end, title, color, group, getResult) {
     title = title.replace(' ', '_');
     $.ajax({
         type: 'GET',
-        url: eventURL + "/create/" + start + "/" + end + "/" + title + "/" + color,
+        url: eventURL + "/create/" + start + "/" + end + "/" + title + "/" + color + "/" + group,
         dataType: "json",
         success: function (data) {
             getResult(data);
@@ -411,5 +612,62 @@ function deleteEvent(id, getResult) {
         }
     });
 }
+
+/**
+ * #######################################
+ * Donation Methods
+ * #######################################
+ */
+
+/**
+ * Re-Opens a previously closed donation
+ * @param id Donation ID
+ * @param getResult callback function
+ */
+function openDonation(id, getResult) {
+    $.ajax({
+        type: 'GET',
+        url: '../' + donationURL + "/open/" + id,
+        dataType: "json",
+        success: function (data) {
+            getResult(data);
+        }
+    });
+}
+
+/**
+ * Denies a pending donation request
+ * @param id Donation id
+ * @param getResult callback function
+ */
+function denyDonation(id, getResult) {
+    $.ajax({
+        type: 'GET',
+        url:  donationURL + "/deny/" + id,
+        dataType: "json",
+        success: function (data) {
+            getResult(data);
+        }
+    });
+}
+
+/**
+ * Approves a pending donation request
+ * @param id Donation id
+ * @param getResult callback function
+ */
+function approveDonation(id, getResult) {
+    $.ajax({
+        type: 'GET',
+        url:  donationURL + "/approve/" + id,
+        dataType: "json",
+        success: function (data) {
+            getResult(data);
+        }
+    });
+}
+
+
+
 
 

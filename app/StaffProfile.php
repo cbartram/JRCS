@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\DB;
 class StaffProfile extends Model implements Authenticatable
 {
     protected $table = 'staff_profile2';
+    public    $primaryKey = 'id';
+    public    $incrementing = false;
 
     /**
      * The attributes that are mass assignable.

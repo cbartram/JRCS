@@ -1,0 +1,144 @@
+body {
+    padding-top: 40px;
+    padding-bottom: 40px;
+    background-color: #E6EAEC;
+}
+a {
+    color:white;
+}
+a:hover, a:focus, a:active {
+    color:white;
+    text-decoration: underline;
+}
+
+h2 {
+    color:black;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+
+.footer .container .row {
+    padding-bottom:8px;
+}
+
+.footer {
+    padding-top:20px;
+    margin-top:15px;
+    position:fixed;
+    bottom: 0;
+    width: 100%;
+    height: 60px;
+    background-color: #27245E;
+
+}
+
+.panel-default {
+    margin-bottom:15px;
+}
+
+.form-control {
+    outline: 0;
+    background-color: #fff;
+    background-image: none !important;
+    border-radius: 4px;
+    box-shadow: none !important;
+    color: #555;
+    display: block;
+    font-size: 14px;
+    height: 34px;
+    line-height: 1.42857;
+    padding: 6px 12px;
+    width: 100%;
+    border:1px solid grey;
+}
+
+.form-control:focus {
+    border:1px solid #1999D6;
+}
+
+.navbar-default {
+    background-color:#1999D6;
+    border-color:#1999D6;
+    position:absolute;
+}
+
+.navbar-default .navbar-nav > li > a {
+    color: white; /*Change active text color here*/
+}
+
+.navbar-default .navbar-nav > li > a:hover {
+    text-decoration: underline;
+    color:white;
+}
+
+.text-muted {
+    color:white;
+}
+
+#volunteer-program {
+    margin-bottom:15px;
+}
+
+#dropdownProfile {
+    background-color: #2484C6;
+    padding-left: 25px;
+    padding-right: 25px;
+    color:white;
+}
+
+#dropdownProfile:hover {
+    text-decoration: underline;
+}
+
+.user {
+    color:white;
+}
+
+
+.btn-success, .btn-success:active, .btn-success:focus {
+    -moz-user-select: none;
+    background-image: none;
+    border-radius: 4px;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.42857;
+    margin-bottom: 0;
+    padding: 6px 12px;
+    text-align: center;
+    vertical-align: middle;
+    white-space: nowrap;
+    background-color: #27245E!important;
+    border-color: #27245E !important;
+    color: #fff;
+    width: 100%;
+}
+
+.btn-success:active {
+    background-color: #27245E;
+    border-color: #27245E;
+    color: #fff;
+    width: 100%;
+}
+
+.btn-success:hover {
+    background-color: #35365e;
+    border-color: #27245E;
+    color: #fff;
+    width: 100%;
+}
+
+/* Panel Styles */
+.panel-default {
+    border-radius:3px;
+    margin-top:20px;
+}
+
+.panel-heading {
+    background-color: #f5f5f5;
+    border-bottom: 1px solid #E6EAEC;
+    padding: 15px 25px;
+    font-size: 12px;
+    font-weight: 700;
+    color: #7E878C;
+}

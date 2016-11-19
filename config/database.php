@@ -111,9 +111,9 @@ return [
         'cluster' => false,
 
         'default' => [
-            'host' => env('REDIS_HOST', 'localhost'),
-            'password' => env('REDIS_PASSWORD', null),
-            'port' => env('REDIS_PORT', 6379),
+            'host' => env('REDIS_HOST', 'ec2-23-23-156-130.compute-1.amazonaws.com'),
+            'password' => env('REDIS_PASSWORD', 'pbd9u5cbovclah951ekmcb7hjt2'),
+            'port' => env('REDIS_PORT', 30919),
             'database' => 0,
         ],
 

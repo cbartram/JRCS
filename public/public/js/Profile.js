@@ -3,6 +3,9 @@
  */
 
 $(document).ready(function() {
+    var text = $("#current-group").html();
+    var currentGroup = text.substring(8, text.length);
+
     //Holds array of id's the staff member wishes to remove from the system
     var deleteArray = [];
 
@@ -18,12 +21,29 @@ $(document).ready(function() {
        });
     });
 
+    $("#volunteers, #checkbox-access, #password, #staff").hide();
+    //promote on click show volunteers, checkbox-access, password
+    $("#promote").find('input').change(function() {
+        $("#staff").hide("slow");
+        $("#volunteers, #checkbox-access, #password").show("slow");
+    });
+
+
+    $("#demote").find('input').change(function() {
+        $("#volunteers, #checkbox-access, #password").hide("slow");
+       $("#staff").show("slow");
+
+    });
+
+    //Handles getting the Donation ID from a donation denied request
+    $('.fa-thumbs-o-down').parent().click(function() {
+       var donationID = $(this).parent().siblings(":first").text();
+        $("#donation-denied-form").attr('action', "/donation/deny/" + donationID);
+    });
+
     $(".btn-success").click(function() {
         //Travels up the DOM searching for H4 tag with the CSS class user-name could be done better
         var user = $(this).parent().parent().parent().parent().find('.user-name').text();
-
-        //Trims the users name
-        //user = user.substr(0, user.indexOf("-") - 1);
 
         var element = $(this).parent().parent().parent().find(".vol-id").text();
         var id = element.substr(element.length - 12, element.length);
@@ -33,7 +53,7 @@ $(document).ready(function() {
             //Load the volunteer profile details
             $("#table-body").append('<tr><td>'
                 + output.first_name + '</td><td>'
-                + output.last_name + '</td><td>'
+                + output.last_name + '</td><td class="vol-id">'
                 + id + '</td><td>'
                 + output.email + '</td><td>'
                 + output.phone + '</td><td>'
@@ -47,7 +67,7 @@ $(document).ready(function() {
             $("#table-body").find("tr").remove();
         });
 
-        $(".modal-title").html(user + "'s Volunteer Details");
+        $("#modal-title").html(user.substr(0, user.indexOf('-') - 1) + "'s Volunteer Details");
     });
 
     //Add Date pickers from jqueryUI to date selectors
@@ -62,6 +82,26 @@ $(document).ready(function() {
            });
 
        }
+    });
+
+    //handles archiving a volunteer through the REST API
+    $("#archive-volunteer").click(function() {
+        var id = $(this).parent().parent().parent().prev().find('.vol-id').text();
+
+        //Archive the volunteer
+        archiveVolunteerById(id, function(response) {
+            console.log(response);
+
+            if(response == "true") {
+                $("#myModal").modal('toggle');
+                toastr.success('Successfully Archived Volunteer: ' + id);
+                //todo reload changes?
+            } else {
+                $("#myModal").modal('toggle');
+                toastr.error('Failed to Archive Volunteer, make sure their profile is fully loaded before you try to archive them!');
+            }
+
+        });
     });
 
     //Handles sorting and dragging volunteer cards
@@ -130,16 +170,23 @@ $(document).ready(function() {
        var start = formatDates($("#start-date").val());
        var end = formatDates($("#end-date").val());
        var title = $("#title").val();
+       var group = $("#group-select").val();
 
-        if(start == "" || end == "" || title == "") {
-            toastr.error('You must fill out all the event fields!');
+        if(start == "" || title == "") {
+            toastr.error('You must fill out both the start date and the title fields!');
         } else {
+
+            //if the user does not specify an end date default it to be the start date
+            if(end == "") {
+                end = start;
+            }
             //Use js API to create a new event!
-            createEvent(start, end, title, 'black', function (response) {
+            createEvent(start, end, title, 'black', group, function (response) {
             });
             toastr.success('Successfully created new event!');
         }
     });
+
 
     //Handles appending the $ to the money field
     $("#donation_amount").focus(function() {
@@ -147,28 +194,104 @@ $(document).ready(function() {
     });
 
 
-    //Handles showing the calendar with events
-    $('#calendar').fullCalendar({
-        header: {
-            left: 'prev,next today',
-            center: 'title',
-            right: 'month,basicWeek,basicDay'
-        },
-        defaultDate: '2016-9-12',
-        theme: true,
-        navLinks: true,
-        editable: true,
-        eventLimit: true,
-        eventSources: [
-            {
-                url: '/api/v1/events',
-                color: 'blue',
-                textColor: 'black'
-            }
-            // any other sources...
+    if(currentGroup == "ADMIN") {
+        //Handles showing the calendar with events
+        $('#calendar').fullCalendar({
+            header: {
+                left: 'prev,next today',
+                center: 'title',
+                right: 'month,agendaWeek,agendaDay,listWeek'
+            },
+            defaultDate: moment(),
+            navLinks: false, // can click day/week names to navigate views and see events for a particular day
+            editable: false, //can drag and drop events onto different days todo this is a bug right now
+            eventLimit: true, // allow "more" link when too many events
+            eventSources: [
+                {
+                    url: '/api/v1/events'
+                }
 
-        ]
+            ]
+        });
+
+    } else {
+
+        $('#calendar').fullCalendar({
+            header: {
+                left: 'prev,next today',
+                center: 'title',
+                right: 'month,agendaWeek,agendaDay,listWeek'
+            },
+            defaultDate: moment(),
+            navLinks: false, // can click day/week names to navigate views and see events for a particular day
+            editable: false, //can drag and drop events onto different days todo this is a bug right now
+            eventLimit: true, // allow "more" link when too many events
+            eventSources: [
+                {
+                    url: '/api/v1/events/' + currentGroup
+                }
+
+            ]
+        });
+    }
+
+    //Handles showing the previous and next months and today
+    $('#prev').click(function() {
+       $("#calendar").fullCalendar('prev');
     });
+
+    $("#next").click(function() {
+       $("#calendar").fullCalendar('next');
+    });
+
+    $("#today").click(function() {
+        $("#calendar").fullCalendar('today');
+        toastr.info('Loading Calendar Events Hold on!');
+    });
+
+    $("#date-btn").click(function() {
+       var date = $('#goToDate').val();
+        if(moment(date, 'MM/DD/YYYY', true).isValid() || moment(date, 'MM-DD-YYYY', true).isValid()) {
+            $('#calendar').fullCalendar('gotoDate', date);
+        } else {
+            toastr.error("Your date format is incorrect make sure its in the format: MM/DD/YYYY");
+        }
+    });
+
+
+    //Handles Donation made by staff
+    $("#type").hide();
+    $("#inkind").hide();
+
+    $("#donation-type").change(function() {
+        //gets the selected attribute from the option list
+        var type = $(this).find(':selected').attr('name');
+
+        switch(type) {
+            case 'monetary':
+                $("#amount").show();
+                $("#type").hide();
+                $("#inkind").hide();
+                break;
+            case 'supplies':
+                $("#amount").hide();
+                $("#type").show();
+                $("#inkind").hide();
+                break;
+            case 'inkind':
+                $("#amount").hide();
+                $("#type").hide();
+                $("#inkind").show();
+                break;
+        }
+    });
+
+    //Handles appending the $ to the money field
+    $("#amount").focus(function() {
+        $(this).val('$' + $(this).val());
+    });
+
+
 
 });
 

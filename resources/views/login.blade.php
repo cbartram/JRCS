@@ -21,13 +21,12 @@
 <div class="container">
 
     <!-- Start Staff/Admin Login -->
-    <div class="row" id="staff-login">
-        <div class="col-lg-4"></div>
-        <div class="col-lg-4">
+    <div class="row">
+        <div class="col-lg-4 col-lg-offset-4">
             {{ Form::open(array('url' => '/')) }}
             <h2 align="center">Staff Login</h2>
 
-            @if (count($errors) > 0)
+            @if(count($errors) > 0)
                 <div class="alert alert-danger">
                     <strong>Error!</strong> There were some problems with your input.<br><br>
                     <ul>
@@ -38,16 +37,21 @@
                 </div>
             @endif
 
-            <div class="btn-group-vertical">
-                <p>{{ Form::text('email', Input::old('email'), array('placeholder' => 'Email', 'id' => 'email-input', 'class' => 'form-control')) }}</p>
-                <p>{{ Form::password('password', array('class' => 'form-control', 'id' => 'pass', 'placeholder' => 'Password')) }}</p>
+            <div class="row">
+                <div class="col-lg-12">
+                    <p>{{ Form::text('email', Input::old('email'), array('placeholder' => 'Email', 'id' => 'email-input', 'class' => 'form-control')) }}</p>
+                    <p>{{ Form::password('password', array('class' => 'form-control', 'id' => 'pass', 'placeholder' => 'Password')) }}</p>
+                </div>
             </div>
 
-            {{ Form::submit('Login', array('class' => 'btn btn-block btn-success')) }}
+            <div class="row">
+                <div class="col-lg-12">
+                    <button type="submit" name="Login" class="btn btn-block btn-success">Sign-in <span class="fa fa-sign-in"></span></button>
+                </div>
+            </div>
 
             {{ Form::close() }}
         </div>
-        <div class="col-lg-4"></div>
     </div>
     <!-- End Staff Login -->
 

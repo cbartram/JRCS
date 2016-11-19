@@ -1,0 +1,1649 @@
+<html>
+<head>
+    <title>PhpMetrics report v1.10.0 - by Jean-François Lépine</title>
+    <meta charset="utf-8">
+    <link href="data:image/x-icon;base64,AAABAAEAEBAAAAEAIABoBAAAFgAAACgAAAAQAAAAIAAAAAEAIAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAFA+LP9QPiz/UD4s/1A+LP9QPiz/UD4s/wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAUD4s/1A+LP9QPiz/UD4s/1A+LP9QPiz/UD4s/1A+LP9QPiz/UD4s/wAAAAAAAAAAAAAAAAAAAAAAAAAAUD4s/1A+LP9QPiz/UD4s/1A+LP9QPiz/UD4s/wC6eP8sdU7/ALp4/1A+LP9QPiz/AAAAAAAAAAAAAAAAUD4s/1A+LP9QPiz/UD4s/1A+LP9QPiz/UD4s/wC6eP9QPiz/SUgy/wC6eP9LRTD/ALp4/1A+LP8AAAAAAAAAAFA+LP9QPiz/UD4s/1A+LP9QPiz/UD4s/wC6eP89Wz3/ALp4/wCz9P8As/T/UD4s/wC6eP9QPiz/AAAAAFA+LP9QPiz/UD4s/1A+LP9QPiz/TkAt/1A+LP8Aunj/OGJC/wCz9P8As/T/ALP0/xSbZf9QPiz/UD4s/1A+LP9QPiz/UD4s/1A+LP9QPiz/ALp4/1A+LP8Aunj/ALp4/wui2P9QPiz/Cabd/wevcf8Aunj/UD4s/1A+LP9QPiz/UD4s/1A+LP9QPiz/TUMv/wC6eP8Aunj/ALp4/wC6eP8Aunj/ALp4/wynbP9QPiz/K3dP/zZmRP9QPiz/UD4s/1A+LP9QPiz/ALp4/wC6eP8Aunj/TEQw/xqSX/8As/T/SEoz/wC6eP8BuHf/ALP0/wC6eP8Aunj/C6ht/1A+LP9QPiz/OWFC/wC6eP8Aunj/ALp4/01BLv8qdYv/UD4s/wCz9P9QPiz/ALp4/1A+LP8Aunj/ALp4/wC6eP9QPiz/UD4s/1A+LP8As/T/ALP0/1A+LP8As/T/ALP0/wC6eP8Aunj/UD4s/wC6eP8za0f/UD4s/xeVYv8Kqm7/UD4s/wAAAABQPiz/ALP0/wCz9P8Aunj/ALP0/zdhaf9QPiz/UD4s/wC6eP9QPiz/ALp4/wC6eP8Aunj/UD4s/wAAAAAAAAAAUD4s5FA+LP9QPiz/UD4s/wCz9P8As/T/UD4s/wC6eP8Snmf/UD4s/1A+LP9QPiz/UD4s/1A+LP8AAAAAAAAAAAAAAABQPiz/UD4s/1A+LP8As/T/ALP0/1A+LP8Aunj/UD4s/1A+LP9QPiz/UD4s/1A+LP8AAAAAAAAAAAAAAAAAAAAAAAAAADwvIZJQPiz/UD4s/1A+LP9QPiz/UD4s/1A+LP9QPiz/UD4s/1A+LNMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEY2J1ZQPiz/UD4s/1A+LP9QPiz/RjYnpQAAAAAAAAAAAAAAAAAAAAAAAAAA+B8AAOAHAADAAwAAgAEAAIABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAQAAgAEAAMADAADgBwAA/B8AAA==" rel="icon" type="image/x-icon" />    <style type="text/css">
+                        /* ---- layout ---- */
+body {
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    margin: 0;
+    padding: 0;
+    font-size: 1em;
+    text-align: center;
+    margin-bottom: 2.5em;
+}
+.container {
+    width: 1170px;
+    text-align: left;
+    margin: 0 auto;
+}
+.row {
+    position: relative;
+    clear: left;
+}
+.col-3 {
+    float:left;
+    width:28%;
+    margin-right:2%;
+}
+.col-3:last-child {
+    margin-right: 0;
+}
+.col-3:last-child:after {
+    content:" ";
+    clear:left;
+}
+
+.col-6 {
+    float:left;
+    width:48%;
+    margin-right:2%;
+}
+.col-3:last-child {
+    margin-right: 0;
+}
+.col-3:last-child:after {
+    content:" ";
+    clear:left;
+}
+
+.accessibility-box {
+    float:right;
+    width: 200px;
+}
+
+.menu, .menu li {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+.menu li {
+    display: inline-block;
+    padding: 10px 15px;
+}
+.menu li.active {
+    background-color: #428bca;
+    border-radius: 4px;
+}
+.menu li.active a {
+    color: #fff;
+}
+.footer {
+    position: fixed;
+    bottom: 0;
+    left:0;
+    text-align: center;
+    font-size: 0.9em;
+    background: #FFF;
+    height: 2.5em;
+    width: 100%;
+}
+.footer .container {
+    text-align: center;
+}
+
+
+/* ---- tabs ---- */
+.tab-pane {
+    display:none;
+}
+.tab-pane.active {
+    display:block;
+}
+
+
+/* ----- fonts ----- */
+a:hover, a:focus {
+    color: #2a6496;
+    text-decoration: underline;
+}
+a:active, a:hover {
+    outline: 0;
+}
+a {
+    color: #428bca;
+    text-decoration: none;
+    cursor: pointer;
+}
+h1, h2, h3, h4, h5, h6 {
+    font-family: inherit;
+    font-weight: 500;
+    line-height: 1.1;
+    color: inherit;
+}
+h4 {
+    font-weight: bold;
+}
+.more {
+    color: #666;
+    font-size: 0.9em;
+}
+
+
+/* ---- general styles ----- */
+.validate-critical, .critical {
+    background-color:#B01E00 !important;
+    color:#FFF;
+}
+.validate-warning, .warning {
+    background-color:#f4b300 !important;
+    color:#333;
+}
+.validate-good, .good {
+    background-color:#78ba00 !important;
+    color:#FFF;
+}
+.validate-unknown, .unknown {
+}
+
+/* ---- tables ---- */
+table {
+    border-spacing: 0;
+    border-collapse: collapse;
+}
+.table {
+    width: 100%;
+    max-width: 100%;
+    margin-bottom: 20px;
+    font-size:0.8em;
+}
+.table-bordered {
+    border: 1px solid #ddd;
+}
+.table thead {
+    font-weight:normal;
+}
+.table>thead>tr>th, .table>tbody>tr>th, .table>tfoot>tr>th, .table>thead>tr>td, .table>tbody>tr>td, .table>tfoot>tr>td {
+    padding: 8px;
+    line-height: 1.42857143;
+    vertical-align: top;
+    border-top: 1px solid #ddd;
+}
+.table-striped>tbody>tr:nth-child(odd)>td, .table-striped>tbody>tr:nth-child(odd)>th {
+    background-color: #f9f9f9;
+}
+.mytable td {
+    width:4%;
+    text-align:center;
+}
+.mytable .sep {
+    border-left:1px solid #CCC;
+}
+
+.well {
+    min-height: 20px;
+    padding: 19px;
+    margin-bottom: 20px;
+    background-color: #f5f5f5;
+    border: 1px solid #e3e3e3;
+    border-radius: 4px;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.05);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.05);
+}
+
+
+/* ---- form ---- */
+.form-control {
+    display: block;
+    width: 100%;
+    height: 34px;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #555;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+    -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+    -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+    transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+}
+
+/* ---- Charts ---- */
+#chart-tableview .critical,
+#chart-tableview .warning,
+#chart-tableview .good,
+#chart-tableview .unknown {
+    display:block;
+    text-align: center;
+}
+
+#svg-custom,
+#svg-maintainability,
+#svg-abstractness {
+    width:300px;
+    height:300px;
+}
+.svg-main {
+    margin: 0 auto;
+    width:960px;;
+    height:960px;;
+}
+
+
+/* ---- maintainability ---- */
+#svg-maintainability svg circle:hover {
+    fill:steelblue !important;
+}
+
+/* ---- relations ---- */
+.node {
+    font: 300 11px "Helvetica Neue", Helvetica, Arial, sans-serif;
+    fill: #bbb;
+}
+.node:hover {
+    fill: #000;
+}
+.link {
+    stroke: steelblue;
+    stroke-opacity: .4;
+    fill: none;
+    pointer-events: none;
+}
+.node:hover,
+.node--source,
+.node--target {
+    font-weight: 700;
+}
+.node--source {
+    fill: #AE113D;
+}
+.node--target {
+    fill: #4617B4;
+}
+.link--source,
+.link--target {
+    stroke-opacity: 1;
+    stroke-width: 2px;
+}
+.link--source {
+    stroke: #AE113D;
+}
+.link--target {
+    stroke: #4617B4;
+}
+.relation-source {
+    background-color: #AE113D;
+}
+.relation-target {
+    background-color: #4617B4;
+}
+
+
+/* ---- tooltip ---- */
+.tooltip {
+    position: absolute;
+    background: #333;
+    border-radius: 5px;
+    padding: 5px 15px;
+    box-shadow: 1px 1px 3px;
+    text-align: left;
+    color:#FFF;
+    z-index: 4;
+}
+
+/* ---- zoom ---- */
+.zoomed {
+    position: fixed;
+    z-index: 2;
+    top: 20px;
+    left: 0;
+    width: 100% !important;
+    height: 95% !important;
+    background: #FFF;
+}
+.btn-close {
+    position: fixed;
+    z-index: 3;
+    top: 0;
+    background: #333;
+    width: 100%;
+    text-align: center;
+    margin: 0 auto;
+    padding: 3px 0;
+    height: 20px;
+    lien-height: 20px;
+}
+.btn-close a {
+    color: #FFF;
+}
+    </style>
+                <link rel="stylesheet" type="text/css" href="http://nvd3.org/assets/css/nv.d3.css">
+        <link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/alangrafu/radar-chart-d3/master/src/radar-chart.min.css">
+    </head>
+
+<body>
+
+<div class="container">
+
+
+
+    <h1 id="title">PhpMetrics report</h1>
+
+    <div class="row">
+        <div class="well accessibility-box">
+            <label>
+                <input type="checkbox" onclick="toggleAccessibility()"> I'm colorblind
+            </label>
+        </div>
+
+        <div class="menu-box">
+            <ul id="menu" class="menu" >
+                <li id="link-overview" class="active"><a >Overview</a></li>
+                <li id="link-score"><a >Evaluation</a></li>
+                <li id="link-relations"><a  >Relations map</a></li>
+                <li id="link-repartition"><a  >Repartition</a></li>
+                <li id="link-explore"><a >Explore</a></li>
+                
+                <li id="link-help"><a  >Help</a></li>
+            </ul>
+        </div>
+
+
+    </div>
+
+
+    <div class="tab-content row">
+
+
+        <!-- General details -->
+        <div class="row tab active" id="overview">
+            <div class="col-3">
+                <h3>Evaluation</h3>
+                <small><a id="btn-save-maintainability" download="phpmetric-maintainability.svg">Download (as SVG)</a> | <a onclick="return zoom('svg-maintainability', updateMaintainabilityChart);">zoom</a></small>
+                <div id="svg-maintainability"><svg /></div>
+
+                <div class="well ">
+
+                    <h4>Information</h4>
+                    <p>
+                        Each file is symbolized by a circle.
+                        Size of the circle represents the Cyclomatic complexity.
+                        Color of the circle represents the Maintainability Index.
+                    </p>
+                    <p>Large red circles will be probably hard to maintain.</p>
+                </div>
+
+            </div>
+            <div class=" col-3">
+
+                <h3 id="title-custom">Custom chart</h3>
+                <small><a id="btn-save-custom" download="phpmetric-custom.svg">Download (as SVG)</a> | <a onclick="return zoom('svg-custom', updateCustomChart);">zoom</a></small>
+                <div id="svg-custom"><svg /></div>
+
+                <div class="well">
+                    <h4>Configuration</h4>
+                    <p>
+                        Select metrics you want to display in chart.
+                    </p>
+                    <table class="table table-condensed table-bordered">
+                        <tr>
+                            <td>X Axis</td>
+                            <td>Y Axis</td>
+                            <td>Diameter</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <select id="xAxis" class="form-control" onchange="xAxis = this.value; updateCustomChart();">
+                                                                            <option value="afferentCoupling">Afferent Coupling </option>
+                                                                            <option value="bugs">Bugs </option>
+                                                                            <option value="commentWeight">Comment Weight </option>
+                                                                            <option value="cyclomaticComplexity">Cyclomatic Complexity </option>
+                                                                            <option value="dc">Dc </option>
+                                                                            <option value="difficulty">Difficulty </option>
+                                                                            <option value="efferentCoupling">Efferent Coupling </option>
+                                                                            <option value="effort">Effort </option>
+                                                                            <option value="filename">Filename </option>
+                                                                            <option value="instability">Instability </option>
+                                                                            <option value="intelligentContent">Intelligent Content </option>
+                                                                            <option value="lcom">Lcom </option>
+                                                                            <option value="length">Length </option>
+                                                                            <option value="loc">Loc </option>
+                                                                            <option value="logicalLoc">Logical Loc </option>
+                                                                            <option value="maintainabilityIndex">Maintainability Index </option>
+                                                                            <option value="maintainabilityIndexWithoutComment">Maintainability Index Without Comment </option>
+                                                                            <option value="myerDistance">Myer Distance </option>
+                                                                            <option value="myerInterval">Myer Interval </option>
+                                                                            <option value="name">Name </option>
+                                                                            <option value="noc">Noc </option>
+                                                                            <option value="noc-anon">Noc-anon </option>
+                                                                            <option value="noca">Noca </option>
+                                                                            <option value="nocc">Nocc </option>
+                                                                            <option value="noi">Noi </option>
+                                                                            <option value="nom">Nom </option>
+                                                                            <option value="operators">Operators </option>
+                                                                            <option value="rdc">Rdc </option>
+                                                                            <option value="rsc">Rsc </option>
+                                                                            <option value="rsysc">Rsysc </option>
+                                                                            <option value="sc">Sc </option>
+                                                                            <option value="sysc">Sysc </option>
+                                                                            <option value="time">Time </option>
+                                                                            <option value="vocabulary">Vocabulary </option>
+                                                                            <option value="volume">Volume </option>
+                                                                    </select>
+                            </td>
+                            <td>
+                                <select id="yAxis" class="form-control" onchange="yAxis = this.value; updateCustomChart();">
+                                                                            <option value="afferentCoupling">Afferent Coupling </option>
+                                                                            <option value="bugs">Bugs </option>
+                                                                            <option value="commentWeight">Comment Weight </option>
+                                                                            <option value="cyclomaticComplexity">Cyclomatic Complexity </option>
+                                                                            <option value="dc">Dc </option>
+                                                                            <option value="difficulty">Difficulty </option>
+                                                                            <option value="efferentCoupling">Efferent Coupling </option>
+                                                                            <option value="effort">Effort </option>
+                                                                            <option value="filename">Filename </option>
+                                                                            <option value="instability">Instability </option>
+                                                                            <option value="intelligentContent">Intelligent Content </option>
+                                                                            <option value="lcom">Lcom </option>
+                                                                            <option value="length">Length </option>
+                                                                            <option value="loc">Loc </option>
+                                                                            <option value="logicalLoc">Logical Loc </option>
+                                                                            <option value="maintainabilityIndex">Maintainability Index </option>
+                                                                            <option value="maintainabilityIndexWithoutComment">Maintainability Index Without Comment </option>
+                                                                            <option value="myerDistance">Myer Distance </option>
+                                                                            <option value="myerInterval">Myer Interval </option>
+                                                                            <option value="name">Name </option>
+                                                                            <option value="noc">Noc </option>
+                                                                            <option value="noc-anon">Noc-anon </option>
+                                                                            <option value="noca">Noca </option>
+                                                                            <option value="nocc">Nocc </option>
+                                                                            <option value="noi">Noi </option>
+                                                                            <option value="nom">Nom </option>
+                                                                            <option value="operators">Operators </option>
+                                                                            <option value="rdc">Rdc </option>
+                                                                            <option value="rsc">Rsc </option>
+                                                                            <option value="rsysc">Rsysc </option>
+                                                                            <option value="sc">Sc </option>
+                                                                            <option value="sysc">Sysc </option>
+                                                                            <option value="time">Time </option>
+                                                                            <option value="vocabulary">Vocabulary </option>
+                                                                            <option value="volume">Volume </option>
+                                                                    </select>
+                            </td>
+                            <td>
+                                <select id="rAxis" class="form-control" onchange="rAxis = this.value; updateCustomChart();">
+                                                                            <option value="afferentCoupling">Afferent Coupling </option>
+                                                                            <option value="bugs">Bugs </option>
+                                                                            <option value="commentWeight">Comment Weight </option>
+                                                                            <option value="cyclomaticComplexity">Cyclomatic Complexity </option>
+                                                                            <option value="dc">Dc </option>
+                                                                            <option value="difficulty">Difficulty </option>
+                                                                            <option value="efferentCoupling">Efferent Coupling </option>
+                                                                            <option value="effort">Effort </option>
+                                                                            <option value="filename">Filename </option>
+                                                                            <option value="instability">Instability </option>
+                                                                            <option value="intelligentContent">Intelligent Content </option>
+                                                                            <option value="lcom">Lcom </option>
+                                                                            <option value="length">Length </option>
+                                                                            <option value="loc">Loc </option>
+                                                                            <option value="logicalLoc">Logical Loc </option>
+                                                                            <option value="maintainabilityIndex">Maintainability Index </option>
+                                                                            <option value="maintainabilityIndexWithoutComment">Maintainability Index Without Comment </option>
+                                                                            <option value="myerDistance">Myer Distance </option>
+                                                                            <option value="myerInterval">Myer Interval </option>
+                                                                            <option value="name">Name </option>
+                                                                            <option value="noc">Noc </option>
+                                                                            <option value="noc-anon">Noc-anon </option>
+                                                                            <option value="noca">Noca </option>
+                                                                            <option value="nocc">Nocc </option>
+                                                                            <option value="noi">Noi </option>
+                                                                            <option value="nom">Nom </option>
+                                                                            <option value="operators">Operators </option>
+                                                                            <option value="rdc">Rdc </option>
+                                                                            <option value="rsc">Rsc </option>
+                                                                            <option value="rsysc">Rsysc </option>
+                                                                            <option value="sc">Sc </option>
+                                                                            <option value="sysc">Sysc </option>
+                                                                            <option value="time">Time </option>
+                                                                            <option value="vocabulary">Vocabulary </option>
+                                                                            <option value="volume">Volume </option>
+                                                                    </select>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+
+            </div>
+            <div class="col-3">
+                <h3>Abstractness / Instability</h3>
+                <small><a id="btn-save-abstractness" download="phpmetric-abstractness.svg">Download (as SVG)</a> | <a onclick="return zoom('svg-abstractness', updateAbstractnessChart);">zoom</a></small>
+                <div id="svg-abstractness"><svg /></div>
+            </div>
+        </div>
+        <!-- end: General details -->
+
+        <!-- Score -->
+        <div class="tab" id="score">
+            <div class="col-sm-12">
+                <h3>Score</h3>
+
+                <div class="col-6">
+                    <div id="chart-score"></div>
+                </div>
+
+                <div class="col-6">
+                    <p>
+                        This score is not absolute. This chart is a comparison of your project relative to a representative average of recent PHP projects.
+                    </p>
+                    <p>
+                        Each score is calculated from <acronym title="Cyclomatic complexity, Halstead metrics, Maintainability Index, Comment weight, Difficulty, Logical lines of code...">various criterias</acronym> from 28 files in your projects.
+                        Your score is a note between 0 (poor) and 100 (excellent).
+                    </p>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Factor</th>
+                                <th>Score</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                                                    <tr>
+                                <td>Maintainability</td>
+                                <td>57.08 / 100</td>
+                            </tr>
+                                                    <tr>
+                                <td>Accessibility for new developers</td>
+                                <td>32.54 / 100</td>
+                            </tr>
+                                                    <tr>
+                                <td>Simplicity of algorithms</td>
+                                <td>42.86 / 100</td>
+                            </tr>
+                                                    <tr>
+                                <td>Volume</td>
+                                <td>70.13 / 100</td>
+                            </tr>
+                                                    <tr>
+                                <td>Reducing bug&#039;s probability</td>
+                                <td>68.85 / 100</td>
+                            </tr>
+                                                </tbody>
+                    </table>
+                    <p>
+                        <strong>This score does not replace the judgement of a human.</strong>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <!-- end: Score -->
+
+        <!-- Relations -->
+        <div class="tab" id="relations">
+            <h3>Relations</h3>
+            <div class="col-sm-12">
+                <div class="well">
+                    <p>
+                        Class uses another when it calls, constructs, types hint, extends or implements it.
+                    </p>
+                    <ul>
+                        <li><span class="badge relation-source">Used by</span> : this class is used by hovered element.</li>
+                        <li><span class="badge relation-target">Uses</span> : this class uses hovered element.</li>
+                    </ul>
+
+                </div>
+                <small><a id="btn-save-relations" download="phpmetric-relations.svg">Download (as SVG)</a></small>
+                <div class="svg-main" id="svg-relations"><svg /></div>
+
+            </div>
+        </div>
+        <!-- end: Relations -->
+
+
+        <!-- Tabular datas -->
+        <div class="tab" id="explore">
+            <div class="col-sm-12">
+                <h3>Explore</h3>
+                <p>
+                    <select id="select-display-tabular">
+                        <option value="all" selected="selected">Display metrics</option>
+                        <option value="essential">Essential</option>
+                        <option value="all">All</option>
+                    </select>
+                </p>
+                <div id="chart-tableview"></div>
+            </div>
+        </div>
+        <!-- end: Tabular datas -->
+
+
+        <!-- Volume -->
+        <div class="tab" id="repartition">
+            <h3>Repartition</h3>
+            <div class="col-3">
+                <table class="table table-striped">
+                    <tbody>
+                        <tr>
+                            <td>Files</td>
+                            <td>28</td>
+                        </tr>
+                        <tr>
+                            <td>Lines of code</td>
+                            <td>
+                                1988
+                                                                    <span class="more">(71 by class,
+                                        26 by method)</span>
+                                                            </td>
+                        </tr>
+                        <tr>
+                            <td>Logical lines of code</td>
+                            <td>
+                                559
+                                                                    <span class="more">(20 by class,
+                                        7 by method)</span>
+                                                            </td>
+                        </tr>
+                        <tr>
+                            <td>Classes</td>
+                            <td>28
+                                                                    <div>
+                                        <span class="more">
+                                            0 interfaces (0 %)
+                                        </span>
+                                    </div>
+                                    <div>
+                                        <span class="more">
+                                            28 concrete classes (100 %)
+                                        </span>
+                                    </div>
+                                    <div>
+                                        <span class="more">
+                                            0 abstract classes (0 %)
+                                        </span>
+                                    </div>
+                                    <div>
+                                        <span class="more">
+                                            0 anonymous classes (0 %)
+                                        </span>
+                                    </div>
+                                                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>Methods</td>
+                            <td>
+                                77
+                                                                    <span class="more">(2.8 by class )</span>
+                                                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-3">
+                <table class="table table-striped">
+                    <tbody>
+                    <tr>
+                        <td>Relative system complexity</td>
+                        <td>6.85</td>
+                    </tr>
+                    <tr>
+                        <td>Relative data complexity</td>
+                        <td>0.48</td>
+                    </tr>
+                    <tr>
+                        <td>Relative structure complexity</td>
+                        <td>6.36</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-3">
+                <table class="table table-striped">
+                    <tbody>
+                    <tr>
+                        <td>Lack of cohesion of methods</td>
+                        <td>2.54</td>
+                    </tr>
+                    <tr>
+                        <td>Efferent Coupling</td>
+                        <td>2.32</td>
+                    </tr>
+                    <tr>
+                        <td>Afferent Coupling</td>
+                        <td>0.04</td>
+                    </tr>
+                    <tr>
+                        <td>Abstractness</td>
+                        <td>0</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <!-- end: Volume -->
+
+        <!-- Help -->
+        <div class="tab" id="help">
+            <div class="col-sm-12">
+                <h3>Help</h3>
+                <ul>
+                    <li>You're using PhpMetrics v1.10.0</li>
+                    <li>Online help is available on the <a href="http://www.phpmetrics.org/documentation/index.html">PhpMetrics website</a>.</li>
+                    <li>Sources of PhpMetrics are available on <a href="https://github.com/PhpMetrics/PhpMetrics">Github</a>.</li>
+                    <li>PhpMetrics is created by <a href="http://lepine.pro">Jean-François Lépine</a>.</li>
+                </ul>
+            </div>
+        </div>
+        <!-- end: Help -->
+
+        <!-- Extensions blocks -->
+        
+        <!-- end: Extensions -->
+
+    </div>
+
+
+    <div class="row footer">
+        <div class="container">
+            Powered by <a href="http://www.phpmetrics.org">PhpMetrics</a> v1.10.0 - Copyright Jean-François Lépine
+            <br/> Generated on 
+Warning: date_default_timezone_get(): It is not safe to rely on the system's timezone settings. You are *required* to use the date.timezone setting or the date_default_timezone_set() function. In case you used any of those methods and you are still getting this warning, you most likely misspelled the timezone identifier. We selected the timezone 'UTC' for now, but please set date.timezone to select your timezone. in /Applications/MAMP/htdocs/laravel-jrcs/vendor/twig/twig/lib/Twig/Extension/Core.php on line 89
+24th of October 2016 at 06:08:08 PM
+        </div>
+    </div>
+
+</div>
+
+
+
+
+
+
+
+<script type="text/javascript">
+
+
+    function validate() {
+        return 'unknown';
+    }
+
+
+    function validate(key, value) {
+        var rule = ruleSet[key];
+
+        if(typeof(rule) === 'undefined' || rule === undefined) {
+            return 'unknown';
+        }
+
+        // according order
+        if(rule[0] < rule[2]) {
+            // critical < warn < good
+            switch(true) {
+                case value < rule[1]:
+                    return 'critical';
+                case value >= rule[1] && value < rule[2]:
+                    return 'warning';
+                default:
+                    return 'good';
+            }
+        } else {
+            // critical > warn > good
+            switch(true) {
+                case value > rule[1]:
+                    return 'critical';
+                case value < rule[2]:
+                    return 'good';
+                default:
+                    return 'warning';
+            }
+        }
+    }
+
+    function validateIn(results, key, type) {
+        type = type || 'average';
+        var value = results[type] ? results[type][key] : results[key];
+        return validate(key, value);
+    }
+
+
+    function textify(string) {
+        string = string.charAt(0).toUpperCase() + string.slice(1);
+        return string.replace(/([a-z0-9])([A-Z])/, "$1 $2");
+    }
+
+    function toggleAccessibility() {
+        accessibilityEnabled = !!!accessibilityEnabled;
+        document.getElementById('svg-maintainability').firstElementChild.innerHTML = '';
+        updateMaintainabilityChart();
+
+    }
+
+
+    function displayTab(e, id) {
+
+        var i, tabs = document.getElementsByClassName('tab');
+        for(i = 0; i < tabs.length; i++) {
+            tabs[i].style.display = 'none';
+        }
+        document.getElementById(id).style.display = 'block';
+
+        var child, menu = document.getElementById('menu');
+        var nodes = menu.childNodes;
+        for(var i = 0; i < nodes.length; i++) {
+            nodes[i].className = '';
+        }
+
+        e.className = 'active';
+    }
+
+    function zoom(id, callback) {
+        var e = document.getElementById(id);
+
+        // preserve olds values
+        e.setAttribute('data-original-width', e.offsetWidth);
+        e.setAttribute('data-original-height', e.offsetHeight);
+
+        // zoom
+        e.className = 'zoomed';
+
+        // add close button
+        var close = document.createElement('div');
+        close.setAttribute('id', 'btn-close');
+        close.innerHTML = '<a>Close</a>';
+        document.body.appendChild(close);
+        close.className = 'btn-close'
+        close.onclick = function(id, callback) {
+            return function() {
+                zoomOut(id, callback);
+            }
+        }(id, callback);
+
+        // apply callback
+        callback();
+    }
+
+    function zoomOut(id, callback) {
+        var e = document.getElementById(id);
+
+        // zoom
+        e.className = '';
+
+        // remove close button
+        var close = document.getElementById('btn-close');
+        close.parentNode.removeChild(close);
+
+        // apply callback
+        var w = e.getAttribute('data-original-width');
+        callback(w);
+    }
+
+</script>
+    <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+    <script src="http://nvd3.org/assets/js/nv.d3.js" charset="utf-8"></script>
+    <script src="https://cdn.rawgit.com/alangrafu/radar-chart-d3/master/src/radar-chart.min.js" charset="utf-8"></script>
+<script type="text/javascript">
+
+    function updateScoreChart() {
+        if(updateScoreChart.initiazed) return;
+        updateScoreChart.initiazed = true;
+        var score = [
+            {
+                className: 'score',
+                axes: [
+                                            {axis: "Maintainability", value: 57 },
+                                            {axis: "Accessibility for new developers", value: 33 },
+                                            {axis: "Simplicity of algorithms", value: 43 },
+                                            {axis: "Volume", value: 70 },
+                                            {axis: "Reducing bug's probability", value: 69 },
+                                    ]
+            }
+        ];
+
+        var chart = RadarChart.chart();
+        chart.config({
+            maxValue: 100,
+            w: 500,
+            h: 500
+        });
+        var svg = d3.select('#chart-score').append('svg');
+
+        // darw one
+        svg.append('g').classed('focus', 1).datum(score).call(chart);
+        svg.attr('width', 500).attr('height', 500);
+    }
+</script>
+<script type="text/javascript">
+
+    var tabularCurrentView = 'all';
+
+    function updateTableView() {
+
+        document.getElementById('chart-tableview').innerHTML = '';
+
+        /**
+         * Get column header
+         *
+         * @param label
+         * @param key
+         * @param type [average|sum|min|max]
+         * @returns object
+         */
+        function getCol(label, key, type, help, doValidate) {
+            type = type || false;
+            if(doValidate == undefined) {
+                doValidate = true;
+            }
+            return {
+                format: function(d) {
+                    if(type) {
+                        return d[type] ? d[type][key] : d[key];
+                    }
+                    return d[key];
+                },
+                label: '<abbr title="' + help + '">' + label + '</abbr>',
+                type: type,
+                classes:
+                        ( doValidate
+                            ? function(d) { return validateIn(d,key, type); }
+                            : ''
+                        )
+            };
+        }
+
+        /**
+         * Get all columns
+         *
+         * @returns {*[]}
+         */
+        function getAllColumns() {
+            return [
+                getCol('loc'            , 'loc'                     , 'sum'     , 'Number of lines of code'                 , false),
+                getCol('lloc'           , 'logicalLoc'              , 'sum'     , 'Number of logical lines of code'         ,false),
+                getCol('CommW'          , 'commentWeight'           , 'average' , 'Comment Weight'),
+                getCol('Length'         , 'length'                  , 'sum'     , 'Halstead length'),
+                getCol('Volume'         , 'volume'                  , 'average' , 'Halstead Volume'),
+                getCol('Vocabulary'     , 'vocabulary'              , 'average' , 'Halstead Vocabulary'),
+                getCol('Eff.'           , 'effort'                  , 'average' , 'Halstead effort'),
+                getCol('MI'             , 'maintainabilityIndex'     , 'average' , 'Maintainability Index (mi < 65: low ; 65 < mi < 85: correct; 85 < mi: good)'),
+                getCol('MIwC'           , 'maintainabilityIndexWithoutComment' , 'average', 'Maintainability index without comments'),
+                getCol('Diff'           , 'difficulty'              , 'average' , 'Halstead difficulty (average)'),
+                getCol('Bugs'           , 'bugs'                    , 'average' , 'Estimated number of bugs (average by file)'),
+                getCol('IC'             , 'intelligentContent'      , 'average' , 'Intelligent content'),
+                getCol('CC'             , 'cyclomaticComplexity'    , 'average' , "Cyclomatic complexity"),
+                getCol('Dist.'          , 'myerDistance'            , 'average' , "Myer's distance"),
+                getCol('Oper.'          , 'operators'               , 'sum'     , 'Number of operators'                 , false),
+                getCol('lcom'           , 'lcom'                    , 'average' , 'Lack of cohesion of methods (LCOM4)'),
+                getCol('rsysc'          , 'rsysc'                   , 'average' , 'Relative System complexity'),
+                getCol('rdc'            , 'rdc'                     , 'average' , 'Relative Data complexity'),
+                getCol('rsc'            , 'rsc'                     , 'average' , 'Relative Structural complexity'),
+                getCol('Abstr.'         , 'abstractness'            , false     , 'Abstractness'),
+                getCol('Inst.'          , 'instability'             , false     , 'Instability'),
+                getCol('EC'             , 'efferentCoupling'        , 'average' , 'Efferent coupling'),
+                getCol('AC'             , 'afferentCoupling'        , 'average' , 'Afferent coupling'),
+                getCol('noc'            , 'noc'                     , 'sum'     , 'Number of classes'                   , false),
+                getCol('noca'           , 'noca'                    , 'sum'     , 'Number of abstract classes and interfaces'          , false),
+                getCol('nocc'           , 'nocc'                    , 'sum'     , 'Number of concrete classes'          , false),
+                getCol('noi'            , 'noi'                     , 'sum'     , 'Number of interfaces'                , false)
+            ];
+        }
+
+        /**
+         * Get essentials columns
+         *
+         * @returns {*[]}
+         */
+        function getEssentialColumns() {
+            return [
+                getCol('Lines of code'            , 'loc'                     , 'sum'     , 'Number of lines of code'                 , false),
+                getCol('Logical lines of code'           , 'logicalLoc'              , 'sum'     , 'Number of logical lines of code'         ,false),
+                getCol('Comment weight'          , 'commentWeight'           , 'average' , 'Comment Weight'),
+                getCol('Maintainability index'             , 'maintainabilityIndex'     , 'average' , 'Maintainability Index (mi < 65: low ; 65 < mi < 85: correct; 85 < mi: good)'),
+                getCol('Bugs'           , 'bugs'                    , 'average' , 'Estimated number of bugs (average by file)'),
+                getCol('Lack of cohesion of methods'           , 'lcom'                    , 'average' , 'Lack of cohesion of methods (LCOM4)'),
+            ];
+        }
+
+        /**
+         * Get only active columns
+         *
+         * @returns {*[]}
+         */
+        function getActiveColumns() {
+            switch(tabularCurrentView) {
+                case 'essential':
+                    return getEssentialColumns();
+                case 'all':
+                default:
+                    return getAllColumns();
+            }
+        }
+
+        nv.addGraph(function() {
+            var columns = getActiveColumns();
+            columns.unshift({
+                key: 'name',
+                label: 'Name',
+                showCount: true,
+                type: 'text',
+                classes: function(d) {
+                    return  'name '
+                            + (d.childs ? 'clickable ' : '')
+                            + 'depth-' + d._depth;
+                }
+            });
+            var chart = nv.models.indentedTree()
+                    .tableClass('table table-striped') //for bootstrap styling
+                    .columns(columns);
+
+            d3.select('#chart-tableview')
+                    .datum(tabularize(JSON.parse(JSON.stringify(groupedData))))
+                    .call(chart);
+
+            // fix bug with nvd3js and html in labels
+            d3.select('#chart-tableview').selectAll('th').each(function() {
+                this.innerHTML = this.innerText;
+            });
+
+
+
+            return chart;
+        });
+
+        // select type of display
+        var d = document.getElementById('select-display-tabular');
+        d.onchange = function(){
+            tabularCurrentView = this.options[this.selectedIndex].value;
+            updateTableView();
+        }
+
+    }
+
+    function tabularize(root) {
+        var result = root;
+
+        var i, len = root.length;
+
+        for(i = 0; i < len; i++) {
+            result[i]._values = root[i].childs;
+            delete result[i].childs;
+            result[i]._depth = result[i].depth;
+        }
+
+        // we want to display results in a tree
+        var parents = [
+            { name: "temporary", _values: []}
+        ];
+        var final, e, level, separator;
+        separator = "/";
+        for(i = 0; i < len; i++) {
+            if (result[i].name.indexOf("\\") !== -1) {
+                separator = "\\";
+                break;
+            }
+        }
+        for(i = 0; i < len; i++) {
+            e = result[i];
+            level = (e.name.split(separator).length - 1);
+            if(!e.name.match(/\.php$/)) {
+                parents[level + 1] = e;
+                parents[level]._values.push(e);
+            } else {
+                parents[level]._values.push(e);
+            }
+        }
+        final = parents[1];
+        return [final];
+    }
+
+
+
+</script>
+<script type="text/javascript">
+
+    function updateMaintainabilityChart() {
+        chartMaintainability();
+    };
+
+    function chartMaintainability() {
+        var maxHeight = document.getElementById('svg-maintainability').offsetHeight,
+            maxWidth = document.getElementById('svg-maintainability').offsetWidth,
+            format = d3.format(",d"),
+            color = d3.scale.category20c();
+
+        var bubble = d3.layout.pack()
+            .sort(null)
+            .size([maxWidth, maxHeight])
+            .padding(1.5);
+
+        var r = d3.scale.linear().range([1, maxWidth / 4]).domain([1, 100]);
+        var x = d3.scale.linear().range([1, maxWidth]);
+        var y = d3.scale.linear().range([1, maxHeight]);
+
+
+
+        d3.select("#svg-maintainability").html("<svg></svg>");
+        var svg = d3.select("#svg-maintainability").select("svg")
+            .attr("width", maxWidth)
+            .attr("height", maxHeight)
+            .attr("class", "bubble");
+
+
+        // accessibility for colorblind
+        var defs= svg.append('defs');
+        defs.append('pattern')
+                    .attr('id', 'hash-warning')
+                    .attr('patternUnits', 'userSpaceOnUse')
+                    .attr('width', 4)
+                    .attr('height', 4)
+                    .append('path')
+                        .attr('d', 'M-1,1 l2,-2 M0,4 l4,-4 M3,5 l2,-2')
+                        .attr('stroke', '#000000')
+                        .attr('stroke-width', 1);
+        defs.append('pattern')
+                    .attr('id', 'hash-critical')
+                    .attr('patternUnits', 'userSpaceOnUse')
+                    .attr('width', 4)
+                    .attr('height', 4)
+                    .append('path')
+                        .attr('d', 'M-1,1 l2,-2 M0,4 l4,-4 M3,5 l2,-2')
+                        .attr('stroke', '#000000')
+                        .attr('stroke-width', 3);
+        defs.append('pattern')
+                .attr('id', 'hash-good')
+                .attr('patternUnits', 'userSpaceOnUse')
+                .attr('width', 5)
+                .attr('height', 5)
+                .append('circle')
+                    .attr('cx', 2)
+                    .attr('cy', 2)
+                    .attr('r', 2)
+                    .attr('style', "stroke:none;fill:#eee");
+
+        // initialization
+        d3
+            .select('#svg-maintainability')
+            .datum(data)
+            .call(bubble)
+                ;
+
+        var node = svg.selectAll(".node")
+            .data(
+                bubble.nodes(mapDatas(data))
+                .filter(function(d) { return !d.children; })
+            )
+            .enter().append("g")
+            .attr("class", "node");
+
+            node
+                .append('circle')
+                // uncomment following line if you want fixed size for your bubble (cyclo=1 => size=1)
+                //.attr("r", function(d) { return r(d.value);})
+                .attr("r", function(d) { return d.r; })
+                .attr("x", function(d) { return x(d.x)})
+                .attr("y", function(d) { return y(d.y)})
+
+                .attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; })
+                // events
+                .on('mouseover', function(d) {
+                    var text = '<strong>' + d.name + '</strong>'
+                            + "<br />Cyclomatic Complexity : " + format(d.cyclomaticComplexity)
+                            + "<br />Maintainability Index: " + format(d.maintainabilityIndex);
+                    d3.select('.tooltip').html(text);
+                    d3.select(".tooltip").style("opacity", 1);
+                })
+                .on('mousemove', function() {
+                    d3.select(".tooltip")
+                            .style("left", (d3.event.pageX + 5) + "px")
+                            .style("top",  (d3.event.pageY + 5) + "px");
+                })
+                .on('mouseout', function() {
+                    d3.select(".tooltip").style("opacity", 0);
+                })
+                // for colorblinds
+                .style("fill", function(d) {
+                    if(accessibilityEnabled) {
+                        return 'url(#hash-'+ validate('maintainabilityIndex', d.maintainabilityIndex) +')'
+                    }
+                    switch(validate('maintainabilityIndex', d.maintainabilityIndex)) {
+                        case 'good':
+                            return '#78BA00';
+                        case 'warning':
+                            return '#F4B300';
+                        case 'critical':
+                            return '#FF2E12';
+                        default:
+                            return '#CCCCCC';
+                    }
+                })
+                .style('stroke-width', function(d) {
+                    return accessibilityEnabled ? 1 : 0;
+                })
+                .style('stroke', '#000')
+        ;
+
+        // tooltip
+        d3.select("body")
+                .append("div")
+                .attr("class", "tooltip")
+                .style("opacity", 0);
+
+        // Save as
+        function mapDatas(root) {
+            var datas = [];
+            var i, color;
+            for(i in root) {
+                var e = root[i];
+                datas.push({
+                    "value": parseFloat(e.cyclomaticComplexity) + 1
+                    , "name": e.filename
+                    , "cyclomaticComplexity": parseFloat(e.cyclomaticComplexity)
+                    , "maintainabilityIndex": parseInt(e.maintainabilityIndex)
+                });
+            }
+            return {"children":datas};
+        }
+
+        d3.select(self.frameElement).style("height", maxWidth + "px");
+
+
+        // Save as
+        document.getElementById('btn-save-maintainability').onmouseover = function() {
+            var e = this;
+            if(e.className != 'initialized') {
+                var svgc  = document.getElementById('svg-maintainability').childNodes[0]
+                        , xml  = new XMLSerializer().serializeToString(svgc)
+                        , xmldata = btoa(xml);
+                e.href = 'data:application/octet-stream;base64,' + xmldata;
+                e.className = 'initialized';
+            }
+        };
+
+
+    }
+
+
+
+
+
+
+</script>
+<script type="text/javascript">
+
+
+
+    function updateCustomChart() {
+        chartCustom(xAxis, yAxis, rAxis);
+        document.getElementById('title-custom').innerHTML = textify(xAxis) + ' / ' + textify(yAxis);
+    };
+
+
+    function chartCustom(xData, yData, rData) {
+
+
+        var chart;
+        document.getElementById('svg-custom').innerHTML = '<svg />';
+        nv.addGraph(function() {
+            chart = nv.models.scatterChart()
+                    .showDistX(true)
+                    .showDistY(true)
+                    .showLegend(false)
+                    .useVoronoi(false)
+                    .color(d3.scale.category10().range())
+                    .transitionDuration(300)
+            ;
+
+            chart.xAxis.tickFormat(d3.format('.02f')).axisLabel(textify(xData));
+            chart.yAxis.tickFormat(d3.format('.02f')).axisLabel(textify(yData));
+            chart.tooltipContent(function(key, x, y, e, graph) {
+                return '<h2>' + e.point.title + '</h2>';
+            });
+            chart.scatter.useVoronoi(false);
+
+
+            d3.select("#svg-custom").select("svg")
+                    .attr("width",380)
+                    .attr("height",300)
+                    .datum(mapDatas(data))
+                    .call(chart);
+
+            nv.utils.windowResize(chart.update);
+
+            chart.dispatch.on('stateChange', function(e) { ('New State:', JSON.stringify(e)); });
+
+
+            // Save as
+            var svg  = document.getElementById('svg-custom').childNodes[0],
+                    xml  = new XMLSerializer().serializeToString(svg),
+                    xmldata = btoa(xml),
+                    img  = new Image();
+            document.getElementById('btn-save-custom').href =  'data:application/octet-stream;base64,' + xmldata;
+
+
+            return chart;
+        });
+
+
+        function mapDatas(root) {
+            var results = [
+                { key: textify(xData) + " / " + textify(yData) + " chart", "values": [] }
+            ];
+            var i;
+            for(i in root) {
+                var e = root[i];
+                results[0].values.push({
+                    "title": e.filename
+                    , "x": Math.max(0,parseFloat(e[xData]))
+                    , "y": Math.max(0,parseFloat(e[yData]))
+                    , size: Math.max(0,parseFloat(e[rData]))
+                    , shape: 'round'
+                });
+            }
+            return results;
+        }
+
+    }
+
+
+</script>
+<script type="text/javascript">
+
+    function updateAbstractnessChart() {
+            chartAbstractness();
+    };
+
+    function chartAbstractness() {
+        if(chartAbstractness.initiazed) return;
+        chartAbstractness.initiazed = true;
+
+        var xData = 'abstractness';
+        var yData = 'instability';
+        var rData = 'loc';
+
+        var chart;
+        nv.addGraph(function() {
+            chart = nv.models.scatterChart()
+                    .showDistX(true)
+                    .showDistY(true)
+                    .useVoronoi(false)
+                    .showLegend(false)
+                    .color(d3.scale.category10().range())
+                    .transitionDuration(300)
+                    .forceY([0, 1])
+                    .forceX([0, 1])
+            ;
+
+            chart.xAxis.tickFormat(d3.format('.02f'))
+                    .axisLabel('Abstractness');
+            chart.yAxis.tickFormat(d3.format('.02f'))
+                    .axisLabel('Instability')
+            chart.tooltipContent(function(key, x, y, e, graph) {
+                return '<h2>' + e.point.name + '</h2>';
+            });
+            chart.scatter.useVoronoi(false);
+
+            d3.select("#svg-abstractness").select("svg")
+                    .attr("width",380)
+                    .attr("height",300)
+                    .attr("class",'svg')
+                    .datum(mapDatas(groupedData))
+                    .call(chart);
+
+            nv.utils.windowResize(chart.update);
+
+            chart.dispatch.on('stateChange', function(e) { ('New State:', JSON.stringify(e)); });
+
+
+            // line (legend)
+            chart = nv.models.lineChart()
+                    .options({
+                        margin: {left: 75, bottom: 50},
+                        x: function(d,i) { return i},
+                        showXAxis: false,
+                        showYAxis: false,
+                        showLegend: false,
+                        transitionDuration: 300
+                    })
+                    .forceY([0, 1])
+                    .forceX([0, 1])
+            ;
+
+            d3.select("#svg-abstractness").select("svg")
+                    .datum([{key:" ", values:[ {x:0, y:1}, {x:1, y:0}  ]  , color: '#EEE'  }])
+                    .attr("width",380)
+                    .attr("height",300)
+                    .call(chart);
+
+
+
+            // btn save as
+            var svg = document.getElementById('svg-abstractness').childNodes[0],
+                    xml  = new XMLSerializer().serializeToString(svg),
+                    xmldata = btoa(xml);
+            document.getElementById('btn-save-abstractness').href = 'data:application/octet-stream;base64,' + xmldata;
+
+            return chart;
+        });
+
+        function mapDatas(root) {
+            var results = [
+                { key: textify(xData) + " / " + textify(yData) + " chart", "values": [] }
+            ];
+            var i;
+            for(i in root) {
+                var e = root[i];
+                results[0].values.push({
+                    "name": e.name
+                    , "x": Math.max(0,parseFloat(e[xData]))
+                    , "y": Math.max(0,parseFloat(e[yData]))
+                    , size: Math.max(0,parseFloat([rData]))
+                    , shape: 'round'
+                });
+            }
+            return results;
+        }
+    }
+</script>
+<script type="text/javascript">
+    /**
+     * Thank's to http://bl.ocks.org/mbostock/raw/7607999/
+     */
+    var relations = [{"name":"\\App\\Calendar","size":3000,"relations":["Illuminate\\Database\\Eloquent\\Model"]},{"name":"\\App\\Cico","size":3000,"relations":["Illuminate\\Database\\Eloquent\\Model"]},{"name":"\\App\\Console\\Kernel","size":3000,"relations":["Illuminate\\Foundation\\Console\\Kernel","Illuminate\\Console\\Scheduling\\Schedule"]},{"name":"\\App\\Donations","size":3000,"relations":["Illuminate\\Database\\Eloquent\\Model"]},{"name":"\\App\\EventLog","size":3000,"relations":["Illuminate\\Database\\Eloquent\\Model"]},{"name":"\\App\\Exceptions\\Handler","size":3000,"relations":["Illuminate\\Foundation\\Exceptions\\Handler","\\App\\Exceptions\\Illuminate\\Foundation\\Exceptions\\Handler","Exception","Illuminate\\Auth\\AuthenticationException"]},{"name":"\\App\\Helpers\\Helpers","size":3000,"relations":["Illuminate\\Support\\Facades\\DB","\\App\\Helpers\\Helpers","\\UnexpectedValueException"]},{"name":"\\App\\Http\\Controllers\\addController","size":3000,"relations":["\\App\\Http\\Controllers\\Controller","Illuminate\\Support\\Facades\\Validator","Illuminate\\Support\\Facades\\Input","Kamaln7\\Toastr\\Facades\\Toastr","Illuminate\\Support\\Facades\\Redirect","App\\Profile"]},{"name":"\\App\\Http\\Controllers\\Auth\\LoginController","size":3000,"relations":["App\\Http\\Controllers\\Controller","Validator","Illuminate\\Support\\Facades\\Input","Illuminate\\Support\\Facades\\Redirect","Illuminate\\Support\\Facades\\DB","Illuminate\\Support\\Facades\\Hash","Illuminate\\Support\\Facades\\Session"]},{"name":"\\App\\Http\\Controllers\\CicoController","size":3000,"relations":["\\App\\Http\\Controllers\\Controller","Illuminate\\Support\\Facades\\Input","App\\Profile","App\\Cico","App\\Helpers\\Helpers","Illuminate\\Support\\Facades\\Session","Illuminate\\Support\\Facades\\Redirect"]},{"name":"\\App\\Http\\Controllers\\Controller","size":3000,"relations":["Illuminate\\Routing\\Controller"]},{"name":"\\App\\Http\\Controllers\\DonationController","size":3000,"relations":["\\App\\Http\\Controllers\\Controller","Illuminate\\Support\\Facades\\Validator","Illuminate\\Support\\Facades\\Input","Illuminate\\Support\\Facades\\Redirect","App\\Helpers\\Helpers","App\\Donations"]},{"name":"\\App\\Http\\Controllers\\EventController","size":3000,"relations":["\\App\\Http\\Controllers\\Controller","Illuminate\\Support\\Facades\\Input","App\\Calendar","App\\EventLog","Kamaln7\\Toastr\\Facades\\Toastr","Illuminate\\Support\\Facades\\Redirect","Illuminate\\Support\\Facades\\Validator"]},{"name":"\\App\\Http\\Controllers\\PasswordController","size":3000,"relations":["\\App\\Http\\Controllers\\Controller","App\\StaffProfile","Illuminate\\Support\\Facades\\Input","Illuminate\\Support\\Facades\\Mail","Illuminate\\Support\\Facades\\Session","Illuminate\\Support\\Facades\\Redirect","Illuminate\\Support\\Facades\\Hash"]},{"name":"\\App\\Http\\Controllers\\Profile\\SettingsController","size":3000,"relations":["App\\Http\\Controllers\\Controller","Illuminate\\Support\\Facades\\Input","App\\StaffProfile","Illuminate\\Support\\Facades\\Session","Kamaln7\\Toastr\\Facades\\Toastr","Illuminate\\Support\\Facades\\Redirect","Illuminate\\Support\\Facades\\Validator","Illuminate\\Support\\Facades\\Hash"]},{"name":"\\App\\Http\\Controllers\\Profile\\StaffProfileController","size":3000,"relations":["App\\Http\\Controllers\\Controller","Illuminate\\Support\\Facades\\DB","Illuminate\\Support\\Facades\\Session","App\\Profile","Illuminate\\Support\\Facades\\Redirect","App\\Donations","App\\Calendar","App\\EventLog"]},{"name":"\\App\\Http\\Controllers\\REST\\RESTController","size":3000,"relations":["App\\Http\\Controllers\\Controller","App\\Profile","Illuminate\\Support\\Facades\\DB","App\\Calendar","App\\EventLog"]},{"name":"\\App\\Http\\Kernel","size":3000,"relations":["Illuminate\\Foundation\\Http\\Kernel"]},{"name":"\\App\\Http\\Middleware\\EncryptCookies","size":3000,"relations":["Illuminate\\Cookie\\Middleware\\EncryptCookies"]},{"name":"\\App\\Http\\Middleware\\RedirectIfAuthenticated","size":3000,"relations":["Illuminate\\Support\\Facades\\Auth","Closure"]},{"name":"\\App\\Http\\Middleware\\VerifyCsrfToken","size":3000,"relations":["Illuminate\\Foundation\\Http\\Middleware\\VerifyCsrfToken"]},{"name":"\\App\\Profile","size":3000,"relations":["Illuminate\\Database\\Eloquent\\Model"]},{"name":"\\App\\Providers\\AppServiceProvider","size":3000,"relations":["Illuminate\\Support\\ServiceProvider"]},{"name":"\\App\\Providers\\AuthServiceProvider","size":3000,"relations":["Illuminate\\Foundation\\Support\\Providers\\AuthServiceProvider"]},{"name":"\\App\\Providers\\BroadcastServiceProvider","size":3000,"relations":["Illuminate\\Support\\ServiceProvider","Illuminate\\Support\\Facades\\Broadcast"]},{"name":"\\App\\Providers\\EventServiceProvider","size":3000,"relations":["Illuminate\\Foundation\\Support\\Providers\\EventServiceProvider","\\App\\Providers\\Illuminate\\Foundation\\Support\\Providers\\EventServiceProvider"]},{"name":"\\App\\Providers\\RouteServiceProvider","size":3000,"relations":["Illuminate\\Foundation\\Support\\Providers\\RouteServiceProvider","\\App\\Providers\\Illuminate\\Foundation\\Support\\Providers\\RouteServiceProvider","Illuminate\\Support\\Facades\\Route"]},{"name":"\\App\\StaffProfile","size":3000,"relations":["Illuminate\\Database\\Eloquent\\Model"]},{"name":"Illuminate\\Database\\Eloquent\\Model","relations":[],"size":3000},{"name":"Illuminate\\Foundation\\Console\\Kernel","relations":[],"size":3000},{"name":"Illuminate\\Console\\Scheduling\\Schedule","relations":[],"size":3000},{"name":"Illuminate\\Foundation\\Exceptions\\Handler","relations":[],"size":3000},{"name":"\\App\\Exceptions\\Illuminate\\Foundation\\Exceptions\\Handler","relations":[],"size":3000},{"name":"Exception","relations":[],"size":3000},{"name":"Illuminate\\Auth\\AuthenticationException","relations":[],"size":3000},{"name":"Illuminate\\Support\\Facades\\DB","relations":[],"size":3000},{"name":"\\UnexpectedValueException","relations":[],"size":3000},{"name":"Illuminate\\Support\\Facades\\Validator","relations":[],"size":3000},{"name":"Illuminate\\Support\\Facades\\Input","relations":[],"size":3000},{"name":"Kamaln7\\Toastr\\Facades\\Toastr","relations":[],"size":3000},{"name":"Illuminate\\Support\\Facades\\Redirect","relations":[],"size":3000},{"name":"App\\Profile","relations":[],"size":3000},{"name":"App\\Http\\Controllers\\Controller","relations":[],"size":3000},{"name":"Validator","relations":[],"size":3000},{"name":"Illuminate\\Support\\Facades\\Hash","relations":[],"size":3000},{"name":"Illuminate\\Support\\Facades\\Session","relations":[],"size":3000},{"name":"App\\Cico","relations":[],"size":3000},{"name":"App\\Helpers\\Helpers","relations":[],"size":3000},{"name":"Illuminate\\Routing\\Controller","relations":[],"size":3000},{"name":"App\\Donations","relations":[],"size":3000},{"name":"App\\Calendar","relations":[],"size":3000},{"name":"App\\EventLog","relations":[],"size":3000},{"name":"App\\StaffProfile","relations":[],"size":3000},{"name":"Illuminate\\Support\\Facades\\Mail","relations":[],"size":3000},{"name":"Illuminate\\Foundation\\Http\\Kernel","relations":[],"size":3000},{"name":"Illuminate\\Cookie\\Middleware\\EncryptCookies","relations":[],"size":3000},{"name":"Illuminate\\Support\\Facades\\Auth","relations":[],"size":3000},{"name":"Closure","relations":[],"size":3000},{"name":"Illuminate\\Foundation\\Http\\Middleware\\VerifyCsrfToken","relations":[],"size":3000},{"name":"Illuminate\\Support\\ServiceProvider","relations":[],"size":3000},{"name":"Illuminate\\Foundation\\Support\\Providers\\AuthServiceProvider","relations":[],"size":3000},{"name":"Illuminate\\Support\\Facades\\Broadcast","relations":[],"size":3000},{"name":"Illuminate\\Foundation\\Support\\Providers\\EventServiceProvider","relations":[],"size":3000},{"name":"\\App\\Providers\\Illuminate\\Foundation\\Support\\Providers\\EventServiceProvider","relations":[],"size":3000},{"name":"Illuminate\\Foundation\\Support\\Providers\\RouteServiceProvider","relations":[],"size":3000},{"name":"\\App\\Providers\\Illuminate\\Foundation\\Support\\Providers\\RouteServiceProvider","relations":[],"size":3000},{"name":"Illuminate\\Support\\Facades\\Route","relations":[],"size":3000}];
+
+    function updateRelationsChart() {
+
+        if(updateRelationsChart.initiazed) return;
+        updateRelationsChart.initiazed = true;
+
+        var diameter = 960,
+                radius = diameter / 2,
+                innerRadius = radius - 120;
+
+        var cluster = d3.layout.cluster()
+                .size([360, innerRadius])
+                .sort(null)
+                .value(function(d) { return d.size; });
+
+        var bundle = d3.layout.bundle();
+
+        var line = d3.svg.line.radial()
+                .interpolate("bundle")
+                .tension(.85)
+                .radius(function(d) { return d.y; })
+                .angle(function(d) { return d.x / 180 * Math.PI; });
+
+        var svg = d3.select("#svg-relations").select("svg")
+                .attr("width", diameter)
+                .attr("height", diameter)
+                .append("g")
+                .attr("transform", "translate(" + radius + "," + radius + ")");
+
+        var link = svg.append("g").selectAll(".link"),
+                node = svg.append("g").selectAll(".node");
+
+
+
+        var nodes = cluster.nodes(packageHierarchy(relations)),
+                links = packageImports(nodes);
+        link = link
+                .data(bundle(links))
+                .enter().append("path")
+                .each(function(d) { d.source = d[0], d.target = d[d.length - 1]; })
+                .attr("class", "link")
+                .attr("d", line);
+
+        node = node
+                .data(nodes.filter(function(n) { return !n.children; }))
+                .enter().append("text")
+                .attr("class", "node")
+                .attr("dy", ".31em")
+                .attr("transform", function(d) { return "rotate(" + (d.x - 90) + ")translate(" + (d.y + 8) + ",0)" + (d.x < 180 ? "" : "rotate(180)"); })
+                .style("text-anchor", function(d) { return d.x < 180 ? "start" : "end"; })
+                .text(function(d) { return d.key; })
+                .on("mouseover", mouseovered)
+                .on("mouseout", mouseouted);
+
+
+//        d3.data(relations);
+
+        function mouseovered(d) {
+            node
+                    .each(function(n) { n.target = n.source = false; });
+
+            link
+                    .classed("link--target", function(l) { if (l.target === d) return l.source.source = true; })
+                    .classed("link--source", function(l) { if (l.source === d) return l.target.target = true; })
+                    .filter(function(l) { return l.target === d || l.source === d; })
+                    .each(function() { this.parentNode.appendChild(this); });
+
+            node
+                    .classed("node--target", function(n) { return n.target; })
+                    .classed("node--source", function(n) { return n.source; });
+        }
+
+        function mouseouted(d) {
+            link
+                    .classed("link--target", false)
+                    .classed("link--source", false);
+
+            node
+                    .classed("node--target", false)
+                    .classed("node--source", false);
+        }
+
+        d3.select(self.frameElement).style("height", diameter + "px");
+
+        // Lazily construct the package hierarchy from class names.
+        function packageHierarchy(classes) {
+            var map = {};
+
+            function find(name, data) {
+                name = (data ? name + ' ' : name);
+                var node = map[name], i;
+                if (!node) {
+                    node = map[name] = data || {name: name, children: []};
+                    if (name.length) {
+                        node.parent = find(name.substring(0, i = name.lastIndexOf("\\")));
+                        if(!node.parent.children) {
+                            node.parent.children = []; // fix anomalies
+                        }
+                        node.parent.children.push(node);
+                        node.key = name.substring(i + 1);
+                    }
+                }
+                return node;
+            }
+
+            classes.forEach(function(d) {
+                find(d.name, d);
+            });
+
+            return map[""];
+        }
+
+        // Return a list of imports for the given array of nodes.
+        function packageImports(nodes) {
+            var map = {},
+                    imports = [];
+
+            // Compute a map from name to node.
+            nodes.forEach(function(d) {
+                map[d.name] = d;
+            });
+
+            // For each import, construct a link from the source to target node.
+            nodes.forEach(function(d) {
+                if (d.relations) d.relations.forEach(function(i) {
+                    imports.push({source: map[d.name], target: map[i]});
+                });
+            });
+
+            return imports;
+        }
+
+
+    }
+
+
+    // Save as
+    document.getElementById('btn-save-relations').onmouseover = function() {
+        var e = this;
+        if(e.className != 'initialized') {
+            var svgc  = document.getElementById('svg-relations').childNodes[0]
+                    , xml  = new XMLSerializer().serializeToString(svgc)
+                    , xmldata = btoa(xml);
+            e.href = 'data:application/octet-stream;base64,' + xmldata;
+            e.className = 'initialized';
+        }
+    };
+
+
+</script>
+
+
+<script type="text/javascript">
+
+    document.onreadystatechange = function() {
+        if(document.readyState == 'complete') {
+            // init tabs
+            document.getElementById('link-overview').onclick = function() { displayTab(this, 'overview'); updateAbstractnessChart(); updateCustomChart(); updateMaintainabilityChart(); };
+            document.getElementById('link-score').onclick = function() { displayTab(this, 'score'); updateScoreChart(); };
+            document.getElementById('link-relations').onclick = function() { displayTab(this, 'relations'); updateRelationsChart(); };
+            document.getElementById('link-explore').onclick = function() { displayTab(this, 'explore'); updateTableView(); };
+            document.getElementById('link-repartition').onclick = function() { displayTab(this, 'repartition'); };
+            document.getElementById('link-help').onclick = function() { displayTab(this, 'help')};
+            document.getElementById('menu').firstElementChild.onclick();
+
+            // selects
+            document.getElementById('xAxis').value = xAxis;
+            document.getElementById('yAxis').value = yAxis;
+            document.getElementById('rAxis').value = rAxis;
+
+            
+        }
+    }
+
+
+    // default selected elements
+    var xAxis = 'lcom';
+    var yAxis = 'cyclomaticComplexity';
+    var rAxis = 'loc';
+
+
+
+        var data = [{"filename":"app\/Calendar.php","name":"app\/Calendar.php","loc":12,"logicalLoc":5,"volume":68.11,"length":19,"vocabulary":12,"effort":74.93,"difficulty":"1.1","time":4,"bugs":0.02,"intelligentContent":61.92,"maintainabilityIndexWithoutComment":"71.78","maintainabilityIndex":"71.78","commentWeight":0,"instability":0,"afferentCoupling":0,"efferentCoupling":0,"noc":1,"noca":0,"nocc":1,"noc-anon":0,"noi":0,"nom":0,"cyclomaticComplexity":1,"myerInterval":"1:1","myerDistance":0,"operators":0,"lcom":0,"sysc":0,"rsysc":0,"dc":0,"rdc":0,"sc":0,"rsc":0},{"filename":"app\/Cico.php","name":"app\/Cico.php","loc":14,"logicalLoc":4,"volume":55.35,"length":16,"vocabulary":11,"effort":61.5,"difficulty":"1.11","time":3,"bugs":0.02,"intelligentContent":49.82,"maintainabilityIndexWithoutComment":"74.53","maintainabilityIndex":"107.39","commentWeight":32.86,"instability":0,"afferentCoupling":0,"efferentCoupling":0,"noc":1,"noca":0,"nocc":1,"noc-anon":0,"noi":0,"nom":0,"cyclomaticComplexity":1,"myerInterval":"1:1","myerDistance":0,"operators":0,"lcom":0,"sysc":0,"rsysc":0,"dc":0,"rdc":0,"sc":0,"rsc":0},{"filename":"app\/Console\/Kernel.php","name":"app\/Console\/Kernel.php","loc":40,"logicalLoc":5,"volume":110.36,"length":27,"vocabulary":17,"effort":322.6,"difficulty":"2.92","time":18,"bugs":0.04,"intelligentContent":37.76,"maintainabilityIndexWithoutComment":"70.31","maintainabilityIndex":"114.11","commentWeight":43.8,"instability":1,"afferentCoupling":0,"efferentCoupling":1,"noc":1,"noca":0,"nocc":1,"noc-anon":0,"noi":0,"nom":2,"cyclomaticComplexity":1,"myerInterval":"1:1","myerDistance":0,"operators":0,"lcom":2,"sysc":1.5,"rsysc":0.75,"dc":0.5,"rdc":0.25,"sc":1,"rsc":0.5},{"filename":"app\/Donations.php","name":"app\/Donations.php","loc":12,"logicalLoc":5,"volume":68.11,"length":19,"vocabulary":12,"effort":74.93,"difficulty":"1.1","time":4,"bugs":0.02,"intelligentContent":61.92,"maintainabilityIndexWithoutComment":"71.78","maintainabilityIndex":"71.78","commentWeight":0,"instability":0,"afferentCoupling":0,"efferentCoupling":0,"noc":1,"noca":0,"nocc":1,"noc-anon":0,"noi":0,"nom":0,"cyclomaticComplexity":1,"myerInterval":"1:1","myerDistance":0,"operators":0,"lcom":0,"sysc":0,"rsysc":0,"dc":0,"rdc":0,"sc":0,"rsc":0},{"filename":"app\/EventLog.php","name":"app\/EventLog.php","loc":12,"logicalLoc":5,"volume":68.11,"length":19,"vocabulary":12,"effort":74.93,"difficulty":"1.1","time":4,"bugs":0.02,"intelligentContent":61.92,"maintainabilityIndexWithoutComment":"71.78","maintainabilityIndex":"71.78","commentWeight":0,"instability":0,"afferentCoupling":0,"efferentCoupling":0,"noc":1,"noca":0,"nocc":1,"noc-anon":0,"noi":0,"nom":0,"cyclomaticComplexity":1,"myerInterval":"1:1","myerDistance":0,"operators":0,"lcom":0,"sysc":0,"rsysc":0,"dc":0,"rdc":0,"sc":0,"rsc":0},{"filename":"app\/Exceptions\/Handler.php","name":"app\/Exceptions\/Handler.php","loc":65,"logicalLoc":9,"volume":488.36,"length":90,"vocabulary":43,"effort":3404.59,"difficulty":"6.97","time":189,"bugs":0.16,"intelligentContent":70.05,"maintainabilityIndexWithoutComment":"60.09","maintainabilityIndex":"102.12","commentWeight":42.03,"instability":1,"afferentCoupling":0,"efferentCoupling":3,"noc":1,"noca":0,"nocc":1,"noc-anon":0,"noi":0,"nom":3,"cyclomaticComplexity":2,"myerInterval":"2:2","myerDistance":0,"operators":0,"lcom":3,"sysc":12.33,"rsysc":4.11,"dc":3.33,"rdc":1.11,"sc":9,"rsc":3},{"filename":"app\/Helpers\/Helpers.php","name":"app\/Helpers\/Helpers.php","loc":417,"logicalLoc":94,"volume":5246.93,"length":795,"vocabulary":97,"effort":327753.48,"difficulty":"62.47","time":18209,"bugs":1.75,"intelligentContent":84,"maintainabilityIndexWithoutComment":"24.32","maintainabilityIndex":"61.6","commentWeight":37.28,"instability":0.75,"afferentCoupling":1,"efferentCoupling":3,"noc":1,"noca":0,"nocc":1,"noc-anon":0,"noi":0,"nom":21,"cyclomaticComplexity":49,"myerInterval":"49:51","myerDistance":2,"operators":2,"lcom":21,"sysc":62,"rsysc":2.95,"dc":45,"rdc":2.14,"sc":17,"rsc":0.81},{"filename":"app\/Http\/Controllers\/addController.php","name":"app\/Http\/Controllers\/addController.php","loc":90,"logicalLoc":37,"volume":1674.24,"length":276,"vocabulary":67,"effort":31621.04,"difficulty":"18.89","time":1757,"bugs":0.56,"intelligentContent":88.65,"maintainabilityIndexWithoutComment":"42.14","maintainabilityIndex":"63.08","commentWeight":20.94,"instability":1,"afferentCoupling":0,"efferentCoupling":5,"noc":1,"noca":0,"nocc":1,"noc-anon":0,"noi":0,"nom":1,"cyclomaticComplexity":8,"myerInterval":"8:10","myerDistance":2,"operators":2,"lcom":1,"sysc":25.5,"rsysc":25.5,"dc":0.5,"rdc":0.5,"sc":25,"rsc":25},{"filename":"app\/Http\/Controllers\/Auth\/LoginController.php","name":"app\/Http\/Controllers\/Auth\/LoginController.php","loc":84,"logicalLoc":26,"volume":1147.12,"length":195,"vocabulary":59,"effort":13929.26,"difficulty":"12.14","time":774,"bugs":0.38,"intelligentContent":94.47,"maintainabilityIndexWithoutComment":"46.9","maintainabilityIndex":"76.46","commentWeight":29.56,"instability":1,"afferentCoupling":0,"efferentCoupling":6,"noc":1,"noca":0,"nocc":1,"noc-anon":0,"noi":0,"nom":1,"cyclomaticComplexity":6,"myerInterval":"6:7","myerDistance":1,"operators":1,"lcom":1,"sysc":36.43,"rsysc":36.43,"dc":0.43,"rdc":0.43,"sc":36,"rsc":36},{"filename":"app\/Http\/Controllers\/CicoController.php","name":"app\/Http\/Controllers\/CicoController.php","loc":110,"logicalLoc":44,"volume":1757.91,"length":284,"vocabulary":73,"effort":46080.03,"difficulty":"26.21","time":2560,"bugs":0.59,"intelligentContent":67.06,"maintainabilityIndexWithoutComment":"40.49","maintainabilityIndex":"69.09","commentWeight":28.6,"instability":1,"afferentCoupling":0,"efferentCoupling":6,"noc":1,"noca":0,"nocc":1,"noc-anon":0,"noi":0,"nom":2,"cyclomaticComplexity":7,"myerInterval":"7:7","myerDistance":0,"operators":0,"lcom":2,"sysc":33,"rsysc":16.5,"dc":1,"rdc":0.5,"sc":32,"rsc":16},{"filename":"app\/Http\/Controllers\/Controller.php","name":"app\/Http\/Controllers\/Controller.php","loc":13,"logicalLoc":6,"volume":124,"length":31,"vocabulary":16,"effort":103.33,"difficulty":"0.83","time":6,"bugs":0.04,"intelligentContent":148.8,"maintainabilityIndexWithoutComment":"68.23","maintainabilityIndex":"68.23","commentWeight":0,"instability":0,"afferentCoupling":0,"efferentCoupling":0,"noc":1,"noca":0,"nocc":1,"noc-anon":0,"noi":0,"nom":0,"cyclomaticComplexity":1,"myerInterval":"1:1","myerDistance":0,"operators":0,"lcom":0,"sysc":0,"rsysc":0,"dc":0,"rdc":0,"sc":0,"rsc":0},{"filename":"app\/Http\/Controllers\/DonationController.php","name":"app\/Http\/Controllers\/DonationController.php","loc":102,"logicalLoc":42,"volume":1673.74,"length":274,"vocabulary":69,"effort":33009.79,"difficulty":"19.72","time":1834,"bugs":0.56,"intelligentContent":84.87,"maintainabilityIndexWithoutComment":"41.21","maintainabilityIndex":"64.52","commentWeight":23.31,"instability":1,"afferentCoupling":0,"efferentCoupling":5,"noc":1,"noca":0,"nocc":1,"noc-anon":0,"noi":0,"nom":3,"cyclomaticComplexity":6,"myerInterval":"6:6","myerDistance":0,"operators":0,"lcom":3,"sysc":34.83,"rsysc":11.61,"dc":1.83,"rdc":0.61,"sc":33,"rsc":11},{"filename":"app\/Http\/Controllers\/EventController.php","name":"app\/Http\/Controllers\/EventController.php","loc":79,"logicalLoc":30,"volume":1271.57,"length":218,"vocabulary":57,"effort":19497.41,"difficulty":"15.33","time":1083,"bugs":0.42,"intelligentContent":82.93,"maintainabilityIndexWithoutComment":"45.5","maintainabilityIndex":"71.68","commentWeight":26.18,"instability":1,"afferentCoupling":0,"efferentCoupling":6,"noc":1,"noca":0,"nocc":1,"noc-anon":0,"noi":0,"nom":2,"cyclomaticComplexity":4,"myerInterval":"4:4","myerDistance":0,"operators":0,"lcom":2,"sysc":50.83,"rsysc":25.42,"dc":0.83,"rdc":0.42,"sc":50,"rsc":25},{"filename":"app\/Http\/Controllers\/PasswordController.php","name":"app\/Http\/Controllers\/PasswordController.php","loc":99,"logicalLoc":38,"volume":1329.76,"length":227,"vocabulary":58,"effort":19918.13,"difficulty":"14.98","time":1107,"bugs":0.44,"intelligentContent":88.78,"maintainabilityIndexWithoutComment":"43.13","maintainabilityIndex":"74.52","commentWeight":31.39,"instability":1,"afferentCoupling":0,"efferentCoupling":6,"noc":1,"noca":0,"nocc":1,"noc-anon":0,"noi":0,"nom":4,"cyclomaticComplexity":4,"myerInterval":"4:4","myerDistance":0,"operators":0,"lcom":4,"sysc":61.42,"rsysc":15.36,"dc":2.42,"rdc":0.61,"sc":59,"rsc":14.75},{"filename":"app\/Http\/Controllers\/Profile\/SettingsController.php","name":"app\/Http\/Controllers\/Profile\/SettingsController.php","loc":138,"logicalLoc":53,"volume":2241.48,"length":375,"vocabulary":63,"effort":50631.08,"difficulty":"22.59","time":2813,"bugs":0.75,"intelligentContent":99.23,"maintainabilityIndexWithoutComment":"37.85","maintainabilityIndex":"68.48","commentWeight":30.63,"instability":1,"afferentCoupling":0,"efferentCoupling":7,"noc":1,"noca":0,"nocc":1,"noc-anon":0,"noi":0,"nom":4,"cyclomaticComplexity":8,"myerInterval":"8:8","myerDistance":0,"operators":0,"lcom":4,"sysc":116.61,"rsysc":29.15,"dc":1.61,"rdc":0.4,"sc":115,"rsc":28.75},{"filename":"app\/Http\/Controllers\/Profile\/StaffProfileController.php","name":"app\/Http\/Controllers\/Profile\/StaffProfileController.php","loc":205,"logicalLoc":62,"volume":3221.36,"length":495,"vocabulary":91,"effort":94919.75,"difficulty":"29.47","time":5273,"bugs":1.07,"intelligentContent":109.33,"maintainabilityIndexWithoutComment":"32.71","maintainabilityIndex":"65.9","commentWeight":33.19,"instability":1,"afferentCoupling":0,"efferentCoupling":7,"noc":1,"noca":0,"nocc":1,"noc-anon":0,"noi":0,"nom":5,"cyclomaticComplexity":27,"myerInterval":"27:32","myerDistance":5,"operators":5,"lcom":1,"sysc":58.75,"rsysc":11.75,"dc":8.75,"rdc":1.75,"sc":50,"rsc":10},{"filename":"app\/Http\/Controllers\/REST\/RESTController.php","name":"app\/Http\/Controllers\/REST\/RESTController.php","loc":84,"logicalLoc":37,"volume":1528.65,"length":252,"vocabulary":67,"effort":13108.21,"difficulty":"8.58","time":728,"bugs":0.51,"intelligentContent":178.27,"maintainabilityIndexWithoutComment":"43.36","maintainabilityIndex":"51.77","commentWeight":8.41,"instability":1,"afferentCoupling":0,"efferentCoupling":4,"noc":1,"noca":0,"nocc":1,"noc-anon":0,"noi":0,"nom":11,"cyclomaticComplexity":1,"myerInterval":"1:1","myerDistance":0,"operators":0,"lcom":11,"sysc":25.33,"rsysc":2.3,"dc":11.33,"rdc":1.03,"sc":14,"rsc":1.27},{"filename":"app\/Http\/Kernel.php","name":"app\/Http\/Kernel.php","loc":56,"logicalLoc":5,"volume":480,"length":96,"vocabulary":32,"effort":2888.89,"difficulty":"6.02","time":160,"bugs":0.16,"intelligentContent":79.75,"maintainabilityIndexWithoutComment":"65.84","maintainabilityIndex":"105.08","commentWeight":39.24,"instability":0,"afferentCoupling":0,"efferentCoupling":0,"noc":1,"noca":0,"nocc":1,"noc-anon":0,"noi":0,"nom":0,"cyclomaticComplexity":1,"myerInterval":"1:1","myerDistance":0,"operators":0,"lcom":0,"sysc":0,"rsysc":0,"dc":0,"rdc":0,"sc":0,"rsc":0},{"filename":"app\/Http\/Middleware\/EncryptCookies.php","name":"app\/Http\/Middleware\/EncryptCookies.php","loc":17,"logicalLoc":3,"volume":60.94,"length":17,"vocabulary":12,"effort":167.6,"difficulty":"2.75","time":9,"bugs":0.02,"intelligentContent":22.16,"maintainabilityIndexWithoutComment":"76.96","maintainabilityIndex":"116.75","commentWeight":39.79,"instability":0,"afferentCoupling":0,"efferentCoupling":0,"noc":1,"noca":0,"nocc":1,"noc-anon":0,"noi":0,"nom":0,"cyclomaticComplexity":1,"myerInterval":"1:1","myerDistance":0,"operators":0,"lcom":0,"sysc":0,"rsysc":0,"dc":0,"rdc":0,"sc":0,"rsc":0},{"filename":"app\/Http\/Middleware\/RedirectIfAuthenticated.php","name":"app\/Http\/Middleware\/RedirectIfAuthenticated.php","loc":26,"logicalLoc":5,"volume":149.28,"length":33,"vocabulary":23,"effort":579.55,"difficulty":"3.88","time":32,"bugs":0.05,"intelligentContent":38.45,"maintainabilityIndexWithoutComment":"69.26","maintainabilityIndex":"107.13","commentWeight":37.87,"instability":1,"afferentCoupling":0,"efferentCoupling":2,"noc":1,"noca":0,"nocc":1,"noc-anon":0,"noi":0,"nom":1,"cyclomaticComplexity":2,"myerInterval":"2:2","myerDistance":0,"operators":0,"lcom":1,"sysc":5.67,"rsysc":5.67,"dc":1.67,"rdc":1.67,"sc":4,"rsc":4},{"filename":"app\/Http\/Middleware\/VerifyCsrfToken.php","name":"app\/Http\/Middleware\/VerifyCsrfToken.php","loc":19,"logicalLoc":3,"volume":64.53,"length":18,"vocabulary":12,"effort":193.59,"difficulty":"3","time":11,"bugs":0.02,"intelligentContent":21.51,"maintainabilityIndexWithoutComment":"76.79","maintainabilityIndex":"112.47","commentWeight":35.68,"instability":0,"afferentCoupling":0,"efferentCoupling":0,"noc":1,"noca":0,"nocc":1,"noc-anon":0,"noi":0,"nom":0,"cyclomaticComplexity":1,"myerInterval":"1:1","myerDistance":0,"operators":0,"lcom":0,"sysc":0,"rsysc":0,"dc":0,"rdc":0,"sc":0,"rsc":0},{"filename":"app\/Profile.php","name":"app\/Profile.php","loc":12,"logicalLoc":5,"volume":68.11,"length":19,"vocabulary":12,"effort":74.93,"difficulty":"1.1","time":4,"bugs":0.02,"intelligentContent":61.92,"maintainabilityIndexWithoutComment":"71.78","maintainabilityIndex":"71.78","commentWeight":0,"instability":0,"afferentCoupling":0,"efferentCoupling":0,"noc":1,"noca":0,"nocc":1,"noc-anon":0,"noi":0,"nom":0,"cyclomaticComplexity":1,"myerInterval":"1:1","myerDistance":0,"operators":0,"lcom":0,"sysc":0,"rsysc":0,"dc":0,"rdc":0,"sc":0,"rsc":0},{"filename":"app\/Providers\/AppServiceProvider.php","name":"app\/Providers\/AppServiceProvider.php","loc":28,"logicalLoc":2,"volume":34.87,"length":11,"vocabulary":9,"effort":19.61,"difficulty":"0.56","time":1,"bugs":0.01,"intelligentContent":61.99,"maintainabilityIndexWithoutComment":"82.5","maintainabilityIndex":"124.95","commentWeight":42.45,"instability":0,"afferentCoupling":0,"efferentCoupling":0,"noc":1,"noca":0,"nocc":1,"noc-anon":0,"noi":0,"nom":2,"cyclomaticComplexity":1,"myerInterval":"1:1","myerDistance":0,"operators":0,"lcom":2,"sysc":0,"rsysc":0,"dc":0,"rdc":0,"sc":0,"rsc":0},{"filename":"app\/Providers\/AuthServiceProvider.php","name":"app\/Providers\/AuthServiceProvider.php","loc":30,"logicalLoc":5,"volume":112.59,"length":27,"vocabulary":18,"effort":389.73,"difficulty":"3.46","time":22,"bugs":0.04,"intelligentContent":32.53,"maintainabilityIndexWithoutComment":"70.25","maintainabilityIndex":"110.57","commentWeight":40.32,"instability":0,"afferentCoupling":0,"efferentCoupling":0,"noc":1,"noca":0,"nocc":1,"noc-anon":0,"noi":0,"nom":1,"cyclomaticComplexity":1,"myerInterval":"1:1","myerDistance":0,"operators":0,"lcom":1,"sysc":0,"rsysc":0,"dc":0,"rdc":0,"sc":0,"rsc":0},{"filename":"app\/Providers\/BroadcastServiceProvider.php","name":"app\/Providers\/BroadcastServiceProvider.php","loc":26,"logicalLoc":6,"volume":146.95,"length":34,"vocabulary":20,"effort":563.29,"difficulty":"3.83","time":31,"bugs":0.05,"intelligentContent":38.33,"maintainabilityIndexWithoutComment":"67.72","maintainabilityIndex":"101.59","commentWeight":33.87,"instability":1,"afferentCoupling":0,"efferentCoupling":1,"noc":1,"noca":0,"nocc":1,"noc-anon":0,"noi":0,"nom":2,"cyclomaticComplexity":1,"myerInterval":"1:1","myerDistance":0,"operators":0,"lcom":2,"sysc":4.5,"rsysc":2.25,"dc":3.5,"rdc":1.75,"sc":1,"rsc":0.5},{"filename":"app\/Providers\/EventServiceProvider.php","name":"app\/Providers\/EventServiceProvider.php","loc":32,"logicalLoc":5,"volume":118.54,"length":29,"vocabulary":17,"effort":444.51,"difficulty":"3.75","time":25,"bugs":0.04,"intelligentContent":31.61,"maintainabilityIndexWithoutComment":"70.1","maintainabilityIndex":"109.52","commentWeight":39.42,"instability":1,"afferentCoupling":0,"efferentCoupling":1,"noc":1,"noca":0,"nocc":1,"noc-anon":0,"noi":0,"nom":1,"cyclomaticComplexity":1,"myerInterval":"1:1","myerDistance":0,"operators":0,"lcom":1,"sysc":1,"rsysc":1,"dc":0,"rdc":0,"sc":1,"rsc":1},{"filename":"app\/Providers\/RouteServiceProvider.php","name":"app\/Providers\/RouteServiceProvider.php","loc":79,"logicalLoc":11,"volume":282.03,"length":60,"vocabulary":26,"effort":1565.25,"difficulty":"5.55","time":87,"bugs":0.09,"intelligentContent":50.82,"maintainabilityIndexWithoutComment":"59.99","maintainabilityIndex":"102.1","commentWeight":42.11,"instability":1,"afferentCoupling":0,"efferentCoupling":2,"noc":1,"noca":0,"nocc":1,"noc-anon":0,"noi":0,"nom":5,"cyclomaticComplexity":1,"myerInterval":"1:1","myerDistance":0,"operators":0,"lcom":3,"sysc":4,"rsysc":0.8,"dc":1,"rdc":0.2,"sc":3,"rsc":0.6},{"filename":"app\/StaffProfile.php","name":"app\/StaffProfile.php","loc":87,"logicalLoc":7,"volume":188.02,"length":40,"vocabulary":26,"effort":444.41,"difficulty":"2.36","time":25,"bugs":0.06,"intelligentContent":79.55,"maintainabilityIndexWithoutComment":"65.51","maintainabilityIndex":"110.91","commentWeight":45.4,"instability":0,"afferentCoupling":0,"efferentCoupling":0,"noc":1,"noca":0,"nocc":1,"noc-anon":0,"noi":0,"nom":6,"cyclomaticComplexity":1,"myerInterval":"1:1","myerDistance":0,"operators":0,"lcom":6,"sysc":1,"rsysc":0.17,"dc":1,"rdc":0.17,"sc":0,"rsc":0}]
+    var groupedData = [{"name":"app","childs":[{"filename":"app\/Calendar.php","name":"app\/Calendar.php","loc":12,"logicalLoc":5,"volume":68.11,"length":19,"vocabulary":12,"effort":74.93,"difficulty":"1.1","time":4,"bugs":0.02,"intelligentContent":61.92,"maintainabilityIndexWithoutComment":"71.78","maintainabilityIndex":"71.78","commentWeight":0,"instability":0,"afferentCoupling":0,"efferentCoupling":0,"noc":1,"noca":0,"nocc":1,"noc-anon":0,"noi":0,"nom":0,"cyclomaticComplexity":1,"myerInterval":"1:1","myerDistance":0,"operators":0,"lcom":0,"sysc":0,"rsysc":0,"dc":0,"rdc":0,"sc":0,"rsc":0},{"filename":"app\/Cico.php","name":"app\/Cico.php","loc":14,"logicalLoc":4,"volume":55.35,"length":16,"vocabulary":11,"effort":61.5,"difficulty":"1.11","time":3,"bugs":0.02,"intelligentContent":49.82,"maintainabilityIndexWithoutComment":"74.53","maintainabilityIndex":"107.39","commentWeight":32.86,"instability":0,"afferentCoupling":0,"efferentCoupling":0,"noc":1,"noca":0,"nocc":1,"noc-anon":0,"noi":0,"nom":0,"cyclomaticComplexity":1,"myerInterval":"1:1","myerDistance":0,"operators":0,"lcom":0,"sysc":0,"rsysc":0,"dc":0,"rdc":0,"sc":0,"rsc":0},{"filename":"app\/Donations.php","name":"app\/Donations.php","loc":12,"logicalLoc":5,"volume":68.11,"length":19,"vocabulary":12,"effort":74.93,"difficulty":"1.1","time":4,"bugs":0.02,"intelligentContent":61.92,"maintainabilityIndexWithoutComment":"71.78","maintainabilityIndex":"71.78","commentWeight":0,"instability":0,"afferentCoupling":0,"efferentCoupling":0,"noc":1,"noca":0,"nocc":1,"noc-anon":0,"noi":0,"nom":0,"cyclomaticComplexity":1,"myerInterval":"1:1","myerDistance":0,"operators":0,"lcom":0,"sysc":0,"rsysc":0,"dc":0,"rdc":0,"sc":0,"rsc":0},{"filename":"app\/EventLog.php","name":"app\/EventLog.php","loc":12,"logicalLoc":5,"volume":68.11,"length":19,"vocabulary":12,"effort":74.93,"difficulty":"1.1","time":4,"bugs":0.02,"intelligentContent":61.92,"maintainabilityIndexWithoutComment":"71.78","maintainabilityIndex":"71.78","commentWeight":0,"instability":0,"afferentCoupling":0,"efferentCoupling":0,"noc":1,"noca":0,"nocc":1,"noc-anon":0,"noi":0,"nom":0,"cyclomaticComplexity":1,"myerInterval":"1:1","myerDistance":0,"operators":0,"lcom":0,"sysc":0,"rsysc":0,"dc":0,"rdc":0,"sc":0,"rsc":0},{"filename":"app\/Profile.php","name":"app\/Profile.php","loc":12,"logicalLoc":5,"volume":68.11,"length":19,"vocabulary":12,"effort":74.93,"difficulty":"1.1","time":4,"bugs":0.02,"intelligentContent":61.92,"maintainabilityIndexWithoutComment":"71.78","maintainabilityIndex":"71.78","commentWeight":0,"instability":0,"afferentCoupling":0,"efferentCoupling":0,"noc":1,"noca":0,"nocc":1,"noc-anon":0,"noi":0,"nom":0,"cyclomaticComplexity":1,"myerInterval":"1:1","myerDistance":0,"operators":0,"lcom":0,"sysc":0,"rsysc":0,"dc":0,"rdc":0,"sc":0,"rsc":0},{"filename":"app\/StaffProfile.php","name":"app\/StaffProfile.php","loc":87,"logicalLoc":7,"volume":188.02,"length":40,"vocabulary":26,"effort":444.41,"difficulty":"2.36","time":25,"bugs":0.06,"intelligentContent":79.55,"maintainabilityIndexWithoutComment":"65.51","maintainabilityIndex":"110.91","commentWeight":45.4,"instability":0,"afferentCoupling":0,"efferentCoupling":0,"noc":1,"noca":0,"nocc":1,"noc-anon":0,"noi":0,"nom":6,"cyclomaticComplexity":1,"myerInterval":"1:1","myerDistance":0,"operators":0,"lcom":6,"sysc":1,"rsysc":0.17,"dc":1,"rdc":0.17,"sc":0,"rsc":0}],"depth":1,"abstractness":0,"instability":0.98,"average":{"filename":0,"name":0,"loc":71,"logicalLoc":19.96,"volume":849.32,"length":142.71,"vocabulary":36.82,"effort":23639.87,"difficulty":10.06,"time":1313.32,"bugs":0.28,"intelligentContent":71.01,"maintainabilityIndexWithoutComment":59.39,"maintainabilityIndex":87.4,"commentWeight":28.01,"instability":0.56,"afferentCoupling":0.04,"efferentCoupling":2.32,"noc":1,"noca":0,"nocc":1,"noc-anon":0,"noi":0,"nom":2.75,"cyclomaticComplexity":5,"myerInterval":5,"myerDistance":0.36,"operators":0.36,"lcom":2.54,"sysc":19.1,"rsysc":6.85,"dc":3.03,"rdc":0.48,"sc":16.07,"rsc":6.36},"min":{"filename":"app\/Calendar.php","name":"app\/Calendar.php","loc":12,"logicalLoc":2,"volume":34.87,"length":11,"vocabulary":9,"effort":19.61,"difficulty":"0.56","time":1,"bugs":0.01,"intelligentContent":21.51,"maintainabilityIndexWithoutComment":"24.32","maintainabilityIndex":"51.77","commentWeight":0,"instability":0,"afferentCoupling":0,"efferentCoupling":0,"noc":1,"noca":0,"nocc":1,"noc-anon":0,"noi":0,"nom":0,"cyclomaticComplexity":1,"myerInterval":"1:1","myerDistance":0,"operators":0,"lcom":0,"sysc":0,"rsysc":0,"dc":0,"rdc":0,"sc":0,"rsc":0},"max":{"filename":"app\/StaffProfile.php","name":"app\/StaffProfile.php","loc":417,"logicalLoc":94,"volume":5246.93,"length":795,"vocabulary":97,"effort":327753.48,"difficulty":"62.47","time":18209,"bugs":1.75,"intelligentContent":178.27,"maintainabilityIndexWithoutComment":"82.5","maintainabilityIndex":"124.95","commentWeight":45.4,"instability":1,"afferentCoupling":1,"efferentCoupling":7,"noc":1,"noca":0,"nocc":1,"noc-anon":0,"noi":0,"nom":21,"cyclomaticComplexity":49,"myerInterval":"8:8","myerDistance":5,"operators":5,"lcom":21,"sysc":116.61,"rsysc":36.43,"dc":45,"rdc":2.14,"sc":115,"rsc":36},"sum":{"filename":0,"name":0,"loc":1988,"logicalLoc":559,"volume":23781.02,"length":3996,"vocabulary":1031,"effort":661916.35,"difficulty":281.77,"time":36773,"bugs":7.91,"intelligentContent":1988.4,"maintainabilityIndexWithoutComment":1662.81,"maintainabilityIndex":2447.14,"commentWeight":784.33,"instability":15.75,"afferentCoupling":1,"efferentCoupling":65,"noc":28,"noca":0,"nocc":28,"noc-anon":0,"noi":0,"nom":77,"cyclomaticComplexity":140,"myerInterval":140,"myerDistance":10,"operators":10,"lcom":71,"sysc":534.7,"rsysc":191.72,"dc":84.7,"rdc":13.54,"sc":450,"rsc":178.18}},{"name":"app\/Console","childs":[{"filename":"app\/Console\/Kernel.php","name":"app\/Console\/Kernel.php","loc":40,"logicalLoc":5,"volume":110.36,"length":27,"vocabulary":17,"effort":322.6,"difficulty":"2.92","time":18,"bugs":0.04,"intelligentContent":37.76,"maintainabilityIndexWithoutComment":"70.31","maintainabilityIndex":"114.11","commentWeight":43.8,"instability":1,"afferentCoupling":0,"efferentCoupling":1,"noc":1,"noca":0,"nocc":1,"noc-anon":0,"noi":0,"nom":2,"cyclomaticComplexity":1,"myerInterval":"1:1","myerDistance":0,"operators":0,"lcom":2,"sysc":1.5,"rsysc":0.75,"dc":0.5,"rdc":0.25,"sc":1,"rsc":0.5}],"depth":2,"abstractness":0,"instability":1,"average":{"filename":0,"name":0,"loc":40,"logicalLoc":5,"volume":110.36,"length":27,"vocabulary":17,"effort":322.6,"difficulty":2.92,"time":18,"bugs":0.04,"intelligentContent":37.76,"maintainabilityIndexWithoutComment":70.31,"maintainabilityIndex":114.11,"commentWeight":43.8,"instability":1,"afferentCoupling":0,"efferentCoupling":1,"noc":1,"noca":0,"nocc":1,"noc-anon":0,"noi":0,"nom":2,"cyclomaticComplexity":1,"myerInterval":1,"myerDistance":0,"operators":0,"lcom":2,"sysc":1.5,"rsysc":0.75,"dc":0.5,"rdc":0.25,"sc":1,"rsc":0.5},"min":{"filename":"app\/Console\/Kernel.php","name":"app\/Console\/Kernel.php","loc":40,"logicalLoc":5,"volume":110.36,"length":27,"vocabulary":17,"effort":322.6,"difficulty":"2.92","time":18,"bugs":0.04,"intelligentContent":37.76,"maintainabilityIndexWithoutComment":"70.31","maintainabilityIndex":"114.11","commentWeight":43.8,"instability":1,"afferentCoupling":0,"efferentCoupling":1,"noc":1,"noca":0,"nocc":1,"noc-anon":0,"noi":0,"nom":2,"cyclomaticComplexity":1,"myerInterval":"1:1","myerDistance":0,"operators":0,"lcom":2,"sysc":1.5,"rsysc":0.75,"dc":0.5,"rdc":0.25,"sc":1,"rsc":0.5},"max":{"filename":"app\/Console\/Kernel.php","name":"app\/Console\/Kernel.php","loc":40,"logicalLoc":5,"volume":110.36,"length":27,"vocabulary":17,"effort":322.6,"difficulty":"2.92","time":18,"bugs":0.04,"intelligentContent":37.76,"maintainabilityIndexWithoutComment":"70.31","maintainabilityIndex":"114.11","commentWeight":43.8,"instability":1,"afferentCoupling":0,"efferentCoupling":1,"noc":1,"noca":0,"nocc":1,"noc-anon":0,"noi":0,"nom":2,"cyclomaticComplexity":1,"myerInterval":"1:1","myerDistance":0,"operators":0,"lcom":2,"sysc":1.5,"rsysc":0.75,"dc":0.5,"rdc":0.25,"sc":1,"rsc":0.5},"sum":{"filename":0,"name":0,"loc":40,"logicalLoc":5,"volume":110.36,"length":27,"vocabulary":17,"effort":322.6,"difficulty":2.92,"time":18,"bugs":0.04,"intelligentContent":37.76,"maintainabilityIndexWithoutComment":70.31,"maintainabilityIndex":114.11,"commentWeight":43.8,"instability":1,"afferentCoupling":0,"efferentCoupling":1,"noc":1,"noca":0,"nocc":1,"noc-anon":0,"noi":0,"nom":2,"cyclomaticComplexity":1,"myerInterval":1,"myerDistance":0,"operators":0,"lcom":2,"sysc":1.5,"rsysc":0.75,"dc":0.5,"rdc":0.25,"sc":1,"rsc":0.5}},{"name":"app\/Exceptions","childs":[{"filename":"app\/Exceptions\/Handler.php","name":"app\/Exceptions\/Handler.php","loc":65,"logicalLoc":9,"volume":488.36,"length":90,"vocabulary":43,"effort":3404.59,"difficulty":"6.97","time":189,"bugs":0.16,"intelligentContent":70.05,"maintainabilityIndexWithoutComment":"60.09","maintainabilityIndex":"102.12","commentWeight":42.03,"instability":1,"afferentCoupling":0,"efferentCoupling":3,"noc":1,"noca":0,"nocc":1,"noc-anon":0,"noi":0,"nom":3,"cyclomaticComplexity":2,"myerInterval":"2:2","myerDistance":0,"operators":0,"lcom":3,"sysc":12.33,"rsysc":4.11,"dc":3.33,"rdc":1.11,"sc":9,"rsc":3}],"depth":2,"abstractness":0,"instability":1,"average":{"filename":0,"name":0,"loc":65,"logicalLoc":9,"volume":488.36,"length":90,"vocabulary":43,"effort":3404.59,"difficulty":6.97,"time":189,"bugs":0.16,"intelligentContent":70.05,"maintainabilityIndexWithoutComment":60.09,"maintainabilityIndex":102.12,"commentWeight":42.03,"instability":1,"afferentCoupling":0,"efferentCoupling":3,"noc":1,"noca":0,"nocc":1,"noc-anon":0,"noi":0,"nom":3,"cyclomaticComplexity":2,"myerInterval":2,"myerDistance":0,"operators":0,"lcom":3,"sysc":12.33,"rsysc":4.11,"dc":3.33,"rdc":1.11,"sc":9,"rsc":3},"min":{"filename":"app\/Exceptions\/Handler.php","name":"app\/Exceptions\/Handler.php","loc":65,"logicalLoc":9,"volume":488.36,"length":90,"vocabulary":43,"effort":3404.59,"difficulty":"6.97","time":189,"bugs":0.16,"intelligentContent":70.05,"maintainabilityIndexWithoutComment":"60.09","maintainabilityIndex":"102.12","commentWeight":42.03,"instability":1,"afferentCoupling":0,"efferentCoupling":3,"noc":1,"noca":0,"nocc":1,"noc-anon":0,"noi":0,"nom":3,"cyclomaticComplexity":2,"myerInterval":"2:2","myerDistance":0,"operators":0,"lcom":3,"sysc":12.33,"rsysc":4.11,"dc":3.33,"rdc":1.11,"sc":9,"rsc":3},"max":{"filename":"app\/Exceptions\/Handler.php","name":"app\/Exceptions\/Handler.php","loc":65,"logicalLoc":9,"volume":488.36,"length":90,"vocabulary":43,"effort":3404.59,"difficulty":"6.97","time":189,"bugs":0.16,"intelligentContent":70.05,"maintainabilityIndexWithoutComment":"60.09","maintainabilityIndex":"102.12","commentWeight":42.03,"instability":1,"afferentCoupling":0,"efferentCoupling":3,"noc":1,"noca":0,"nocc":1,"noc-anon":0,"noi":0,"nom":3,"cyclomaticComplexity":2,"myerInterval":"2:2","myerDistance":0,"operators":0,"lcom":3,"sysc":12.33,"rsysc":4.11,"dc":3.33,"rdc":1.11,"sc":9,"rsc":3},"sum":{"filename":0,"name":0,"loc":65,"logicalLoc":9,"volume":488.36,"length":90,"vocabulary":43,"effort":3404.59,"difficulty":6.97,"time":189,"bugs":0.16,"intelligentContent":70.05,"maintainabilityIndexWithoutComment":60.09,"maintainabilityIndex":102.12,"commentWeight":42.03,"instability":1,"afferentCoupling":0,"efferentCoupling":3,"noc":1,"noca":0,"nocc":1,"noc-anon":0,"noi":0,"nom":3,"cyclomaticComplexity":2,"myerInterval":2,"myerDistance":0,"operators":0,"lcom":3,"sysc":12.33,"rsysc":4.11,"dc":3.33,"rdc":1.11,"sc":9,"rsc":3}},{"name":"app\/Helpers","childs":[{"filename":"app\/Helpers\/Helpers.php","name":"app\/Helpers\/Helpers.php","loc":417,"logicalLoc":94,"volume":5246.93,"length":795,"vocabulary":97,"effort":327753.48,"difficulty":"62.47","time":18209,"bugs":1.75,"intelligentContent":84,"maintainabilityIndexWithoutComment":"24.32","maintainabilityIndex":"61.6","commentWeight":37.28,"instability":0.75,"afferentCoupling":1,"efferentCoupling":3,"noc":1,"noca":0,"nocc":1,"noc-anon":0,"noi":0,"nom":21,"cyclomaticComplexity":49,"myerInterval":"49:51","myerDistance":2,"operators":2,"lcom":21,"sysc":62,"rsysc":2.95,"dc":45,"rdc":2.14,"sc":17,"rsc":0.81}],"depth":2,"abstractness":0,"instability":0.75,"average":{"filename":0,"name":0,"loc":417,"logicalLoc":94,"volume":5246.93,"length":795,"vocabulary":97,"effort":327753.48,"difficulty":62.47,"time":18209,"bugs":1.75,"intelligentContent":84,"maintainabilityIndexWithoutComment":24.32,"maintainabilityIndex":61.6,"commentWeight":37.28,"instability":0.75,"afferentCoupling":1,"efferentCoupling":3,"noc":1,"noca":0,"nocc":1,"noc-anon":0,"noi":0,"nom":21,"cyclomaticComplexity":49,"myerInterval":49,"myerDistance":2,"operators":2,"lcom":21,"sysc":62,"rsysc":2.95,"dc":45,"rdc":2.14,"sc":17,"rsc":0.81},"min":{"filename":"app\/Helpers\/Helpers.php","name":"app\/Helpers\/Helpers.php","loc":417,"logicalLoc":94,"volume":5246.93,"length":795,"vocabulary":97,"effort":327753.48,"difficulty":"62.47","time":18209,"bugs":1.75,"intelligentContent":84,"maintainabilityIndexWithoutComment":"24.32","maintainabilityIndex":"61.6","commentWeight":37.28,"instability":0.75,"afferentCoupling":1,"efferentCoupling":3,"noc":1,"noca":0,"nocc":1,"noc-anon":0,"noi":0,"nom":21,"cyclomaticComplexity":49,"myerInterval":"49:51","myerDistance":2,"operators":2,"lcom":21,"sysc":62,"rsysc":2.95,"dc":45,"rdc":2.14,"sc":17,"rsc":0.81},"max":{"filename":"app\/Helpers\/Helpers.php","name":"app\/Helpers\/Helpers.php","loc":417,"logicalLoc":94,"volume":5246.93,"length":795,"vocabulary":97,"effort":327753.48,"difficulty":"62.47","time":18209,"bugs":1.75,"intelligentContent":84,"maintainabilityIndexWithoutComment":"24.32","maintainabilityIndex":"61.6","commentWeight":37.28,"instability":0.75,"afferentCoupling":1,"efferentCoupling":3,"noc":1,"noca":0,"nocc":1,"noc-anon":0,"noi":0,"nom":21,"cyclomaticComplexity":49,"myerInterval":"49:51","myerDistance":2,"operators":2,"lcom":21,"sysc":62,"rsysc":2.95,"dc":45,"rdc":2.14,"sc":17,"rsc":0.81},"sum":{"filename":0,"name":0,"loc":417,"logicalLoc":94,"volume":5246.93,"length":795,"vocabulary":97,"effort":327753.48,"difficulty":62.47,"time":18209,"bugs":1.75,"intelligentContent":84,"maintainabilityIndexWithoutComment":24.32,"maintainabilityIndex":61.6,"commentWeight":37.28,"instability":0.75,"afferentCoupling":1,"efferentCoupling":3,"noc":1,"noca":0,"nocc":1,"noc-anon":0,"noi":0,"nom":21,"cyclomaticComplexity":49,"myerInterval":49,"myerDistance":2,"operators":2,"lcom":21,"sysc":62,"rsysc":2.95,"dc":45,"rdc":2.14,"sc":17,"rsc":0.81}},{"name":"app\/Http","childs":[{"filename":"app\/Http\/Kernel.php","name":"app\/Http\/Kernel.php","loc":56,"logicalLoc":5,"volume":480,"length":96,"vocabulary":32,"effort":2888.89,"difficulty":"6.02","time":160,"bugs":0.16,"intelligentContent":79.75,"maintainabilityIndexWithoutComment":"65.84","maintainabilityIndex":"105.08","commentWeight":39.24,"instability":0,"afferentCoupling":0,"efferentCoupling":0,"noc":1,"noca":0,"nocc":1,"noc-anon":0,"noi":0,"nom":0,"cyclomaticComplexity":1,"myerInterval":"1:1","myerDistance":0,"operators":0,"lcom":0,"sysc":0,"rsysc":0,"dc":0,"rdc":0,"sc":0,"rsc":0}],"depth":2,"abstractness":0,"instability":1,"average":{"filename":0,"name":0,"loc":80.14,"logicalLoc":27.93,"volume":1194.61,"length":199.36,"vocabulary":49.93,"effort":23331.98,"difficulty":13.17,"time":1296.21,"bugs":0.4,"intelligentContent":86.02,"maintainabilityIndexWithoutComment":52.17,"maintainabilityIndex":79.65,"commentWeight":27.49,"instability":0.71,"afferentCoupling":0,"efferentCoupling":3.86,"noc":1,"noca":0,"nocc":1,"noc-anon":0,"noi":0,"nom":2.43,"cyclomaticComplexity":5.5,"myerInterval":5.5,"myerDistance":0.57,"operators":0.57,"lcom":2.14,"sysc":32.03,"rsysc":12.84,"dc":2.17,"rdc":0.57,"sc":29.86,"rsc":12.27},"min":{"filename":"app\/Http\/Controllers\/Auth\/LoginController.php","name":"app\/Http\/Controllers\/Auth\/LoginController.php","loc":13,"logicalLoc":3,"volume":60.94,"length":17,"vocabulary":12,"effort":103.33,"difficulty":"0.83","time":6,"bugs":0.02,"intelligentContent":21.51,"maintainabilityIndexWithoutComment":"32.71","maintainabilityIndex":"51.77","commentWeight":0,"instability":0,"afferentCoupling":0,"efferentCoupling":0,"noc":1,"noca":0,"nocc":1,"noc-anon":0,"noi":0,"nom":0,"cyclomaticComplexity":1,"myerInterval":"1:1","myerDistance":0,"operators":0,"lcom":0,"sysc":0,"rsysc":0,"dc":0,"rdc":0,"sc":0,"rsc":0},"max":{"filename":"app\/Http\/Middleware\/VerifyCsrfToken.php","name":"app\/Http\/Middleware\/VerifyCsrfToken.php","loc":205,"logicalLoc":62,"volume":3221.36,"length":495,"vocabulary":91,"effort":94919.75,"difficulty":"29.47","time":5273,"bugs":1.07,"intelligentContent":178.27,"maintainabilityIndexWithoutComment":"76.96","maintainabilityIndex":"116.75","commentWeight":39.79,"instability":1,"afferentCoupling":0,"efferentCoupling":7,"noc":1,"noca":0,"nocc":1,"noc-anon":0,"noi":0,"nom":11,"cyclomaticComplexity":27,"myerInterval":"8:8","myerDistance":5,"operators":5,"lcom":11,"sysc":116.61,"rsysc":36.43,"dc":11.33,"rdc":1.75,"sc":115,"rsc":36},"sum":{"filename":0,"name":0,"loc":1122,"logicalLoc":391,"volume":16724.58,"length":2791,"vocabulary":699,"effort":326647.66,"difficulty":184.39,"time":18147,"bugs":5.57,"intelligentContent":1204.26,"maintainabilityIndexWithoutComment":730.37,"maintainabilityIndex":1115.16,"commentWeight":384.79,"instability":10,"afferentCoupling":0,"efferentCoupling":54,"noc":14,"noca":0,"nocc":14,"noc-anon":0,"noi":0,"nom":34,"cyclomaticComplexity":77,"myerInterval":77,"myerDistance":8,"operators":8,"lcom":30,"sysc":448.37,"rsysc":179.69,"dc":30.37,"rdc":7.92,"sc":418,"rsc":171.77}},{"name":"app\/Http\/Controllers","childs":[{"filename":"app\/Http\/Controllers\/addController.php","name":"app\/Http\/Controllers\/addController.php","loc":90,"logicalLoc":37,"volume":1674.24,"length":276,"vocabulary":67,"effort":31621.04,"difficulty":"18.89","time":1757,"bugs":0.56,"intelligentContent":88.65,"maintainabilityIndexWithoutComment":"42.14","maintainabilityIndex":"63.08","commentWeight":20.94,"instability":1,"afferentCoupling":0,"efferentCoupling":5,"noc":1,"noca":0,"nocc":1,"noc-anon":0,"noi":0,"nom":1,"cyclomaticComplexity":8,"myerInterval":"8:10","myerDistance":2,"operators":2,"lcom":1,"sysc":25.5,"rsysc":25.5,"dc":0.5,"rdc":0.5,"sc":25,"rsc":25},{"filename":"app\/Http\/Controllers\/CicoController.php","name":"app\/Http\/Controllers\/CicoController.php","loc":110,"logicalLoc":44,"volume":1757.91,"length":284,"vocabulary":73,"effort":46080.03,"difficulty":"26.21","time":2560,"bugs":0.59,"intelligentContent":67.06,"maintainabilityIndexWithoutComment":"40.49","maintainabilityIndex":"69.09","commentWeight":28.6,"instability":1,"afferentCoupling":0,"efferentCoupling":6,"noc":1,"noca":0,"nocc":1,"noc-anon":0,"noi":0,"nom":2,"cyclomaticComplexity":7,"myerInterval":"7:7","myerDistance":0,"operators":0,"lcom":2,"sysc":33,"rsysc":16.5,"dc":1,"rdc":0.5,"sc":32,"rsc":16},{"filename":"app\/Http\/Controllers\/Controller.php","name":"app\/Http\/Controllers\/Controller.php","loc":13,"logicalLoc":6,"volume":124,"length":31,"vocabulary":16,"effort":103.33,"difficulty":"0.83","time":6,"bugs":0.04,"intelligentContent":148.8,"maintainabilityIndexWithoutComment":"68.23","maintainabilityIndex":"68.23","commentWeight":0,"instability":0,"afferentCoupling":0,"efferentCoupling":0,"noc":1,"noca":0,"nocc":1,"noc-anon":0,"noi":0,"nom":0,"cyclomaticComplexity":1,"myerInterval":"1:1","myerDistance":0,"operators":0,"lcom":0,"sysc":0,"rsysc":0,"dc":0,"rdc":0,"sc":0,"rsc":0},{"filename":"app\/Http\/Controllers\/DonationController.php","name":"app\/Http\/Controllers\/DonationController.php","loc":102,"logicalLoc":42,"volume":1673.74,"length":274,"vocabulary":69,"effort":33009.79,"difficulty":"19.72","time":1834,"bugs":0.56,"intelligentContent":84.87,"maintainabilityIndexWithoutComment":"41.21","maintainabilityIndex":"64.52","commentWeight":23.31,"instability":1,"afferentCoupling":0,"efferentCoupling":5,"noc":1,"noca":0,"nocc":1,"noc-anon":0,"noi":0,"nom":3,"cyclomaticComplexity":6,"myerInterval":"6:6","myerDistance":0,"operators":0,"lcom":3,"sysc":34.83,"rsysc":11.61,"dc":1.83,"rdc":0.61,"sc":33,"rsc":11},{"filename":"app\/Http\/Controllers\/EventController.php","name":"app\/Http\/Controllers\/EventController.php","loc":79,"logicalLoc":30,"volume":1271.57,"length":218,"vocabulary":57,"effort":19497.41,"difficulty":"15.33","time":1083,"bugs":0.42,"intelligentContent":82.93,"maintainabilityIndexWithoutComment":"45.5","maintainabilityIndex":"71.68","commentWeight":26.18,"instability":1,"afferentCoupling":0,"efferentCoupling":6,"noc":1,"noca":0,"nocc":1,"noc-anon":0,"noi":0,"nom":2,"cyclomaticComplexity":4,"myerInterval":"4:4","myerDistance":0,"operators":0,"lcom":2,"sysc":50.83,"rsysc":25.42,"dc":0.83,"rdc":0.42,"sc":50,"rsc":25},{"filename":"app\/Http\/Controllers\/PasswordController.php","name":"app\/Http\/Controllers\/PasswordController.php","loc":99,"logicalLoc":38,"volume":1329.76,"length":227,"vocabulary":58,"effort":19918.13,"difficulty":"14.98","time":1107,"bugs":0.44,"intelligentContent":88.78,"maintainabilityIndexWithoutComment":"43.13","maintainabilityIndex":"74.52","commentWeight":31.39,"instability":1,"afferentCoupling":0,"efferentCoupling":6,"noc":1,"noca":0,"nocc":1,"noc-anon":0,"noi":0,"nom":4,"cyclomaticComplexity":4,"myerInterval":"4:4","myerDistance":0,"operators":0,"lcom":4,"sysc":61.42,"rsysc":15.36,"dc":2.42,"rdc":0.61,"sc":59,"rsc":14.75}],"depth":3,"abstractness":0,"instability":1,"average":{"filename":0,"name":0,"loc":100.4,"logicalLoc":37.5,"volume":1596.98,"length":262.7,"vocabulary":62,"effort":32281.8,"difficulty":16.87,"time":1793.5,"bugs":0.53,"intelligentContent":104.24,"maintainabilityIndexWithoutComment":44.15,"maintainabilityIndex":67.37,"commentWeight":23.22,"instability":0.9,"afferentCoupling":0,"efferentCoupling":5.2,"noc":1,"noca":0,"nocc":1,"noc-anon":0,"noi":0,"nom":3.3,"cyclomaticComplexity":7.2,"myerInterval":7.2,"myerDistance":0.8,"operators":0.8,"lcom":2.9,"sysc":44.27,"rsysc":17.4,"dc":2.87,"rdc":0.63,"sc":41.4,"rsc":16.78},"min":{"filename":"app\/Http\/Controllers\/Auth\/LoginController.php","name":"app\/Http\/Controllers\/Auth\/LoginController.php","loc":13,"logicalLoc":6,"volume":124,"length":31,"vocabulary":16,"effort":103.33,"difficulty":"0.83","time":6,"bugs":0.04,"intelligentContent":67.06,"maintainabilityIndexWithoutComment":"32.71","maintainabilityIndex":"51.77","commentWeight":0,"instability":0,"afferentCoupling":0,"efferentCoupling":0,"noc":1,"noca":0,"nocc":1,"noc-anon":0,"noi":0,"nom":0,"cyclomaticComplexity":1,"myerInterval":"1:1","myerDistance":0,"operators":0,"lcom":0,"sysc":0,"rsysc":0,"dc":0,"rdc":0,"sc":0,"rsc":0},"max":{"filename":"app\/Http\/Controllers\/addController.php","name":"app\/Http\/Controllers\/addController.php","loc":205,"logicalLoc":62,"volume":3221.36,"length":495,"vocabulary":91,"effort":94919.75,"difficulty":"29.47","time":5273,"bugs":1.07,"intelligentContent":178.27,"maintainabilityIndexWithoutComment":"68.23","maintainabilityIndex":"76.46","commentWeight":33.19,"instability":1,"afferentCoupling":0,"efferentCoupling":7,"noc":1,"noca":0,"nocc":1,"noc-anon":0,"noi":0,"nom":11,"cyclomaticComplexity":27,"myerInterval":"8:8","myerDistance":5,"operators":5,"lcom":11,"sysc":116.61,"rsysc":36.43,"dc":11.33,"rdc":1.75,"sc":115,"rsc":36},"sum":{"filename":0,"name":0,"loc":1004,"logicalLoc":375,"volume":15969.83,"length":2627,"vocabulary":620,"effort":322818.03,"difficulty":168.74,"time":17935,"bugs":5.32,"intelligentContent":1042.39,"maintainabilityIndexWithoutComment":441.52,"maintainabilityIndex":673.73,"commentWeight":232.21,"instability":9,"afferentCoupling":0,"efferentCoupling":52,"noc":10,"noca":0,"nocc":10,"noc-anon":0,"noi":0,"nom":33,"cyclomaticComplexity":72,"myerInterval":72,"myerDistance":8,"operators":8,"lcom":29,"sysc":442.7,"rsysc":174.02,"dc":28.7,"rdc":6.25,"sc":414,"rsc":167.77}},{"name":"app\/Http\/Controllers\/Auth","childs":[{"filename":"app\/Http\/Controllers\/Auth\/LoginController.php","name":"app\/Http\/Controllers\/Auth\/LoginController.php","loc":84,"logicalLoc":26,"volume":1147.12,"length":195,"vocabulary":59,"effort":13929.26,"difficulty":"12.14","time":774,"bugs":0.38,"intelligentContent":94.47,"maintainabilityIndexWithoutComment":"46.9","maintainabilityIndex":"76.46","commentWeight":29.56,"instability":1,"afferentCoupling":0,"efferentCoupling":6,"noc":1,"noca":0,"nocc":1,"noc-anon":0,"noi":0,"nom":1,"cyclomaticComplexity":6,"myerInterval":"6:7","myerDistance":1,"operators":1,"lcom":1,"sysc":36.43,"rsysc":36.43,"dc":0.43,"rdc":0.43,"sc":36,"rsc":36}],"depth":4,"abstractness":0,"instability":1,"average":{"filename":0,"name":0,"loc":84,"logicalLoc":26,"volume":1147.12,"length":195,"vocabulary":59,"effort":13929.26,"difficulty":12.14,"time":774,"bugs":0.38,"intelligentContent":94.47,"maintainabilityIndexWithoutComment":46.9,"maintainabilityIndex":76.46,"commentWeight":29.56,"instability":1,"afferentCoupling":0,"efferentCoupling":6,"noc":1,"noca":0,"nocc":1,"noc-anon":0,"noi":0,"nom":1,"cyclomaticComplexity":6,"myerInterval":6,"myerDistance":1,"operators":1,"lcom":1,"sysc":36.43,"rsysc":36.43,"dc":0.43,"rdc":0.43,"sc":36,"rsc":36},"min":{"filename":"app\/Http\/Controllers\/Auth\/LoginController.php","name":"app\/Http\/Controllers\/Auth\/LoginController.php","loc":84,"logicalLoc":26,"volume":1147.12,"length":195,"vocabulary":59,"effort":13929.26,"difficulty":"12.14","time":774,"bugs":0.38,"intelligentContent":94.47,"maintainabilityIndexWithoutComment":"46.9","maintainabilityIndex":"76.46","commentWeight":29.56,"instability":1,"afferentCoupling":0,"efferentCoupling":6,"noc":1,"noca":0,"nocc":1,"noc-anon":0,"noi":0,"nom":1,"cyclomaticComplexity":6,"myerInterval":"6:7","myerDistance":1,"operators":1,"lcom":1,"sysc":36.43,"rsysc":36.43,"dc":0.43,"rdc":0.43,"sc":36,"rsc":36},"max":{"filename":"app\/Http\/Controllers\/Auth\/LoginController.php","name":"app\/Http\/Controllers\/Auth\/LoginController.php","loc":84,"logicalLoc":26,"volume":1147.12,"length":195,"vocabulary":59,"effort":13929.26,"difficulty":"12.14","time":774,"bugs":0.38,"intelligentContent":94.47,"maintainabilityIndexWithoutComment":"46.9","maintainabilityIndex":"76.46","commentWeight":29.56,"instability":1,"afferentCoupling":0,"efferentCoupling":6,"noc":1,"noca":0,"nocc":1,"noc-anon":0,"noi":0,"nom":1,"cyclomaticComplexity":6,"myerInterval":"6:7","myerDistance":1,"operators":1,"lcom":1,"sysc":36.43,"rsysc":36.43,"dc":0.43,"rdc":0.43,"sc":36,"rsc":36},"sum":{"filename":0,"name":0,"loc":84,"logicalLoc":26,"volume":1147.12,"length":195,"vocabulary":59,"effort":13929.26,"difficulty":12.14,"time":774,"bugs":0.38,"intelligentContent":94.47,"maintainabilityIndexWithoutComment":46.9,"maintainabilityIndex":76.46,"commentWeight":29.56,"instability":1,"afferentCoupling":0,"efferentCoupling":6,"noc":1,"noca":0,"nocc":1,"noc-anon":0,"noi":0,"nom":1,"cyclomaticComplexity":6,"myerInterval":6,"myerDistance":1,"operators":1,"lcom":1,"sysc":36.43,"rsysc":36.43,"dc":0.43,"rdc":0.43,"sc":36,"rsc":36}},{"name":"app\/Http\/Controllers\/Profile","childs":[{"filename":"app\/Http\/Controllers\/Profile\/SettingsController.php","name":"app\/Http\/Controllers\/Profile\/SettingsController.php","loc":138,"logicalLoc":53,"volume":2241.48,"length":375,"vocabulary":63,"effort":50631.08,"difficulty":"22.59","time":2813,"bugs":0.75,"intelligentContent":99.23,"maintainabilityIndexWithoutComment":"37.85","maintainabilityIndex":"68.48","commentWeight":30.63,"instability":1,"afferentCoupling":0,"efferentCoupling":7,"noc":1,"noca":0,"nocc":1,"noc-anon":0,"noi":0,"nom":4,"cyclomaticComplexity":8,"myerInterval":"8:8","myerDistance":0,"operators":0,"lcom":4,"sysc":116.61,"rsysc":29.15,"dc":1.61,"rdc":0.4,"sc":115,"rsc":28.75},{"filename":"app\/Http\/Controllers\/Profile\/StaffProfileController.php","name":"app\/Http\/Controllers\/Profile\/StaffProfileController.php","loc":205,"logicalLoc":62,"volume":3221.36,"length":495,"vocabulary":91,"effort":94919.75,"difficulty":"29.47","time":5273,"bugs":1.07,"intelligentContent":109.33,"maintainabilityIndexWithoutComment":"32.71","maintainabilityIndex":"65.9","commentWeight":33.19,"instability":1,"afferentCoupling":0,"efferentCoupling":7,"noc":1,"noca":0,"nocc":1,"noc-anon":0,"noi":0,"nom":5,"cyclomaticComplexity":27,"myerInterval":"27:32","myerDistance":5,"operators":5,"lcom":1,"sysc":58.75,"rsysc":11.75,"dc":8.75,"rdc":1.75,"sc":50,"rsc":10}],"depth":4,"abstractness":0,"instability":1,"average":{"filename":0,"name":0,"loc":171.5,"logicalLoc":57.5,"volume":2731.42,"length":435,"vocabulary":77,"effort":72775.42,"difficulty":26.03,"time":4043,"bugs":0.91,"intelligentContent":104.28,"maintainabilityIndexWithoutComment":35.28,"maintainabilityIndex":67.19,"commentWeight":31.91,"instability":1,"afferentCoupling":0,"efferentCoupling":7,"noc":1,"noca":0,"nocc":1,"noc-anon":0,"noi":0,"nom":4.5,"cyclomaticComplexity":17.5,"myerInterval":17.5,"myerDistance":2.5,"operators":2.5,"lcom":2.5,"sysc":87.68,"rsysc":20.45,"dc":5.18,"rdc":1.08,"sc":82.5,"rsc":19.38},"min":{"filename":"app\/Http\/Controllers\/Profile\/SettingsController.php","name":"app\/Http\/Controllers\/Profile\/SettingsController.php","loc":138,"logicalLoc":53,"volume":2241.48,"length":375,"vocabulary":63,"effort":50631.08,"difficulty":"22.59","time":2813,"bugs":0.75,"intelligentContent":99.23,"maintainabilityIndexWithoutComment":"32.71","maintainabilityIndex":"65.9","commentWeight":30.63,"instability":1,"afferentCoupling":0,"efferentCoupling":7,"noc":1,"noca":0,"nocc":1,"noc-anon":0,"noi":0,"nom":4,"cyclomaticComplexity":8,"myerInterval":"27:32","myerDistance":0,"operators":0,"lcom":1,"sysc":58.75,"rsysc":11.75,"dc":1.61,"rdc":0.4,"sc":50,"rsc":10},"max":{"filename":"app\/Http\/Controllers\/Profile\/StaffProfileController.php","name":"app\/Http\/Controllers\/Profile\/StaffProfileController.php","loc":205,"logicalLoc":62,"volume":3221.36,"length":495,"vocabulary":91,"effort":94919.75,"difficulty":"29.47","time":5273,"bugs":1.07,"intelligentContent":109.33,"maintainabilityIndexWithoutComment":"37.85","maintainabilityIndex":"68.48","commentWeight":33.19,"instability":1,"afferentCoupling":0,"efferentCoupling":7,"noc":1,"noca":0,"nocc":1,"noc-anon":0,"noi":0,"nom":5,"cyclomaticComplexity":27,"myerInterval":"8:8","myerDistance":5,"operators":5,"lcom":4,"sysc":116.61,"rsysc":29.15,"dc":8.75,"rdc":1.75,"sc":115,"rsc":28.75},"sum":{"filename":0,"name":0,"loc":343,"logicalLoc":115,"volume":5462.84,"length":870,"vocabulary":154,"effort":145550.83,"difficulty":52.06,"time":8086,"bugs":1.82,"intelligentContent":208.56,"maintainabilityIndexWithoutComment":70.56,"maintainabilityIndex":134.38,"commentWeight":63.82,"instability":2,"afferentCoupling":0,"efferentCoupling":14,"noc":2,"noca":0,"nocc":2,"noc-anon":0,"noi":0,"nom":9,"cyclomaticComplexity":35,"myerInterval":35,"myerDistance":5,"operators":5,"lcom":5,"sysc":175.36,"rsysc":40.9,"dc":10.36,"rdc":2.15,"sc":165,"rsc":38.75}},{"name":"app\/Http\/Controllers\/REST","childs":[{"filename":"app\/Http\/Controllers\/REST\/RESTController.php","name":"app\/Http\/Controllers\/REST\/RESTController.php","loc":84,"logicalLoc":37,"volume":1528.65,"length":252,"vocabulary":67,"effort":13108.21,"difficulty":"8.58","time":728,"bugs":0.51,"intelligentContent":178.27,"maintainabilityIndexWithoutComment":"43.36","maintainabilityIndex":"51.77","commentWeight":8.41,"instability":1,"afferentCoupling":0,"efferentCoupling":4,"noc":1,"noca":0,"nocc":1,"noc-anon":0,"noi":0,"nom":11,"cyclomaticComplexity":1,"myerInterval":"1:1","myerDistance":0,"operators":0,"lcom":11,"sysc":25.33,"rsysc":2.3,"dc":11.33,"rdc":1.03,"sc":14,"rsc":1.27}],"depth":4,"abstractness":0,"instability":1,"average":{"filename":0,"name":0,"loc":84,"logicalLoc":37,"volume":1528.65,"length":252,"vocabulary":67,"effort":13108.21,"difficulty":8.58,"time":728,"bugs":0.51,"intelligentContent":178.27,"maintainabilityIndexWithoutComment":43.36,"maintainabilityIndex":51.77,"commentWeight":8.41,"instability":1,"afferentCoupling":0,"efferentCoupling":4,"noc":1,"noca":0,"nocc":1,"noc-anon":0,"noi":0,"nom":11,"cyclomaticComplexity":1,"myerInterval":1,"myerDistance":0,"operators":0,"lcom":11,"sysc":25.33,"rsysc":2.3,"dc":11.33,"rdc":1.03,"sc":14,"rsc":1.27},"min":{"filename":"app\/Http\/Controllers\/REST\/RESTController.php","name":"app\/Http\/Controllers\/REST\/RESTController.php","loc":84,"logicalLoc":37,"volume":1528.65,"length":252,"vocabulary":67,"effort":13108.21,"difficulty":"8.58","time":728,"bugs":0.51,"intelligentContent":178.27,"maintainabilityIndexWithoutComment":"43.36","maintainabilityIndex":"51.77","commentWeight":8.41,"instability":1,"afferentCoupling":0,"efferentCoupling":4,"noc":1,"noca":0,"nocc":1,"noc-anon":0,"noi":0,"nom":11,"cyclomaticComplexity":1,"myerInterval":"1:1","myerDistance":0,"operators":0,"lcom":11,"sysc":25.33,"rsysc":2.3,"dc":11.33,"rdc":1.03,"sc":14,"rsc":1.27},"max":{"filename":"app\/Http\/Controllers\/REST\/RESTController.php","name":"app\/Http\/Controllers\/REST\/RESTController.php","loc":84,"logicalLoc":37,"volume":1528.65,"length":252,"vocabulary":67,"effort":13108.21,"difficulty":"8.58","time":728,"bugs":0.51,"intelligentContent":178.27,"maintainabilityIndexWithoutComment":"43.36","maintainabilityIndex":"51.77","commentWeight":8.41,"instability":1,"afferentCoupling":0,"efferentCoupling":4,"noc":1,"noca":0,"nocc":1,"noc-anon":0,"noi":0,"nom":11,"cyclomaticComplexity":1,"myerInterval":"1:1","myerDistance":0,"operators":0,"lcom":11,"sysc":25.33,"rsysc":2.3,"dc":11.33,"rdc":1.03,"sc":14,"rsc":1.27},"sum":{"filename":0,"name":0,"loc":84,"logicalLoc":37,"volume":1528.65,"length":252,"vocabulary":67,"effort":13108.21,"difficulty":8.58,"time":728,"bugs":0.51,"intelligentContent":178.27,"maintainabilityIndexWithoutComment":43.36,"maintainabilityIndex":51.77,"commentWeight":8.41,"instability":1,"afferentCoupling":0,"efferentCoupling":4,"noc":1,"noca":0,"nocc":1,"noc-anon":0,"noi":0,"nom":11,"cyclomaticComplexity":1,"myerInterval":1,"myerDistance":0,"operators":0,"lcom":11,"sysc":25.33,"rsysc":2.3,"dc":11.33,"rdc":1.03,"sc":14,"rsc":1.27}},{"name":"app\/Http\/Middleware","childs":[{"filename":"app\/Http\/Middleware\/EncryptCookies.php","name":"app\/Http\/Middleware\/EncryptCookies.php","loc":17,"logicalLoc":3,"volume":60.94,"length":17,"vocabulary":12,"effort":167.6,"difficulty":"2.75","time":9,"bugs":0.02,"intelligentContent":22.16,"maintainabilityIndexWithoutComment":"76.96","maintainabilityIndex":"116.75","commentWeight":39.79,"instability":0,"afferentCoupling":0,"efferentCoupling":0,"noc":1,"noca":0,"nocc":1,"noc-anon":0,"noi":0,"nom":0,"cyclomaticComplexity":1,"myerInterval":"1:1","myerDistance":0,"operators":0,"lcom":0,"sysc":0,"rsysc":0,"dc":0,"rdc":0,"sc":0,"rsc":0},{"filename":"app\/Http\/Middleware\/RedirectIfAuthenticated.php","name":"app\/Http\/Middleware\/RedirectIfAuthenticated.php","loc":26,"logicalLoc":5,"volume":149.28,"length":33,"vocabulary":23,"effort":579.55,"difficulty":"3.88","time":32,"bugs":0.05,"intelligentContent":38.45,"maintainabilityIndexWithoutComment":"69.26","maintainabilityIndex":"107.13","commentWeight":37.87,"instability":1,"afferentCoupling":0,"efferentCoupling":2,"noc":1,"noca":0,"nocc":1,"noc-anon":0,"noi":0,"nom":1,"cyclomaticComplexity":2,"myerInterval":"2:2","myerDistance":0,"operators":0,"lcom":1,"sysc":5.67,"rsysc":5.67,"dc":1.67,"rdc":1.67,"sc":4,"rsc":4},{"filename":"app\/Http\/Middleware\/VerifyCsrfToken.php","name":"app\/Http\/Middleware\/VerifyCsrfToken.php","loc":19,"logicalLoc":3,"volume":64.53,"length":18,"vocabulary":12,"effort":193.59,"difficulty":"3","time":11,"bugs":0.02,"intelligentContent":21.51,"maintainabilityIndexWithoutComment":"76.79","maintainabilityIndex":"112.47","commentWeight":35.68,"instability":0,"afferentCoupling":0,"efferentCoupling":0,"noc":1,"noca":0,"nocc":1,"noc-anon":0,"noi":0,"nom":0,"cyclomaticComplexity":1,"myerInterval":"1:1","myerDistance":0,"operators":0,"lcom":0,"sysc":0,"rsysc":0,"dc":0,"rdc":0,"sc":0,"rsc":0}],"depth":3,"abstractness":0,"instability":1,"average":{"filename":0,"name":0,"loc":20.67,"logicalLoc":3.67,"volume":91.58,"length":22.67,"vocabulary":15.67,"effort":313.58,"difficulty":3.21,"time":17.33,"bugs":0.03,"intelligentContent":27.37,"maintainabilityIndexWithoutComment":74.34,"maintainabilityIndex":112.12,"commentWeight":37.78,"instability":0.33,"afferentCoupling":0,"efferentCoupling":0.67,"noc":1,"noca":0,"nocc":1,"noc-anon":0,"noi":0,"nom":0.33,"cyclomaticComplexity":1.33,"myerInterval":1.33,"myerDistance":0,"operators":0,"lcom":0.33,"sysc":1.89,"rsysc":1.89,"dc":0.56,"rdc":0.56,"sc":1.33,"rsc":1.33},"min":{"filename":"app\/Http\/Middleware\/EncryptCookies.php","name":"app\/Http\/Middleware\/EncryptCookies.php","loc":17,"logicalLoc":3,"volume":60.94,"length":17,"vocabulary":12,"effort":167.6,"difficulty":"2.75","time":9,"bugs":0.02,"intelligentContent":21.51,"maintainabilityIndexWithoutComment":"69.26","maintainabilityIndex":"107.13","commentWeight":35.68,"instability":0,"afferentCoupling":0,"efferentCoupling":0,"noc":1,"noca":0,"nocc":1,"noc-anon":0,"noi":0,"nom":0,"cyclomaticComplexity":1,"myerInterval":"1:1","myerDistance":0,"operators":0,"lcom":0,"sysc":0,"rsysc":0,"dc":0,"rdc":0,"sc":0,"rsc":0},"max":{"filename":"app\/Http\/Middleware\/VerifyCsrfToken.php","name":"app\/Http\/Middleware\/VerifyCsrfToken.php","loc":26,"logicalLoc":5,"volume":149.28,"length":33,"vocabulary":23,"effort":579.55,"difficulty":"3.88","time":32,"bugs":0.05,"intelligentContent":38.45,"maintainabilityIndexWithoutComment":"76.96","maintainabilityIndex":"116.75","commentWeight":39.79,"instability":1,"afferentCoupling":0,"efferentCoupling":2,"noc":1,"noca":0,"nocc":1,"noc-anon":0,"noi":0,"nom":1,"cyclomaticComplexity":2,"myerInterval":"2:2","myerDistance":0,"operators":0,"lcom":1,"sysc":5.67,"rsysc":5.67,"dc":1.67,"rdc":1.67,"sc":4,"rsc":4},"sum":{"filename":0,"name":0,"loc":62,"logicalLoc":11,"volume":274.75,"length":68,"vocabulary":47,"effort":940.74,"difficulty":9.63,"time":52,"bugs":0.09,"intelligentContent":82.12,"maintainabilityIndexWithoutComment":223.01,"maintainabilityIndex":336.35,"commentWeight":113.34,"instability":1,"afferentCoupling":0,"efferentCoupling":2,"noc":3,"noca":0,"nocc":3,"noc-anon":0,"noi":0,"nom":1,"cyclomaticComplexity":4,"myerInterval":4,"myerDistance":0,"operators":0,"lcom":1,"sysc":5.67,"rsysc":5.67,"dc":1.67,"rdc":1.67,"sc":4,"rsc":4}},{"name":"app\/Providers","childs":[{"filename":"app\/Providers\/AppServiceProvider.php","name":"app\/Providers\/AppServiceProvider.php","loc":28,"logicalLoc":2,"volume":34.87,"length":11,"vocabulary":9,"effort":19.61,"difficulty":"0.56","time":1,"bugs":0.01,"intelligentContent":61.99,"maintainabilityIndexWithoutComment":"82.5","maintainabilityIndex":"124.95","commentWeight":42.45,"instability":0,"afferentCoupling":0,"efferentCoupling":0,"noc":1,"noca":0,"nocc":1,"noc-anon":0,"noi":0,"nom":2,"cyclomaticComplexity":1,"myerInterval":"1:1","myerDistance":0,"operators":0,"lcom":2,"sysc":0,"rsysc":0,"dc":0,"rdc":0,"sc":0,"rsc":0},{"filename":"app\/Providers\/AuthServiceProvider.php","name":"app\/Providers\/AuthServiceProvider.php","loc":30,"logicalLoc":5,"volume":112.59,"length":27,"vocabulary":18,"effort":389.73,"difficulty":"3.46","time":22,"bugs":0.04,"intelligentContent":32.53,"maintainabilityIndexWithoutComment":"70.25","maintainabilityIndex":"110.57","commentWeight":40.32,"instability":0,"afferentCoupling":0,"efferentCoupling":0,"noc":1,"noca":0,"nocc":1,"noc-anon":0,"noi":0,"nom":1,"cyclomaticComplexity":1,"myerInterval":"1:1","myerDistance":0,"operators":0,"lcom":1,"sysc":0,"rsysc":0,"dc":0,"rdc":0,"sc":0,"rsc":0},{"filename":"app\/Providers\/BroadcastServiceProvider.php","name":"app\/Providers\/BroadcastServiceProvider.php","loc":26,"logicalLoc":6,"volume":146.95,"length":34,"vocabulary":20,"effort":563.29,"difficulty":"3.83","time":31,"bugs":0.05,"intelligentContent":38.33,"maintainabilityIndexWithoutComment":"67.72","maintainabilityIndex":"101.59","commentWeight":33.87,"instability":1,"afferentCoupling":0,"efferentCoupling":1,"noc":1,"noca":0,"nocc":1,"noc-anon":0,"noi":0,"nom":2,"cyclomaticComplexity":1,"myerInterval":"1:1","myerDistance":0,"operators":0,"lcom":2,"sysc":4.5,"rsysc":2.25,"dc":3.5,"rdc":1.75,"sc":1,"rsc":0.5},{"filename":"app\/Providers\/EventServiceProvider.php","name":"app\/Providers\/EventServiceProvider.php","loc":32,"logicalLoc":5,"volume":118.54,"length":29,"vocabulary":17,"effort":444.51,"difficulty":"3.75","time":25,"bugs":0.04,"intelligentContent":31.61,"maintainabilityIndexWithoutComment":"70.1","maintainabilityIndex":"109.52","commentWeight":39.42,"instability":1,"afferentCoupling":0,"efferentCoupling":1,"noc":1,"noca":0,"nocc":1,"noc-anon":0,"noi":0,"nom":1,"cyclomaticComplexity":1,"myerInterval":"1:1","myerDistance":0,"operators":0,"lcom":1,"sysc":1,"rsysc":1,"dc":0,"rdc":0,"sc":1,"rsc":1},{"filename":"app\/Providers\/RouteServiceProvider.php","name":"app\/Providers\/RouteServiceProvider.php","loc":79,"logicalLoc":11,"volume":282.03,"length":60,"vocabulary":26,"effort":1565.25,"difficulty":"5.55","time":87,"bugs":0.09,"intelligentContent":50.82,"maintainabilityIndexWithoutComment":"59.99","maintainabilityIndex":"102.1","commentWeight":42.11,"instability":1,"afferentCoupling":0,"efferentCoupling":2,"noc":1,"noca":0,"nocc":1,"noc-anon":0,"noi":0,"nom":5,"cyclomaticComplexity":1,"myerInterval":"1:1","myerDistance":0,"operators":0,"lcom":3,"sysc":4,"rsysc":0.8,"dc":1,"rdc":0.2,"sc":3,"rsc":0.6}],"depth":2,"abstractness":0,"instability":1,"average":{"filename":0,"name":0,"loc":39,"logicalLoc":5.8,"volume":139,"length":32.2,"vocabulary":18,"effort":596.48,"difficulty":3.43,"time":33.2,"bugs":0.05,"intelligentContent":43.06,"maintainabilityIndexWithoutComment":70.11,"maintainabilityIndex":109.75,"commentWeight":39.63,"instability":0.6,"afferentCoupling":0,"efferentCoupling":0.8,"noc":1,"noca":0,"nocc":1,"noc-anon":0,"noi":0,"nom":2.2,"cyclomaticComplexity":1,"myerInterval":1,"myerDistance":0,"operators":0,"lcom":1.8,"sysc":1.9,"rsysc":0.81,"dc":0.9,"rdc":0.39,"sc":1,"rsc":0.42},"min":{"filename":"app\/Providers\/AppServiceProvider.php","name":"app\/Providers\/AppServiceProvider.php","loc":26,"logicalLoc":2,"volume":34.87,"length":11,"vocabulary":9,"effort":19.61,"difficulty":"0.56","time":1,"bugs":0.01,"intelligentContent":31.61,"maintainabilityIndexWithoutComment":"59.99","maintainabilityIndex":"101.59","commentWeight":33.87,"instability":0,"afferentCoupling":0,"efferentCoupling":0,"noc":1,"noca":0,"nocc":1,"noc-anon":0,"noi":0,"nom":1,"cyclomaticComplexity":1,"myerInterval":"1:1","myerDistance":0,"operators":0,"lcom":1,"sysc":0,"rsysc":0,"dc":0,"rdc":0,"sc":0,"rsc":0},"max":{"filename":"app\/Providers\/RouteServiceProvider.php","name":"app\/Providers\/RouteServiceProvider.php","loc":79,"logicalLoc":11,"volume":282.03,"length":60,"vocabulary":26,"effort":1565.25,"difficulty":"5.55","time":87,"bugs":0.09,"intelligentContent":61.99,"maintainabilityIndexWithoutComment":"82.5","maintainabilityIndex":"124.95","commentWeight":42.45,"instability":1,"afferentCoupling":0,"efferentCoupling":2,"noc":1,"noca":0,"nocc":1,"noc-anon":0,"noi":0,"nom":5,"cyclomaticComplexity":1,"myerInterval":"1:1","myerDistance":0,"operators":0,"lcom":3,"sysc":4.5,"rsysc":2.25,"dc":3.5,"rdc":1.75,"sc":3,"rsc":1},"sum":{"filename":0,"name":0,"loc":195,"logicalLoc":29,"volume":694.98,"length":161,"vocabulary":90,"effort":2982.39,"difficulty":17.15,"time":166,"bugs":0.23,"intelligentContent":215.28,"maintainabilityIndexWithoutComment":350.56,"maintainabilityIndex":548.73,"commentWeight":198.17,"instability":3,"afferentCoupling":0,"efferentCoupling":4,"noc":5,"noca":0,"nocc":5,"noc-anon":0,"noi":0,"nom":11,"cyclomaticComplexity":5,"myerInterval":5,"myerDistance":0,"operators":0,"lcom":9,"sysc":9.5,"rsysc":4.05,"dc":4.5,"rdc":1.95,"sc":5,"rsc":2.1}}]
+    var ruleSet = {"cyclomaticComplexity":[10,6,2],"maintainabilityIndex":[0,69,85],"logicalLoc":[800,400,200],"volume":[1300,1000,300],"bugs":[0.35,0.25,0.15],"commentWeight":[36,38,41],"vocabulary":[51,34,27],"difficulty":[18,15,5.8],"instability":[1,0.95,0.45],"afferentCoupling":[20,15,9],"efferentCoupling":[15,11,7],"myerDistance":[10,5,2],"lcom":[3,2,1.5]}
+    
+    // accessibility for colorblinds
+    var accessibilityEnabled = false;
+
+    // fixes links to tab
+    // Javascript to enable link to tab
+//    var hash = document.location.hash;
+//    var prefix = "tab_";
+//    if (hash) {
+//        $('#menu a[href='+hash.replace(prefix,"")+']').tab('show');
+//    }
+//    // Change hash for page-reload
+//    $('#menu a').on('shown', function (e) {
+//        window.location.hash = e.target.hash.replace("#", "#" + prefix);
+//    });
+
+</script>
+
+
+</body>
+</html>
