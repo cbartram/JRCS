@@ -5,7 +5,9 @@ body {
     margin-top:50px;
     background-color: #E6EAEC;
     border-top: 1px solid #DCDEE2;
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    /*font-family: 'Lato', sans-serif;*/
+    /*font-weight:200;*/
+
 }
 
 h1, h2, h3, h4 {
