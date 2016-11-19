@@ -164,6 +164,7 @@ $("#timeframe").change(function() {
 
     //get the number of days we need to display
     var days = $(this).val();
+    week[0].data   = [];
 
     if(currentGroup != "ADMIN") {
         //iterate over the number of days
@@ -191,6 +192,9 @@ $("#timeframe").change(function() {
         hours[0].hours = [];
 
     } else {
+        //Clear out the previous week data before pushing new data onto the stack
+        week[0].data = [];
+
         //They are viewing the admin group
         for(var j = 0; j < days; j++) {
             var adminDate = moment().subtract(j, 'd').format("YYYY-MM-DD");
@@ -288,6 +292,8 @@ $('.btn-success').click(function() {
 
     var target = document.getElementById('.volunteer-chart');
     new Spinner(spinnerSmall).spin(target);
+
+    week[0].data = [];
 
     for (var i = 0; i < 4; i++) {
         //for each day subtract a day and add it to an array
