@@ -34,8 +34,6 @@
                     <p><input type="text" class="form-control" name="amount" id="amount" placeholder="Amount"></p>
                     <p><input type="text" class="form-control" name="type" id="type" placeholder="Type of Supplies"></p>
                     <p><input type="text" class="form-control" name="inkind" id="inkind" placeholder="Type of Work"></p>
-
-                </form>
             </div>
             <div class="modal-footer">
                 <div class="row">
@@ -46,6 +44,7 @@
                         <button type="button" class="btn btn-default" data-dismiss="modal"><span class="fa fa-times"></span> Close</button>
                     </div>
                 </div>
+                </form>
             </div>
         </div>
     </div>
