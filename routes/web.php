@@ -13,8 +13,12 @@
 
 use App\Cico;
 use App\Donations;
+use App\Helpers\Helpers;
+use App\Profile;
 use App\Programs;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
@@ -47,6 +51,10 @@ Route::get('/', function() {
 
    return view('cico', compact('volunteers'), compact('programs'));
 });
+
+Route::post('/volunteer/search', 'SearchController@search');
+
+Route::get('/volunteer/search', 'SearchController@paginate');
 
 //Handles verifying the form data and authenticating the user
 Route::post('/', 'Auth\LoginController@handleLogin');
@@ -136,8 +144,10 @@ Route::post('/donation', 'DonationController@handleDonation');
 //Handles a donation made by a staff member
 Route::post('/donation/add', 'DonationController@addDonation');
 
-//Handles approving or denying donation requests
+//Handles approving  donation requests
 Route::get('/donation/approve/{id}', 'DonationController@approve');
+
+//Handles denying donation requests
 Route::post('/donation/deny/{id}', 'DonationController@deny');
 
 //Handles showing the archives when a staff member access's it
@@ -153,6 +163,7 @@ Route::get('/archive', 'ArchiveController@index');
 |
  */
 Route::get('/test', 'Test\TestController@testGet');
+
 Route::post('/test', 'Test\TestController@testPost');
 
 
@@ -286,5 +297,14 @@ Route::post('/api/v1/archive/event/{id}', 'REST\RESTController@archiveEvent');
 
 //Handles renewing an event that has been previously archived
 Route::post('/api/v1/renew/event/{id}', 'REST\RESTController@renewEvent');
+
+//Updates a cico timestamp from an html table
+Route::post('/api/v1/cico/update/', 'REST\RESTController@updateTimestamp');
+
+//updates volunteer demographic info from an html table
+Route::post('/api/v1/demographics/update', 'REST\RESTController@updateDemographics');
+
+//updates volunteer cico information found through a search
+Route::post('/api/v1/cico/search/update', 'REST\RESTController@updateCico');
 
 

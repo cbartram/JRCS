@@ -23,8 +23,9 @@
                 <div class="panel-heading">Checkout Volunteers</div>
                 <div class="panel-body">
                     <div class="table-responsive">
-                    <table class="table table-bordered">
+                    <table class="table table-bordered edit">
                         <thead>
+                        <th>Id</th>
                         <th>Name</th>
                         <th>Email</th>
                         <th>Checked-In</th>
@@ -33,9 +34,10 @@
                         <tbody>
                         @foreach($volunteers as $v)
                             <tr>
+                                <td class="id">{{$v->id}}</td>
                                 <td>{{Helpers::getName($v->volunteer_id)}}</td>
-                                <td>{{$v->email}}{{-- First name and last name goes here --}}</td>
-                                <td><span class="label label-success">{{$v->check_in_timestamp}}</span></td>
+                                <td>{{$v->email}}</td>
+                                <td class="timestamp">{{$v->check_in_timestamp}}</td>
                                 <td>
                                     <div class="checkbox">
                                         <label>
@@ -73,6 +75,8 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
 <script src="https://use.fontawesome.com/09e1e27aff.js"></script>
+<script src="../../public/js/moment.js"></script>
+<script src="../../public/js/jquery.tabledit.min.js"></script>
 
 
 <script src="../../public/js/VolunteerRESTLibrary.js"></script>

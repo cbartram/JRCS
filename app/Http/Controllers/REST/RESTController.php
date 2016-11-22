@@ -10,11 +10,14 @@ use App\Helpers\Helpers;
 use App\Profile;
 use App\Http\Requests;
 use App\Programs;
+use Carbon\Carbon;
+use Exception;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
 
 class RESTController extends Controller
@@ -384,6 +387,96 @@ class RESTController extends Controller
 
             return "true";
         } else {
+            return "false";
+        }
+    }
+
+    /**
+     * Updates a Check in timestamp in the /checkout page via an ajax
+     * request made over the input to an HTML table
+     * @return string true if the operation was successful false otherwise
+     */
+    public function updateTimestamp() {
+        try {
+
+            $timestamp = Input::get('timestamp');
+
+            if (Carbon::createFromFormat('Y-m-d g:i A', $timestamp) != false) {
+                //valid timestamp
+                $row = Cico::find(Input::get('id'));
+                $row->check_in_timestamp = $timestamp;
+                $row->check_in_date = substr($timestamp, 0, strpos($timestamp, ' '));
+
+                $row->save();
+
+
+                return "true";
+            }
+        } catch(Exception $e) {
+            Log::error($e);
+            //Exception thrown cannot create format insufficient data
+            return "false";
+        }
+    }
+
+    /**
+     * Updates the demographic information for a volunteer via an ajax
+     * request made over the input to an HTML table
+     * @return string true if the operation was successful false otherwise
+     */
+    public function updateDemographics() {
+        //Iterate through input finding the key column to update & value column
+        $key = [];
+        $value = [];
+        foreach(Input::all() as $k => $v) {
+            array_push($key, $k);
+            array_push($value, $v);
+        }
+
+        $volunteer = Profile::find(Input::get('id'));
+        $volunteer->$key[1] = $value[1];
+
+        $volunteer->save();
+
+        return "true";
+    }
+
+    /**
+     * Updates cico information for a volunteer who has been found through a search
+     * the request is made over the input to an HTML table
+     */
+    public function updateCico() {
+        try {
+
+            $key = [];
+            $value = [];
+
+            foreach(Input::all() as $k => $v) {
+                array_push($key, $k);
+                array_push($value, $v);
+            }
+
+            $timestamp = $value[1];
+
+            if (Carbon::createFromFormat('Y-m-d g:i A', $timestamp) != false) {
+                //valid timestamp
+                $row = Cico::find($value[0]);
+
+                $row->$key[1] = $timestamp;
+
+                if($key[1] == 'check_in_timestamp') {
+                    $row->check_in_date = substr($timestamp, 0, strpos($timestamp, ' '));
+                } else {
+                    $row->check_out_date = substr($timestamp, 0, strpos($timestamp, ' '));
+                }
+
+                $row->save();
+
+                return "true";
+            }
+        } catch(Exception $e) {
+            Log::error($e);
+            //Exception thrown cannot create format insufficient data
             return "false";
         }
     }

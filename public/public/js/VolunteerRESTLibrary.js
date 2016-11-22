@@ -424,6 +424,29 @@ function updateVolunteerByEmail(email, column, value, getResult) {
 }
 
 /**
+ * Updates a check in timestamp in the cico table given an id and a value
+ * @param id Cico id
+ * @param value timestamp value in YYYY-MM-DD H:mm am/pm
+ * @param getResult
+ */
+function updateCheckinTimestampById(id, value, getResult) {
+    var settings = {
+        "async": true,
+        "crossDomain": true,
+        "url": "/api/v1/cico/update/" + id + "/" + value,
+        "method": "PATCH",
+        "headers": {
+            "cache-control": "no-cache",
+            "content-type": "application/x-www-form-urlencoded"
+        }
+    };
+
+    $.ajax(settings).done(function (response) {
+        getResult(response);
+    });
+}
+
+/**
  * Updates one column with a given value given the volunteers email
  * @param email volunteers email
  * @param column column to update
