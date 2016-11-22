@@ -41,6 +41,10 @@ $(document).ready(function() {
         $("#donation-denied-form").attr('action', "/donation/deny/" + donationID);
     });
 
+    //Handles
+
+
+
     $(".btn-success").click(function() {
         //Travels up the DOM searching for H4 tag with the CSS class user-name could be done better
         var user = $(this).parent().parent().parent().parent().find('.user-name').text();
@@ -68,6 +72,7 @@ $(document).ready(function() {
         });
 
         $("#modal-title").html(user.substr(0, user.indexOf('-') - 1) + "'s Volunteer Details");
+
     });
 
     //Add Date pickers from jqueryUI to date selectors

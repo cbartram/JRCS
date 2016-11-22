@@ -68,6 +68,7 @@
                         <ul class="dropdown-menu">
                             <li class="dropdown-header">Volunteer Actions</li>
                             <li><a href="#" id="add-volunteer" data-toggle="modal" data-target="#add-volunteer-modal"><span class="fa fa-user-plus"></span> New Volunteer</a></li>
+                            <li><a href="#" data-toggle="modal" data-target="#search-modal"><span class="fa fa-search"></span> Volunteer Search</a></li>
                             <li><a href="/archive"><span class="fa fa-archive"></span> Volunteer Archive</a></li>
                         </ul>
                     </li>
@@ -159,6 +160,7 @@
 @include('components.modals.delete-program')
 @include('components.modals.donation-denied')
 @include('components.modals.excel-export')
+@include('components.modals.search')
 
 
 @yield('content')
@@ -174,6 +176,7 @@
 <script src="../../public/js/Highcharts.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
 <script src="../../public/js/fullcalendar.min.js"></script>
+<script src="../../public/js/jquery.tabledit.min.js"></script>
 {!! Toastr::render() !!}
 
 <!-- Local JS Files -->
