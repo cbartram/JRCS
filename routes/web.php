@@ -52,9 +52,7 @@ Route::get('/', function() {
    return view('cico', compact('volunteers'), compact('programs'));
 });
 
-Route::post('/volunteer/search', 'SearchController@search');
-
-Route::get('/volunteer/search', 'SearchController@paginate');
+Route::get('/volunteer/search', 'SearchController@search');
 
 //Handles verifying the form data and authenticating the user
 Route::post('/', 'Auth\LoginController@handleLogin');

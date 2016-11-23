@@ -80,7 +80,7 @@
                              @endforeach
                             </tbody>
                         </table>
-                        {{--{{$cico->links()}}--}}
+                        {{$cico->links()}}
                     </div>
                 </div>
             </div>

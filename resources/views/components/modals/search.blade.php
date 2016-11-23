@@ -9,7 +9,7 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="col-lg-8 col-lg-offset-2">
-                        {{Form::open(array('url' => '/volunteer/search'))}}
+                        {{Form::open(array('url' => '/volunteer/search', 'method' => 'get'))}}
                         {{-- They can only search for volunteers in a group for which they are a part of--}}
                         {{Form::hidden('group', $defaultGroup)}}
                         {{Form::text('email', Input::old('email'), ['placeholder' => 'Volunteer Email', 'class' => 'form-control']) }}
