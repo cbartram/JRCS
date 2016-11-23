@@ -456,7 +456,10 @@ class RESTController extends Controller
                 array_push($value, $v);
             }
 
-            $timestamp = $value[1];
+             array_map(function($v) {return (string) $v;}, $value);
+             array_map(function($k) {return (string) $k;}, $key);
+
+             $timestamp = $value[1];
 
             if (Carbon::createFromFormat('Y-m-d g:i A', $timestamp) != false) {
                 //valid timestamp
