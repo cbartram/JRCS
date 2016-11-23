@@ -433,8 +433,14 @@ class RESTController extends Controller
             array_push($value, $v);
         }
 
+        array_map("strval", $value);
+        array_map("strval", $key);
+
+        $k = $key[1];
+        $v = $value[1];
+
         $volunteer = Profile::find(Input::get('id'));
-        $volunteer->$key[1] = $value[1];
+        $volunteer->$k = $v;
 
         $volunteer->save();
 
@@ -465,11 +471,12 @@ class RESTController extends Controller
                 //valid timestamp
                 $row = Cico::find($value[0]);
 
-                $row->$key[1] = $timestamp;
 
                 if($key[1] == 'check_in_timestamp') {
+                    $row->check_in_timestamp = $timestamp;
                     $row->check_in_date = substr($timestamp, 0, strpos($timestamp, ' '));
                 } else {
+                    $row->check_out_timestamp = $timestamp;
                     $row->check_out_date = substr($timestamp, 0, strpos($timestamp, ' '));
                 }
 
