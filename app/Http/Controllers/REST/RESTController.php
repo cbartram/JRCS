@@ -456,8 +456,8 @@ class RESTController extends Controller
                 array_push($value, $v);
             }
 
-             array_map(function($v) {return (string) $v;}, $value);
-             array_map(function($k) {return (string) $k;}, $key);
+             array_map("strval", $value);
+             array_map("strval", $key);
 
              $timestamp = $value[1];
 
