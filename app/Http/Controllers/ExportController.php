@@ -7,6 +7,7 @@ use App\EventLog;
 use App\Helpers\Helpers;
 use App\Profile;
 use Carbon\Carbon;
+use DateTime;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
@@ -27,18 +28,18 @@ class ExportController extends Controller
 
         $validator = Validator::make(Input::all(), $rules);
 
-        if ($validator->fails()) {
+        if($validator->fails()) {
 
             Toastr::error('Start & end dates are required for Excel Exporting', $title = "Required Fields Missing", $options = []);
             return Redirect::to('/profile')
-                ->withErrors($validator)
                 ->withInput();
         }
 
-        if(Carbon::createFromFormat('Y-m-d', Input::get('start')) == false || Carbon::createFromFormat('Y-m-d', Input::get('end')) == false) {
-            Toastr::error('Start & end dates must be in the format YYYY-MM-DD', $title = "Invalid Date Format", $options = []);
-            return Redirect::to('/profile');
-        }
+            if(!$this->validateDate(Input::get('start')) || !$this->validateDate(Input::get('end'))) {
+                Toastr::error('Start & end dates must be in the format YYYY-MM-DD', $title = "Invalid Date Format", $options = []);
+                return Redirect::to('/profile');
+            }
+
 
         Excel::create(Input::get('group') . ' Volunteer Data', function($excel) {
             $excel->sheet('Volunteers', function($sheet) {
@@ -142,6 +143,12 @@ class ExportController extends Controller
         }
 
         return $dates;
+    }
+
+    private function validateDate($date)
+    {
+        $d = DateTime::createFromFormat('Y-m-d', $date);
+        return $d && $d->format('Y-m-d') === $date;
     }
 
 
