@@ -38,7 +38,7 @@ class SearchController extends Controller
 
         $cico = Cico::where('email', Input::get('email'))
             ->orderBy('check_in_timestamp', 'ASC')
-            ->paginate(5);
+            ->simplePaginate(5);
 
         return view('search-results', compact('cico'))
             ->with('volunteer', $volunteer);
