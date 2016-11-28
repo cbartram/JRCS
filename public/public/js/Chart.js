@@ -123,6 +123,7 @@ if(currentGroup != "ADMIN") {
             }
         });
     }
+    console.log(hours[0]);
 
 } else {
     //They are viewing the admin group
