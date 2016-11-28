@@ -251,7 +251,7 @@ $(document).ready(function() {
 
     $("#today").click(function() {
         $("#calendar").fullCalendar('today');
-        toastr.info('Loading Calendar Events Hold on!');
+        toastr.info('Loading Calendar Events....');
     });
 
     $("#date-btn").click(function() {

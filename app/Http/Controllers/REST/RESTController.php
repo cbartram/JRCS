@@ -486,6 +486,7 @@ class RESTController extends Controller
             }
         } catch(Exception $e) {
             Log::error($e);
+
             //Exception thrown cannot create format insufficient data
             return "false";
         }
