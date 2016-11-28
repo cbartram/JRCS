@@ -7,8 +7,6 @@ body {
     background-color: #E6EAEC;
     border-top: 1px solid #DCDEE2;
     font-family: 'Roboto', sans-serif;
-
-    /*font-weight:200;*/
 }
 
 #toast-container > .toast {
