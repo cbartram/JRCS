@@ -16,6 +16,7 @@ body {
 }
 
 #toast-container > .toast-success {
+    margin-top:50px;
     border: 2px solid rgb(106,187,98);
     background-color: rgba(106,187, 98, .3);
     color: rgb(36, 147, 13);
@@ -23,7 +24,7 @@ body {
     font-weight: bold;
 }
 
-#toast-container > .toast:before {
+#toast-container > .toast-success:before {
     position: fixed;
     font-family: FontAwesome;
     font-size: 24px;
@@ -31,17 +32,82 @@ body {
     float: left;
     color: rgb(106, 187, 98);
     padding-right: 0.5em;
-    margin-top: .2em;
-    margin-right: 0.5em;
-    margin-bottom: auto;
-    margin-left: -1.5em;
+    margin: .2em 0.5em auto -1.5em;
 }
 
+#toast-container > .toast-warning {
+    margin-top:50px;
+    border: 2px solid rgb(231,152,78);
+    background-color: rgba(231,152, 78, .5);
+    color: #c07007;
+    border-radius:7px;
+    font-weight: bold;
+}
+
+#toast-container > .toast-warning:before {
+    position: fixed;
+    font-family: FontAwesome;
+    font-size: 24px;
+    line-height: 18px;
+    float: left;
+    color: rgb(231, 129, 27);
+    padding-right: 0.5em;
+    margin: .2em 0.5em auto -1.5em;
+}
+
+#toast-container > .toast-error {
+    margin-top:50px;
+    border: 2px solid rgb(180,54,90);
+    background-color: rgba(180, 54, 90, .5);
+    color: rgb(157, 17, 69);
+    border-radius:7px;
+    font-weight: bold;
+}
+
+#toast-container > .toast-error:before {
+    position: fixed;
+    font-family: FontAwesome;
+    font-size: 24px;
+    line-height: 18px;
+    float: left;
+    color: rgb(180,54,90);
+    padding-right: 0.5em;
+    margin: .2em 0.5em auto -1.5em;
+}
+
+#toast-container > .toast-info {
+    margin-top:50px;
+    border: 2px solid rgb(72,128,209);
+    background-color: rgba(72, 128, 209, .4);
+    color: rgb(72, 128, 209);
+    border-radius:7px;
+    font-weight: bold;
+}
+
+#toast-container > .toast-info:before {
+    position: fixed;
+    font-family: FontAwesome;
+    font-size: 24px;
+    line-height: 18px;
+    float: left;
+    color: rgb(72, 128, 209);
+    padding-right: 0.5em;
+    margin: .2em 0.5em auto -1.5em;
+}
+
+/* Font Awesome Unicode Equivalent */
 #toast-container > .toast-success:before {
-    /* Font Awesome Unicode Equivalent */
     content: "\f058";
 }
-
+#toast-container > .toast-warning:before {
+    content: "\f06a";
+}
+#toast-container > .toast-error:before {
+    content: "\f057";
+}
+#toast-container > .toast-info:before {
+    content: "\f05a";
+}
 
 h1, h2, h3, h4 {
     color:black;
