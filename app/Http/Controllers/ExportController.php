@@ -95,17 +95,35 @@ class ExportController extends Controller
 
                 $results = [];
                 for($i = 0; $i < sizeof($dates); $i++) {
+
                     $result = Cico::where(Helpers::getGroupNameFromTruncated(Input::get('group')), 1)
                         ->where('check_in_date', '=', $dates[$i])
                         ->where('check_out_date', '=', $dates[$i])
                         ->sum('minutes_volunteered');
 
-
-                    array_push($results, Helpers::minutesToHours(intval($result)));
+                    array_push($results, intval($result));
                 }
 
                 //map the array values of dates to be the array keys in results
                 $arr = array_combine($dates, $results);
+
+                //all records between the 2 dates
+                $overnights = Cico::where(Helpers::getGroupNameFromTruncated(Input::get('group')), 1)
+                    ->where('check_in_date', '>=', Input::get('start'))
+                    ->where('check_out_date', '<=', Input::get('end'))->get();
+
+
+                foreach($overnights as $overnight) {
+                    //if the person checked in on one day and checked out a different day
+                    if($overnight->check_in_date != $overnight->check_out_date) {
+                        $arr[$overnight->check_in_date] += intval($overnight->minutes_volunteered);
+                    }
+                }
+
+                //for each element in the array convert from minutes to hours
+                foreach($arr as $k => $v) {
+                    $arr[$k] = Helpers::minutesToHours($arr[$k]);
+                }
 
                 $arrKeys = array_keys($arr);
                 $arrValues = array_values($arr);
