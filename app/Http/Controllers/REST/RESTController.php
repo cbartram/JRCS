@@ -462,6 +462,7 @@ class RESTController extends Controller
                 array_push($value, $v);
             }
 
+            //to avoid a array to string conversion error
              array_map("strval", $value);
              array_map("strval", $key);
 
@@ -475,9 +476,25 @@ class RESTController extends Controller
                 if($key[1] == 'check_in_timestamp') {
                     $row->check_in_timestamp = $timestamp;
                     $row->check_in_date = substr($timestamp, 0, strpos($timestamp, ' '));
+
+                    //Recalculate the new minutes volunteered
+                    $checkInDate = Carbon::createFromFormat('Y-m-d g:i A', $timestamp);
+                    $checkOutDate = Carbon::createFromFormat('Y-m-d g:i A', $row->check_out_timestamp);
+                    Log::info('Checkin in edited: ' . $checkInDate);
+
+
+                    $row->minutes_volunteered = $checkInDate->diffInMinutes($checkOutDate);
+
                 } else {
                     $row->check_out_timestamp = $timestamp;
                     $row->check_out_date = substr($timestamp, 0, strpos($timestamp, ' '));
+
+                    //Recalculate the new minutes volunteered
+                    $checkOutDate = Carbon::createFromFormat('Y-m-d g:i A', $timestamp);
+                    $checkInDate = Carbon::createFromFormat('Y-m-d g:i A', $row->check_in_timestamp);
+
+                    $row->minutes_volunteered = $checkInDate->diffInMinutes($checkOutDate);
+
                 }
 
                 $row->save();

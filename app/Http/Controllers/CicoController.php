@@ -96,7 +96,12 @@ class CicoController extends Controller
 
             $volunteer->check_out_timestamp = Carbon::now()->subHours(5)->format('Y-m-d g:i A');
             $volunteer->check_out_date = $date;
-            $volunteer->minutes_volunteered = $volunteer->created_at->diffInMinutes();
+
+            //convert the check_in_timestamp to a carbon object in case the field was updated before the volunteer checked out
+            $checkInDate = Carbon::createFromFormat('Y-m-d g:i A', $volunteer->check_in_timestamp);
+
+            //todo for some weird reason it adds an additional 300 minutes to the correct time it probably has to do with UTC Time
+            $volunteer->minutes_volunteered = $checkInDate->diffInMinutes() - 300;
 
             $volunteer->save();
 
