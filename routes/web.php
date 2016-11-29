@@ -293,6 +293,7 @@ Route::post('/api/v1/renew/event/{id}', 'REST\RESTController@renewEvent');
 
 //Updates a cico timestamp from an html table
 Route::get('/api/v1/cico/update/', 'REST\RESTController@updateTimestamp');
+Route::post('/api/v1/cico/update/', 'REST\RESTController@updateTimestamp');
 
 //updates volunteer demographic info from an html table
 Route::post('/api/v1/demographics/update', 'REST\RESTController@updateDemographics');

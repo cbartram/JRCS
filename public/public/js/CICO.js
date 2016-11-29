@@ -56,7 +56,7 @@ $(document).ready(function() {
         onSuccess: function(data, textStatus, jqXHR) {
             console.log(data);
             if (data == false) {
-                toastr.error('Your timestamp must be in the format YYYY-MM-DD H:MM AM/PM Timestamp has not yet been saved.');
+                toastr.error('Error saving timestamp... The format must be YYYY-MM-DD H:MM AM/PM');
             } else {
                 toastr.success('Your timestamp has been updated successfully!');
 
