@@ -10,20 +10,23 @@
 
     <title>Volunteer Checkout</title>
 
+    <link href="https://fonts.googleapis.com/css?family=Lato:100" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../public/css/CICO.css">
 </head>
 <body>
 
 <div class="container">
     <div class="row">
-        <div class="col-lg-6 col-lg-offset-3">
+        <div class="col-lg-8 col-lg-offset-2">
             <div class="panel panel-default" style="margin-top:25px;">
                 <div class="panel-heading">Checkout Volunteers</div>
                 <div class="panel-body">
                     <div class="table-responsive">
-                    <table class="table table-bordered">
+                    <table class="table table-bordered edit">
                         <thead>
+                        <th>Id</th>
                         <th>Name</th>
                         <th>Email</th>
                         <th>Checked-In</th>
@@ -32,13 +35,14 @@
                         <tbody>
                         @foreach($volunteers as $v)
                             <tr>
+                                <td class="id">{{$v->id}}</td>
                                 <td>{{Helpers::getName($v->volunteer_id)}}</td>
-                                <td>{{$v->email}}{{-- First name and last name goes here --}}</td>
-                                <td><span class="label label-success">{{$v->check_in_timestamp}}</span></td>
+                                <td>{{$v->email}}</td>
+                                <td class="timestamp">{{$v->check_in_timestamp}}</td>
                                 <td>
                                     <div class="checkbox">
                                         <label>
-                                            <input type="checkbox" name="{{$v->id}}"> Select this Volunteer
+                                            <input type="checkbox" name="{{$v->id}}"> Select
                                         </label>
                                     </div>
                                 </td>
@@ -72,6 +76,8 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
 <script src="https://use.fontawesome.com/09e1e27aff.js"></script>
+<script src="../../public/js/moment.js"></script>
+<script src="../../public/js/jquery.tabledit.min.js"></script>
 
 
 <script src="../../public/js/VolunteerRESTLibrary.js"></script>

@@ -11,7 +11,8 @@
     <title>Volunteer Check-in</title>
 
     <!-- Latest compiled and minified CSS -->
-   <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Lato:100" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <!-- Custom styles for this template -->
     <link href="../../public/css/CICO.css" rel="stylesheet">
@@ -163,7 +164,7 @@
         <footer class="footer">
     <div class="container">
         <div class="row">
-            <div class="col-md-4 col-md-offset-5">
+            <div class="col-md-5 col-md-offset-4">
                 <p class="text-muted">&copy; JRCS Volunteer Management Solutions</p>
             </div>
         </div>

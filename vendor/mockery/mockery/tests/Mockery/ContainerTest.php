@@ -88,10 +88,10 @@ class ContainerTest extends MockeryTestCase
 
     public function testSimpleMockWithArrayDefsCanBeOverridden()
     {
-        // eg. In shared tests setup
+        // eg. In shared test setup
         $m = $this->container->mock(array('foo' => 1, 'bar' => 2));
 
-        // and then overridden in one tests
+        // and then overridden in one test
         $m->shouldReceive('foo')->with('baz')->once()->andReturn(2);
         $m->shouldReceive('bar')->with('baz')->once()->andReturn(42);
 
@@ -113,10 +113,10 @@ class ContainerTest extends MockeryTestCase
 
     public function testNamedMockWithArrayDefsCanBeOverridden()
     {
-        // eg. In shared tests setup
+        // eg. In shared test setup
         $m = $this->container->mock('Foo', array('foo' => 1));
 
-        // and then overridden in one tests
+        // and then overridden in one test
         $m->shouldReceive('foo')->with('bar')->once()->andReturn(2);
 
         $this->assertEquals(2, $m->foo('bar'));
@@ -743,7 +743,7 @@ class ContainerTest extends MockeryTestCase
     }
 
     /**
-     * Meant to tests the same logic as
+     * Meant to test the same logic as
      * testCanOverrideExpectedParametersOfExtensionPHPClassesToPreserveRefs,
      * but:
      * - doesn't require an extension
@@ -940,7 +940,7 @@ class ContainerTest extends MockeryTestCase
     public function testMockingPhpredisExtensionClassWorks()
     {
         if (!class_exists('Redis')) {
-            $this->markTestSkipped('PHPRedis extension required for this tests');
+            $this->markTestSkipped('PHPRedis extension required for this test');
         }
         $m = $this->container->mock('Redis');
     }
@@ -1140,7 +1140,7 @@ class ContainerTest extends MockeryTestCase
     }
 
     /**
-     * @tests
+     * @test
      * @group issue/294
      * @expectedException Mockery\Exception\RuntimeException
      * @expectedExceptionMessage Could not load mock DateTime, class already exists
@@ -1245,7 +1245,7 @@ class ContainerTest extends MockeryTestCase
     }
 
     /**
-     * @tests
+     * @test
      * @group issue/339
      */
     public function canMockClassesThatDescendFromInternalClasses()
@@ -1255,7 +1255,7 @@ class ContainerTest extends MockeryTestCase
     }
 
     /**
-     * @tests
+     * @test
      * @group issue/339
      */
     public function canMockClassesThatImplementSerializable()
@@ -1265,7 +1265,7 @@ class ContainerTest extends MockeryTestCase
     }
 
     /**
-     * @tests
+     * @test
      * @group issue/346
      */
     public function canMockInternalClassesThatImplementSerializable()

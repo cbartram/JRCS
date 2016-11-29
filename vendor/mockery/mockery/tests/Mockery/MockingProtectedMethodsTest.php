@@ -37,40 +37,40 @@ class MockingProtectedMethodsTest extends MockeryTestCase
     }
 
     /**
-     * @tests
+     * @test
      *
-     * This is a regression tests, basically we don't want the mock handling
+     * This is a regression test, basically we don't want the mock handling
      * interfering with calling protected methods partials
      */
     public function shouldAutomaticallyDeferCallsToProtectedMethodsForPartials()
     {
-        $mock = $this->container->mock("tests\Mockery\TestWithProtectedMethods[foo]");
+        $mock = $this->container->mock("test\Mockery\TestWithProtectedMethods[foo]");
         $this->assertEquals("bar", $mock->bar());
     }
 
     /**
-     * @tests
+     * @test
      *
-     * This is a regression tests, basically we don't want the mock handling
+     * This is a regression test, basically we don't want the mock handling
      * interfering with calling protected methods partials
      */
     public function shouldAutomaticallyDeferCallsToProtectedMethodsForRuntimePartials()
     {
-        $mock = $this->container->mock("tests\Mockery\TestWithProtectedMethods")->shouldDeferMissing();
+        $mock = $this->container->mock("test\Mockery\TestWithProtectedMethods")->shouldDeferMissing();
         $this->assertEquals("bar", $mock->bar());
     }
 
-    /** @tests */
+    /** @test */
     public function shouldAutomaticallyIgnoreAbstractProtectedMethods()
     {
-        $mock = $this->container->mock("tests\Mockery\TestWithProtectedMethods")->shouldDeferMissing();
+        $mock = $this->container->mock("test\Mockery\TestWithProtectedMethods")->shouldDeferMissing();
         $this->assertEquals(null, $mock->foo());
     }
 
-    /** @tests */
+    /** @test */
     public function shouldAllowMockingProtectedMethods()
     {
-        $mock = $this->container->mock("tests\Mockery\TestWithProtectedMethods")
+        $mock = $this->container->mock("test\Mockery\TestWithProtectedMethods")
             ->shouldDeferMissing()
             ->shouldAllowMockingProtectedMethods();
 
@@ -78,20 +78,20 @@ class MockingProtectedMethodsTest extends MockeryTestCase
         $this->assertEquals("notbar", $mock->bar());
     }
 
-    /** @tests */
+    /** @test */
     public function shouldAllowMockingProtectedMethodOnDefinitionTimePartial()
     {
-        $mock = $this->container->mock("tests\Mockery\TestWithProtectedMethods[protectedBar]")
+        $mock = $this->container->mock("test\Mockery\TestWithProtectedMethods[protectedBar]")
             ->shouldAllowMockingProtectedMethods();
 
         $mock->shouldReceive("protectedBar")->andReturn("notbar");
         $this->assertEquals("notbar", $mock->bar());
     }
 
-    /** @tests */
+    /** @test */
     public function shouldAllowMockingAbstractProtectedMethods()
     {
-        $mock = $this->container->mock("tests\Mockery\TestWithProtectedMethods")
+        $mock = $this->container->mock("test\Mockery\TestWithProtectedMethods")
             ->shouldDeferMissing()
             ->shouldAllowMockingProtectedMethods();
 

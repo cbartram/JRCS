@@ -955,10 +955,10 @@ class ExpectationTest extends MockeryTestCase
 
     public function testDefaultExpectationsCanBeOverridden()
     {
-        $this->mock->shouldReceive('foo')->with('tests')->andReturn('bar')->byDefault();
-        $this->mock->shouldReceive('foo')->with('tests')->andReturn('newbar')->byDefault();
-        $this->mock->foo('tests');
-        $this->assertEquals('newbar', $this->mock->foo('tests'));
+        $this->mock->shouldReceive('foo')->with('test')->andReturn('bar')->byDefault();
+        $this->mock->shouldReceive('foo')->with('test')->andReturn('newbar')->byDefault();
+        $this->mock->foo('test');
+        $this->assertEquals('newbar', $this->mock->foo('test'));
     }
 
     /**

@@ -38,7 +38,7 @@ $tests   = "$root/tests";
 if (!file_exists($root . '/vendor/autoload.php')) {
     throw new Exception(
         'Please run "php composer.phar install --dev" in root directory '
-        . 'to setup unit tests dependencies before running the tests'
+        . 'to setup unit test dependencies before running the tests'
     );
 }
 
@@ -63,7 +63,7 @@ if (defined('TESTS_GENERATE_REPORT') && TESTS_GENERATE_REPORT === true &&
      * Add Mutateme library/ directory to the PHPUnit code coverage
      * whitelist. This has the effect that only production code source files
      * appear in the code coverage report and that all production code source
-     * files, even those that are not covered by a tests yet, are processed.
+     * files, even those that are not covered by a test yet, are processed.
      */
     PHPUnit_Util_Filter::addDirectoryToWhitelist($library);
 

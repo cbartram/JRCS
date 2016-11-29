@@ -10,11 +10,14 @@ use App\Helpers\Helpers;
 use App\Profile;
 use App\Http\Requests;
 use App\Programs;
+use Carbon\Carbon;
+use Exception;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
 
 class RESTController extends Controller
@@ -384,6 +387,124 @@ class RESTController extends Controller
 
             return "true";
         } else {
+            return "false";
+        }
+    }
+
+    /**
+     * Updates a Check in timestamp in the /checkout page via an ajax
+     * request made over the input to an HTML table
+     * @return string true if the operation was successful false otherwise
+     */
+    public function updateTimestamp() {
+        try {
+
+            $timestamp = Input::get('timestamp');
+
+            if (Carbon::createFromFormat('Y-m-d g:i A', $timestamp) != false) {
+                //valid timestamp
+                $row = Cico::find(Input::get('id'));
+                $row->check_in_timestamp = $timestamp;
+                $row->check_in_date = substr($timestamp, 0, strpos($timestamp, ' '));
+
+                $row->save();
+
+
+                return "true";
+            }
+        } catch(Exception $e) {
+            Log::error($e);
+            //Exception thrown cannot create format insufficient data
+            return "false";
+        }
+    }
+
+    /**
+     * Updates the demographic information for a volunteer via an ajax
+     * request made over the input to an HTML table
+     * @return string true if the operation was successful false otherwise
+     */
+    public function updateDemographics() {
+        //Iterate through input finding the key column to update & value column
+        $key = [];
+        $value = [];
+        foreach(Input::all() as $k => $v) {
+            array_push($key, $k);
+            array_push($value, $v);
+        }
+
+        array_map("strval", $value);
+        array_map("strval", $key);
+
+        $k = $key[1];
+        $v = $value[1];
+
+        $volunteer = Profile::find(Input::get('id'));
+        $volunteer->$k = $v;
+
+        $volunteer->save();
+
+        return "true";
+    }
+
+    /**
+     * Updates cico information for a volunteer who has been found through a search
+     * the request is made over the input to an HTML table
+     */
+    public function updateCico() {
+        try {
+
+            $key = [];
+            $value = [];
+
+            foreach(Input::all() as $k => $v) {
+                array_push($key, $k);
+                array_push($value, $v);
+            }
+
+            //to avoid a array to string conversion error
+             array_map("strval", $value);
+             array_map("strval", $key);
+
+             $timestamp = $value[1];
+
+            if (Carbon::createFromFormat('Y-m-d g:i A', $timestamp) != false) {
+                //valid timestamp
+                $row = Cico::find($value[0]);
+
+
+                if($key[1] == 'check_in_timestamp') {
+                    $row->check_in_timestamp = $timestamp;
+                    $row->check_in_date = substr($timestamp, 0, strpos($timestamp, ' '));
+
+                    //Recalculate the new minutes volunteered
+                    $checkInDate = Carbon::createFromFormat('Y-m-d g:i A', $timestamp);
+                    $checkOutDate = Carbon::createFromFormat('Y-m-d g:i A', $row->check_out_timestamp);
+                    Log::info('Checkin in edited: ' . $checkInDate);
+
+
+                    $row->minutes_volunteered = $checkInDate->diffInMinutes($checkOutDate);
+
+                } else {
+                    $row->check_out_timestamp = $timestamp;
+                    $row->check_out_date = substr($timestamp, 0, strpos($timestamp, ' '));
+
+                    //Recalculate the new minutes volunteered
+                    $checkOutDate = Carbon::createFromFormat('Y-m-d g:i A', $timestamp);
+                    $checkInDate = Carbon::createFromFormat('Y-m-d g:i A', $row->check_in_timestamp);
+
+                    $row->minutes_volunteered = $checkInDate->diffInMinutes($checkOutDate);
+
+                }
+
+                $row->save();
+
+                return "true";
+            }
+        } catch(Exception $e) {
+            Log::error($e);
+
+            //Exception thrown cannot create format insufficient data
             return "false";
         }
     }

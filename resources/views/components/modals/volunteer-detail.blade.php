@@ -7,7 +7,7 @@
                 <h4 class="modal-title" id="modal-title" style="color:black;" id="myModalLabel"></h4>
             </div>
             <div class="modal-body">
-                <table class="table table-striped">
+                <table class="table table-bordered">
                     <thead>
                         <th>First Name</th>
                         <th>Last Name</th>
