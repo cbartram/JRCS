@@ -551,13 +551,17 @@ function checkIn(email, type, program, getResult) {
 
 /**
  * Checks a volunteer out of the system (Check-out) given the following parameters
- * @param email volunteers email
+ * @param id Volunteer id
  * @param getResult callback function to return the result in the console.
  */
 
 function checkOut(id, getResult) {
-    $.post('/checkout', {id: id}).done(function (response) {
-        getResult(response);
+    $.ajax({
+        method: "POST",
+        url: "/checkout",
+        data: { id: id }
+    }).done(function(response) {
+       getResult(response);
     });
 }
 
