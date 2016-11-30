@@ -55,9 +55,9 @@ body {
 
 #toast-container > .toast-error {
     margin-top:50px;
-    border: 2px solid rgb(180,54,90);
-    background-color: rgba(180, 54, 90, .5);
-    color: rgb(157, 17, 69);
+    border: 2px solid rgb(180, 10, 48);
+    background-color: rgba(180, 0, 10, 0.5);
+    color: rgb(157, 0, 26);
     border-radius:7px;
     font-weight: bold;
 }
@@ -68,10 +68,11 @@ body {
     font-size: 24px;
     line-height: 18px;
     float: left;
-    color: rgb(180,54,90);
+    color: rgb(180,10,48);
     padding-right: 0.5em;
     margin: .2em 0.5em auto -1.5em;
 }
+
 
 #toast-container > .toast-info {
     margin-top:50px;

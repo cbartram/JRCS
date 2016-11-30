@@ -177,10 +177,8 @@
 <script src="https://use.fontawesome.com/09e1e27aff.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
 
-
 <!-- Local Libraries -->
 <script src="../../public/js/VolunteerRESTLibrary.js"></script>
-<script src="../../public/js/Login.js"></script>
 <script src="../../public/js/CICO.js"></script>
 </body>
 </html>
