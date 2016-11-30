@@ -81,7 +81,7 @@
                              @endforeach
                             </tbody>
                         </table>
-                        {{$cico->links()}}
+                        {{$cico->appends(request()->input())->links()}}
                     </div>
                 </div>
             </div>

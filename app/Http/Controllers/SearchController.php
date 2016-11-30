@@ -12,6 +12,7 @@ use Kamaln7\Toastr\Facades\Toastr;
 class SearchController extends Controller
 {
     public function search() {
+
         $group = Helpers::getGroupNameFromTruncated(Input::get('group'));
 
         $id = Helpers::getId(Input::get('email'));
