@@ -145,6 +145,34 @@ class ExportController extends Controller
                     $counter++;
                 }
 
+                //Title for hours/volunteer
+                $sheet->mergeCells('F2:G2');
+
+                $sheet->cell('F2:G2', function($cell) {
+                   $cell->setFontWeight('bold');
+                });
+                $sheet->cell('F2', 'Hours Per Volunteer');
+
+                //get all volunteers id's for the given group
+                $volunteers = Profile::select('id')->where(Helpers::getGroupNameFromTruncated(Input::get('group')), 1)->get();
+
+                $incrementer = 3;
+                foreach($volunteers as $volunteer) {
+                    $data = Cico::where('volunteer_id', $volunteer->id)
+                        ->where('check_in_date', '>=', Input::get('start'))
+                        ->where('check_out_date', '<=', Input::get('end'))
+                        ->sum('minutes_volunteered');
+
+                    $hours = Helpers::minutesToHours($data);
+                    $name = Helpers::getName($volunteer->id);
+
+                    $sheet->cell('F' . strval($incrementer), $name);
+                    $sheet->cell('G' . strval($incrementer), $hours);
+
+                    $incrementer++;
+
+                }
+
             });
         })->export('xls');
 

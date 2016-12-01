@@ -417,6 +417,7 @@ class RESTController extends Controller
             //Exception thrown cannot create format insufficient data
             return "false";
         }
+        return "false";
     }
 
     /**
