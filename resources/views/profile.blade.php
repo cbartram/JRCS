@@ -35,7 +35,7 @@
                             <a href="#" id="hide-all"><i class="fa fa-eye-slash"></i>Show/Hide All</a>
                         </li>
                         <li>
-                            <a href="/logout"><i class="glyphicon glyphicon-log-out"></i>Logout</a>
+                            <a href="/logout"><i class="fa fa-sign-out"></i>Logout</a>
                         </li>
                     </ul>
                 </div>
@@ -176,7 +176,7 @@
                         </div>
                         <div class="row">
                             <div class="col-lg-6 col-lg-offset-5">
-                                <img src="../public/images/404.gif">
+                                <img src="/css/images/404.gif">
                             </div>
                         </div>
                         @else
@@ -196,7 +196,7 @@
                                 <br>
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <button class="cart-add btn btn-success" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-info-sign"></span> See more</button>
+                                        <button class="cart-add btn btn-success" data-toggle="modal" data-target="#myModal"><span class="fa fa-info-circle"></span> See more</button>
                                     </div>
                                 </div>
                             </div>

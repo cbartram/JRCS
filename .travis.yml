@@ -7,6 +7,7 @@ php:
 
 script:
  - php artisan config:cache
+ - gulp --production
 
 notifications:
   slack: dynamictechnologies:QMzOTe9EFgTgVgO9Pyvx0c8e
