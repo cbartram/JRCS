@@ -69,7 +69,7 @@ class PushoverHandlerTest extends TestCase
 
     public function testWriteWithTooLongMessage()
     {
-        $message = str_pad('tests', 520, 'a');
+        $message = str_pad('test', 520, 'a');
         $this->createHandler();
         $this->handler->setHighPriorityLevel(Logger::EMERGENCY); // skip priority notifications
         $this->handler->handle($this->getRecord(Logger::CRITICAL, $message));

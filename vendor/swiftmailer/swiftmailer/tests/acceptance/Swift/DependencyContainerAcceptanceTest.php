@@ -2,7 +2,7 @@
 
 require_once 'swift_required.php';
 
-//This is more of a "cross your fingers and hope it works" tests!
+//This is more of a "cross your fingers and hope it works" test!
 
 class Swift_DependencyContainerAcceptanceTest extends \PHPUnit_Framework_TestCase
 {

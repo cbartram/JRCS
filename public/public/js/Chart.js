@@ -75,26 +75,13 @@ var currentGroup = text.substring(8, text.length);
 var week = [
     {
         name:'dates',
-        data:[]
-    }
-];
-
-var hours = [
-    {
-        group:currentGroup,
-        hours:[]
-    }
-];
-
-var adminHours = [
-    {
-        group:currentGroup,
+        data:[],
         hours:[]
     }
 ];
 
 var opts = {
-    lines: 14, length: 18, width: 5, radius: 61, scale: .7, corners: 0.4, color: '#000', opacity: 0.15
+    lines: 14, length: 18, width: 5, radius: 61, scale: .7, corners: 0.4, color: '#4584ef', opacity: 0.15
     , rotate: 0, direction: 1, speed: 1.4, trail: 36, fps: 20, zIndex: 1, className: 'spinner', top: '50%'
     , left: '50%', shadow: false, hwaccel: false, position: 'absolute'
 };
@@ -114,11 +101,11 @@ if(currentGroup != "ADMIN") {
             url: "api/v1/hours/group/" + currentGroup + "/" + date + "/" + date,
             dataType: "json",
             success: function (data) {
-                hours[0].hours.push(data.minutes);
+                week[0].hours.push(data.minutes);
 
                 //the array is full
-                if(hours[0].hours.length == 7) {
-                    createChart(hours[0].hours, "#listing");
+                if(week[0].hours.length == 7) {
+                    createChart(week[0].hours, "#listing");
                 }
             }
         });
@@ -135,11 +122,11 @@ if(currentGroup != "ADMIN") {
             url: "api/v1/hours/date/" + adminDate,
             dataType: "json",
             success: function (data) {
-                adminHours[0].hours.push(data.minutes);
+                week[0].hours.push(data.minutes);
 
                 //the array is full
-                if(adminHours[0].hours.length == 7) {
-                    createChart(adminHours[0].hours, "#listing");
+                if(week[0].hours.length == 7) {
+                    createChart(week[0].hours, "#listing");
                 }
             }
         });
@@ -158,7 +145,7 @@ $("#timeframe").change(function() {
 
     //get the number of days we need to display
     var days = $(this).val();
-    week[0].data   = [];
+    week[0].data = [];
 
     if(currentGroup != "ADMIN") {
         //iterate over the number of days
@@ -172,18 +159,18 @@ $("#timeframe").change(function() {
                 url: "api/v1/hours/group/" + currentGroup + "/" + date + "/" + date,
                 dataType: "json",
                 success: function (data) {
-                    hours[0].hours.push(data.minutes);
+                    week[0].hours.push(data.minutes);
 
                     //the array is full
-                    if(hours[0].hours.length == days) {
-                        createChart(hours[0].hours, "#listing");
+                    if(week[0].hours.length == days) {
+                        createChart(week[0].hours, "#listing");
                     }
                 }
             });
         }
 
         //after the chart is displayed remove the data from the array to prepare for another timeframe change
-        hours[0].hours = [];
+        week[0].hours = [];
 
     } else {
         //Clear out the previous week data before pushing new data onto the stack
@@ -199,16 +186,16 @@ $("#timeframe").change(function() {
                 url: "api/v1/hours/date/" + adminDate,
                 dataType: "json",
                 success: function (data) {
-                    adminHours[0].hours.push(data.minutes);
+                    week[0].hours.push(data.minutes);
 
                     //the array is full
-                    if(adminHours[0].hours.length == days) {
-                        createChart(adminHours[0].hours, "#listing");
+                    if(week[0].hours.length == days) {
+                        createChart(week[0].hours, "#listing");
                     }
                 }
             });
         }
-        adminHours[0].hours = [];
+        week[0].hours = [];
     }
 
 });
@@ -291,18 +278,18 @@ $('.btn-success').click(function() {
             url: "api/v1/hours/" + id + "/" + date + "/" + date,
             dataType: "json",
             success: function (data) {
-                hours[0].hours.push(data.minutes);
+                week[0].hours.push(data.minutes);
 
                 //the array is full
-                if(hours[0].hours.length == 4) {
-                    createChart(hours[0].hours, ".volunteer-chart");
+                if(week[0].hours.length == 4) {
+                    createChart(week[0].hours, ".volunteer-chart");
                 }
             }
         });
 
     }
 
-    hours[0].hours = [];
+    week[0].hours = [];
 });
 
 

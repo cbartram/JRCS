@@ -30,14 +30,14 @@ class DoctrineCouchDBHandlerTest extends TestCase
             ->disableOriginalConstructor()
             ->getMock();
 
-        $record = $this->getRecord(Logger::WARNING, 'tests', array('data' => new \stdClass, 'foo' => 34));
+        $record = $this->getRecord(Logger::WARNING, 'test', array('data' => new \stdClass, 'foo' => 34));
 
         $expected = array(
-            'message' => 'tests',
+            'message' => 'test',
             'context' => array('data' => '[object] (stdClass: {})', 'foo' => 34),
             'level' => Logger::WARNING,
             'level_name' => 'WARNING',
-            'channel' => 'tests',
+            'channel' => 'test',
             'datetime' => $record['datetime']->format('Y-m-d H:i:s'),
             'extra' => array(),
         );

@@ -63,7 +63,7 @@ class Swift_Transport_Esmtp_Auth_NTLMAuthenticatorTest extends \SwiftMailerTestC
 
     public function testMessage3v1Generator()
     {
-        $username = 'tests';
+        $username = 'test';
         $domain = 'TESTNT';
         $workstation = 'MEMBER';
         $lmResponse = '1879f60127f8a877022132ec221bcbf3ca016a9f76095606';
@@ -80,7 +80,7 @@ class Swift_Transport_Esmtp_Auth_NTLMAuthenticatorTest extends \SwiftMailerTestC
 
     public function testMessage3v2Generator()
     {
-        $username = 'tests';
+        $username = 'test';
         $domain = 'TESTNT';
         $workstation = 'MEMBER';
         $lmResponse = 'bf2e015119f6bdb3f6fdb768aa12d478f5ce3d2401c8f6e9';
@@ -157,7 +157,7 @@ class Swift_Transport_Esmtp_Auth_NTLMAuthenticatorTest extends \SwiftMailerTestC
     public function testSuccessfulAuthentication()
     {
         $domain = 'TESTNT';
-        $username = 'tests';
+        $username = 'test';
         $secret = 'test1234';
 
         $ntlm = $this->_getAuthenticator();
@@ -182,7 +182,7 @@ class Swift_Transport_Esmtp_Auth_NTLMAuthenticatorTest extends \SwiftMailerTestC
     public function testAuthenticationFailureSendRsetAndReturnFalse()
     {
         $domain = 'TESTNT';
-        $username = 'tests';
+        $username = 'test';
         $secret = 'test1234';
 
         $ntlm = $this->_getAuthenticator();

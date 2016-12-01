@@ -34,7 +34,7 @@ class FlowdockHandlerTest extends TestCase
     public function setUp()
     {
         if (!extension_loaded('openssl')) {
-            $this->markTestSkipped('This tests requires openssl to run');
+            $this->markTestSkipped('This test requires openssl to run');
         }
     }
 
@@ -56,7 +56,7 @@ class FlowdockHandlerTest extends TestCase
     public function testWriteContent($content)
     {
         $this->assertRegexp('/"source":"test_source"/', $content);
-        $this->assertRegexp('/"from_address":"source@tests\.com"/', $content);
+        $this->assertRegexp('/"from_address":"source@test\.com"/', $content);
     }
 
     private function createHandler($token = 'myToken')
@@ -83,6 +83,6 @@ class FlowdockHandlerTest extends TestCase
             ->method('closeSocket')
             ->will($this->returnValue(true));
 
-        $this->handler->setFormatter(new FlowdockFormatter('test_source', 'source@tests.com'));
+        $this->handler->setFormatter(new FlowdockFormatter('test_source', 'source@test.com'));
     }
 }

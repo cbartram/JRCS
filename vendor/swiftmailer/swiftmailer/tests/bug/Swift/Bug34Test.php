@@ -11,7 +11,7 @@ class Swift_Bug34Test extends \PHPUnit_Framework_TestCase
     {
         $message = Swift_Message::newInstance();
         $message->setCharset('utf-8');
-        $message->setSubject('tests subject');
+        $message->setSubject('test subject');
         $message->addPart('plain part', 'text/plain');
 
         $image = Swift_Image::newInstance('<image data>', 'image.gif', 'image/gif');
@@ -34,7 +34,7 @@ class Swift_Bug34Test extends \PHPUnit_Framework_TestCase
         'Sender: Other <other@domain.tld>'."\r\n".
         'Message-ID: <'.$id.'>'."\r\n".
         'Date: '.$date."\r\n".
-        'Subject: tests subject'."\r\n".
+        'Subject: test subject'."\r\n".
         'From: Other <other@domain.tld>'."\r\n".
         'To: User <user@domain.tld>'."\r\n".
         'MIME-Version: 1.0'."\r\n".

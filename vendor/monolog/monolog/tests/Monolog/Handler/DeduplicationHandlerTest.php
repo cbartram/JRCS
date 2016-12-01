@@ -127,16 +127,16 @@ class DeduplicationHandlerTest extends TestCase
         // log is written as none of them are duplicate
         $handler->flush();
         $this->assertSame(
-            $record['datetime']->getTimestamp() . ":ERROR:tests\n" .
-            $record2['datetime']->getTimestamp() . ":CRITICAL:tests\n" .
-            $record3['datetime']->getTimestamp() . ":CRITICAL:tests\n",
+            $record['datetime']->getTimestamp() . ":ERROR:test\n" .
+            $record2['datetime']->getTimestamp() . ":CRITICAL:test\n" .
+            $record3['datetime']->getTimestamp() . ":CRITICAL:test\n",
             file_get_contents(sys_get_temp_dir() . '/monolog_dedup.log')
         );
         $this->assertTrue($test->hasErrorRecords());
         $this->assertTrue($test->hasCriticalRecords());
         $this->assertFalse($test->hasWarningRecords());
 
-        // clear tests handler
+        // clear test handler
         $test->clear();
         $this->assertFalse($test->hasErrorRecords());
         $this->assertFalse($test->hasCriticalRecords());
@@ -148,9 +148,9 @@ class DeduplicationHandlerTest extends TestCase
 
         // log should now contain the new errors and the previous one that was recent enough
         $this->assertSame(
-            $record3['datetime']->getTimestamp() . ":CRITICAL:tests\n" .
-            $record['datetime']->getTimestamp() . ":ERROR:tests\n" .
-            $record2['datetime']->getTimestamp() . ":CRITICAL:tests\n",
+            $record3['datetime']->getTimestamp() . ":CRITICAL:test\n" .
+            $record['datetime']->getTimestamp() . ":ERROR:test\n" .
+            $record2['datetime']->getTimestamp() . ":CRITICAL:test\n",
             file_get_contents(sys_get_temp_dir() . '/monolog_dedup.log')
         );
         $this->assertTrue($test->hasErrorRecords());

@@ -40,12 +40,12 @@ class Swift_Plugins_ReporterPluginTest extends \SwiftMailerTestCase
         $reporter = $this->_createReporter();
 
         $message->shouldReceive('getTo')->zeroOrMoreTimes()->andReturn(array('foo@bar.tld' => 'Foo'));
-        $message->shouldReceive('getCc')->zeroOrMoreTimes()->andReturn(array('zip@button' => 'Zip', 'tests@tests.com' => 'Test'));
+        $message->shouldReceive('getCc')->zeroOrMoreTimes()->andReturn(array('zip@button' => 'Zip', 'test@test.com' => 'Test'));
         $evt->shouldReceive('getMessage')->zeroOrMoreTimes()->andReturn($message);
         $evt->shouldReceive('getFailedRecipients')->zeroOrMoreTimes()->andReturn(array('zip@button'));
         $reporter->shouldReceive('notify')->once()->with($message, 'foo@bar.tld', Swift_Plugins_Reporter::RESULT_PASS);
         $reporter->shouldReceive('notify')->once()->with($message, 'zip@button', Swift_Plugins_Reporter::RESULT_FAIL);
-        $reporter->shouldReceive('notify')->once()->with($message, 'tests@tests.com', Swift_Plugins_Reporter::RESULT_PASS);
+        $reporter->shouldReceive('notify')->once()->with($message, 'test@test.com', Swift_Plugins_Reporter::RESULT_PASS);
 
         $plugin = new Swift_Plugins_ReporterPlugin($reporter);
         $plugin->sendPerformed($evt);
@@ -58,12 +58,12 @@ class Swift_Plugins_ReporterPluginTest extends \SwiftMailerTestCase
         $reporter = $this->_createReporter();
 
         $message->shouldReceive('getTo')->zeroOrMoreTimes()->andReturn(array('foo@bar.tld' => 'Foo'));
-        $message->shouldReceive('getBcc')->zeroOrMoreTimes()->andReturn(array('zip@button' => 'Zip', 'tests@tests.com' => 'Test'));
+        $message->shouldReceive('getBcc')->zeroOrMoreTimes()->andReturn(array('zip@button' => 'Zip', 'test@test.com' => 'Test'));
         $evt->shouldReceive('getMessage')->zeroOrMoreTimes()->andReturn($message);
         $evt->shouldReceive('getFailedRecipients')->zeroOrMoreTimes()->andReturn(array('zip@button'));
         $reporter->shouldReceive('notify')->once()->with($message, 'foo@bar.tld', Swift_Plugins_Reporter::RESULT_PASS);
         $reporter->shouldReceive('notify')->once()->with($message, 'zip@button', Swift_Plugins_Reporter::RESULT_FAIL);
-        $reporter->shouldReceive('notify')->once()->with($message, 'tests@tests.com', Swift_Plugins_Reporter::RESULT_PASS);
+        $reporter->shouldReceive('notify')->once()->with($message, 'test@test.com', Swift_Plugins_Reporter::RESULT_PASS);
 
         $plugin = new Swift_Plugins_ReporterPlugin($reporter);
         $plugin->sendPerformed($evt);

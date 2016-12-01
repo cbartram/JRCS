@@ -21,15 +21,15 @@ class FlowdockFormatterTest extends TestCase
      */
     public function testFormat()
     {
-        $formatter = new FlowdockFormatter('test_source', 'source@tests.com');
+        $formatter = new FlowdockFormatter('test_source', 'source@test.com');
         $record = $this->getRecord();
 
         $expected = array(
             'source' => 'test_source',
-            'from_address' => 'source@tests.com',
-            'subject' => 'in test_source: WARNING - tests',
-            'content' => 'tests',
-            'tags' => array('#logs', '#warning', '#tests'),
+            'from_address' => 'source@test.com',
+            'subject' => 'in test_source: WARNING - test',
+            'content' => 'test',
+            'tags' => array('#logs', '#warning', '#test'),
             'project' => 'test_source',
         );
         $formatted = $formatter->format($record);
@@ -42,7 +42,7 @@ class FlowdockFormatterTest extends TestCase
      */
     public function testFormatBatch()
     {
-        $formatter = new FlowdockFormatter('test_source', 'source@tests.com');
+        $formatter = new FlowdockFormatter('test_source', 'source@test.com');
         $records = array(
             $this->getRecord(Logger::WARNING),
             $this->getRecord(Logger::DEBUG),

@@ -53,7 +53,7 @@ class Swift_KeyCache_SimpleKeyCacheInputStreamTest extends \PHPUnit_Framework_Te
               ->with($this->_nsKey, 'foo', 'b', Swift_KeyCache::MODE_APPEND);
         $cache->expects($this->at(2))
               ->method('setString')
-              ->with('tests', 'bar', 'x', Swift_KeyCache::MODE_APPEND);
+              ->with('test', 'bar', 'x', Swift_KeyCache::MODE_APPEND);
 
         $stream = new Swift_KeyCache_SimpleKeyCacheInputStream();
         $stream->setKeyCache($cache);
@@ -65,7 +65,7 @@ class Swift_KeyCache_SimpleKeyCacheInputStreamTest extends \PHPUnit_Framework_Te
 
         $newStream = clone $stream;
         $newStream->setKeyCache($cache);
-        $newStream->setNsKey('tests');
+        $newStream->setNsKey('test');
         $newStream->setItemKey('bar');
 
         $newStream->write('x');

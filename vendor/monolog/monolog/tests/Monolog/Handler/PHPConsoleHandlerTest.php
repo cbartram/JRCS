@@ -101,7 +101,7 @@ class PHPConsoleHandlerTest extends TestCase
 
     protected function initLogger($handlerOptions = array(), $level = Logger::DEBUG)
     {
-        return new Logger('tests', array(
+        return new Logger('test', array(
             new PHPConsoleHandler($handlerOptions, $this->connector, $level),
         ));
     }
@@ -120,13 +120,13 @@ class PHPConsoleHandlerTest extends TestCase
 
     public function testDebug()
     {
-        $this->debugDispatcher->expects($this->once())->method('dispatchDebug')->with($this->equalTo('tests'));
-        $this->initLogger()->addDebug('tests');
+        $this->debugDispatcher->expects($this->once())->method('dispatchDebug')->with($this->equalTo('test'));
+        $this->initLogger()->addDebug('test');
     }
 
     public function testDebugContextInMessage()
     {
-        $message = 'tests';
+        $message = 'test';
         $tag = 'tag';
         $context = array($tag, 'custom' => mt_rand());
         $expectedMessage = $message . ' ' . json_encode(array_slice($context, 1));
@@ -151,7 +151,7 @@ class PHPConsoleHandlerTest extends TestCase
                 $this->equalTo($expectedTags)
             );
             $this->connector->setDebugDispatcher($debugDispatcher);
-            $logger->addDebug('tests', array($key => $expectedTags));
+            $logger->addDebug('test', array($key => $expectedTags));
         }
     }
 
@@ -198,7 +198,7 @@ class PHPConsoleHandlerTest extends TestCase
     public function testOptionEnabled()
     {
         $this->debugDispatcher->expects($this->never())->method('dispatchDebug');
-        $this->initLogger(array('enabled' => false))->addDebug('tests');
+        $this->initLogger(array('enabled' => false))->addDebug('test');
     }
 
     public function testOptionClassesPartialsTraceIgnore()

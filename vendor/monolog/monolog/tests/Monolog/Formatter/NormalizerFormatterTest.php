@@ -127,7 +127,7 @@ class NormalizerFormatterTest extends \PHPUnit_Framework_TestCase
         $formatted = $formatter->formatBatch(array(
             array(
                 'level_name' => 'CRITICAL',
-                'channel' => 'tests',
+                'channel' => 'test',
                 'message' => 'bar',
                 'context' => array(),
                 'datetime' => new \DateTime,
@@ -145,7 +145,7 @@ class NormalizerFormatterTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(array(
             array(
                 'level_name' => 'CRITICAL',
-                'channel' => 'tests',
+                'channel' => 'test',
                 'message' => 'bar',
                 'context' => array(),
                 'datetime' => date('Y-m-d'),
@@ -215,6 +215,24 @@ class NormalizerFormatterTest extends \PHPUnit_Framework_TestCase
         restore_error_handler();
 
         $this->assertEquals(@json_encode(array($resource)), $res);
+    }
+
+    public function testNormalizeHandleLargeArrays()
+    {
+        $formatter = new NormalizerFormatter();
+        $largeArray = range(1, 2000);
+
+        $res = $formatter->format(array(
+            'level_name' => 'CRITICAL',
+            'channel' => 'test',
+            'message' => 'bar',
+            'context' => array($largeArray),
+            'datetime' => new \DateTime,
+            'extra' => array(),
+        ));
+
+        $this->assertCount(1000, $res['context'][0]);
+        $this->assertEquals('Over 1000 items (2000 total), aborting normalization', $res['context'][0]['...']);
     }
 
     /**
