@@ -11,14 +11,7 @@
 
     <title>Volunteer Profile</title>
 
-    <link href="https://fonts.googleapis.com/css?family=Lato:100" rel="stylesheet" type="text/css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <link href="../../public/css/jquery-ui.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet">
-    <link href="../../public/css/fullcalendar.css" rel="stylesheet">
-    <link href="../../public/css/fullcalendar.print.css" rel="stylesheet">
-    <link href="../../public/css/Profile.css" rel="stylesheet">
-
+    <link href="/css/Profile.css" rel="stylesheet">
 
 </head>
 
@@ -114,7 +107,7 @@
 
                     <!-- Switch Dropdown -->
                     <li role="presentation" class="dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-random"></span>
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><span class="fa fa-random"></span>
                             &nbsp; Switch Organizations <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li class="dropdown-header">Organizations</li>
@@ -129,7 +122,7 @@
                             @endforeach
                         </ul>
                     </li>
-                    <li role="presentation" id="checkout-volunteer"><a href="/checkout"><span class="glyphicon glyphicon-log-out"></span> Checkout</a></li>
+                    <li role="presentation" id="checkout-volunteer"><a href="/checkout"><span class="fa fa-sign-out"></span> Checkout</a></li>
                 @else
                     <li class="dropdown">
 

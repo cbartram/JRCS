@@ -10,10 +10,8 @@
 
     <title>Volunteer Checkout</title>
 
-    <link href="https://fonts.googleapis.com/css?family=Lato:100" rel="stylesheet" type="text/css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="../../public/css/CICO.css">
+    <link rel="stylesheet" href="/css/CICO.css">
+
 </head>
 <body>
 
@@ -81,6 +79,7 @@
 
 
 <script src="../../public/js/VolunteerRESTLibrary.js"></script>
+<script src="../../public/js/CICO.js"></script>
 <script>
     //start of the editable table plugin integration
     $('.table-bordered').Tabledit({
