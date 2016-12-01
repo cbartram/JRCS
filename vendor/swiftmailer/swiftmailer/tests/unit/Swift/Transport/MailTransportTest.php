@@ -100,7 +100,7 @@ class Swift_Transport_MailTransportTest extends \SwiftMailerTestCase
              );
         $invoker->shouldReceive('mail')
                 ->once()
-                ->with(\Mockery::any(), \Mockery::any(), \Mockery::any(), \Mockery::any(), '-f\'foo@bar\'');
+                ->with(\Mockery::any(), \Mockery::any(), \Mockery::any(), \Mockery::any(), '-ffoo@bar');
 
         $transport->send($message);
     }
@@ -153,7 +153,7 @@ class Swift_Transport_MailTransportTest extends \SwiftMailerTestCase
             ->andReturn(null);
         $invoker->shouldReceive('mail')
             ->once()
-            ->with(\Mockery::any(), \Mockery::any(), \Mockery::any(), \Mockery::any(), '-x\'foo\' -f\'foo@bar\'');
+            ->with(\Mockery::any(), \Mockery::any(), \Mockery::any(), \Mockery::any(), '-x\'foo\' -ffoo@bar');
 
         $transport->send($message);
     }
@@ -223,7 +223,7 @@ class Swift_Transport_MailTransportTest extends \SwiftMailerTestCase
                 ->andReturn(array('foo@bar' => null, 'zip@button' => null));
         $message->shouldReceive('getCc')
                 ->zeroOrMoreTimes()
-                ->andReturn(array('tests@tests' => null));
+                ->andReturn(array('test@test' => null));
         $invoker->shouldReceive('mail')
                 ->once()
                 ->with(\Mockery::any(), \Mockery::any(), \Mockery::any(), \Mockery::any(), \Mockery::any())
@@ -246,7 +246,7 @@ class Swift_Transport_MailTransportTest extends \SwiftMailerTestCase
                 ->andReturn(array('foo@bar' => null, 'zip@button' => null));
         $message->shouldReceive('getCc')
                 ->zeroOrMoreTimes()
-                ->andReturn(array('tests@tests' => null));
+                ->andReturn(array('test@test' => null));
         $invoker->shouldReceive('mail')
                 ->once()
                 ->with(\Mockery::any(), \Mockery::any(), \Mockery::any(), \Mockery::any(), \Mockery::any())

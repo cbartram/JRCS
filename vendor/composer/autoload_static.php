@@ -7,11 +7,11 @@ namespace Composer\Autoload;
 class ComposerStaticInitc78b0aee7ac413f93ef306c560156c6c
 {
     public static $files = array (
-        '1d1b89d124cc9cb8219922c9d5569199' => __DIR__ . '/..' . '/hamcrest/hamcrest-php/hamcrest/Hamcrest.php',
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
         '667aeda72477189d0494fecd327c3641' => __DIR__ . '/..' . '/symfony/var-dumper/Resources/functions/dump.php',
-        '2c102faa651ef8ea5874edb585946bce' => __DIR__ . '/..' . '/swiftmailer/swiftmailer/lib/swift_required.php',
+        '1d1b89d124cc9cb8219922c9d5569199' => __DIR__ . '/..' . '/hamcrest/hamcrest-php/hamcrest/Hamcrest.php',
         '5255c38a0faeba867671b61dfda6d864' => __DIR__ . '/..' . '/paragonie/random_compat/lib/random.php',
+        '2c102faa651ef8ea5874edb585946bce' => __DIR__ . '/..' . '/swiftmailer/swiftmailer/lib/swift_required.php',
         'bd9634f2d41831496de0d3dfe4c94881' => __DIR__ . '/..' . '/symfony/polyfill-php56/bootstrap.php',
         'e7223560d890eab89cda23685e711e2c' => __DIR__ . '/..' . '/psy/psysh/src/Psy/functions.php',
         'a0edc8309cc5e1d60e3047b5df6b7052' => __DIR__ . '/..' . '/guzzlehttp/psr7/src/functions_include.php',
@@ -120,8 +120,8 @@ class ComposerStaticInitc78b0aee7ac413f93ef306c560156c6c
         'phpDocumentor\\Reflection\\' => 
         array (
             0 => __DIR__ . '/..' . '/phpdocumentor/reflection-common/src',
-            1 => __DIR__ . '/..' . '/phpdocumentor/type-resolver/src',
-            2 => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src',
+            1 => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src',
+            2 => __DIR__ . '/..' . '/phpdocumentor/type-resolver/src',
         ),
         'XdgBaseDir\\' => 
         array (
@@ -391,6 +391,7 @@ class ComposerStaticInitc78b0aee7ac413f93ef306c560156c6c
         'App\\Http\\Controllers\\Profile\\StaffProfileController' => __DIR__ . '/../..' . '/app/Http/Controllers/Profile/StaffProfileController.php',
         'App\\Http\\Controllers\\ProgramController' => __DIR__ . '/../..' . '/app/Http/Controllers/ProgramController.php',
         'App\\Http\\Controllers\\REST\\RESTController' => __DIR__ . '/../..' . '/app/Http/Controllers/REST/RESTController.php',
+        'App\\Http\\Controllers\\SearchController' => __DIR__ . '/../..' . '/app/Http/Controllers/SearchController.php',
         'App\\Http\\Controllers\\Test\\TestController' => __DIR__ . '/../..' . '/app/Http/Controllers/Test/TestController.php',
         'App\\Http\\Controllers\\addController' => __DIR__ . '/../..' . '/app/Http/Controllers/addController.php',
         'App\\Http\\Kernel' => __DIR__ . '/../..' . '/app/Http/Kernel.php',
@@ -1772,6 +1773,7 @@ class ComposerStaticInitc78b0aee7ac413f93ef306c560156c6c
         'Illuminate\\Notifications\\Messages\\NexmoMessage' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Notifications/Messages/NexmoMessage.php',
         'Illuminate\\Notifications\\Messages\\SimpleMessage' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Notifications/Messages/SimpleMessage.php',
         'Illuminate\\Notifications\\Messages\\SlackAttachment' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Notifications/Messages/SlackAttachment.php',
+        'Illuminate\\Notifications\\Messages\\SlackAttachmentField' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Notifications/Messages/SlackAttachmentField.php',
         'Illuminate\\Notifications\\Messages\\SlackMessage' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Notifications/Messages/SlackMessage.php',
         'Illuminate\\Notifications\\Notifiable' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Notifications/Notifiable.php',
         'Illuminate\\Notifications\\Notification' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Notifications/Notification.php',
@@ -1872,6 +1874,7 @@ class ComposerStaticInitc78b0aee7ac413f93ef306c560156c6c
         'Illuminate\\Session\\EncryptedStore' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Session/EncryptedStore.php',
         'Illuminate\\Session\\ExistenceAwareInterface' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Session/ExistenceAwareInterface.php',
         'Illuminate\\Session\\FileSessionHandler' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Session/FileSessionHandler.php',
+        'Illuminate\\Session\\Middleware\\AuthenticateSession' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Session/Middleware/AuthenticateSession.php',
         'Illuminate\\Session\\Middleware\\StartSession' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Session/Middleware/StartSession.php',
         'Illuminate\\Session\\SessionInterface' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Session/SessionInterface.php',
         'Illuminate\\Session\\SessionManager' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Session/SessionManager.php',
@@ -2177,6 +2180,9 @@ class ComposerStaticInitc78b0aee7ac413f93ef306c560156c6c
         'Monolog\\Handler\\RotatingFileHandler' => __DIR__ . '/..' . '/monolog/monolog/src/Monolog/Handler/RotatingFileHandler.php',
         'Monolog\\Handler\\SamplingHandler' => __DIR__ . '/..' . '/monolog/monolog/src/Monolog/Handler/SamplingHandler.php',
         'Monolog\\Handler\\SlackHandler' => __DIR__ . '/..' . '/monolog/monolog/src/Monolog/Handler/SlackHandler.php',
+        'Monolog\\Handler\\SlackWebhookHandler' => __DIR__ . '/..' . '/monolog/monolog/src/Monolog/Handler/SlackWebhookHandler.php',
+        'Monolog\\Handler\\Slack\\SlackRecord' => __DIR__ . '/..' . '/monolog/monolog/src/Monolog/Handler/Slack/SlackRecord.php',
+        'Monolog\\Handler\\SlackbotHandler' => __DIR__ . '/..' . '/monolog/monolog/src/Monolog/Handler/SlackbotHandler.php',
         'Monolog\\Handler\\SocketHandler' => __DIR__ . '/..' . '/monolog/monolog/src/Monolog/Handler/SocketHandler.php',
         'Monolog\\Handler\\StreamHandler' => __DIR__ . '/..' . '/monolog/monolog/src/Monolog/Handler/StreamHandler.php',
         'Monolog\\Handler\\SwiftMailerHandler' => __DIR__ . '/..' . '/monolog/monolog/src/Monolog/Handler/SwiftMailerHandler.php',
@@ -2192,6 +2198,7 @@ class ComposerStaticInitc78b0aee7ac413f93ef306c560156c6c
         'Monolog\\Processor\\MemoryPeakUsageProcessor' => __DIR__ . '/..' . '/monolog/monolog/src/Monolog/Processor/MemoryPeakUsageProcessor.php',
         'Monolog\\Processor\\MemoryProcessor' => __DIR__ . '/..' . '/monolog/monolog/src/Monolog/Processor/MemoryProcessor.php',
         'Monolog\\Processor\\MemoryUsageProcessor' => __DIR__ . '/..' . '/monolog/monolog/src/Monolog/Processor/MemoryUsageProcessor.php',
+        'Monolog\\Processor\\MercurialProcessor' => __DIR__ . '/..' . '/monolog/monolog/src/Monolog/Processor/MercurialProcessor.php',
         'Monolog\\Processor\\ProcessIdProcessor' => __DIR__ . '/..' . '/monolog/monolog/src/Monolog/Processor/ProcessIdProcessor.php',
         'Monolog\\Processor\\PsrLogMessageProcessor' => __DIR__ . '/..' . '/monolog/monolog/src/Monolog/Processor/PsrLogMessageProcessor.php',
         'Monolog\\Processor\\TagProcessor' => __DIR__ . '/..' . '/monolog/monolog/src/Monolog/Processor/TagProcessor.php',
@@ -4088,6 +4095,7 @@ class ComposerStaticInitc78b0aee7ac413f93ef306c560156c6c
         'Symfony\\Component\\VarDumper\\Exception\\ThrowingCasterException' => __DIR__ . '/..' . '/symfony/var-dumper/Exception/ThrowingCasterException.php',
         'Symfony\\Component\\VarDumper\\Test\\VarDumperTestTrait' => __DIR__ . '/..' . '/symfony/var-dumper/Test/VarDumperTestTrait.php',
         'Symfony\\Component\\VarDumper\\VarDumper' => __DIR__ . '/..' . '/symfony/var-dumper/VarDumper.php',
+        'Symfony\\Component\\Yaml\\Command\\LintCommand' => __DIR__ . '/..' . '/symfony/yaml/Command/LintCommand.php',
         'Symfony\\Component\\Yaml\\Dumper' => __DIR__ . '/..' . '/symfony/yaml/Dumper.php',
         'Symfony\\Component\\Yaml\\Escaper' => __DIR__ . '/..' . '/symfony/yaml/Escaper.php',
         'Symfony\\Component\\Yaml\\Exception\\DumpException' => __DIR__ . '/..' . '/symfony/yaml/Exception/DumpException.php',

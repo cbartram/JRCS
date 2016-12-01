@@ -94,7 +94,7 @@ class Swift_MailerTest extends \SwiftMailerTestCase
     {
         $failures = array();
 
-        $rfcException = new Swift_RfcComplianceException('tests');
+        $rfcException = new Swift_RfcComplianceException('test');
         $transport = $this->_createTransport();
         $message = $this->_createMessage();
         $message->shouldReceive('getTo')

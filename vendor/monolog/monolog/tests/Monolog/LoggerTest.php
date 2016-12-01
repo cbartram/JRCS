@@ -78,7 +78,7 @@ class LoggerTest extends \PHPUnit_Framework_TestCase
         $logger = new Logger('foo');
         $handler = new TestHandler;
         $logger->pushHandler($handler);
-        $logger->addWarning('tests');
+        $logger->addWarning('test');
         list($record) = $handler->getRecords();
         $this->assertEquals('foo', $record['channel']);
     }
@@ -95,7 +95,7 @@ class LoggerTest extends \PHPUnit_Framework_TestCase
             ->method('handle');
         $logger->pushHandler($handler);
 
-        $this->assertTrue($logger->addWarning('tests'));
+        $this->assertTrue($logger->addWarning('test'));
     }
 
     /**
@@ -110,7 +110,7 @@ class LoggerTest extends \PHPUnit_Framework_TestCase
             ->method('handle');
         $logger->pushHandler($handler);
 
-        $this->assertFalse($logger->addWarning('tests'));
+        $this->assertFalse($logger->addWarning('test'));
     }
 
     public function testHandlersInCtor()
@@ -219,7 +219,7 @@ class LoggerTest extends \PHPUnit_Framework_TestCase
 
             return $record;
         });
-        $logger->addError('tests');
+        $logger->addError('test');
         list($record) = $handler->getRecords();
         $this->assertTrue($record['extra']['win']);
     }
@@ -252,7 +252,7 @@ class LoggerTest extends \PHPUnit_Framework_TestCase
         ;
         $logger->pushProcessor($processor);
 
-        $logger->addError('tests');
+        $logger->addError('test');
     }
 
     /**
@@ -271,7 +271,7 @@ class LoggerTest extends \PHPUnit_Framework_TestCase
         $logger->pushProcessor(function ($record) use ($that) {
             $that->fail('The processor should not be called');
         });
-        $logger->addAlert('tests');
+        $logger->addAlert('test');
     }
 
     /**
@@ -313,7 +313,7 @@ class LoggerTest extends \PHPUnit_Framework_TestCase
         ;
         $logger->pushHandler($handler3);
 
-        $logger->debug('tests');
+        $logger->debug('test');
     }
 
     /**
@@ -352,7 +352,7 @@ class LoggerTest extends \PHPUnit_Framework_TestCase
 
         $logger = new Logger(__METHOD__, array('last' => $handler3, 'second' => $handler2, 'first' => $handler1));
 
-        $logger->debug('tests');
+        $logger->debug('test');
     }
 
     /**
@@ -384,7 +384,7 @@ class LoggerTest extends \PHPUnit_Framework_TestCase
         ;
         $logger->pushHandler($handler2);
 
-        $logger->debug('tests');
+        $logger->debug('test');
     }
 
     /**
@@ -415,7 +415,7 @@ class LoggerTest extends \PHPUnit_Framework_TestCase
         ;
         $logger->pushHandler($handler2);
 
-        $logger->debug('tests');
+        $logger->debug('test');
     }
 
     /**
@@ -468,7 +468,7 @@ class LoggerTest extends \PHPUnit_Framework_TestCase
         $logger = new Logger('foo');
         $handler = new TestHandler;
         $logger->pushHandler($handler);
-        $logger->{$method}('tests');
+        $logger->{$method}('test');
         list($record) = $handler->getRecords();
         $this->assertEquals($expectedLevel, $record['level']);
     }
@@ -508,7 +508,7 @@ class LoggerTest extends \PHPUnit_Framework_TestCase
         $logger = new Logger('foo');
         $handler = new TestHandler;
         $logger->pushHandler($handler);
-        $logger->info('tests');
+        $logger->info('test');
         list($record) = $handler->getRecords();
         $this->assertEquals($tz, $record['datetime']->getTimezone());
     }
@@ -532,7 +532,7 @@ class LoggerTest extends \PHPUnit_Framework_TestCase
         $logger->useMicrosecondTimestamps($micro);
         $handler = new TestHandler;
         $logger->pushHandler($handler);
-        $logger->info('tests');
+        $logger->info('test');
         list($record) = $handler->getRecords();
         $this->{$assert}('000000', $record['datetime']->format('u'));
     }
@@ -542,7 +542,7 @@ class LoggerTest extends \PHPUnit_Framework_TestCase
         return array(
             // this has a very small chance of a false negative (1/10^6)
             'with microseconds' => array(true, 'assertNotSame'),
-            'without microseconds' => array(false, 'assertSame'),
+            'without microseconds' => array(false, PHP_VERSION_ID >= 70100 ? 'assertNotSame' : 'assertSame'),
         );
     }
 }

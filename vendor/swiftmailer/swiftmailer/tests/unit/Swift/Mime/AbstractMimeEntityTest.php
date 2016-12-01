@@ -15,12 +15,12 @@ abstract class Swift_Mime_AbstractMimeEntityTest extends \SwiftMailerTestCase
 
     public function testContentTypeIsReturnedFromHeader()
     {
-        $ctype = $this->_createHeader('Content-Type', 'image/jpeg-tests');
+        $ctype = $this->_createHeader('Content-Type', 'image/jpeg-test');
         $headers = $this->_createHeaderSet(array('Content-Type' => $ctype));
         $entity = $this->_createEntity($headers, $this->_createEncoder(),
             $this->_createCache()
             );
-        $this->assertEquals('image/jpeg-tests', $entity->getContentType());
+        $this->assertEquals('image/jpeg-test', $entity->getContentType());
     }
 
     public function testContentTypeIsSetInHeader()

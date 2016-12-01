@@ -33,7 +33,7 @@ class SwiftMailerHandlerTest extends TestCase
             ->method('send');
 
         $callback = function () {
-            throw new \RuntimeException('Swift_Message creation callback should not have been called in this tests');
+            throw new \RuntimeException('Swift_Message creation callback should not have been called in this test');
         };
         $handler = new SwiftMailerHandler($this->mailer, $callback);
 
@@ -93,7 +93,7 @@ class SwiftMailerHandlerTest extends TestCase
         );
         $handler->handleBatch($records);
 
-        $this->assertEquals('Alert: EMERGENCY tests', $receivedMessage->getSubject());
+        $this->assertEquals('Alert: EMERGENCY test', $receivedMessage->getSubject());
     }
 
     public function testMessageHaveUniqueId()

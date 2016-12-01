@@ -274,6 +274,6 @@ class HipChatHandlerTest extends TestCase
     public function testCreateWithTooLongNameV2()
     {
         // creating a handler with too long of a name but using the v2 api doesn't matter.
-        $hipChatHandler = new HipChatHandler('token', 'room', 'SixteenCharsHere', false, Logger::CRITICAL, true, true, 'tests', 'api.hipchat.com', 'v2');
+        $hipChatHandler = new HipChatHandler('token', 'room', 'SixteenCharsHere', false, Logger::CRITICAL, true, true, 'test', 'api.hipchat.com', 'v2');
     }
 }

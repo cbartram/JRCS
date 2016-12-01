@@ -37,8 +37,8 @@ class ChromePHPHandlerTest extends TestCase
                 'version' => ChromePHPHandler::VERSION,
                 'columns' => array('label', 'log', 'backtrace', 'type'),
                 'rows' => array(
-                    'tests',
-                    'tests',
+                    'test',
+                    'test',
                 ),
                 'request_uri' => '',
             )))),
@@ -62,13 +62,13 @@ class ChromePHPHandlerTest extends TestCase
                 'columns' => array('label', 'log', 'backtrace', 'type'),
                 'rows' => array(
                     array(
-                        'tests',
-                        'tests',
+                        'test',
+                        'test',
                         'unknown',
                         'log',
                     ),
                     array(
-                        'tests',
+                        'test',
                         str_repeat('a', 150 * 1024),
                         'unknown',
                         'warn',
@@ -104,10 +104,10 @@ class ChromePHPHandlerTest extends TestCase
                 'version' => ChromePHPHandler::VERSION,
                 'columns' => array('label', 'log', 'backtrace', 'type'),
                 'rows' => array(
-                    'tests',
-                    'tests',
-                    'tests',
-                    'tests',
+                    'test',
+                    'test',
+                    'test',
+                    'test',
                 ),
                 'request_uri' => '',
             )))),

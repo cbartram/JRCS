@@ -20,16 +20,16 @@ class SyslogHandlerTest extends \PHPUnit_Framework_TestCase
      */
     public function testConstruct()
     {
-        $handler = new SyslogHandler('tests');
+        $handler = new SyslogHandler('test');
         $this->assertInstanceOf('Monolog\Handler\SyslogHandler', $handler);
 
-        $handler = new SyslogHandler('tests', LOG_USER);
+        $handler = new SyslogHandler('test', LOG_USER);
         $this->assertInstanceOf('Monolog\Handler\SyslogHandler', $handler);
 
-        $handler = new SyslogHandler('tests', 'user');
+        $handler = new SyslogHandler('test', 'user');
         $this->assertInstanceOf('Monolog\Handler\SyslogHandler', $handler);
 
-        $handler = new SyslogHandler('tests', LOG_USER, Logger::DEBUG, true, LOG_PERROR);
+        $handler = new SyslogHandler('test', LOG_USER, Logger::DEBUG, true, LOG_PERROR);
         $this->assertInstanceOf('Monolog\Handler\SyslogHandler', $handler);
     }
 
@@ -39,6 +39,6 @@ class SyslogHandlerTest extends \PHPUnit_Framework_TestCase
     public function testConstructInvalidFacility()
     {
         $this->setExpectedException('UnexpectedValueException');
-        $handler = new SyslogHandler('tests', 'unknown');
+        $handler = new SyslogHandler('test', 'unknown');
     }
 }

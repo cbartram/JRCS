@@ -61,7 +61,7 @@ class MongoDBFormatterTest extends \PHPUnit_Framework_TestCase
             'context' => array(),
             'level' => Logger::WARNING,
             'level_name' => Logger::getLevelName(Logger::WARNING),
-            'channel' => 'tests',
+            'channel' => 'test',
             'datetime' => new \DateTime('2014-02-01 00:00:00'),
             'extra' => array(),
         );
@@ -74,7 +74,7 @@ class MongoDBFormatterTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(array(), $formattedRecord['context']);
         $this->assertEquals(Logger::WARNING, $formattedRecord['level']);
         $this->assertEquals(Logger::getLevelName(Logger::WARNING), $formattedRecord['level_name']);
-        $this->assertEquals('tests', $formattedRecord['channel']);
+        $this->assertEquals('test', $formattedRecord['channel']);
         $this->assertInstanceOf('\MongoDate', $formattedRecord['datetime']);
         $this->assertEquals('0.00000000 1391212800', $formattedRecord['datetime']->__toString());
         $this->assertEquals(array(), $formattedRecord['extra']);
@@ -97,7 +97,7 @@ class MongoDBFormatterTest extends \PHPUnit_Framework_TestCase
             ),
             'level' => Logger::WARNING,
             'level_name' => Logger::getLevelName(Logger::WARNING),
-            'channel' => 'tests',
+            'channel' => 'test',
             'datetime' => new \DateTime('2014-02-01 00:00:00'),
             'extra' => array(),
         );
@@ -143,7 +143,7 @@ class MongoDBFormatterTest extends \PHPUnit_Framework_TestCase
             ),
             'level' => Logger::WARNING,
             'level_name' => Logger::getLevelName(Logger::WARNING),
-            'channel' => 'tests',
+            'channel' => 'test',
             'datetime' => new \DateTime('2014-02-01 00:00:00'),
             'extra' => array(),
         );
@@ -179,7 +179,7 @@ class MongoDBFormatterTest extends \PHPUnit_Framework_TestCase
             ),
             'level' => Logger::WARNING,
             'level_name' => Logger::getLevelName(Logger::WARNING),
-            'channel' => 'tests',
+            'channel' => 'test',
             'datetime' => new \DateTime('2014-02-01 00:00:00'),
             'extra' => array(),
         );
@@ -218,7 +218,7 @@ class MongoDBFormatterTest extends \PHPUnit_Framework_TestCase
             ),
             'level' => Logger::WARNING,
             'level_name' => Logger::getLevelName(Logger::WARNING),
-            'channel' => 'tests',
+            'channel' => 'test',
             'datetime' => new \DateTime('2014-02-01 00:00:00'),
             'extra' => array(),
         );
@@ -247,7 +247,7 @@ class MongoDBFormatterTest extends \PHPUnit_Framework_TestCase
             ),
             'level' => Logger::WARNING,
             'level_name' => Logger::getLevelName(Logger::WARNING),
-            'channel' => 'tests',
+            'channel' => 'test',
             'datetime' => new \DateTime('2014-02-01 00:00:00'),
             'extra' => array(),
         );

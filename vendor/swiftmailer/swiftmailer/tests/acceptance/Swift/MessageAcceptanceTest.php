@@ -8,7 +8,7 @@ class Swift_MessageAcceptanceTest extends Swift_Mime_SimpleMessageAcceptanceTest
     public function testAddPartWrapper()
     {
         $message = $this->_createMessage();
-        $message->setSubject('just a tests subject');
+        $message->setSubject('just a test subject');
         $message->setFrom(array(
             'chris.corbyn@swiftmailer.org' => 'Chris Corbyn', ));
 
@@ -17,12 +17,12 @@ class Swift_MessageAcceptanceTest extends Swift_Mime_SimpleMessageAcceptanceTest
         $boundary = $message->getBoundary();
 
         $message->addPart('foo', 'text/plain', 'iso-8859-1');
-        $message->addPart('tests <b>foo</b>', 'text/html', 'iso-8859-1');
+        $message->addPart('test <b>foo</b>', 'text/html', 'iso-8859-1');
 
         $this->assertEquals(
             'Message-ID: <'.$id.'>'."\r\n".
             'Date: '.date('r', $date)."\r\n".
-            'Subject: just a tests subject'."\r\n".
+            'Subject: just a test subject'."\r\n".
             'From: Chris Corbyn <chris.corbyn@swiftmailer.org>'."\r\n".
             'MIME-Version: 1.0'."\r\n".
             'Content-Type: multipart/alternative;'."\r\n".
@@ -38,7 +38,7 @@ class Swift_MessageAcceptanceTest extends Swift_Mime_SimpleMessageAcceptanceTest
             'Content-Type: text/html; charset=iso-8859-1'."\r\n".
             'Content-Transfer-Encoding: quoted-printable'."\r\n".
             "\r\n".
-            'tests <b>foo</b>'.
+            'test <b>foo</b>'.
             "\r\n\r\n".
             '--'.$boundary.'--'."\r\n",
             $message->toString()

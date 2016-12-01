@@ -14,10 +14,10 @@ class Swift_MessageTest extends \PHPUnit_Framework_TestCase
     public function testCloningWithSigners()
     {
         $message1 = new Swift_Message('subj', 'body', 'ctype');
-        $signer = new Swift_Signers_DKIMSigner(dirname(dirname(__DIR__)).'/_samples/dkim/dkim.test.priv', 'tests.example', 'example');
+        $signer = new Swift_Signers_DKIMSigner(dirname(dirname(__DIR__)).'/_samples/dkim/dkim.test.priv', 'test.example', 'example');
         $message1->attachSigner($signer);
         $message2 = new Swift_Message('subj', 'body', 'ctype');
-        $signer = new Swift_Signers_DKIMSigner(dirname(dirname(__DIR__)).'/_samples/dkim/dkim.test.priv', 'tests.example', 'example');
+        $signer = new Swift_Signers_DKIMSigner(dirname(dirname(__DIR__)).'/_samples/dkim/dkim.test.priv', 'test.example', 'example');
         $message2->attachSigner($signer);
         $message1_clone = clone $message1;
 
@@ -123,7 +123,7 @@ class Swift_MessageTest extends \PHPUnit_Framework_TestCase
                 $arr2_value = $array2[$key];
                 $arr1_clone_value = $array1_clone[$key];
 
-                return $this->_recursiveArrayCloningCheck($obj1_value, $obj2_value, $obj1_clone_value);
+                return $this->_recursiveArrayCloningCheck($arr1_value, $arr2_value, $arr1_clone_value);
             }
         }
     }
