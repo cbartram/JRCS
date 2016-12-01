@@ -15,10 +15,12 @@ require('laravel-elixir-vue');
 
 elixir(mix => {
 
-    //compile Sass run phpUnit
-    mix.sass('app.scss')
-       .webpack('app.js')
-       .phpUnit();
+    /**
+     * Minify & Compile all CSS Files & Libraries required for the application
+     */
+
+    //run phpUnit
+    mix.phpUnit();
 
     //compile and minify css for Profile
     mix.styles([
@@ -53,5 +55,101 @@ elixir(mix => {
         "Login.css"
     ], 'public/css/Login.css');
 
-      // .scripts(['forum.js', 'threads.js'], 'public/js/forum.js');
+    /**
+    * Minify & Compile all JS Files & Libraries required for the application
+    */
+
+    //Minified & Compiled JS for CICO page
+    mix.scripts([
+        "jquery.min.js",
+        "jquery-ui.min.js",
+        "bootstrap.min.js",
+        "fontawesome.min.js",
+        "toastr.min.js",
+        "VolunteerRESTLibrary.js",
+        "CICO.js"
+    ], 'public/js/CICO.js');
+
+    //Minified & Compiled JS for Checkout page
+    mix.scripts([
+        "jquery.min.js",
+        "jquery-ui.min.js",
+        "bootstrap.min.js",
+        "fontawesome.min.js",
+        "toastr.min.js",
+        "moment.js",
+        "jquery.tabledit.min.js",
+        "VolunteerRESTLibrary.js",
+        "CICO.js"
+    ], 'public/js/Checkout.js');
+
+    //Minified & Compiled JS for Navbar & Profile page
+    mix.scripts([
+        "jquery.min.js",
+        "jquery-ui.min.js",
+        "bootstrap.min.js",
+        "touchpunch.min.js",
+        "fontawesome.min.js",
+        "toastr.min.js",
+        "moment.js",
+        "spin.min.js",
+        "Highcharts.js",
+        "fullcalendar.min.js",
+        "jquery.tabledit.min.js",
+        "VolunteerRESTLibrary.js",
+        "Chart.js",
+        "Profile.js"
+    ], 'public/js/Profile.js');
+
+
+    //Minified & Compiled JS for Archive page
+    mix.scripts([
+        "jquery.min.js",
+        "jquery-ui.min.js",
+        "bootstrap.min.js",
+        "fontawesome.min.js",
+        "toastr.min.js",
+        "VolunteerRESTLibrary.js",
+        "Archive.js"
+    ], 'public/js/Archive.js');
+
+    //Minified & Compiled JS for Donation page
+    mix.scripts([
+        "jquery.min.js",
+        "jquery-ui.min.js",
+        "bootstrap.min.js",
+        "fontawesome.min.js",
+        "VolunteerRESTLibrary.js",
+        "Archive.js"
+    ], 'public/js/Archive.js');
+
+    //Minified & Compiled JS for Login page
+    mix.scripts([
+        "jquery.min.js",
+        "jquery-ui.min.js",
+        "bootstrap.min.js",
+        "fontawesome.min.js",
+        "VolunteerRESTLibrary.js"
+    ], 'public/js/Login.js');
+
+
+    //Minified & Compiled JS for Password Reset pages
+    mix.scripts([
+        "jquery.min.js",
+        "jquery-ui.min.js",
+        "bootstrap.min.js"
+    ], 'public/js/Jquery_Bootstrap.js');
+
+
+    //Minified & Compiled JS for Volunteer Search page
+    mix.scripts([
+        "jquery.min.js",
+        "bootstrap.min.js",
+        "toastr.min.js",
+        "fontawesome.min.js",
+        "jquery.tabledit.min.js",
+        "VolunteerRESTLibrary.js",
+        "Search.js"
+    ], 'public/js/Search.js');
+
 });

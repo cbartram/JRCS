@@ -45,17 +45,17 @@
                     {{Form::token()}}
                     <p><input type="email" name="email" class="form-control" placeholder="Email"></p>
 
-                    <p><select name="group" class="form-control" id="group"></p>
+                    <p><select name="group" class="form-control" id="group">
                         <option name="JACO">JACO</option>
                         <option name="BEBCO">BEBCO</option>
                         <option name="JBC">JBC</option>
-                    </select>
+                    </select></p>
 
-                    <p><select name="donation-type" class="form-control" id="donation-type"></p>
+                    <p><select name="donation-type" class="form-control" id="donation-type">
                       <option name="monetary">Monetary</option>
                       <option name="supplies">Supplies</option>
                       <option name="inkind">In Kind</option>
-                    </select>
+                    </select></p>
 
                     <p><input type="text" class="form-control" name="amount" id="amount" placeholder="Amount"></p>
                     <p><input type="text" class="form-control" name="type" id="type" placeholder="Type of Supplies"></p>
@@ -78,13 +78,7 @@
     </div>
 </div> <!-- /container -->
 
-<!-- Globally Hosted Libraries -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-<script src="//code.jquery.com/ui/1.12.0/jquery-ui.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-<script src="https://use.fontawesome.com/09e1e27aff.js"></script>
-
 <!-- Local JS Files -->
-<script src="../../public/js/archive.js"></script>
+<script src="/js/Archive.js"></script>
 </body>
 </html>

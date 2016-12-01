@@ -159,24 +159,9 @@
 
 @yield('content')
 
-<!-- JS Libraries -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-<script src="../../public/js/jquery-ui.min.js"></script>
-<script src="../../public/js/touchpunch.js"></script>
-<script src='../../public/js/moment.js'></script>
-
-<script src="https://use.fontawesome.com/09e1e27aff.js"></script>
-<script src="http://spin.js.org/spin.min.js"></script>
-<script src="../../public/js/Highcharts.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
-<script src="../../public/js/fullcalendar.min.js"></script>
-<script src="../../public/js/jquery.tabledit.min.js"></script>
+<!-- Local JS Files -->
+<script src="/js/Profile.js"></script>
 {!! Toastr::render() !!}
 
-<!-- Local JS Files -->
-<script src="../../public/js/VolunteerRESTLibrary.js"></script>
-<script src="../../public/js/Chart.js"></script>
-<script src="../../public/js/Profile.js"></script>
 </body>
 </html>
