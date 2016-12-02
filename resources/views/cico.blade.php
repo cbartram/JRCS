@@ -169,7 +169,7 @@
 
 
 <!-- Local Libraries -->
-<script src="/js/CICO.js"></script>
+<script src="{{  asset('js/CICO.js') }}"></script>
 
 </body>
 </html>
