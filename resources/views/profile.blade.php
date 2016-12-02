@@ -306,6 +306,57 @@
     </div>
     @endif
 
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">Volunteer Table <span class="fa fa-list"></span> <span class="fa fa-minus fa-2x"></span></div>
+            <div class="panel-body panel-sortable">
+                <div class="row">
+                    <div class="col-lg-10 col-lg-offset-1">
+                        <div class="table table-responsive">
+                            <table class="table table-bordered">
+                                 <thead>
+                                    <tr>
+                                        <th>Id</th>
+                                        <th>Name</th>
+                                        <th>Group</th>
+                                        <th>See More</th>
+                                     </tr>
+                                   </thead>
+                                   <tbody>
+                                   @foreach($volunteers as $volunteer)
+                                       <!-- Each Accordian parent row -->
+                                       <tr>
+                                           <td><span class="label label-primary">{{$volunteer->id}}</span></td>
+                                           <td>{{Helpers::getName($volunteer->id)}}</td>
+                                           <td>{{Helpers::getGroups($volunteer->id)}}</td>
+                                           <td><a id="accordian{{$loop->index}}" role="button" data-toggle="collapse" data-target="#accordion{{$loop->index}}" aria-expanded="true" class="btn btn-default"><i class="fa fa-angle-down"></i></a>
+                                           </td>
+                                       </tr>
+
+                                       <!-- Accordian Dropdown -->
+                                       <tr id="accordion{{$loop->index}}" class="collapse out">
+                                           <td colspan="4">
+                                               <div class="row">
+                                                   <div class="col-lg-12">
+                                                       <div class="dynamic-chart-container">
+                                                            <!-- Volunteer Highcharts are loaded in here -->
+                                                       </div>
+                                                   </div>
+                                               </div>
+                                           </td>
+                                       </tr>
+                                   @endforeach
+                           </tbody>
+                       </table>
+                   </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 </div> <!-- Closes container -->
 @endsection

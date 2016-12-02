@@ -20,7 +20,7 @@ elixir(mix => {
      */
 
     //run phpUnit
-    mix.phpUnit();
+    //mix.phpUnit();
 
     //compile and minify css for Profile
     mix.styles([
