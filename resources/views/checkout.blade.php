@@ -70,7 +70,7 @@
 </div> <!-- /container -->
 
 
-<script src="/js/Checkout.js"></script>
+<script src="{{  asset('js/Checkout.js') }}"></script>
 <script>
     //start of the editable table plugin integration
     $('.table-bordered').Tabledit({

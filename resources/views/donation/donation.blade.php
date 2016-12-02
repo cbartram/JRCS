@@ -79,6 +79,6 @@
 </div> <!-- /container -->
 
 <!-- Local JS Files -->
-<script src="/js/Archive.js"></script>
+<script src="{{  asset('js/Archive.js') }}"></script>
 </body>
 </html>
