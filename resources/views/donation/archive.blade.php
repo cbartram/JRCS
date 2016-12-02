@@ -12,6 +12,7 @@
 
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="/public/css/Toastr_Bootstrap.css">
+    <link rel="stylesheet" href="/public/css/Archive.css">
 </head>
 
 <body>
