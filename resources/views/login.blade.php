@@ -12,7 +12,7 @@
     <title>Staff Login</title>
 
     <!-- Latest compiled and minified CSS -->
-    <link href="/css/Login.css" rel="stylesheet">
+    <link href="/public/css/Login.css" rel="stylesheet">
 
 </head>
 
@@ -64,6 +64,6 @@
 </div> <!-- /container -->
 
 <!-- Local Libraries -->
-<script src="/js/Login.js"></script>
+<script src="/public/js/Login.js"></script>
 </body>
 </html>

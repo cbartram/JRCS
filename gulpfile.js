@@ -110,8 +110,8 @@ elixir(mix => {
         "fontawesome.min.js",
         "toastr.min.js",
         "VolunteerRESTLibrary.js",
-        "Archive.js"
-    ], 'public/js/Archive.js');
+        "Archive2.js"
+    ], 'public/js/Archive2.js');
 
     //Minified & Compiled JS for Donation page
     mix.scripts([
@@ -120,8 +120,8 @@ elixir(mix => {
         "bootstrap.min.js",
         "fontawesome.min.js",
         "VolunteerRESTLibrary.js",
-        "Archive.js"
-    ], 'public/js/Archive.js');
+        "Archive2.js"
+    ], 'public/js/Archive2.js');
 
     //Minified & Compiled JS for Login page
     mix.scripts([
