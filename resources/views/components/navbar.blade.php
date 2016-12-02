@@ -12,6 +12,7 @@
     <title>Volunteer Profile</title>
 
     <link href="/public/css/Profile.css" rel="stylesheet">
+    <link href="/public/css/profile.css" rel="stylesheet">
 
 </head>
 
