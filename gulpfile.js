@@ -58,7 +58,7 @@ elixir(mix => {
     //compile and minify CSS for archive
     mix.styles([
         "Archive.css"
-    ], 'public/css/Login.css');
+    ], 'public/css/Archive.css');
 
     /**
     * Minify & Compile all JS Files & Libraries required for the application
