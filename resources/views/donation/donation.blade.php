@@ -12,7 +12,7 @@
     <title>Volunteer Donation</title>
 
     <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="/css/Toastr_Bootstrap.css">
+    <link rel="stylesheet" href="/public/css/Toastr_Bootstrap.css">
 
 </head>
 
@@ -79,6 +79,6 @@
 </div> <!-- /container -->
 
 <!-- Local JS Files -->
-<script src="{{  asset('js/Archive.js') }}"></script>
+<script src="/public/js/Archive.js"></script>
 </body>
 </html>

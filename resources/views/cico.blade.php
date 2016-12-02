@@ -11,7 +11,7 @@
     <title>Volunteer Check-in</title>
 
     <!-- Latest compiled and minified CSS -->
-    <link href="/css/CICO.css" rel="stylesheet">
+    <link href="/public/css/CICO.css" rel="stylesheet">
 </head>
 
 <body>
@@ -169,7 +169,7 @@
 
 
 <!-- Local Libraries -->
-<script src="{{  asset('js/CICO.js') }}"></script>
+<script src="/public/js/CICO.js"></script>
 
 </body>
 </html>

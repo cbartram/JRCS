@@ -10,7 +10,7 @@
 
     <title>Volunteer Checkout</title>
 
-    <link rel="stylesheet" href="/css/CICO.css">
+    <link rel="stylesheet" href="/public/css/CICO.css">
 
 </head>
 <body>
@@ -70,7 +70,7 @@
 </div> <!-- /container -->
 
 
-<script src="{{  asset('js/Checkout.js') }}"></script>
+<script src="/public/js/Checkout.js"></script>
 <script>
     //start of the editable table plugin integration
     $('.table-bordered').Tabledit({

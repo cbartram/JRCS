@@ -11,7 +11,7 @@
 
     <title>Volunteer Profile</title>
 
-    <link href="/css/Profile.css" rel="stylesheet">
+    <link href="/public/css/Profile.css" rel="stylesheet">
 
 </head>
 
@@ -160,7 +160,7 @@
 @yield('content')
 
 <!-- Local JS Files -->
-<script src="/js/Profile.js"></script>
+<script src="/public/js/Profile.js"></script>
 {!! Toastr::render() !!}
 
 </body>

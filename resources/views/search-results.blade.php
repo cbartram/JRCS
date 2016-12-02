@@ -10,7 +10,7 @@
 
     <title>Volunteer Checkout</title>
 
-    <link rel="stylesheet" href="/css/CICO.css">
+    <link rel="stylesheet" href="/public/css/CICO.css">
 
 </head>
 <body>
@@ -96,7 +96,7 @@
 
 </div> <!-- /container -->
 
-<script src="/js/Search.js"></script>
+<script src="/public/js/Search.js"></script>
 
 </body>
 </html>

@@ -10,7 +10,7 @@
 
     <title>Password Reset</title>
 
-    <link rel="stylesheet" href="/css/Toastr_Bootstrap.css">
+    <link rel="stylesheet" href="/public/css/Toastr_Bootstrap.css">
 
 </head>
 <body>
@@ -51,6 +51,6 @@
 
 </div> <!-- /container -->
 
-<script src="/js/Jquery_Bootstrap.js"></script>
+<script src="/public/js/Jquery_Bootstrap.js"></script>
 </body>
 </html>
