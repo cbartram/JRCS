@@ -55,6 +55,11 @@ elixir(mix => {
         "Login.css"
     ], 'public/css/Login.css');
 
+    //compile and minify CSS for archive
+    mix.styles([
+        "Archive.css"
+    ], 'public/css/Archive.css');
+
     /**
     * Minify & Compile all JS Files & Libraries required for the application
     */
@@ -110,8 +115,8 @@ elixir(mix => {
         "fontawesome.min.js",
         "toastr.min.js",
         "VolunteerRESTLibrary.js",
-        "Archive2.js"
-    ], 'public/js/Archive2.js');
+        "Archive.js"
+    ], 'public/js/Archive.js');
 
     //Minified & Compiled JS for Donation page
     mix.scripts([
@@ -119,9 +124,10 @@ elixir(mix => {
         "jquery-ui.min.js",
         "bootstrap.min.js",
         "fontawesome.min.js",
+        "toastr.min.js",
         "VolunteerRESTLibrary.js",
-        "Archive2.js"
-    ], 'public/js/Archive2.js');
+        "Archive.js"
+    ], 'public/js/Archive.js');
 
     //Minified & Compiled JS for Login page
     mix.scripts([
