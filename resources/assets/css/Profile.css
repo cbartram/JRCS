@@ -388,7 +388,64 @@ h4 {
 
 /* Dynamic Charts & Table */
 .dynamic-chart-container {
-    background-color: #a0a0a0;
-    height:400px;
+    background-color: #E6EAEC;
+    height:300px;
 }
+
+
+
+.vitals-icon {
+    font-size: 36px;
+    color: #3a4145;
+}
+
+.vitals-text .number {
+    font-weight: 700;
+    font-size: 30px;
+    line-height: 40px;
+    color: #3a4145;
+    margin-bottom: 5px;
+}
+
+.vitals-text .uom {
+    color: #b1b3b6;
+    font-size: 11px;
+}
+
+.vitals-text .time {
+    color: #b6bdbf;
+    font-size: 11px;
+    margin-bottom: 10px;
+}
+
+.chart-wrap .btn {
+    margin-top: 25px;
+}
+h6 {
+    color:grey;
+    border-bottom: 1px dashed #eee;
+    padding-bottom: 8px;
+}
+
+.collapse-inner {
+    margin: 50px 30px;
+}
+
+.collapse-content {
+    background: #fff;
+    border: 1px solid #DCDEE2;
+    margin: 30px 40px;
+}
+
+.no-padd {
+    padding: 0 !important;
+    background: #f5f5f5;
+    position: relative;
+}
+
+.no-border {
+    border: none !important;
+}
+
+
 

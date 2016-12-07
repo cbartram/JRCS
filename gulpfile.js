@@ -1,6 +1,8 @@
 const elixir = require('laravel-elixir');
 
 require('laravel-elixir-vue');
+elixir.config.sourcemaps = false;
+
 
 /*
  |--------------------------------------------------------------------------
@@ -158,4 +160,5 @@ elixir(mix => {
         "Search.js"
     ], 'public/js/Search.js');
 
+    mix.copy('/public/css', '/public/public/css').copy('/public/js', '/public/public/js');
 });
