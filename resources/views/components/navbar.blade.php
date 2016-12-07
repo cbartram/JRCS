@@ -12,7 +12,6 @@
     <title>Volunteer Profile</title>
 
     <link href="/public/css/Profile.css" rel="stylesheet">
-    <link href="/public/css/profile.css" rel="stylesheet">
 
 </head>
 
@@ -32,7 +31,7 @@
 
             <!-- Branding Image -->
             <a class="navbar-brand" href="{{ url('/') }}">
-                JRCS <span class="label label-primary">Beta</span>
+                JRCS
             </a>
         </div>
 

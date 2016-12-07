@@ -262,9 +262,10 @@ function createChart(data, id) {
 /**
  * Start of Individual volunteer profile card charts
  */
-$('.btn-success').click(function() {
-    var element = $(this).parent().parent().parent().find(".vol-id").text();
-    var id = element.substr(element.length - 12, element.length);
+$('.collapsable').click(function() {
+    var id = $(this).attr('data-id');
+    var target = $(this).attr('data-render');
+
 
     week[0].data = [];
 
@@ -282,7 +283,7 @@ $('.btn-success').click(function() {
 
                 //the array is full
                 if(week[0].hours.length == 4) {
-                    createChart(week[0].hours, ".volunteer-chart");
+                    createChart(week[0].hours, target);
                 }
             }
         });
