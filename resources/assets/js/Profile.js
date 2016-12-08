@@ -21,6 +21,8 @@ $(document).ready(function() {
        });
     });
 
+
+
     $("#volunteers, #checkbox-access, #password, #staff").hide();
     //promote on click show volunteers, checkbox-access, password
     $("#promote").find('input').change(function() {
@@ -232,7 +234,7 @@ $(document).ready(function() {
             defaultDate: moment(),
             navLinks: false, // can click day/week names to navigate views and see events for a particular day
             editable: false, //can drag and drop events onto different days todo this is a bug right now
-            eventLimit: true, // allow "more" link when too many events
+            eventLimit: true,
             eventSources: [
                 {
                     url: '/api/v1/events/' + currentGroup
