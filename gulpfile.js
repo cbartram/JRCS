@@ -74,7 +74,8 @@ elixir(mix => {
         "fontawesome.min.js",
         "toastr.min.js",
         "VolunteerRESTLibrary.js",
-        "CICO.js"
+        "CICO.js",
+        "Vue.js"
     ], 'public/js/CICO.js');
 
     //Minified & Compiled JS for Checkout page
@@ -87,7 +88,8 @@ elixir(mix => {
         "moment.js",
         "jquery.tabledit.min.js",
         "VolunteerRESTLibrary.js",
-        "CICO.js"
+        "CICO.js",
+        "Vue.js"
     ], 'public/js/Checkout.js');
 
     //Minified & Compiled JS for Navbar & Profile page
@@ -105,7 +107,8 @@ elixir(mix => {
         "jquery.tabledit.min.js",
         "VolunteerRESTLibrary.js",
         "Chart.js",
-        "Profile.js"
+        "Profile.js",
+        "Vue.js"
     ], 'public/js/Profile.js');
 
 
@@ -117,7 +120,8 @@ elixir(mix => {
         "fontawesome.min.js",
         "toastr.min.js",
         "VolunteerRESTLibrary.js",
-        "Archive.js"
+        "Archive.js",
+        "Vue.js"
     ], 'public/js/Archive.js');
 
     //Minified & Compiled JS for Donation page
@@ -128,7 +132,8 @@ elixir(mix => {
         "fontawesome.min.js",
         "toastr.min.js",
         "VolunteerRESTLibrary.js",
-        "Archive.js"
+        "Archive.js",
+        "Vue.js"
     ], 'public/js/Archive.js');
 
     //Minified & Compiled JS for Login page
@@ -137,7 +142,8 @@ elixir(mix => {
         "jquery-ui.min.js",
         "bootstrap.min.js",
         "fontawesome.min.js",
-        "VolunteerRESTLibrary.js"
+        "VolunteerRESTLibrary.js",
+        "Vue.js"
     ], 'public/js/Login.js');
 
 
@@ -145,7 +151,8 @@ elixir(mix => {
     mix.scripts([
         "jquery.min.js",
         "jquery-ui.min.js",
-        "bootstrap.min.js"
+        "bootstrap.min.js",
+        "Vue.js"
     ], 'public/js/Jquery_Bootstrap.js');
 
 
@@ -157,8 +164,10 @@ elixir(mix => {
         "fontawesome.min.js",
         "jquery.tabledit.min.js",
         "VolunteerRESTLibrary.js",
-        "Search.js"
+        "Search.js",
+        "Vue.js"
     ], 'public/js/Search.js');
 
-    mix.copy('/public/css', '/public/public/css').copy('/public/js', '/public/public/js');
+    mix.copy('public/css', 'public/public/css').copy('public/js', 'public/public/js');
+
 });
