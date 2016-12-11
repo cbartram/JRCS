@@ -90,6 +90,16 @@
                                 @endforeach
                             </select>
                         </div>
+
+                        <div class="input-group" style="margin-bottom:25px">
+                            <label for="for-group">Volunteering For</label>
+                            <select class="form-control" id="for-group">
+                                <option name="BEBCO">BEBCO</option>
+                                <option name="JACO">JACO</option>
+                                <option name="JBC">JBC</option>
+                            </select>
+                        </div>
+
                     </div>
 
                     <!-- Submit & back buttons -->

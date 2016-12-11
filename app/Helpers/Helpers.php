@@ -55,6 +55,29 @@ class Helpers
 
 
     /**
+     * Returns a Database safe column name for checking in volunteers for a specific group
+     * given the truncated group name
+     * @param $group string Truncated group name "BEBCO" JACO, JBC etc...
+     * @return string fully quantified column name
+     */
+    public static function getForGroupNameFromTruncated($group) {
+        switch($group) {
+            case "BEBCO":
+                $group = 'for_bebco';
+                break;
+            case "JACO":
+                $group = 'for_jaco';
+                break;
+            case "JBC":
+                $group = "for_jbc";
+                break;
+        }
+
+        return $group;
+
+    }
+
+    /**
      * This function promotes a volunteer to a staff member. It is different from the promote
      * admin function because it provides the flexibility to designate which groups the staff
      * member will have access too. This function can serve as promoteAdmin() if all three groups
@@ -492,11 +515,11 @@ class Helpers
 
         foreach($groups as $group) {
             if(self::isMemberOf($group, $id)) {
-                $result .= $group  . ',';
+                $result .= $group  . ', ';
             }
         }
 
-        return rtrim($result , ',');
+        return rtrim($result , ', ');
 
     }
 

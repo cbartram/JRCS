@@ -187,7 +187,7 @@
                                                 <td><span class="label label-primary">{{$volunteer->id}}</span></td>
                                                 <td>{{Helpers::getName($volunteer->id)}}</td>
                                                 <td>{{Helpers::getGroups($volunteer->id)}}</td>
-                                                <td><a id="accordian{{$loop->index}}" role="button" aria-controls="collapse{{$loop->index}}" data-toggle="collapse" href="#collapse{{$loop->index}}" data-target="#collapse{{$loop->index}}" data-id="{{$volunteer->id}}" data-render="#chart{{$loop->index}}" aria-expanded="true" class="btn btn-default collapsable"><i class="fa fa-angle-down"></i></a>
+                                                <td><a id="accordian{{$loop->index}}" role="button" aria-controls="collapse{{$loop->index}}" data-toggle="collapse" data-index="{{$loop->index}}" href="#collapse{{$loop->index}}" data-target="#collapse{{$loop->index}}" data-id="{{$volunteer->id}}" data-render="#chart{{$loop->index}}" aria-expanded="true" class="btn btn-default collapsable"><i class="fa fa-angle-down"></i></a>
                                                 </td>
                                             </tr>
 
@@ -197,26 +197,26 @@
                                                     <div class="collapse-content collapse"  id="collapse{{$loop->index}}">
                                                         <div class="row collapse-inner">
                                                             <div class="col-sm-4">
-                                                                <h6>Current Volunteer Info</h6>
+                                                                <h6>Current Volunteer Hours</h6>
 
                                                                 <div class="row">
                                                                     <div class="col-sm-6 text-center">
                                                                         <div class="vitals-icon">
-                                                                            <i class="fa fa-calendar"></i>
+                                                                            <i class="fa fa-clock-o"></i>
                                                                         </div>
                                                                         <div class="vitals-text">
-                                                                            <div class="number" ><span class="not-found">...</span></div>
-                                                                            <div class="uom">mmHg</div>
+                                                                            <div class="number" ><span class="not-found bebco-number"></span></div>
+                                                                            <div class="uom">Bebco</div>
                                                                             <!--<div class="time">Updated _ ago</div>-->
                                                                         </div>
                                                                     </div>
                                                                     <div class="col-sm-6 text-center">
                                                                         <div class="vitals-icon">
-                                                                            <i class="fa fa-user"></i>
+                                                                            <i class="fa fa-clock-o"></i>
                                                                         </div>
                                                                         <div class="vitals-text">
-                                                                            <div class="number" ><span class="not-found">...</span></div>
-                                                                            <div class="uom">bpm</div>
+                                                                            <div class="number" ><span class="not-found jaco-number"></span></div>
+                                                                            <div class="uom">Jaco</div>
                                                                             <!--<div class="time">Updated _ ago</div>-->
                                                                         </div>
 
@@ -228,21 +228,21 @@
                                                                 <div class="row">
                                                                     <div class="col-sm-6 text-center">
                                                                         <div class="vitals-icon">
-                                                                            <i class="fa fa-calendar"></i>
+                                                                            <i class="fa fa-clock-o"></i>
                                                                         </div>
                                                                         <div class="vitals-text">
-                                                                            <div class="number"><span class="not-found">...</span></div>
-                                                                            <div class="uom">br/min</div>
+                                                                            <div class="number"><span class="not-found jbc-number"></span></div>
+                                                                            <div class="uom">Jbc</div>
                                                                             <!--<div class="time">Updated _ ago</div>-->
                                                                         </div>
                                                                     </div>
                                                                     <div class="col-sm-6 text-center">
                                                                         <div class="vitals-icon">
-                                                                            <i class="fa fa-user"></i>
+                                                                            <i class="fa fa-group"></i>
                                                                         </div>
                                                                         <div class="vitals-text">
-                                                                            <div class="number" ><span class="not-found">...</span></div>
-                                                                            <div class="uom">mmHg</div>
+                                                                            <div class="number" ><span class="not-found all-number"></span></div>
+                                                                            <div class="uom">All</div>
                                                                             <!--<div class="time">Updated _ ago</div>-->
                                                                         </div>
 
@@ -254,7 +254,7 @@
                                                                 <div class="chart-wrap">
                                                                     <!-- Highcharts volunteer chart is loaded here -->
                                                                     <div id="chart{{$loop->index}}" style="height: 280px;"></div>
-                                                                    <a class="btn btn-primary btn-block" href="#">View Volunteer Details</a>
+                                                                    <a class="btn btn-primary btn-block" type="button">View Volunteer Details</a>
                                                                 </div>
                                                             </div>
                                                         </div>

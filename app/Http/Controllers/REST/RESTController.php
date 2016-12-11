@@ -239,6 +239,21 @@ class RESTController extends Controller
         }
     }
 
+
+    public function getHoursByIdAndGroupBetween($id, $group, $start, $end) {
+        $col = Helpers::getForGroupNameFromTruncated($group);
+
+
+        $min = Cico::where('volunteer_id', $id)
+                ->where($col, 1)
+                ->where('check_in_date', '>=', $start)
+                ->where('check_out_date', '<=', $end)
+                ->sum('minutes_volunteered');
+
+            return ['id' => $id, 'hours' => Helpers::minutesToHours($min), 'minutes' => intval($min), 'group' => $group];
+    }
+
+
     /**
      * Aggregates the sum of the volunteers hours between the start date and
      * the end date given the id

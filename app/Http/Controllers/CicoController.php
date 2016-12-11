@@ -26,6 +26,7 @@ class CicoController extends Controller
     public function checkIn() {
        $email = Input::get('email');
        $date = date('Y-m-d');
+       $forGroup = Input::get('forGroup');
 
         //Get the first row back from the query
         $q = Profile::where('email', $email)
@@ -50,8 +51,18 @@ class CicoController extends Controller
 
                 $groups = ['BEBCO', 'JACO', 'JBC'];
                 foreach($groups as $group) {
-
+                    $col = Helpers::getForGroupNameFromTruncated($group);
                     $columnName = Helpers::getGroupNameFromTruncated($group);
+
+                    Log::info('Column Name: ' . $col);
+
+                    //If the group we are iterating over is the group they are volunteering as
+                    if($forGroup == $group) {
+                        Log::info('Settings ' . $forGroup . " to 1");
+                        $cico->$col = 1;
+                    } else {
+                        $cico->$col = 0;
+                    }
 
                     if(Helpers::isMemberOf($group, $q->id)) {
                         $cico->$columnName = 1;

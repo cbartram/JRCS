@@ -259,12 +259,81 @@ function createChart(data, id) {
     });
 }
 
+var smallSpinner = {
+    lines: 14, length: 10, width: 5, radius: 61, scale: .7, corners: 0.4, color: '#4584ef', opacity: 0.15
+    , rotate: 0, direction: 1, speed: 1.4, trail: 36, fps: 20, zIndex: 1, className: 'spinner', top: '50%'
+    , left: '50%', shadow: false, hwaccel: false, position: 'absolute'
+};
+
+
 /**
  * Start of Individual volunteer profile card charts
  */
+var openDrawerIds = [];
+
 $('.collapsable').click(function() {
+    var index = $(this).attr('data-index');
+    var chartContainerId = 'chart' + index;
+    var drawerId =  'collapse' + index;
+    var innerDrawer = $("#" + drawerId).find('.collapse-inner');
+    var chart = $('#' + chartContainerId).highcharts();
     var id = $(this).attr('data-id');
     var target = $(this).attr('data-render');
+    var groups = ['BEBCO', 'JACO', 'JBC'];
+    var start  = moment().subtract(4, 'days').format('YYYY-MM-DD');
+    var end    = moment().format('YYYY-MM-DD');
+
+
+    //Apply the Spinner & Blur
+    var spinnerTarget = document.getElementById(drawerId);
+    var spinner = new Spinner(opts).spin(spinnerTarget);
+    $(spinnerTarget).data('spinner', spinner);
+    innerDrawer.addClass('blur');
+
+    //collapses open drawers after a new drawer is clicked
+    for(var x = 0; x < openDrawerIds.length; x++) {
+        //collapse drawer and update array
+        $('#' + openDrawerIds[0]).collapse('hide');
+        openDrawerIds.shift();
+
+        if(chart) {
+            chart.destroy();
+        }
+
+    }
+
+    openDrawerIds.push(drawerId);
+
+    //todo should only run for the first time
+    // For each group
+    for(var j = 0; j < groups.length; j++) {
+
+
+            //get the hours for each group between start and end date
+            $.ajax({
+                context: this,
+                type: 'GET',
+                url: "api/v1/hours/" + id + "/" + groups[j] + "/" + start + "/" + end,
+                dataType: "json",
+                success: function (data) {
+                    //for each group append the result to it
+                    switch(data.group) {
+                        case "BEBCO":
+                            $(this).parent().parent().next().find('.bebco-number').text(data.hours);
+                            break;
+                        case "JACO":
+                            $(this).parent().parent().next().find('.jaco-number').text(data.hours);
+                            break;
+                        case "JBC":
+                            $(this).parent().parent().next().find('.jbc-number').text(data.hours);
+                            break;
+                    }
+                }
+            });
+        }
+
+        //combine all 3 groups volunteer hours
+        $(this).parent().parent().next().find('.all-number').text('50:44');
 
 
     week[0].data = [];
@@ -283,7 +352,10 @@ $('.collapsable').click(function() {
 
                 //the array is full
                 if(week[0].hours.length == 4) {
+                    innerDrawer.removeClass('blur');
+                    $("#" + drawerId).data('spinner').stop();
                     createChart(week[0].hours, target);
+
                 }
             }
         });
