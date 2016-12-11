@@ -73,6 +73,28 @@ function getHoursById(id, getResult) {
 }
 
 /**
+ * Gets hours by volunteer id where that particular volunteer gave hours towards a single specific group
+ * out of multiple groups given a start date and an end date
+ * @param id volunteer id
+ * @param group
+ * @param start
+ * @param end
+ * @param getResult
+ */
+function getHoursByIdAndGroupBetween(id, group, start, end, getResult) {
+    $.ajax({
+        type: 'GET',
+        url: hoursURL + "/" + id + "/" + group + "/" + start + "/" + end,
+        dataType: "json",
+        success: function (data) {
+            console.log(data);
+            getResult(data);
+        }
+    });
+}
+
+
+/**
  * Gets all hours of a volunteer between the given start date
  * and end date.
  * @param start Start date in the form yyyy-mm-dd
@@ -543,8 +565,8 @@ function isJBCVolunteer(email, getResult) {
  * @param program program (if type is program, act, sat prep etc...)
  * @param getResult callback function to return the result in the console.
  */
-function checkIn(email, type, program, getResult) {
-    $.post('/cico', {email: email, type: type, program: program}).done(function (response) {
+function checkIn(email, type, program, forGroup, getResult) {
+    $.post('/cico', {email: email, type: type, program: program, forGroup: forGroup}).done(function (response) {
         getResult(response);
     });
 }

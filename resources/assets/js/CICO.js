@@ -38,12 +38,13 @@ $(document).ready(function() {
         }
     });
 
-    var email, program, type, timestamp;
+    var email, program, type, timestamp, forGroup;
 
     //Variables for Defining selectors
     var programSelector = $("#volunteer-program");
     var typeSelector = $("#volunteer-type");
     var emailSelector = $("#volunteer-email");
+    var forGroupSelector = $("#for-group");
 
     $(".alert-danger").effect("shake");
     programSelector.hide();
@@ -89,10 +90,10 @@ $(document).ready(function() {
                 //define the Volunteer Type & Program
                 type = typeSelector.find(':selected').attr('name');
                 program = programSelector.find(':selected').attr('name');
+                forGroup = forGroupSelector.find(':selected').attr('name');
 
                 //Input has been Validated submit the post Request
-
-                checkIn(email, type, program, function(data) {
+                checkIn(email, type, program, forGroup, function(data) {
                     switch(data) {
                         case 'false':
                             toastr.error("You haven't checked out yet with the email: <b>" + email + "</b>");

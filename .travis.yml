@@ -3,11 +3,9 @@ php:
   - '5.6'
   - '7.0'
 
-before-script:
-- npm install --global gulp-cli
-- npm install
-
 script:
+ - npm install --global gulp-cli
+ - npm install
  - php artisan config:cache
  - gulp --production
 

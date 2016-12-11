@@ -301,4 +301,6 @@ Route::post('/api/v1/demographics/update', 'REST\RESTController@updateDemographi
 //updates volunteer cico information found through a search
 Route::post('/api/v1/cico/search/update', 'REST\RESTController@updateCico');
 
+Route::get('/api/v1/hours/{id}/{group}/{start}/{end}', 'REST\RESTController@getHoursByIdAndGroupBetween');
+
 
