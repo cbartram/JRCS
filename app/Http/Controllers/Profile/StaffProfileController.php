@@ -10,6 +10,7 @@ use App\Profile;
 use App\Programs;
 use App\StaffProfile;
 use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
@@ -73,7 +74,9 @@ class StaffProfileController extends Controller
             }
 
             //Handles getting all volunteers used for switching volunteer groups
-            $all = Profile::all();
+            $all = Cache::remember('all', 22 * 60,  function() {
+                return Profile::all();
+            });
 
             //Handles getting the donation data from the database
             $donations = Donations::where('status', 'pending')
@@ -98,7 +101,9 @@ class StaffProfileController extends Controller
                     ->orderBy('start', 'ASC')
                     ->paginate(5);
 
-                $allStaff = StaffProfile::all();
+                $allStaff = Cache::remember('allStaff', 60, function() {
+                   return StaffProfile::all();
+                });
             } else {
 
                 //Events on the calendar and events in the event log where the group is the staff members current group
@@ -109,9 +114,12 @@ class StaffProfileController extends Controller
                     ->orderBy('start', 'ASC')
                     ->paginate(5);
 
+                $name = $this->getAttributeName($defaultGroup);
 
                 //Get all staff members who match the current group
-                $allStaff = StaffProfile::where($this->getAttributeName($defaultGroup), 1)->get();
+                $allStaff = Cache::remember('allStaffNoAdmin', 60, function() use ($name) {
+                    return StaffProfile::where($name, 1)->get();
+                });
             }
 
             //return the view and attach staff & volunteer objects to be accessed by blade templating engine
@@ -129,17 +137,7 @@ class StaffProfileController extends Controller
     public function isMemberOf($user)
     {
         $access = [];
-        //todo This works locally but gives a string to array error in dev... not sure why
-//        $groups = ['bebco_access', 'jaco_access', 'jbc_access'];
-//        $truncatedName = ['BEBCO', 'JACO', 'JBC'];
-//
-//        for($i = 0; $i < 3; $i++) {
-//            if($user->$groups[$i] == 1) {
-//                $access[$truncatedName[$i]] = true;
-//            } else {
-//                $access[$truncatedName[$i]] = false;
-//            }
-//        }
+
         if($user->bebco_access == 1) {
             $access['BEBCO'] = true;
         } else {
