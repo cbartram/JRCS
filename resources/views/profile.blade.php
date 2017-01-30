@@ -241,7 +241,7 @@
                                                                             <i class="fa fa-group"></i>
                                                                         </div>
                                                                         <div class="vitals-text">
-                                                                            <div class="number" ><span class="not-found all-number"></span></div>
+                                                                            <div class="number"><span class="not-found all-number"></span></div>
                                                                             <div class="uom">All</div>
                                                                             <!--<div class="time">Updated _ ago</div>-->
                                                                         </div>
