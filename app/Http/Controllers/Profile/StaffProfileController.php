@@ -74,9 +74,7 @@ class StaffProfileController extends Controller
             }
 
             //Handles getting all volunteers used for switching volunteer groups
-            $all = Cache::remember('all', 22 * 60,  function() {
-                return Profile::all();
-            });
+            $all = Profile::where('active', 1)->get();
 
             //Handles getting the donation data from the database
             $donations = Donations::where('status', 'pending')
