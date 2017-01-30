@@ -28,7 +28,7 @@
                     <div class="table-responsive">
                         <table class="table table-bordered">
                             <thead>
-                                <th>Volunteer ID</th>
+                                <th>Donation ID</th>
                                 <th>Donation Group</th>
                                 <th>Donation Type</th>
                                 <th>Donation Value</th>
@@ -40,7 +40,7 @@
                             <tbody>
                             @foreach($donations as $donation)
                                 <tr>
-                                    <td>{{$donation->volunteer_id}}</td>
+                                    <td>{{$donation->donation_id}}</td>
                                     <td>{{$donation->group_name}}</td>
                                     <td>{{$donation->donation_type}}</td>
                                     <td>{{$donation->donation_value}}</td>
