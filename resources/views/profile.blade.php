@@ -254,7 +254,7 @@
                                                                 <div class="chart-wrap">
                                                                     <!-- Highcharts volunteer chart is loaded here -->
                                                                     <div id="chart{{$loop->index}}" style="height: 280px;"></div>
-                                                                    <a class="btn btn-primary btn-block" type="button">View Volunteer Details</a>
+                                                                    <a class="btn btn-primary btn-block" href="volunteer/search/?group={{$defaultGroup}}&email={{$volunteer->email}}" type="button">View Volunteer Details</a>
                                                                 </div>
                                                             </div>
                                                         </div>
