@@ -241,16 +241,29 @@ class RESTController extends Controller
 
 
     public function getHoursByIdAndGroupBetween($id, $group, $start, $end) {
-        $col = Helpers::getForGroupNameFromTruncated($group);
+
+        //The group is either bebco, jaco, or jbc
+        if($group != 'ALL') {
+            $col = Helpers::getForGroupNameFromTruncated($group);
 
 
-        $min = Cico::where('volunteer_id', $id)
+            $min = Cico::where('volunteer_id', $id)
                 ->where($col, 1)
                 ->where('check_in_date', '>=', $start)
                 ->where('check_out_date', '<=', $end)
                 ->sum('minutes_volunteered');
 
             return ['id' => $id, 'hours' => Helpers::minutesToHours($min), 'minutes' => intval($min), 'group' => $group];
+        } else {
+           //We are compiling the data for all three groups combined
+            $min = Cico::where('volunteer_id', $id)
+                ->where('check_in_date', '>=', $start)
+                ->where('check_out_date', '<=', $end)
+                ->sum('minutes_volunteered');
+
+           return ['id' => $id, 'hours' => Helpers::minutesToHours($min), 'minutes' => intval($min), 'group' => $group];
+
+        }
     }
 
 

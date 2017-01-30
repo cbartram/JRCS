@@ -19,7 +19,7 @@
     <div class="row">
         <div class="col-lg-9 col-lg-offset-1">
             <div class="panel panel-default" style="margin-top:25px;">
-                <div class="panel-heading">Search Results</div>
+                <div class="panel-heading">Volunteer Information</div>
                 <div class="panel-body">
                     <div class="table-responsive">
                         <table class="table table-bordered volunteer">
@@ -56,7 +56,7 @@
     <div class="row">
         <div class="col-lg-9 col-lg-offset-1">
             <div class="panel panel-default" style="margin-top:25px;">
-                <div class="panel-heading">Search Results</div>
+                <div class="panel-heading">Volunteer CICO Log</div>
                 <div class="panel-body">
                     <div class="table-responsive">
                         <table class="table table-striped">

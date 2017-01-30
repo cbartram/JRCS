@@ -1918,7 +1918,9 @@ $('.collapsable').click(function() {
     var chart = $('#' + chartContainerId).highcharts();
     var id = $(this).attr('data-id');
     var target = $(this).attr('data-render');
-    var groups = ['BEBCO', 'JACO', 'JBC'];
+
+    var groups = ['BEBCO', 'JACO', 'JBC', 'ALL'];
+
     var start  = moment().subtract(4, 'days').format('YYYY-MM-DD');
     var end    = moment().format('YYYY-MM-DD');
 
@@ -1966,13 +1968,16 @@ $('.collapsable').click(function() {
                         case "JBC":
                             $(this).parent().parent().next().find('.jbc-number').text(data.hours);
                             break;
+                        case "ALL":
+                            $(this).parent().parent().next().find('.all-number').text(data.hours);
+                            break;
                     }
                 }
             });
         }
 
-        //combine all 3 groups volunteer hours
-        $(this).parent().parent().next().find('.all-number').text('50:44');
+    innerDrawer.removeClass('blur');
+    $("#" + drawerId).data('spinner').stop();
 
 
     week[0].data = [];
