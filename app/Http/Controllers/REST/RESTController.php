@@ -242,28 +242,29 @@ class RESTController extends Controller
 
     public function getHoursByIdAndGroupBetween($id, $group, $start, $end) {
 
-        //The group is either bebco, jaco, or jbc
-        if($group != 'ALL') {
-            $col = Helpers::getForGroupNameFromTruncated($group);
+        $group = ['bebco', 'jaco', 'jbc'];
+        $response = ['bebco' => null, 'jaco' => null, 'jbc' => null];
 
-
+        foreach($group as $k => $v) {
             $min = Cico::where('volunteer_id', $id)
-                ->where($col, 1)
+                ->where('for_' . $v, 1)
                 ->where('check_in_date', '>=', $start)
                 ->where('check_out_date', '<=', $end)
                 ->sum('minutes_volunteered');
-
-            return ['id' => $id, 'hours' => Helpers::minutesToHours($min), 'minutes' => intval($min), 'group' => $group];
-        } else {
-           //We are compiling the data for all three groups combined
-            $min = Cico::where('volunteer_id', $id)
-                ->where('check_in_date', '>=', $start)
-                ->where('check_out_date', '<=', $end)
-                ->sum('minutes_volunteered');
-
-           return ['id' => $id, 'hours' => Helpers::minutesToHours($min), 'minutes' => intval($min), 'group' => $group];
-
+            $response[$v] = Helpers::minutesToHours($min);
         }
+
+        $all = Cico::where('volunteer_id', $id)
+            ->where('check_in_date', '>=', $start)
+            ->where('check_out_date', '<=', $end)
+            ->sum('minutes_volunteered');
+
+        //Append several KV elements to the response
+        $response['all'] = Helpers::minutesToHours($all);
+        $response['id']  = $id;
+
+        return $response;
+
     }
 
 
@@ -283,6 +284,35 @@ class RESTController extends Controller
             ->sum('minutes_volunteered');
 
         return ['id' => $id, 'hours' => Helpers::minutesToHours($resultSet), 'minutes' => intval($resultSet)];
+    }
+
+    /**
+     * This is very similar the the getHoursBetween() method except that it will return
+     * the sum of the volunteers hours on every day between the start date and the end date
+     *
+     * @param $id string volunteer id
+     * @param $start string date in the format Y-m-d
+     * @param $end string date in the format Y-m-d
+     * @return array $data
+     */
+    public function getHoursForVolunteerBetween($id, $start, $end) {
+
+        $ranges = Helpers::generateDateRange(Carbon::createFromFormat('Y-m-d', Carbon::now()->subDays(5)->format('Y-m-d')),
+            Carbon::createFromFormat('Y-m-d', Carbon::now()->format('Y-m-d')));
+
+        $data = [];
+
+        foreach($ranges as $range) {
+            $value = Cico::where('volunteer_id', $id)
+                ->where('check_in_date', '>=', $range)
+                ->where('check_out_date', '<=', $range)
+                ->sum('minutes_volunteered');
+
+            array_push($data, intval($value));
+        }
+
+        return [$data, $ranges];
+
     }
 
     /**
@@ -308,14 +338,42 @@ class RESTController extends Controller
      * @return array JSON String
      */
     public function getHoursByGroupBetween($group, $start, $end) {
+        //Default days to show is 7
+        $days = 7;
+
+        //If the user has specified a specific number of days to show
+        if(Input::get('days')) {
+            $days = intval(Input::get('days'));
+        }
+
         $groupName = Helpers::getGroupNameFromTruncated($group);
 
-        $result = Cico::where($groupName, 1)
-            ->where('check_in_date', '>=', $start)
-            ->where('check_out_date', '<=', $end)
-            ->sum('minutes_volunteered');
+        $ranges = Helpers::generateDateRange(Carbon::createFromFormat('Y-m-d', Carbon::now()->subDays($days)->format('Y-m-d')),
+            Carbon::createFromFormat('Y-m-d', Carbon::now()->format('Y-m-d')));
 
-        return ['group' => $group, 'hours' => Helpers::minutesToHours($result), 'minutes' => intval($result)];
+        $data = [];
+
+        if($group == "ADMIN") {
+            foreach($ranges as $range) {
+                $result = Cico::where('check_in_date', '>=', $range)
+                    ->where('check_out_date', '<=', $range)
+                    ->sum('minutes_volunteered');
+
+                array_push($data, intval($result));
+            }
+        } else {
+
+            foreach($ranges as $range) {
+                $result = Cico::where($groupName, 1)
+                    ->where('check_in_date', '>=', $range)
+                    ->where('check_out_date', '<=', $range)
+                    ->sum('minutes_volunteered');
+
+                array_push($data, intval($result));
+            }
+        }
+
+        return ['group' => $group, $data, $ranges];
     }
 
     /**
@@ -491,7 +549,7 @@ class RESTController extends Controller
                 array_push($value, $v);
             }
 
-            //to avoid a array to string conversion error
+             //to avoid an array to string conversion error
              array_map("strval", $value);
              array_map("strval", $key);
 

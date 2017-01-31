@@ -256,8 +256,13 @@ Route::get('api/v1/donations/deny/{id}', 'REST\RESTController@denyDonation');
 //Approves a pending donation
 Route::get('api/v1/donations/approve/{id}', 'REST\RESTController@approveDonation');
 
+
+
 //Handles authenticating if a users email and password are correct
 Route::post('api/v1/authenticate/', 'REST\RESTController@authenticate');
+
+
+
 
 Route::get('api/v1/hours/', 'REST\RESTController@getAllHours');
 
@@ -275,6 +280,15 @@ Route::get('/api/v1/hours/group/{group}/{start}/{end}', 'REST\RESTController@get
 
 //Aggregates sum of all groups one a specific date
 Route::get('/api/v1/hours/date/{date}', 'REST\RESTController@getAllHoursOnDate');
+
+//Aggregates sum of volunteer hours
+Route::get('/api/v1/hours/{id}/{group}/{start}/{end}', 'REST\RESTController@getHoursByIdAndGroupBetween');
+
+
+Route::get('/api/v1/volunteer/hours/{id}/{start}/{end}', 'REST\RESTController@getHoursForVolunteerBetween');
+
+
+
 
 //Handles archiving a volunteer
 Route::post('/api/v1/archive/volunteer/{id}', 'REST\RESTController@archiveVolunteer');
@@ -300,7 +314,4 @@ Route::post('/api/v1/demographics/update', 'REST\RESTController@updateDemographi
 
 //updates volunteer cico information found through a search
 Route::post('/api/v1/cico/search/update', 'REST\RESTController@updateCico');
-
-Route::get('/api/v1/hours/{id}/{group}/{start}/{end}', 'REST\RESTController@getHoursByIdAndGroupBetween');
-
 
