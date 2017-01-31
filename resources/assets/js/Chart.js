@@ -306,11 +306,6 @@ $('.collapsable').click(function() {
 
     openDrawerIds.push(drawerId);
 
-    //todo should only run for the first time
-    // For each group
-    for(var j = 0; j < groups.length; j++) {
-
-
             //get the hours for each group between start and end date
             $.ajax({
                 context: this,
@@ -318,24 +313,14 @@ $('.collapsable').click(function() {
                 url: "api/v1/hours/" + id + "/" + groups[j] + "/" + start + "/" + end,
                 dataType: "json",
                 success: function (data) {
-                    //for each group append the result to it
-                    switch(data.group) {
-                        case "BEBCO":
-                            $(this).parent().parent().next().find('.bebco-number').text(data.hours);
-                            break;
-                        case "JACO":
-                            $(this).parent().parent().next().find('.jaco-number').text(data.hours);
-                            break;
-                        case "JBC":
-                            $(this).parent().parent().next().find('.jbc-number').text(data.hours);
-                            break;
-                        case "ALL":
-                            $(this).parent().parent().next().find('.all-number').text(data.hours);
-                            break;
-                    }
+                    //Append Data to DOM
+                    $(this).parent().parent().next().find('.bebco-number').text(data.bebco);
+                    $(this).parent().parent().next().find('.jaco-number').text(data.jaco);
+                    $(this).parent().parent().next().find('.jbc-number').text(data.jbc);
+                    $(this).parent().parent().next().find('.all-number').text(data.all);
                 }
             });
-        }
+
 
 
     week[0].data = [];
@@ -354,8 +339,6 @@ $('.collapsable').click(function() {
 
                 //the array is full
                 if(week[0].hours.length == 4) {
-                    innerDrawer.removeClass('blur');
-                    $("#" + drawerId).data('spinner').stop();
                     createChart(week[0].hours, target);
 
                 }
@@ -363,6 +346,9 @@ $('.collapsable').click(function() {
         });
 
     }
+
+    innerDrawer.removeClass('blur');
+    $("#" + drawerId).data('spinner').stop();
 
     week[0].hours = [];
 });

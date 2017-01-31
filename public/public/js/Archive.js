@@ -50,8 +50,7 @@ window.FontAwesomeCdnConfig = {
 //# sourceMappingURL=toastr.js.map
 /**
  * Created by christian bartram on 9/22/16.
- * Not really sure how to name this file but
- * it contains methods to query and parse volunteer info
+ * Contains methods to query and parse volunteer info
  */
 var baseURL     = "../api/v1/volunteers";
 var eventURL    = "../api/v1/events";
@@ -341,7 +340,7 @@ function deleteVolunteerById(id, getResult) {
     var settings = {
         "async": true,
         "crossDomain": true,
-        "url": "http://jrcs.herokuapp.com/api/v1/volunteers/id/" + id,
+        "url": "https://jrcs.herokuapp.com/api/v1/volunteers/id/" + id,
         "method": "DELETE",
         "headers": {
             "cache-control": "no-cache"
@@ -361,7 +360,7 @@ function deleteVolunteerByEmail(email, getResult) {
     var settings = {
         "async": true,
         "crossDomain": true,
-        "url": "http://jrcs.herokuapp.com/api/v1/volunteers/email/" + email,
+        "url": "https://jrcs.herokuapp.com/api/v1/volunteers/email/" + email,
         "method": "DELETE",
         "headers": {
             "cache-control": "no-cache"

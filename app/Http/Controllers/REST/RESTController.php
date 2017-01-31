@@ -242,28 +242,29 @@ class RESTController extends Controller
 
     public function getHoursByIdAndGroupBetween($id, $group, $start, $end) {
 
-        //The group is either bebco, jaco, or jbc
-        if($group != 'ALL') {
-            $col = Helpers::getForGroupNameFromTruncated($group);
+        $group = ['bebco', 'jaco', 'jbc'];
+        $response = ['bebco' => null, 'jaco' => null, 'jbc' => null];
 
-
+        foreach($group as $k => $v) {
             $min = Cico::where('volunteer_id', $id)
-                ->where($col, 1)
+                ->where('for_' . $v, 1)
                 ->where('check_in_date', '>=', $start)
                 ->where('check_out_date', '<=', $end)
                 ->sum('minutes_volunteered');
-
-            return ['id' => $id, 'hours' => Helpers::minutesToHours($min), 'minutes' => intval($min), 'group' => $group];
-        } else {
-           //We are compiling the data for all three groups combined
-            $min = Cico::where('volunteer_id', $id)
-                ->where('check_in_date', '>=', $start)
-                ->where('check_out_date', '<=', $end)
-                ->sum('minutes_volunteered');
-
-           return ['id' => $id, 'hours' => Helpers::minutesToHours($min), 'minutes' => intval($min), 'group' => $group];
-
+            $response[$v] = Helpers::minutesToHours($min);
         }
+
+        $all = Cico::where('volunteer_id', $id)
+            ->where('check_in_date', '>=', $start)
+            ->where('check_out_date', '<=', $end)
+            ->sum('minutes_volunteered');
+
+        //Append several KV elements to the response
+        $response['all'] = Helpers::minutesToHours($all);
+        $response['id']  = $id;
+
+        return $response;
+
     }
 
 
@@ -491,7 +492,7 @@ class RESTController extends Controller
                 array_push($value, $v);
             }
 
-            //to avoid a array to string conversion error
+             //to avoid an array to string conversion error
              array_map("strval", $value);
              array_map("strval", $key);
 

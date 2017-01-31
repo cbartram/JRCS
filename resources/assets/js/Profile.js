@@ -44,9 +44,6 @@ $(document).ready(function() {
     });
 
     //Handles
-
-
-
     $(".btn-success").click(function() {
         //Travels up the DOM searching for H4 tag with the CSS class user-name could be done better
         var user = $(this).parent().parent().parent().parent().find('.user-name').text();
@@ -104,7 +101,6 @@ $(document).ready(function() {
             if(response == "true") {
                 $("#myModal").modal('toggle');
                 toastr.success('Successfully Archived Volunteer: ' + id);
-                //todo reload changes?
             } else {
                 $("#myModal").modal('toggle');
                 toastr.error('Failed to Archive Volunteer, make sure their profile is fully loaded before you try to archive them!');
