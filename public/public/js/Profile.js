@@ -1701,22 +1701,11 @@ Highcharts.theme = {
 // Apply the theme
 Highcharts.setOptions(Highcharts.theme);
 
-/*
+/**
  * Handle preparing the data to show
  */
-
 var text = $("#current-group").html();
 var currentGroup = text.substring(8, text.length);
-
-
-//add previous week to an array in RESTLib Format
-var week = [
-    {
-        name:'dates',
-        data:[],
-        hours:[]
-    }
-];
 
 var opts = {
     lines: 14, length: 18, width: 5, radius: 61, scale: .7, corners: 0.4, color: '#4584ef', opacity: 0.15
@@ -1729,49 +1718,14 @@ new Spinner(opts).spin(target);
 
 $("#month").val(moment().daysInMonth());
 
-if(currentGroup != "ADMIN") {
-    for (var i = 0; i < 7; i++) {
-        var date = moment().subtract(i, 'd').format("YYYY-MM-DD");
-        week[0].data.push(date);
-
         $.ajax({
             type: 'GET',
-            url: "api/v1/hours/group/" + currentGroup + "/" + date + "/" + date,
+            url: "api/v1/hours/group/" + currentGroup + "/null/null",
             dataType: "json",
             success: function (data) {
-                week[0].hours.push(data.minutes);
-
-                //the array is full
-                if(week[0].hours.length == 7) {
-                    createChart(week[0].hours, "#listing");
-                }
+                createVolunteerProfileChart(data[0], data[1], '#listing')
             }
         });
-    }
-
-} else {
-    //They are viewing the admin group
-    for(var j = 0; j < 7; j++) {
-        var adminDate = moment().subtract(j, 'd').format("YYYY-MM-DD");
-        week[0].data.push(adminDate);
-
-        $.ajax({
-            type: 'GET',
-            url: "api/v1/hours/date/" + adminDate,
-            dataType: "json",
-            success: function (data) {
-                week[0].hours.push(data.minutes);
-
-                //the array is full
-                if(week[0].hours.length == 7) {
-                    createChart(week[0].hours, "#listing");
-                }
-            }
-        });
-
-    }
-
-}
 
 //When the user changes the timeframe we need to adapt to display it
 $("#timeframe").change(function() {
@@ -1783,60 +1737,18 @@ $("#timeframe").change(function() {
 
     //get the number of days we need to display
     var days = $(this).val();
-    week[0].data = [];
-
-    if(currentGroup != "ADMIN") {
-        //iterate over the number of days
-        for (var i = 0; i < days; i++) {
-            //for each day subtract a day and add it to an array
-            var date = moment().subtract(i, 'd').format("YYYY-MM-DD");
-            week[0].data.push(date);
 
             $.ajax({
                 type: 'GET',
-                url: "api/v1/hours/group/" + currentGroup + "/" + date + "/" + date,
+                url: "api/v1/hours/group/" + currentGroup + "/null/null",
                 dataType: "json",
+                data: {days: days},
                 success: function (data) {
-                    week[0].hours.push(data.minutes);
-
-                    //the array is full
-                    if(week[0].hours.length == days) {
-                        createChart(week[0].hours, "#listing");
-                    }
+                    createVolunteerProfileChart(data[0], data[1], "#listing");
                 }
             });
-        }
 
-        //after the chart is displayed remove the data from the array to prepare for another timeframe change
-        week[0].hours = [];
-
-    } else {
-        //Clear out the previous week data before pushing new data onto the stack
-        week[0].data = [];
-
-        //They are viewing the admin group
-        for(var j = 0; j < days; j++) {
-            var adminDate = moment().subtract(j, 'd').format("YYYY-MM-DD");
-            week[0].data.push(adminDate);
-
-            $.ajax({
-                type: 'GET',
-                url: "api/v1/hours/date/" + adminDate,
-                dataType: "json",
-                success: function (data) {
-                    week[0].hours.push(data.minutes);
-
-                    //the array is full
-                    if(week[0].hours.length == days) {
-                        createChart(week[0].hours, "#listing");
-                    }
-                }
-            });
-        }
-        week[0].hours = [];
-    }
-
-});
+    });
 
 /**
  * Converts minutes to hours in the format HH:MM
@@ -1853,50 +1765,6 @@ function minutesToHours(minutes) {
 /**
  * Create the highcharts bar chart
  */
-function createChart(data, id) {
-    $(function () {
-        $(id).highcharts({
-            chart: {
-                type: 'column'
-            },
-            title: {
-                text: 'Hours Volunteered'
-            },
-            subtitle: {
-                text: ''
-            },
-            xAxis: {
-                categories: week[0].data,
-                crosshair: true
-            },
-            yAxis: {
-                min: 0,
-                title: {
-                    text: 'Minutes Vounteered'
-                }
-            },
-            tooltip: {
-                formatter: function() {
-                    return "Volunteered <b>" + minutesToHours(this.y) + "</b>";
-                },
-                shared: true,
-                useHTML: true
-            },
-            plotOptions: {
-                column: {
-                    pointPadding: 0.2,
-                    borderWidth: 0
-                }
-            },
-            series: [{
-                name: 'Date',
-                data: data
-
-            }]
-        });
-    });
-}
-
 function createVolunteerProfileChart(data, xAxis, id) {
     $(id).highcharts({
         chart: {
@@ -1987,7 +1855,7 @@ $('.collapsable').click(function() {
             $.ajax({
                 context: this,
                 type: 'GET',
-                url: "api/v1/hours/" + id + "/" + groups[j] + "/" + start + "/" + end,
+                url: "api/v1/hours/" + id + "/null/" + start + "/" + end,
                 dataType: "json",
                 success: function (data) {
                     //Append Data to DOM
@@ -1998,16 +1866,11 @@ $('.collapsable').click(function() {
                 }
             });
 
-    week[0].data = [];
-
-
         $.ajax({
             type: 'GET',
             url: "/api/v1/volunteer/hours/" + id + "/null/null",
             dataType: "json",
             success: function (data) {
-
-                console.log(data);
                 createVolunteerProfileChart(data[0], data[1], target);
             }
         });

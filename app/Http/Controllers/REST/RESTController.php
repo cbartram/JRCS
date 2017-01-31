@@ -338,14 +338,42 @@ class RESTController extends Controller
      * @return array JSON String
      */
     public function getHoursByGroupBetween($group, $start, $end) {
+        //Default days to show is 7
+        $days = 7;
+
+        //If the user has specified a specific number of days to show
+        if(Input::get('days')) {
+            $days = intval(Input::get('days'));
+        }
+
         $groupName = Helpers::getGroupNameFromTruncated($group);
 
-        $result = Cico::where($groupName, 1)
-            ->where('check_in_date', '>=', $start)
-            ->where('check_out_date', '<=', $end)
-            ->sum('minutes_volunteered');
+        $ranges = Helpers::generateDateRange(Carbon::createFromFormat('Y-m-d', Carbon::now()->subDays($days)->format('Y-m-d')),
+            Carbon::createFromFormat('Y-m-d', Carbon::now()->format('Y-m-d')));
 
-        return ['group' => $group, 'hours' => Helpers::minutesToHours($result), 'minutes' => intval($result)];
+        $data = [];
+
+        if($group == "ADMIN") {
+            foreach($ranges as $range) {
+                $result = Cico::where('check_in_date', '>=', $range)
+                    ->where('check_out_date', '<=', $range)
+                    ->sum('minutes_volunteered');
+
+                array_push($data, intval($result));
+            }
+        } else {
+
+            foreach($ranges as $range) {
+                $result = Cico::where($groupName, 1)
+                    ->where('check_in_date', '>=', $range)
+                    ->where('check_out_date', '<=', $range)
+                    ->sum('minutes_volunteered');
+
+                array_push($data, intval($result));
+            }
+        }
+
+        return ['group' => $group, $data, $ranges];
     }
 
     /**
