@@ -1897,17 +1897,58 @@ function createChart(data, id) {
     });
 }
 
-var smallSpinner = {
-    lines: 14, length: 10, width: 5, radius: 61, scale: .7, corners: 0.4, color: '#4584ef', opacity: 0.15
-    , rotate: 0, direction: 1, speed: 1.4, trail: 36, fps: 20, zIndex: 1, className: 'spinner', top: '50%'
-    , left: '50%', shadow: false, hwaccel: false, position: 'absolute'
-};
+function createVolunteerProfileChart(data, xAxis, id) {
+    $(id).highcharts({
+        chart: {
+            type: 'column'
+        },
+        title: {
+            text: 'Hours Volunteered'
+        },
+        subtitle: {
+            text: ''
+        },
+        xAxis: {
+            categories: xAxis,
+            crosshair: true
+        },
+        yAxis: {
+            min: 0,
+            title: {
+                text: 'Minutes Vounteered'
+            }
+        },
+        tooltip: {
+            formatter: function() {
+                return "Volunteered <b>" + minutesToHours(this.y) + "</b>";
+            },
+            shared: true,
+            useHTML: true
+        },
+        plotOptions: {
+            column: {
+                pointPadding: 0.2,
+                borderWidth: 0
+            }
+        },
+        series: [{
+            name: 'Date',
+            data: data
 
+        }]
+    });
+}
 
 /**
  * Start of Individual volunteer profile card charts
  */
 var openDrawerIds = [];
+
+var smallSpinner = {
+    lines: 14, length: 10, width: 5, radius: 61, scale: .7, corners: 0.4, color: '#4584ef', opacity: 0.15
+    , rotate: 0, direction: 1, speed: 1.4, trail: 36, fps: 20, zIndex: 1, className: 'spinner', top: '50%'
+    , left: '50%', shadow: false, hwaccel: false, position: 'absolute'
+};
 
 $('.collapsable').click(function() {
     var index = $(this).attr('data-index');
@@ -1935,7 +1976,6 @@ $('.collapsable').click(function() {
         //collapse drawer and update array
         $('#' + openDrawerIds[0]).collapse('hide');
         openDrawerIds.shift();
-
         if(chart) {
             chart.destroy();
         }
@@ -1943,7 +1983,6 @@ $('.collapsable').click(function() {
     }
 
     openDrawerIds.push(drawerId);
-
             //get the hours for each group between start and end date
             $.ajax({
                 context: this,
@@ -1959,36 +1998,23 @@ $('.collapsable').click(function() {
                 }
             });
 
-
-
     week[0].data = [];
 
-    for (var i = 0; i < 4; i++) {
-        //for each day subtract a day and add it to an array
-        var date = moment().subtract(i, 'd').format("YYYY-MM-DD");
-        week[0].data.push(date);
 
         $.ajax({
             type: 'GET',
-            url: "api/v1/hours/" + id + "/" + date + "/" + date,
+            url: "/api/v1/volunteer/hours/" + id + "/null/null",
             dataType: "json",
             success: function (data) {
-                week[0].hours.push(data.minutes);
 
-                //the array is full
-                if(week[0].hours.length == 4) {
-                    createChart(week[0].hours, target);
-
-                }
+                console.log(data);
+                createVolunteerProfileChart(data[0], data[1], target);
             }
         });
-
-    }
 
     innerDrawer.removeClass('blur');
     $("#" + drawerId).data('spinner').stop();
 
-    week[0].hours = [];
 });
 
 

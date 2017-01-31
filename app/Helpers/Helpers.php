@@ -256,6 +256,24 @@ class Helpers
     }
 
     /**
+     * Returns array of dates between start date and end date
+     *
+     * @param Carbon $start_date
+     * @param Carbon $end_date
+     * @return array
+     */
+    public static function generateDateRange(Carbon $start_date, Carbon $end_date)
+    {
+        $dates = [];
+
+        for($date = $start_date; $date->lte($end_date); $date->addDay()) {
+            $dates[] = $date->format('Y-m-d');
+        }
+
+        return $dates;
+    }
+
+    /**
      * Returns true if volunteer with the given id is a member of the given group. It will return false if they are not part of that group
      * @param $group string Group to check BEBCO, JACO, or JBC
      * @param $id string id of the volunteer to check

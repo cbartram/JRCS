@@ -287,6 +287,35 @@ class RESTController extends Controller
     }
 
     /**
+     * This is very similar the the getHoursBetween() method except that it will return
+     * the sum of the volunteers hours on every day between the start date and the end date
+     *
+     * @param $id string volunteer id
+     * @param $start string date in the format Y-m-d
+     * @param $end string date in the format Y-m-d
+     * @return array $data
+     */
+    public function getHoursForVolunteerBetween($id, $start, $end) {
+
+        $ranges = Helpers::generateDateRange(Carbon::createFromFormat('Y-m-d', Carbon::now()->subDays(5)->format('Y-m-d')),
+            Carbon::createFromFormat('Y-m-d', Carbon::now()->format('Y-m-d')));
+
+        $data = [];
+
+        foreach($ranges as $range) {
+            $value = Cico::where('volunteer_id', $id)
+                ->where('check_in_date', '>=', $range)
+                ->where('check_out_date', '<=', $range)
+                ->sum('minutes_volunteered');
+
+            array_push($data, intval($value));
+        }
+
+        return [$data, $ranges];
+
+    }
+
+    /**
      * Gets the sum of all hours volunteered for the group given
      * @param $group string Group Name BEBCO,JACO,JBC
      * @return array JSON String
