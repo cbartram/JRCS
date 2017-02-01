@@ -29,6 +29,9 @@
                                     <option value="{{$k}}">{{$k}}</option>
                                 @endif
                             @endforeach
+                            @if($defaultGroup == "ADMIN")
+                            <option value="all">All Groups</option>
+                            @endif
                         </select>
                     </div>
                 </div>
