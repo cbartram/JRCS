@@ -29,8 +29,11 @@
 
             {{ Form::open(array('url' => '/change', 'method' => 'post')) }}
 
-            <p>{{ Form::password('password', Input::old('password'), array('placeholder' => 'New Password', 'class' => 'form-control')) }}</p>
-            <p>{{ Form::password('password-confirm', Input::old('password'), array('placeholder' => 'Confirm Password', 'class' => 'form-control')) }}</p>
+            <input type="password" class="form-control" name="password" placeholder="New Password">
+            <br>
+            <input type="password" class="form-control" name="password-confirm" placeholder="Confirm Password">
+            <br>
+            <input type="hidden" name="email" value="{{Input::get('email')}}">
 
             {{ Form::submit('Reset Password', array('class' => 'btn btn-block btn-success')) }}
 
