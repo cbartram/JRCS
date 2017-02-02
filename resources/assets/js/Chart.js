@@ -197,7 +197,7 @@ $('.collapsable').click(function() {
 
     //Apply the Spinner & Blur
     var spinnerTarget = document.getElementById(drawerId);
-    var spinner = new Spinner(opts).spin(spinnerTarget);
+    var spinner = new Spinner(smallSpinner).spin(spinnerTarget);
     $(spinnerTarget).data('spinner', spinner);
     innerDrawer.addClass('blur');
 

@@ -32,7 +32,7 @@ class PasswordController extends Controller
             $title = 'JRCS Password Reset';
 
             //todo this will need to be changed eventually
-            $content = 'https://jrcs.herokuapp.com/password/reset/' . $token;
+            $content = 'https://jrcs.herokuapp.com/password/reset/' . $token . '?email=' . $staff->email;
             $gravatar = md5(strtolower($staff->email));
 
             //Send the email and pass the blade view as parameters
@@ -54,7 +54,7 @@ class PasswordController extends Controller
 
     /**
      * Handles the link that is clicked in the email
-     * @param $token unique password reset token
+     * @param $token string unique password reset token
      * @return $this
      */
     public function reset($token) {
@@ -79,6 +79,8 @@ class PasswordController extends Controller
      * @return mixed
      */
     public function change() {
+
+        //Get Input from Form Submit
         $email = Input::get('email');
         $password = Input::get('password');
         $passwordConfirm = Input::get('password-confirm');
