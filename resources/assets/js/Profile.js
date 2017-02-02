@@ -78,7 +78,6 @@ $(document).ready(function() {
     $("#start-date, #end-date, #export-start-date, #export-end-date").datepicker();
     $("#export-start-date, #export-end-date").datepicker("option", "dateFormat", 'yy-mm-dd');
 
-
     //Handles emptying the trash!
     $("#delete").click(function() {
        for(var i = 0; i < deleteArray.length; i++) {

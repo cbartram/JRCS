@@ -1827,8 +1827,6 @@ $('.collapsable').click(function() {
     var id = $(this).attr('data-id');
     var target = $(this).attr('data-render');
 
-    var groups = ['BEBCO', 'JACO', 'JBC', 'ALL'];
-
     var start  = moment().subtract(4, 'days').format('YYYY-MM-DD');
     var end    = moment().format('YYYY-MM-DD');
 
@@ -1837,7 +1835,9 @@ $('.collapsable').click(function() {
     var spinnerTarget = document.getElementById(drawerId);
     var spinner = new Spinner(smallSpinner).spin(spinnerTarget);
     $(spinnerTarget).data('spinner', spinner);
-    innerDrawer.addClass('blur');
+
+    $("#" + drawerId).find('.collapse-inner').addClass('blur');
+    $("#collapse-inner" + index).addClass('blur');
 
     //collapses open drawers after a new drawer is clicked
     for(var x = 0; x < openDrawerIds.length; x++) {
@@ -1963,7 +1963,6 @@ $(document).ready(function() {
     //Add Date pickers from jqueryUI to date selectors
     $("#start-date, #end-date, #export-start-date, #export-end-date").datepicker();
     $("#export-start-date, #export-end-date").datepicker("option", "dateFormat", 'yy-mm-dd');
-
 
     //Handles emptying the trash!
     $("#delete").click(function() {
