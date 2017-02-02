@@ -297,8 +297,8 @@ class RESTController extends Controller
      */
     public function getHoursForVolunteerBetween($id, $start, $end) {
 
-        $ranges = Helpers::generateDateRange(Carbon::createFromFormat('Y-m-d', Carbon::now()->subDays(5)->format('Y-m-d')),
-            Carbon::createFromFormat('Y-m-d', Carbon::now()->format('Y-m-d')));
+        $ranges = Helpers::generateDateRange(Carbon::createFromFormat('Y-m-d', Carbon::now()->subHour(5)->subDays(5)->format('Y-m-d')),
+            Carbon::createFromFormat('Y-m-d', Carbon::now()->subHour(5)->format('Y-m-d')));
 
         $data = [];
 
@@ -338,18 +338,18 @@ class RESTController extends Controller
      * @return array JSON String
      */
     public function getHoursByGroupBetween($group, $start, $end) {
-        //Default days to show is 7
-        $days = 7;
+        //Default days to show is 6
+        $days = 6;
 
         //If the user has specified a specific number of days to show
         if(Input::get('days')) {
-            $days = intval(Input::get('days'));
+            $days = intval(Input::get('days')) - 1;
         }
 
         $groupName = Helpers::getGroupNameFromTruncated($group);
 
-        $ranges = Helpers::generateDateRange(Carbon::createFromFormat('Y-m-d', Carbon::now()->subDays($days)->format('Y-m-d')),
-            Carbon::createFromFormat('Y-m-d', Carbon::now()->format('Y-m-d')));
+        $ranges = Helpers::generateDateRange(Carbon::createFromFormat('Y-m-d', Carbon::now()->subHour(5)->subDays($days)->format('Y-m-d')),
+            Carbon::createFromFormat('Y-m-d', Carbon::now()->subHour(5)->format('Y-m-d')));
 
         $data = [];
 
