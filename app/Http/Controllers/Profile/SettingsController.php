@@ -10,6 +10,7 @@ use App\StaffProfile;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Redirect;
@@ -27,7 +28,7 @@ class SettingsController extends Controller
     public function defaultGroup() {
         $defaultGroup = Input::get('group-radio');
 
-        $staff = StaffProfile::find(Session::get('id'));
+        $staff = StaffProfile::find(Auth::user()->id);
 
         //The staff member could be found
         if($staff != null) {
@@ -52,13 +53,11 @@ class SettingsController extends Controller
         //Place a session
         if($checkbox == true) {
             Session::put('drop', true);
-            //Redis::set('drop', true);
 
             Toastr::success('Drag and Drop view has been turned on!', $title = 'Success', $options = []);
             return Redirect::back();
         } else {
             Session::forget('drop');
-            //Redis::del('drop');
             Toastr::success('Drag and Drop view has been turned off!', $title = 'Success', $options = []);
 
             return Redirect::back();
@@ -71,7 +70,7 @@ class SettingsController extends Controller
      * @return mixed
      */
     public function self() {
-        $staff = StaffProfile::find(Session::get('id'));
+        $staff = StaffProfile::find(Auth::user()->id);
 
         //The user has checked the checkbox
         if(Input::get('self-checkbox') == 'true') {
@@ -81,6 +80,7 @@ class SettingsController extends Controller
                 $staff->show_self = true;
 
                 $staff->save();
+
                 //Set the session variable
                 Session::put('show-self', true);
                 Toastr::success('Your settings have been saved successfully!', $title = 'Success', $options = []);
@@ -124,7 +124,7 @@ class SettingsController extends Controller
             if(Input::get('password-text') == Input::get('password-confirm')) {
                 //Hash the passwords and update the database
                 $password = Hash::make(Input::get('password-text'));
-                $staff = StaffProfile::find(Session::get('id'));
+                $staff = StaffProfile::find(Auth::user()->id);
 
                 if($staff != null) {
                     $staff->password = $password;

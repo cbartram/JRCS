@@ -10,6 +10,7 @@ use App\Profile;
 use App\Programs;
 use App\StaffProfile;
 use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
@@ -18,10 +19,15 @@ use Illuminate\Support\Facades\Session;
 class StaffProfileController extends Controller
 {
 
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function index()
     {
             //Searches the DB for staff profile with the $id = id submitted by the login form
-            $staff = DB::table('staff_profile2')->where('id', Session::get('id'))->limit(1)->get()->first();
+            $staff = StaffProfile::where('id', Auth::user()->id)->limit(1)->get()->first();
 
             //Finds the volunteers that relate to the staff members "default" group
             if(Session::has('group')) {
@@ -51,11 +57,11 @@ class StaffProfileController extends Controller
                 } else {
                     try {
                         //the user has not switched groups yet nor have they set a default group in the settings give them the default group
-                        $volunteers = Profile::where($this->getDefaultGroupFromId(Session::get('id')), 1)
+                        $volunteers = Profile::where($this->getDefaultGroupFromId(Auth::user()->id), 1)
                             ->where('active', 1)
                             ->paginate(9);
                         //Default group the user will be logged in as
-                        $defaultGroup = $this->getTruncatedGroupName($this->getDefaultGroupFromId(Session::get('id')));
+                        $defaultGroup = $this->getTruncatedGroupName($this->getDefaultGroupFromId(Auth::user()->id));
 
                     } catch (\Exception $e) {
                         //If the user tries to access the /profile URI Directly

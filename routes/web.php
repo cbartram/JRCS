@@ -13,6 +13,7 @@
 
 use App\Cico;
 use App\Programs;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Route;
@@ -64,7 +65,7 @@ Route::get('/switch/{group}', function($group) {
 });
 
 //Logs a user out safely
-Route::get('/logout', function() { Session::flush(); return Redirect::to('/'); });
+Route::get('/logout', function() { Auth::logout(); return Redirect::to('/'); });
 
 //Handles when a staff member registers a new volunteer
 Route::post('/add', 'addController@index');

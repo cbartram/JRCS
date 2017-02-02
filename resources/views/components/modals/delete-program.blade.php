@@ -12,7 +12,7 @@
                     <div class="row">
                         <div class="col-lg-6 col-lg-offset-3">
                             {{ csrf_field() }}
-                            <input type="hidden" name="id" value="{{Session::get('id')}}">
+                            <input type="hidden" name="id" value="{{Auth::user()->id}}">
                             <select class="form-control" name="program">
                                 @foreach($programs as $program)
                                     <option value="{{$program->id}}">{{$program->program_name}}</option>

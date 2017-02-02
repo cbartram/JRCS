@@ -2,21 +2,14 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Cico;
 use App\Http\Controllers\Controller;
-use App\Profile;
 use App\StaffProfile;
-
-use App\Http\Requests;
-use App\User;
-use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
-use Validator;
+use Illuminate\Support\Facades\Validator;
 
 class LoginController extends Controller
 {
@@ -46,7 +39,7 @@ class LoginController extends Controller
         } else {
 
             //Get the first row back from the query
-           $staff = DB::table('staff_profile2')->where('email', Input::get('email'))->limit(1)->first();
+           $staff = StaffProfile::where('email', Input::get('email'))->first();
 
             if($staff == null) {
                 //Redirect back home with an incorrect username error
@@ -57,10 +50,7 @@ class LoginController extends Controller
 
             if($staff->email == Input::get('email') && Hash::check(Input::get('password'), $staff->password)) {
 
-                //Add Sessions
-                Session::put('is_logged_in', true);
-                Session::put('id', $staff->id);
-                Session::put('user', $staff);
+                Auth::login($staff);
 
                 //If the staff member is also a volunteer add an additional session
                 if($staff->volunteer_id != "") {

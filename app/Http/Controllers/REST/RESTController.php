@@ -13,6 +13,7 @@ use App\Programs;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
@@ -150,7 +151,7 @@ class RESTController extends Controller
             return "false";
         } else {
             $donations->status = 'pending';
-            $donations->action_by = Session::get('id');
+            $donations->action_by = Auth::user()->id;
             $donations->save();
             return "true";
         }
@@ -163,7 +164,7 @@ class RESTController extends Controller
             return "false";
         } else {
             $donations->status = 'Denied';
-            $donations->action_by = Session::get('id');
+            $donations->action_by = Auth::user()->id;
             $donations->save();
             return "true";
         }
@@ -176,7 +177,7 @@ class RESTController extends Controller
             return "false";
         } else {
             $donations->status = 'Approved';
-            $donations->action_by = Session::get('id');
+            $donations->action_by = Auth::user()->id;
             $donations->save();
             return "true";
         }
@@ -185,8 +186,7 @@ class RESTController extends Controller
     /**
      * Authenticates that a provided email and un-hashed password references
      * a row in the database
-     * @param $email Email Address
-     * @param $password Un-hashed password
+     *
      * @return bool Returns true if the email and password match a row in the database false otherwise
      */
     public function authenticate() {

@@ -31,18 +31,18 @@
                     </div>
                     <div class="col-lg-6">
                         <label for="checkbox">Volunteer Access</label>
-                        @if(Helpers::hasAccessTo('BEBCO', Session::get('id')))
+                        @if(Helpers::hasAccessTo('BEBCO', Auth::user()->id)))
                             <div class="checkbox">
                                 <label>{{ Form::checkbox('bebco-checkbox', 'true') }} Add to BEBCO</label>
                             </div>
                         @endif
-                        @if(Helpers::hasAccessTo('JACO', Session::get('id')))
+                        @if(Helpers::hasAccessTo('JACO', Auth::user()->id))
                             <div class="checkbox">
                                 <label>{{ Form::checkbox('jaco-checkbox', 'true') }} Add to JACO</label>
 
                             </div>
                         @endif
-                        @if(Helpers::hasAccessTo('JBC', Session::get('id')))
+                        @if(Helpers::hasAccessTo('JBC', Auth::user()->id))
                             <div class="checkbox disabled">
                                 <label>{{ Form::checkbox('jbc-checkbox', 'true') }} Add to JBC</label>
                             </div>
