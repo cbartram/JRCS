@@ -19,6 +19,11 @@ use Illuminate\Support\Str;
 class CicoController extends Controller
 {
 
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     /**
      * Handles checking a user in via there email
      * @return string Return status
