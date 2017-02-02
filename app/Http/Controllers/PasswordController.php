@@ -39,6 +39,7 @@ class PasswordController extends Controller
             Mail::send('email', ['title' => $title, 'token' => $content, 'gravatar' => $gravatar], function ($message) use ($staff)
             {
                 //Uses default $from set in the config
+                $message->subject('JRCS Password Reset');
                 $message->to($staff->email);
 
             });
