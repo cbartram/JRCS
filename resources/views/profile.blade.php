@@ -187,7 +187,11 @@
                                                 <td><span class="label label-primary">{{$volunteer->id}}</span></td>
                                                 <td>{{Helpers::getName($volunteer->id)}}</td>
                                                 <td>{{Helpers::getGroups($volunteer->id)}}</td>
-                                                <td><a id="accordian{{$loop->index}}" role="button" aria-controls="collapse{{$loop->index}}" data-toggle="collapse" data-index="{{$loop->index}}" href="#collapse{{$loop->index}}" data-target="#collapse{{$loop->index}}" data-id="{{$volunteer->id}}" data-render="#chart{{$loop->index}}" aria-expanded="true" class="btn btn-default collapsable"><i class="fa fa-angle-down"></i></a>
+                                                <td><a id="accordian{{$loop->index}}" role="button" aria-controls="collapse{{$loop->index}}"
+                                                       data-toggle="collapse" data-index="{{$loop->index}}" href="#collapse{{$loop->index}}"
+                                                       data-target="#collapse{{$loop->index}}" data-id="{{$volunteer->id}}"
+                                                       data-render="#chart{{$loop->index}}" aria-expanded="true" class="btn btn-default collapsable">
+                                                       <i class="fa fa-angle-down"></i></a>
                                                 </td>
                                             </tr>
 
@@ -195,7 +199,7 @@
                                             <tr>
                                                 <td colspan="4" class="no-padd no-border">
                                                     <div class="collapse-content collapse"  id="collapse{{$loop->index}}">
-                                                        <div class="row collapse-inner">
+                                                        <div class="row collapse-inner" id="collapse-inner{{$loop->index}}">
                                                             <div class="col-sm-4">
                                                                 <h6>Current Volunteer Hours</h6>
 

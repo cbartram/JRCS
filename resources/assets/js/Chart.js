@@ -174,38 +174,25 @@ function createVolunteerProfileChart(data, xAxis, id) {
  */
 var openDrawerIds = [];
 
-var smallSpinner = {
-    lines: 14, length: 10, width: 5, radius: 61, scale: .7, corners: 0.4, color: '#4584ef', opacity: 0.15
-    , rotate: 0, direction: 1, speed: 1.4, trail: 36, fps: 20, zIndex: 1, className: 'spinner', top: '50%'
-    , left: '50%', shadow: false, hwaccel: false, position: 'absolute'
-};
-
 $('.collapsable').click(function() {
     var index = $(this).attr('data-index');
     var chartContainerId = 'chart' + index;
     var drawerId =  'collapse' + index;
-    var innerDrawer = $("#" + drawerId).find('.collapse-inner');
     var chart = $('#' + chartContainerId).highcharts();
     var id = $(this).attr('data-id');
     var target = $(this).attr('data-render');
 
-    var groups = ['BEBCO', 'JACO', 'JBC', 'ALL'];
-
     var start  = moment().subtract(4, 'days').format('YYYY-MM-DD');
     var end    = moment().format('YYYY-MM-DD');
-
-
-    //Apply the Spinner & Blur
-    var spinnerTarget = document.getElementById(drawerId);
-    var spinner = new Spinner(smallSpinner).spin(spinnerTarget);
-    $(spinnerTarget).data('spinner', spinner);
-    innerDrawer.addClass('blur');
 
     //collapses open drawers after a new drawer is clicked
     for(var x = 0; x < openDrawerIds.length; x++) {
         //collapse drawer and update array
         $('#' + openDrawerIds[0]).collapse('hide');
+
         openDrawerIds.shift();
+
+        //If there was an active chart object destroy it
         if(chart) {
             chart.destroy();
         }
@@ -236,10 +223,6 @@ $('.collapsable').click(function() {
                 createVolunteerProfileChart(data[0], data[1], target);
             }
         });
-
-    innerDrawer.removeClass('blur');
-    $("#" + drawerId).data('spinner').stop();
-
 });
 
 
