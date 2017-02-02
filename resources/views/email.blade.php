@@ -267,7 +267,7 @@
                     <td valign="bottom" style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif !important; border-collapse: collapse; padding: 20px 16px 12px;">
                         <div style="text-align: center;">
                             <a href="https://www.slack.com" style="color: #439fe0; font-weight: bold; text-decoration: none; word-break: break-word;">
-                                <img src="https://www.gravatar.com/avatar/{{$gravatar}}?d=http://aeroscripts.x10host.com/images/default.jpg&s=450" width="120" height="120" style="-ms-interpolation-mode: bicubic; border-radius:50%; outline: none; text-decoration: none; border: none; margin-left: -1.5rem;">
+                                <img src="https://www.gravatar.com/avatar/{{$gravatar}}?d=http://demo.clearsense.com/files/CSDE-618/img/gravatar-male.svg&s=450" width="120" height="120" style="-ms-interpolation-mode: bicubic; border-radius:50%; outline: none; text-decoration: none; border: none; margin-left: -1.5rem;">
                             </a>
                         </div>
                     </td>
@@ -289,7 +289,7 @@
                                 <p style="font-size: 17px; line-height: 24px; margin: 0 0 16px;">We sent you a link to easily reset your JRCS Password. This is a one time link meaning that it can only be used once to reset your password before it expires.</p>
 
                                 <p style="font-size: 17px; line-height: 24px; margin: 0 0 16px;">
-                                    After you click on the link below it will expire and you will be able to reset your JRCS password.
+                                    After you click on the link below it will expire immediately and you will be able to reset your JRCS password.
                                 </p>
 
 
@@ -345,13 +345,7 @@
                     <td style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif !important; border-collapse: collapse; height: 1rem; border-top: 1px solid #ECECEC;">&nbsp;</td>
                 </tr>
             </table>
-            <p style="font-size: 17px; line-height: 24px; margin: 0 0 16px;">Forgotten your password for the team you've already joined? No problem! <a href="https://cop4813group.slack.com/forgot" style="color: #439fe0; font-weight: normal !important; text-decoration: none; word-break: break-word;">We can send you a password reset email</a>.</p>
-
-            <p style="font-size: 17px; line-height: 24px; margin: 0 0 16px;">
-                More JRCS Marketing can go here if its necessary <a href="https://slack.com/signin/find" style="color: #439fe0; font-weight: normal !important; text-decoration: none; word-break: break-word;">try a different email</a>, or forge ahead and <a href="https://slack.com/create" style="color: #439fe0; font-weight: normal !important; text-decoration: none; word-break: break-word;">create a new team</a>!
-            </p>
-
-            <p style="font-size: 17px; line-height: 24px; margin: 0 0 16px;">Please <a href="mailto:feedback@slack.com" style="color: #439fe0; font-weight: normal !important; text-decoration: none; word-break: break-word;">let us know</a> if you have any other questions or feedback. And thanks for using JRCS!</p>
+            <p style="font-size: 17px; line-height: 24px; margin: 0 0 16px;">Please <a href="mailto:support@jrcs.org" style="color: #439fe0; font-weight: normal !important; text-decoration: none; word-break: break-word;">let us know</a> if you have any other questions or feedback. And thanks for using JRCS!</p>
 
             <p style="font-size: 17px; line-height: 24px; margin: 0 0 16px;">
                 Cheers,
@@ -375,9 +369,9 @@
                 <td valign="top" align="center" style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif !important; border-collapse: collapse; padding: 16px 8px 24px;">
                     <div style="max-width: 600px; margin: 0 auto;">
                         <p style="font-size: 12px; line-height: 20px; margin: 0 0 16px; margin-top: 16px;">
-                            Made by <a href="https://slack.com" style="color: #439fe0; font-weight: bold; text-decoration: none; word-break: break-word;">JRCS, Inc</a>
+                            Made by <a href="https://jrcs.herokuapp.com" style="color: #439fe0; font-weight: bold; text-decoration: none; word-break: break-word;">JRCS, Inc</a>
                             <a href="http://jrcs.herokuapp.com" style="color: #439fe0; font-weight: bold; text-decoration: none; word-break: break-word;">Our Website</a>
-                            <br><a href="#" style="color: #989EA6; font-weight: normal; text-decoration: none; word-break: break-word; pointer-events: none;">123 Fake Avenue North Jacksonville, Florida 32246</a>
+                            <br><a href="#" style="color: #989EA6; font-weight: normal; text-decoration: none; word-break: break-word; pointer-events: none;">3920 Spring Park Road, Jacksonville, Florida</a>
                         </p>
                     </div>
                 </td>
