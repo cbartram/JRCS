@@ -48,7 +48,12 @@ Route::get('/', function() {
    return view('cico', compact('volunteers'), compact('programs'));
 });
 
+
+//Handles showing a specific volunteer
 Route::get('/volunteer/search', 'SearchController@search');
+
+//Handles searching for volunteers by name
+Route::get('/volunteer/find/search', 'SearchController@find');
 
 //Handles verifying the form data and authenticating the user
 Route::post('/', 'Auth\LoginController@handleLogin');
