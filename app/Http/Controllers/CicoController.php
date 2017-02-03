@@ -15,13 +15,15 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
+use Kamaln7\Toastr\Facades\Toastr;
 
 class CicoController extends Controller
 {
 
     public function __construct()
     {
-        $this->middleware('auth');
+        //This middleware is different because checkin/checkout must be accessed before logging in by volunteers
+        $this->middleware('auth', ['only' => ['bulkCheckout']]); //Bulk checkout is accessed after logging in so we must require auth middleware
     }
 
     /**
@@ -29,18 +31,24 @@ class CicoController extends Controller
      * @return string Return status
      */
     public function checkIn() {
+
+       //Get elements from the form POST request Note: email could be a phone number
        $email = Input::get('email');
        $date = date('Y-m-d');
        $forGroup = Input::get('forGroup');
 
         //Get the first row back from the query
-        $q = Profile::where('email', $email)
+        $volunteer = Profile::where('email', $email)
+            ->orWhere('phone', $email)
             ->where('active', 1)
-            ->limit(1)->first();
+            ->first();
 
         //The wrong email was sent through the form
-        if($q == null) {
-            return "email";
+        if($volunteer == null)
+        {
+
+            Toastr::error('The email or phone you entered could not be found.', $title = 'Information Not Found');
+            return Redirect::back();
 
         } else {
             //Construct a new query to see if the user has checked out from their previous check-in
@@ -55,21 +63,20 @@ class CicoController extends Controller
                 $cico = new Cico();
 
                 $groups = ['BEBCO', 'JACO', 'JBC'];
+
                 foreach($groups as $group) {
+
                     $col = Helpers::getForGroupNameFromTruncated($group);
                     $columnName = Helpers::getGroupNameFromTruncated($group);
 
-                    Log::info('Column Name: ' . $col);
-
                     //If the group we are iterating over is the group they are volunteering as
                     if($forGroup == $group) {
-                        Log::info('Settings ' . $forGroup . " to 1");
                         $cico->$col = 1;
                     } else {
                         $cico->$col = 0;
                     }
 
-                    if(Helpers::isMemberOf($group, $q->id)) {
+                    if(Helpers::isMemberOf($group, $volunteer->id)) {
                         $cico->$columnName = 1;
                     } else {
                         $cico->$columnName = 0;
@@ -78,8 +85,8 @@ class CicoController extends Controller
 
                 //Assign the rest of the values for the row
                 $cico->id = 'cico_' . str_random(10);
-                $cico->volunteer_id = $q->id;
-                $cico->email = $email;
+                $cico->volunteer_id = $volunteer->id;
+                $cico->email = $volunteer->email;
 
                 $cico->volunteer_program = Input::get('program');
                 $cico->volunteer_type = Input::get('type');
@@ -89,11 +96,13 @@ class CicoController extends Controller
 
                 $cico->save();
 
-                return "true";
+                Toastr::success("Volunteer with the Email: " . $volunteer->email . " has been checked in successfully!");
+                return Redirect::back();
 
             } else {
                 //We found a row where they have not yet checked out yet
-                return "false";
+                Toastr::error('You haven\'t checked out yet with the email yet!');
+                return Redirect::back();
             }
         }
     }

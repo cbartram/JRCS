@@ -563,6 +563,7 @@ function isJBCVolunteer(email, getResult) {
  * @param type volunteer type (general program board)
  * @param program program (if type is program, act, sat prep etc...)
  * @param getResult callback function to return the result in the console.
+ * @param forGroup The group the volunteer is volunteering for
  */
 function checkIn(email, type, program, forGroup, getResult) {
     $.post('/cico', {email: email, type: type, program: program, forGroup: forGroup}).done(function (response) {

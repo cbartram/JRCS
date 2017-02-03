@@ -64,17 +64,18 @@
     <div class="row" id="volunteer-login">
         <div class="col-lg-5" style="margin-top:25px">
             <div id="alert-cico"></div>
-            <form class="form-signin">
-                <input type="email" class="form-control" placeholder="Email" id="volunteer-email" style="width:100%;">
+            <form method="post" action="/cico">
+
+                <input type="text" class="form-control" name="email" placeholder="Email or Phone" id="volunteer-email" style="width:100%;">
+
                 <div class="row">
                     <div class="col-md-12" style="margin-top:25px">
 
                         <!-- Volunteer type selector -->
                         <div class="form-group">
-                            <select class="form-control" id="volunteer-type" style="width:100%">
-                                <option name="default" selected>Select Volunteer Type</option>
+                            <select class="form-control" name="type" id="volunteer-type" style="width:100%">
                                 <option name="program">Program</option>
-                                <option name="board">Board</option>
+                                <option name="board" selected>Board</option>
                                 <option name="general">General</option>
                                 <option name="other">Other</option>
                             </select>
@@ -82,8 +83,9 @@
 
                         <!-- Hidden form only visible to program volunteers -->
                         <div class="input-group" id="volunteer-program">
+
                             <label for="program">Select Volunteer Program</label>
-                            <select class="form-control" id="program">
+                            <select class="form-control" name="program" id="program">
                                 <option name="default" selected>Select Program</option>
                                 @foreach($programs as $program)
                                     <option name="{{$program->program_name}}">{{$program->program_name}}</option>
@@ -93,7 +95,7 @@
 
                         <div class="input-group" style="margin-bottom:25px">
                             <label for="for-group">Volunteering For</label>
-                            <select class="form-control" id="for-group">
+                            <select class="form-control" name="forGroup" id="for-group">
                                 <option name="BEBCO">BEBCO</option>
                                 <option name="JACO">JACO</option>
                                 <option name="JBC">JBC</option>
@@ -180,6 +182,7 @@
 
 <!-- Local Libraries -->
 <script src="/public/js/CICO.js"></script>
+{!! Toastr::render() !!}
 
 </body>
 </html>

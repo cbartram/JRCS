@@ -38,17 +38,13 @@ $(document).ready(function() {
         }
     });
 
-    var email, program, type, timestamp, forGroup;
+    var program, type, timestamp;
 
     //Variables for Defining selectors
     var programSelector = $("#volunteer-program");
     var typeSelector = $("#volunteer-type");
-    var emailSelector = $("#volunteer-email");
-    var forGroupSelector = $("#for-group");
 
-    $(".alert-danger").effect("shake");
     programSelector.hide();
-
 
     typeSelector.change(function() {
         //gets the selected attribute from the option list
@@ -67,64 +63,8 @@ $(document).ready(function() {
         type = $(this).find(":selected").attr('name');
     });
 
-    $("#volunteer-cico-submit").click(function(e) {
 
-        timestamp = formatDate(new Date());
-        email = $("#volunteer-email").val();
-
-        if($("#volunteer-type").find(':selected').attr('name') == "default" || emailSelector.val().length == 0) {
-            toastr.warning('You need to pick a Volunteer Type and enter a valid email before you can Check-in!');
-
-            //prevent the statements from processing further issues in the form
-            e.preventDefault();
-
-        } else {
-
-            //The volunteer has selected program as the type but hasnt selected their program
-            if (programSelector.find(':selected').attr('name') == "default" && typeSelector.find(':selected').attr('name') == "program") {
-                toastr.warning('You must select a specific program from the list below!');
-
-                e.preventDefault();
-            } else {
-
-                //define the Volunteer Type & Program
-                type = typeSelector.find(':selected').attr('name');
-                program = programSelector.find(':selected').attr('name');
-                forGroup = forGroupSelector.find(':selected').attr('name');
-
-                //Input has been Validated submit the post Request
-                checkIn(email, type, program, forGroup, function(data) {
-                    switch(data) {
-                        case 'false':
-                            toastr.error("You haven't checked out yet with the email: <b>" + email + "</b>");
-                            break;
-                        case 'email':
-                            toastr.error("The email you entered could not be found <b>" + email + "</b>");
-                            break;
-                        case 'true':
-                            toastr.success("Checked in <b>" + email + "</b> at " + timestamp);
-                            window.location.reload();
-                            break;
-                    }
-                });
-
-                e.preventDefault();
-            }
-        }
-    });
-
-
-function formatDate(date) {
-    var hours = date.getHours();
-    var minutes = date.getMinutes();
-    var ampm = hours >= 12 ? 'pm' : 'am';
-    hours = hours % 12;
-    hours = hours ? hours : 12; // the hour '0' should be '12'
-    minutes = minutes < 10 ? '0'+minutes : minutes;
-    return hours + ':' + minutes + ' ' + ampm;
-}
-
-
+if($('body').has($('.table-bordered'))) {
     //start of the editable table plugin integration
     $('.table-bordered').Tabledit({
         url: '/api/v1/cico/update/',
@@ -135,11 +75,11 @@ function formatDate(date) {
             identifier: [0, 'id'],
             editable: [[3, 'timestamp']]
         },
-        onAjax: function() {
+        onAjax: function () {
             //when an ajax request is sent
             toastr.info('Attempting to update timestamp...');
         },
-        onSuccess: function(data, textStatus, jqXHR) {
+        onSuccess: function (data, textStatus, jqXHR) {
             console.log(data);
             if (data == false) {
                 toastr.error('Error saving timestamp... The format must be YYYY-MM-DD H:MM AM/PM');
@@ -149,6 +89,8 @@ function formatDate(date) {
             }
         }
     });
+}
+
 });
 
 
