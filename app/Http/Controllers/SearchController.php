@@ -11,6 +11,12 @@ use Kamaln7\Toastr\Facades\Toastr;
 
 class SearchController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     /**
      * Handles showing the volunteer information after a search is made on their email
      * or after a link is clicked for more volunteer information

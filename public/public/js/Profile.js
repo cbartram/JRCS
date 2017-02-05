@@ -1479,6 +1479,7 @@ function isJBCVolunteer(email, getResult) {
  * @param type volunteer type (general program board)
  * @param program program (if type is program, act, sat prep etc...)
  * @param getResult callback function to return the result in the console.
+ * @param forGroup The group the volunteer is volunteering for
  */
 function checkIn(email, type, program, forGroup, getResult) {
     $.post('/cico', {email: email, type: type, program: program, forGroup: forGroup}).done(function (response) {
@@ -1812,17 +1813,10 @@ function createVolunteerProfileChart(data, xAxis, id) {
  */
 var openDrawerIds = [];
 
-var smallSpinner = {
-    lines: 14, length: 10, width: 5, radius: 61, scale: .7, corners: 0.4, color: '#4584ef', opacity: 0.15
-    , rotate: 0, direction: 1, speed: 1.4, trail: 36, fps: 20, zIndex: 1, className: 'spinner', top: '50%'
-    , left: '50%', shadow: false, hwaccel: false, position: 'absolute'
-};
-
 $('.collapsable').click(function() {
     var index = $(this).attr('data-index');
     var chartContainerId = 'chart' + index;
     var drawerId =  'collapse' + index;
-    var innerDrawer = $("#" + drawerId).find('.collapse-inner');
     var chart = $('#' + chartContainerId).highcharts();
     var id = $(this).attr('data-id');
     var target = $(this).attr('data-render');
@@ -1830,20 +1824,14 @@ $('.collapsable').click(function() {
     var start  = moment().subtract(4, 'days').format('YYYY-MM-DD');
     var end    = moment().format('YYYY-MM-DD');
 
-
-    //Apply the Spinner & Blur
-    var spinnerTarget = document.getElementById(drawerId);
-    var spinner = new Spinner(smallSpinner).spin(spinnerTarget);
-    $(spinnerTarget).data('spinner', spinner);
-
-    $("#" + drawerId).find('.collapse-inner').addClass('blur');
-    $("#collapse-inner" + index).addClass('blur');
-
     //collapses open drawers after a new drawer is clicked
     for(var x = 0; x < openDrawerIds.length; x++) {
         //collapse drawer and update array
         $('#' + openDrawerIds[0]).collapse('hide');
+
         openDrawerIds.shift();
+
+        //If there was an active chart object destroy it
         if(chart) {
             chart.destroy();
         }
@@ -1874,10 +1862,6 @@ $('.collapsable').click(function() {
                 createVolunteerProfileChart(data[0], data[1], target);
             }
         });
-
-    innerDrawer.removeClass('blur');
-    $("#" + drawerId).data('spinner').stop();
-
 });
 
 

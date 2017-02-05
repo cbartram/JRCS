@@ -32,8 +32,6 @@ Route::get('/login', function() { return view('login'); });
 
 Route::get('/', function() {
 
-    Config::set('app.debug', false);
-
     //Get all users from the table where they have not yet checked out joining with the profiles table
     $volunteers = Cico::where('check_out_timestamp', 'null')
         ->join('profiles', 'volunteer_cico.volunteer_id', '=', 'profiles.id')
