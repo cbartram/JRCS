@@ -21,6 +21,8 @@
                         <p>{{ Form::text('zip', Input::old('zip'), array('placeholder' => 'Zip Code', 'class' => 'form-control')) }}</p>
                         <p>{{ Form::text('email', Input::old('email'), array('placeholder' => 'Email', 'class' => 'form-control')) }}</p>
                         <p>{{ Form::text('phone', Input::old('phone'), array('placeholder' => 'Phone', 'class' => 'form-control')) }}</p>
+                        <p>{{ Form::text('nationality', Input::old('nationality'), array('placeholder' => 'Nationality', 'class' => 'form-control')) }}</p>
+
                         <p>
                             <select name="volunteer_type" class="form-control">
                                 <option>General</option>
@@ -84,7 +86,7 @@
                         </div>
 
                         <h4 style="color:black">Special Skills</h4>
-                        {{ Form::textarea('skills', null, ['class' => 'form-control', 'placeholder' => 'List any Special Skills here']) }}
+                        {{ Form::textarea('skills', null, ['class' => 'form-control', 'placeholder' => 'Special Skills or Assets']) }}
 
                         <h4 style="color:black;">Degree & Transportation</h4>
                         <p>{{ Form::text('degree', Input::old('degree'), array('placeholder' => 'Highest Degree', 'class' => 'form-control')) }}</p>
@@ -93,7 +95,7 @@
                         </div>
 
                         <h4 style="color:black">Languages</h4>
-                        {{ Form::textarea('languages', null, ['class' => 'form-control', 'placeholder' => 'Languages Spoken separated by commas']) }}
+                        {{ Form::textarea('languages', null, ['class' => 'form-control', 'placeholder' => 'Languages Spoken']) }}
 
                         <h4 style="color:black;">Previous Volunteer Work</h4>
                         {{ Form::textarea('previous', null, ['class' => 'form-control', 'placeholder' => 'Brief Description of Previous Work']) }}
