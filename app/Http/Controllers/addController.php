@@ -34,7 +34,8 @@ class addController extends Controller
         //if the validator fails, redirect back to the form
         if ($validator->fails()) {
             Toastr::error('You must fill out all the fields and the email must be a valid email', $title = 'Error creating volunteer', $options = []);
-            return Redirect::to('/profile')
+
+            return Redirect::back()
                 ->withInput();
         }
 
@@ -56,31 +57,18 @@ class addController extends Controller
         $volunteer->volunteer_type = Input::get('volunteer_type');
         $volunteer->active = 1;
 
-            //ensure at least one checkbox is selected so the volunteer doesnt dissapear in the db
+            //ensure at least one checkbox is selected so the volunteer doesn't disappear in the db
             if(Input::get('bebco-checkbox') != 'true' && Input::get('jaco-checkbox') != 'true' && Input::get('jbc-checkbox') != 'true') {
                 Toastr::error('You must add the volunteer to at least one group.', $title = 'Error', $options = []);
-
 
                 return Redirect::back();
              }
 
-            if(Input::get('bebco-checkbox') == 'true') {
-                $volunteer->bebco_volunteer = 1;
-            } else {
-                $volunteer->bebco_volunteer = 0;
-            }
-
-            if(Input::get('jaco-checkbox') == 'true') {
-                $volunteer->jaco_volunteer = 1;
-            } else {
-                $volunteer->jaco_volunteer = 0;
-            }
-
-            if(Input::get('jbc-checkbox') == 'true') {
-                $volunteer->jbc_volunteer = 1;
-            } else {
-                $volunteer->jbc_volunteer = 0;
-            }
+            //Handles giving the volunteer access to certain groups
+            Input::get('bebco-checkbox') == 'true' ? $volunteer->bebco_volunteer = 1 : $volunteer->bebco_volunteer = 0;
+            Input::get('jaco-checkbox') == 'true' ? $volunteer->jaco_volunteer = 1 : $volunteer->jaco_volunteer = 0;
+            Input::get('jbc-checkbox') == 'true' ? $volunteer->jbc_volunteer = 1 : $volunteer->jbc_volunteer = 0;
+            Input::get('jrcs-checkbox') == 'true' ? $volunteer->jrcs_volunteer = 1 : $volunteer->jrcs_volunteer = 0;
 
             //Persist and insert volunteer to the database
             $volunteer->save();
