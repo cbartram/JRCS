@@ -241,9 +241,20 @@ class RESTController extends Controller
     }
 
 
+    /**
+     * Handles the hours volunteered on a group by group basis between a specified start
+     * date and a specified end date
+     *
+     * @param $id
+     * @param $group
+     * @param $start
+     * @param $end
+     * @return array
+     */
     public function getHoursByIdAndGroupBetween($id, $group, $start, $end) {
 
         $group = ['bebco', 'jaco', 'jbc', 'jrcs'];
+
         $response = ['bebco' => null, 'jaco' => null, 'jbc' => null, 'jrcs' => null];
 
         foreach($group as $k => $v) {

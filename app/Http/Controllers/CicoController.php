@@ -62,7 +62,7 @@ class CicoController extends Controller
                 //insert a new record for the volunteer clocking in
                 $cico = new Cico();
 
-                $groups = ['BEBCO', 'JACO', 'JBC'];
+                $groups = ['BEBCO', 'JACO', 'JBC', 'JRCS'];
 
                 foreach($groups as $group) {
 
@@ -96,7 +96,8 @@ class CicoController extends Controller
 
                 $cico->save();
 
-                Toastr::success("Volunteer with the Email: " . $volunteer->email . " has been checked in successfully!");
+                Toastr::success(Helpers::getName($volunteer->id) . " has been checked in successfully!");
+
                 return Redirect::back();
 
             } else {
@@ -113,7 +114,7 @@ class CicoController extends Controller
      */
     public function checkOut() {
 
-        $volunteer = Cico::where('id', Input::get('id'))->limit(1)->first();
+        $volunteer = Cico::where('id', Input::get('id'))->first();
 
         if(!is_null($volunteer)) {
 
