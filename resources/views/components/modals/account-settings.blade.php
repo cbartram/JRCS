@@ -28,6 +28,11 @@
                                 <label>{{ Form::radio('group-radio', 'JBC') }} Set JBC as Default</label>
                             </div>
                         @endif
+                        @if(Helpers::hasAccessTo('JRCS', Auth::user()->id))
+                            <div class="checkbox">
+                                <label>{{ Form::radio('group-radio', 'JRCS') }} Set JRCS as Default</label>
+                            </div>
+                        @endif
                         {{ Form::submit('Save', array('class' => 'btn btn-primary')) }}
                         {{Form::close()}}
                     </div>
