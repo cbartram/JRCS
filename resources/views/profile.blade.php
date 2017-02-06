@@ -286,7 +286,7 @@
 </div>
 </div>
 
-    @if($defaultGroup == 'ADMIN' || Session::get('drop'))
+    @if($defaultGroup == 'ADMIN' || Session::get('drop') || $defaultGroup == "JRCS")
     <!-- Start to Swap and Copy Volunteer Profiles -->
     <div class="row">
         <div class="col-md-4">

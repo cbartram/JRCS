@@ -10,6 +10,7 @@ use App\Helpers\Helpers;
 use App\Profile;
 use App\Http\Requests;
 use App\Programs;
+use App\StaffProfile;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Database\Eloquent\Collection;
@@ -32,15 +33,15 @@ class RESTController extends Controller
     }
 
     public function findByEmail($email) {
-        return DB::table('profiles')->where('email', '=', $email)->limit(1)->get();
+        return Profile::where('email', $email)->first();
     }
 
     public function deleteById($id) {
-        return DB::table('profiles')->where('id', '=', $id)->delete();
+        return Profile::where('id', $id)->delete();
     }
 
     public function deleteByEmail($email) {
-        return DB::table('profiles')->where('email', '=', $email)->delete();
+        return Profile::where('email', $email)->delete();
     }
 
     public function updateById($id, $columnToUpdate, $newValue) {
@@ -51,7 +52,7 @@ class RESTController extends Controller
     }
 
     public function updateByEmail($email, $columnToUpdate, $newValue) {
-        $volunteer = Profile::where('email', '=', $email)->limit(1)->first();
+        $volunteer = Profile::where('email', $email)->first();
         $volunteer->$columnToUpdate = $newValue;
 
         $volunteer->save();
@@ -190,7 +191,7 @@ class RESTController extends Controller
      * @return bool Returns true if the email and password match a row in the database false otherwise
      */
     public function authenticate() {
-        $staff = DB::table('staff_profile2')->where('email', Input::get('email'))->limit(1)->first();
+        $staff = StaffProfile::where('email', Input::get('email'))->first();
         if($staff != null) {
             if($staff->email == Input::get('email') && Hash::check(Input::get('password'), $staff->password)) {
                 return "true";
@@ -242,8 +243,8 @@ class RESTController extends Controller
 
     public function getHoursByIdAndGroupBetween($id, $group, $start, $end) {
 
-        $group = ['bebco', 'jaco', 'jbc'];
-        $response = ['bebco' => null, 'jaco' => null, 'jbc' => null];
+        $group = ['bebco', 'jaco', 'jbc', 'jrcs'];
+        $response = ['bebco' => null, 'jaco' => null, 'jbc' => null, 'jrcs' => null];
 
         foreach($group as $k => $v) {
             $min = Cico::where('volunteer_id', $id)
@@ -353,7 +354,7 @@ class RESTController extends Controller
 
         $data = [];
 
-        if($group == "ADMIN") {
+        if($group == "ADMIN" || $group == "JRCS") {
             foreach($ranges as $range) {
                 $result = Cico::where('check_in_date', '>=', $range)
                     ->where('check_out_date', '<=', $range)
@@ -567,8 +568,6 @@ class RESTController extends Controller
                     //Recalculate the new minutes volunteered
                     $checkInDate = Carbon::createFromFormat('Y-m-d g:i A', $timestamp);
                     $checkOutDate = Carbon::createFromFormat('Y-m-d g:i A', $row->check_out_timestamp);
-                    Log::info('Checkin in edited: ' . $checkInDate);
-
 
                     $row->minutes_volunteered = $checkInDate->diffInMinutes($checkOutDate);
 

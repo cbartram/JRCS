@@ -95,7 +95,7 @@
                         <ul class="dropdown-menu">
                             <li class="dropdown-header">Program Actions</li>
                             <li><a href="#" data-toggle="modal" data-target="#add-program"><span class="fa fa-plus-square"></span> Add Program</a></li>
-                            @if($defaultGroup == "ADMIN")
+                            @if($defaultGroup == "ADMIN" || $defaultGroup == "JRCS")
                             <li><a href="#" id="profile" data-toggle="modal" data-target="#delete-program"><span class="fa fa-trash"></span> Delete Program</a></li>
                             <li><a href="/archive"><span class="fa fa-archive"></span> Archived Programs</a></li>
                             @endif
