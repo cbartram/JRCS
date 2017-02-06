@@ -59,6 +59,10 @@ class StaffProfileController extends Controller
                         ->paginate(9);
 
                     $defaultGroup = $staff->default_group;
+
+                    //Set default group
+                    Session::set('group', $defaultGroup);
+
                 } else {
                     try {
                         //the user has not switched groups yet nor have they set a default group in the settings give them the default group

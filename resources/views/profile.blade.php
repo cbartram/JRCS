@@ -251,11 +251,11 @@
                                                                     </div>
                                                                     <div class="col-sm-6 text-center">
                                                                         <div class="vitals-icon">
-                                                                            <i class="fa fa-group"></i>
+                                                                            <i class="fa fa-clock-o"></i>
                                                                         </div>
                                                                         <div class="vitals-text">
                                                                             <div class="number"><span class="not-found all-number"></span></div>
-                                                                            <div class="uom">All</div>
+                                                                            <div class="uom">Jrcs</div>
                                                                             <!--<div class="time">Updated _ ago</div>-->
                                                                         </div>
 

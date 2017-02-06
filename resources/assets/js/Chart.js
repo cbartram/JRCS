@@ -207,11 +207,12 @@ $('.collapsable').click(function() {
                 url: "api/v1/hours/" + id + "/null/" + start + "/" + end,
                 dataType: "json",
                 success: function (data) {
+                    console.log(data);
                     //Append Data to DOM
                     $(this).parent().parent().next().find('.bebco-number').text(data.bebco);
                     $(this).parent().parent().next().find('.jaco-number').text(data.jaco);
                     $(this).parent().parent().next().find('.jbc-number').text(data.jbc);
-                    $(this).parent().parent().next().find('.all-number').text(data.all);
+                    $(this).parent().parent().next().find('.all-number').text(data.jrcs);
                 }
             });
 

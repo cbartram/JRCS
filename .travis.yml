@@ -4,10 +4,7 @@ php:
   - '7.0'
 
 script:
- - npm install --global gulp-cli
- - npm install
  - php artisan config:cache
- - gulp --production
 
 notifications:
   slack: dynamictechnologies:QMzOTe9EFgTgVgO9Pyvx0c8e

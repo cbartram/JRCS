@@ -71,6 +71,9 @@ class Helpers
             case "JBC":
                 $group = "for_jbc";
                 break;
+            case "JRCS":
+                $group = "for_jrcs";
+                break;
         }
 
         return $group;
@@ -346,8 +349,6 @@ class Helpers
      * @return string A String tht matches the column in the database for this respective group
      */
     public static function getGroupNameFromTruncated($truncated) {
-        $group = '';
-
         switch($truncated) {
             case "BEBCO":
                 $group = 'bebco_volunteer';
