@@ -7,6 +7,7 @@ use App\Helpers\Helpers;
 use App\Profile;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Session;
 use Kamaln7\Toastr\Facades\Toastr;
 
 class SearchController extends Controller
@@ -53,7 +54,7 @@ class SearchController extends Controller
             ->orderBy('check_in_timestamp', 'ASC')
             ->paginate(5);
 
-        return view('search-results', compact('cico'), compact('volunteer'));
+        return view('search-results', compact('cico'), compact('volunteer'))->with('defaultGroup', Session::get('group'));
 
     }
 
@@ -68,7 +69,7 @@ class SearchController extends Controller
 
         $name = '%' . $name . '%';
 
-        if($group != "ADMIN") {
+        if($group != "ADMIN" && $group != "JRCS") {
             //Find volunteers matching selection for the specific group
             $volunteers = Profile::where('first_name', 'LIKE', $name)
                 ->where($group, 1)
@@ -87,7 +88,9 @@ class SearchController extends Controller
             return Redirect::back();
         }
 
-        return view('search-name', compact('volunteers'));
+        $defaultGroup = Session::get('group');
+
+        return view('search-name', compact('volunteers'), compact('defaultGroup'));
 
     }
 }

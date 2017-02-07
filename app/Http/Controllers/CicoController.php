@@ -150,7 +150,8 @@ class CicoController extends Controller
             ->where('check_out_timestamp', 'null')
             ->get();
 
-        return view('checkout', compact('volunteers'));
+        return view('checkout', compact('volunteers'))
+            ->with('defaultGroup', Session::get('group'));
     }
 
 }
