@@ -1,20 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="icon" href="/public/css/images/favicon.ico">
+@extends('components.navbar-simple')
 
-    <title>Volunteer Checkout</title>
-
-    <link rel="stylesheet" href="/public/css/CICO.css">
-
-</head>
-<body>
-
+@section('content')
 <div class="container">
     <div class="row">
         <div class="col-lg-9 col-lg-offset-1">
@@ -97,6 +83,4 @@
 </div> <!-- /container -->
 
 <script src="/public/js/Search.js"></script>
-
-</body>
-</html>
+@endsection

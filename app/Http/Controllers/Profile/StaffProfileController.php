@@ -28,7 +28,7 @@ class StaffProfileController extends Controller
     public function index()
     {
             //Searches the DB for staff profile with the $id = id submitted by the login form
-            $staff = StaffProfile::where('id', Auth::user()->id)->limit(1)->get()->first();
+            $staff = StaffProfile::where('id', Auth::user()->id)->first();
 
             //Finds the volunteers that relate to the staff members "default" group
             if(Session::has('group')) {

@@ -309,6 +309,7 @@ class Helpers
         return $return;
     }
 
+
     /**
      * Returns true if volunteer with the given email is a member of the given group. It will return false if they are not part of that group
      * @param $group string Group to check BEBCO, JACO, or JBC
@@ -341,6 +342,8 @@ class Helpers
 
         return $return;
     }
+
+
 
 
     /**

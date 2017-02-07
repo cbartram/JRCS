@@ -1,21 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="icon" href="/public/css/images/favicon.ico">
+@extends('components.navbar-simple')
 
-    <title>Volunteer Donation</title>
-
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="/public/css/Toastr_Bootstrap.css">
-    <link rel="stylesheet" href="/public/css/Archive.css">
-</head>
-
-<body>
+@section('content')
 
 <div class="container">
 
@@ -171,6 +156,7 @@
 
 <!-- Local JS Files -->
 <script src="/public/js/Archive.js"></script>
-
+<script src="/public/js/Jquery_Bootstrap.js"></script>
+@endsection
 </body>
 </html>
