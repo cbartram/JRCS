@@ -38,10 +38,13 @@ class SearchController extends Controller
 
         if($group == "error") {
             //user is admin
-            $volunteer = Profile::find($id);
+            $volunteer = Profile::where('id', $id)
+                ->leftJoin('volunteer_information', 'profiles.id', '=', 'volunteer_information.volunteer_id')->get();
+
         } else {
             $volunteer = Profile::where('id', $id)
-                ->where($group, 1)->first();
+                ->where($group, 1)
+                ->leftJoin('volunteer_information', 'profiles.id', '=', 'volunteer_information.volunteer_id')->first();
         }
 
         //email address was valid but wrong for the group

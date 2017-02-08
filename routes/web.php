@@ -28,7 +28,17 @@ use Illuminate\Support\Facades\Session;
 |
  */
 //Handles showing the user the root page
-Route::get('/login', function() { return view('login'); });
+Route::get('/login', function() {
+
+    if(!Auth::check()) {
+
+    return view('login');
+
+    } else {
+
+        return Redirect::to('/profile');
+    }
+});
 
 Route::get('/', function() {
 

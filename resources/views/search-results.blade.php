@@ -21,17 +21,77 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>{{$volunteer->id}}</td>
-                                    <td>{{$volunteer->first_name}}</td>
-                                    <td>{{$volunteer->last_name}}</td>
-                                    <td>{{$volunteer->email}}</td>
-                                    <td>{{$volunteer->phone}}</td>
-                                    <td>{{$volunteer->city}}</td>
-                                    <td>{{$volunteer->state}}</td>
-                                    <td>{{$volunteer->zip_code}}</td>
+                                    <td>{{$volunteer[0]->id}}</td>
+                                    <td>{{$volunteer[0]->first_name}}</td>
+                                    <td>{{$volunteer[0]->last_name}}</td>
+                                    <td>{{$volunteer[0]->email}}</td>
+                                    <td>{{$volunteer[0]->phone}}</td>
+                                    <td>{{$volunteer[0]->city}}</td>
+                                    <td>{{$volunteer[0]->state}}</td>
+                                    <td>{{$volunteer[0]->zip_code}}</td>
                                 </tr>
                             </tbody>
                         </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-9 col-lg-offset-1">
+            <div class="panel panel-default" style="margin-top:25px;">
+                <div class="panel-heading">Additional Information</div>
+                <div class="panel-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered volunteer">
+                            <thead>
+                                <th>Availability</th>
+                                <th>Degree</th>
+                                <th>Transportation</th>
+                                <th>Languages</th>
+                                <th>Criminal History</th>
+                                <th>Nationality</th>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>{{$volunteer[0]->availability}}</td>
+                                <td>{{$volunteer[0]->degree}}</td>
+                                <td>{!! $volunteer[0]->transportation == 1 ? '<span class="label label-success">True</span>' : '<span class="label label-danger>False</span>'!!}</td>
+                                <td>{{$volunteer[0]->languages_spoken}}</td>
+                                <td>{{$volunteer[0]->criminal_convictions}}</td>
+                                <td>{{$volunteer[0]->nationality}}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-9 col-lg-offset-1">
+            <div class="panel panel-default" style="margin-top:25px;">
+                <div class="panel-heading">Detailed Information</div>
+                <div class="panel-body">
+                    <div class="col-md-4">
+                        <h4 style="color:black;  border-bottom: 1px dotted #000; padding-bottom:5px;">Interests</h4>
+                        <p>
+                            {{$volunteer[0]->interests}}
+                        </p>
+                    </div>
+                    <div class="col-md-4">
+                        <h4 style="color:black;  border-bottom: 1px dotted #000; padding-bottom:5px;">Special Skills</h4>
+                        <p>
+                            {{$volunteer[0]->special_skills}}
+                        </p>
+                    </div>
+                    <div class="col-md-4">
+                        <h4 style="color:black;  border-bottom: 1px dotted #000; padding-bottom:5px;">Previous Volunteer Work</h4>
+                        <p>
+                            {{$volunteer[0]->previous_volunteer_work}}
+                        </p>
                     </div>
                 </div>
             </div>
