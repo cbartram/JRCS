@@ -57,7 +57,7 @@
                             <tr>
                                 <td>{{$volunteer[0]->availability}}</td>
                                 <td>{{$volunteer[0]->degree}}</td>
-                                <td>{!! $volunteer[0]->transportation == 1 ? '<span class="label label-success">True</span>' : '<span class="label label-danger>False</span>'!!}</td>
+                                <td>{!! $volunteer[0]->transportation == 1 ? '<span class="label label-success">True</span>' : '<span class="label label-danger">False</span>'!!}</td>
                                 <td>{{$volunteer[0]->languages_spoken}}</td>
                                 <td>{{$volunteer[0]->criminal_convictions}}</td>
                                 <td>{{$volunteer[0]->nationality}}</td>

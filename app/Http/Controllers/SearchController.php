@@ -72,7 +72,7 @@ class SearchController extends Controller
 
         $name = '%' . $name . '%';
 
-        if($group != "ADMIN" && $group != "JRCS") {
+        if(Input::get('group') != "ADMIN" && Input::get('group') != "JRCS") {
             //Find volunteers matching selection for the specific group
             $volunteers = Profile::where('first_name', 'LIKE', $name)
                 ->where($group, 1)
