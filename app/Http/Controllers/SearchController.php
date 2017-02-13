@@ -44,7 +44,7 @@ class SearchController extends Controller
         } else {
             $volunteer = Profile::where('id', $id)
                 ->where($group, 1)
-                ->leftJoin('volunteer_information', 'profiles.id', '=', 'volunteer_information.volunteer_id')->first();
+                ->leftJoin('volunteer_information', 'profiles.id', '=', 'volunteer_information.volunteer_id')->get();
         }
 
         //email address was valid but wrong for the group
