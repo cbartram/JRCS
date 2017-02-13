@@ -7,18 +7,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="icon" href="../../favicon.ico">
+    <link rel="icon" href="/public/css/images/favicon.ico">
 
     <title>Volunteer Profile</title>
 
-    <link href="https://fonts.googleapis.com/css?family=Lato:100" rel="stylesheet" type="text/css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <link href="../../public/css/jquery-ui.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet">
-    <link href="../../public/css/fullcalendar.css" rel="stylesheet">
-    <link href="../../public/css/fullcalendar.print.css" rel="stylesheet">
-    <link href="../../public/css/Profile.css" rel="stylesheet">
-
+    <link href="/public/css/Profile.css" rel="stylesheet">
 
 </head>
 
@@ -38,7 +31,7 @@
 
             <!-- Branding Image -->
             <a class="navbar-brand" href="{{ url('/') }}">
-                JRCS <span class="label label-primary">Beta</span>
+                JRCS
             </a>
         </div>
 
@@ -102,7 +95,7 @@
                         <ul class="dropdown-menu">
                             <li class="dropdown-header">Program Actions</li>
                             <li><a href="#" data-toggle="modal" data-target="#add-program"><span class="fa fa-plus-square"></span> Add Program</a></li>
-                            @if($defaultGroup == "ADMIN")
+                            @if($defaultGroup == "ADMIN" || $defaultGroup == "JRCS")
                             <li><a href="#" id="profile" data-toggle="modal" data-target="#delete-program"><span class="fa fa-trash"></span> Delete Program</a></li>
                             <li><a href="/archive"><span class="fa fa-archive"></span> Archived Programs</a></li>
                             @endif
@@ -114,7 +107,7 @@
 
                     <!-- Switch Dropdown -->
                     <li role="presentation" class="dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-random"></span>
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><span class="fa fa-random"></span>
                             &nbsp; Switch Organizations <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li class="dropdown-header">Organizations</li>
@@ -129,7 +122,7 @@
                             @endforeach
                         </ul>
                     </li>
-                    <li role="presentation" id="checkout-volunteer"><a href="/checkout"><span class="glyphicon glyphicon-log-out"></span> Checkout</a></li>
+                    <li role="presentation" id="checkout-volunteer"><a href="/checkout"><span class="fa fa-sign-out"></span> Checkout</a></li>
                 @else
                     <li class="dropdown">
 
@@ -166,24 +159,9 @@
 
 @yield('content')
 
-<!-- JS Libraries -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-<script src="../../public/js/jquery-ui.min.js"></script>
-<script src="../../public/js/touchpunch.js"></script>
-<script src='../../public/js/moment.js'></script>
-
-<script src="https://use.fontawesome.com/09e1e27aff.js"></script>
-<script src="http://spin.js.org/spin.min.js"></script>
-<script src="../../public/js/Highcharts.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
-<script src="../../public/js/fullcalendar.min.js"></script>
-<script src="../../public/js/jquery.tabledit.min.js"></script>
+<!-- Local JS Files -->
+<script src="/public/js/Profile.js"></script>
 {!! Toastr::render() !!}
 
-<!-- Local JS Files -->
-<script src="../../public/js/VolunteerRESTLibrary.js"></script>
-<script src="../../public/js/Chart.js"></script>
-<script src="../../public/js/Profile.js"></script>
 </body>
 </html>

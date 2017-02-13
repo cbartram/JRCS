@@ -92,7 +92,7 @@ class NativeMailerHandlerTest extends TestCase
         $this->assertCount(5, $params);
         $this->assertSame($to, $params[0]);
         $this->assertSame($subject, $params[1]);
-        $this->assertStringEndsWith(" tests.ERROR: Foo Bar  Baz [] []\n", $params[2]);
+        $this->assertStringEndsWith(" test.ERROR: Foo Bar  Baz [] []\n", $params[2]);
         $this->assertSame("From: $from\r\nContent-type: text/plain; charset=utf-8\r\n", $params[3]);
         $this->assertSame('', $params[4]);
     }

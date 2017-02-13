@@ -54,7 +54,7 @@ class RavenHandlerTest extends TestCase
         $ravenClient = $this->getRavenClient();
         $handler = $this->getHandler($ravenClient);
 
-        $record = $this->getRecord(Logger::DEBUG, 'A tests debug message');
+        $record = $this->getRecord(Logger::DEBUG, 'A test debug message');
         $handler->handle($record);
 
         $this->assertEquals($ravenClient::DEBUG, $ravenClient->lastData['level']);
@@ -66,7 +66,7 @@ class RavenHandlerTest extends TestCase
         $ravenClient = $this->getRavenClient();
         $handler = $this->getHandler($ravenClient);
 
-        $record = $this->getRecord(Logger::WARNING, 'A tests warning message');
+        $record = $this->getRecord(Logger::WARNING, 'A test warning message');
         $handler->handle($record);
 
         $this->assertEquals($ravenClient::WARNING, $ravenClient->lastData['level']);
@@ -79,7 +79,7 @@ class RavenHandlerTest extends TestCase
         $handler = $this->getHandler($ravenClient);
 
         $tags = array(1, 2, 'foo');
-        $record = $this->getRecord(Logger::INFO, 'tests', array('tags' => $tags));
+        $record = $this->getRecord(Logger::INFO, 'test', array('tags' => $tags));
         $handler->handle($record);
 
         $this->assertEquals($tags, $ravenClient->lastData['tags']);
@@ -92,7 +92,7 @@ class RavenHandlerTest extends TestCase
 
         $checksum = '098f6bcd4621d373cade4e832627b4f6';
         $release = '05a671c66aefea124cc08b76ea6d30bb';
-        $record = $this->getRecord(Logger::INFO, 'tests', array('checksum' => $checksum, 'release' => $release));
+        $record = $this->getRecord(Logger::INFO, 'test', array('checksum' => $checksum, 'release' => $release));
         $handler->handle($record);
 
         $this->assertEquals($checksum, $ravenClient->lastData['checksum']);
@@ -105,7 +105,7 @@ class RavenHandlerTest extends TestCase
         $handler = $this->getHandler($ravenClient);
 
         $fingerprint = array('{{ default }}', 'other value');
-        $record = $this->getRecord(Logger::INFO, 'tests', array('fingerprint' => $fingerprint));
+        $record = $this->getRecord(Logger::INFO, 'test', array('fingerprint' => $fingerprint));
         $handler->handle($record);
 
         $this->assertEquals($fingerprint, $ravenClient->lastData['fingerprint']);
@@ -116,15 +116,15 @@ class RavenHandlerTest extends TestCase
         $ravenClient = $this->getRavenClient();
         $handler = $this->getHandler($ravenClient);
 
-        $recordWithNoContext = $this->getRecord(Logger::INFO, 'tests with default user context');
+        $recordWithNoContext = $this->getRecord(Logger::INFO, 'test with default user context');
         // set user context 'externally'
 
         $user = array(
             'id' => '123',
-            'email' => 'tests@tests.com',
+            'email' => 'test@test.com',
         );
 
-        $recordWithContext = $this->getRecord(Logger::INFO, 'tests', array('user' => $user));
+        $recordWithContext = $this->getRecord(Logger::INFO, 'test', array('user' => $user));
 
         $ravenClient->user_context(array('id' => 'test_user_id'));
         // handle context
@@ -195,6 +195,32 @@ class RavenHandlerTest extends TestCase
         $handler->handleBatch($records);
     }
 
+    public function testHandleBatchPicksProperMessage()
+    {
+        $records = array(
+            $this->getRecord(Logger::DEBUG, 'debug message 1'),
+            $this->getRecord(Logger::DEBUG, 'debug message 2'),
+            $this->getRecord(Logger::INFO, 'information 1'),
+            $this->getRecord(Logger::ERROR, 'error 1'),
+            $this->getRecord(Logger::WARNING, 'warning'),
+            $this->getRecord(Logger::ERROR, 'error 2'),
+            $this->getRecord(Logger::INFO, 'information 2'),
+        );
+
+        $logFormatter = $this->getMock('Monolog\\Formatter\\FormatterInterface');
+        $logFormatter->expects($this->once())->method('formatBatch');
+
+        $formatter = $this->getMock('Monolog\\Formatter\\FormatterInterface');
+        $formatter->expects($this->once())->method('format')->with($this->callback(function ($record) use ($records) {
+            return $record['message'] == 'error 1';
+        }));
+
+        $handler = $this->getHandler($this->getRavenClient());
+        $handler->setBatchFormatter($logFormatter);
+        $handler->setFormatter($formatter);
+        $handler->handleBatch($records);
+    }
+
     public function testGetSetBatchFormatter()
     {
         $ravenClient = $this->getRavenClient();
@@ -210,12 +236,12 @@ class RavenHandlerTest extends TestCase
         $handler = $this->getHandler($ravenClient);
         $release = 'v42.42.42';
         $handler->setRelease($release);
-        $record = $this->getRecord(Logger::INFO, 'tests');
+        $record = $this->getRecord(Logger::INFO, 'test');
         $handler->handle($record);
         $this->assertEquals($release, $ravenClient->lastData['release']);
 
         $localRelease = 'v41.41.41';
-        $record = $this->getRecord(Logger::INFO, 'tests', array('release' => $localRelease));
+        $record = $this->getRecord(Logger::INFO, 'test', array('release' => $localRelease));
         $handler->handle($record);
         $this->assertEquals($localRelease, $ravenClient->lastData['release']);
     }

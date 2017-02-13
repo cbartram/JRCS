@@ -9,7 +9,10 @@ use App\Http\Controllers\Controller;
 use App\Profile;
 use App\Programs;
 use App\StaffProfile;
+use Illuminate\Foundation\Auth\User;
 use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
@@ -17,24 +20,30 @@ use Illuminate\Support\Facades\Session;
 class StaffProfileController extends Controller
 {
 
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function index()
     {
             //Searches the DB for staff profile with the $id = id submitted by the login form
-            $staff = DB::table('staff_profile2')->where('id', Session::get('id'))->limit(1)->get()->first();
+            $staff = StaffProfile::where('id', Auth::user()->id)->first();
 
             //Finds the volunteers that relate to the staff members "default" group
             if(Session::has('group')) {
                 //AKA the user switched his/her group
-                if(Session::get('group') == "ADMIN") {
+                if(Session::get('group') == "ADMIN" || Session::get('group') == "JRCS") {
 
                     //No Where clause get all the Volunteers in the system
-                    $volunteers = Profile::where('active', 1)->paginate(9);
+                    $volunteers = Profile::where('active', 1)->orderBy('first_name')->paginate(9);
                     $defaultGroup = Session::get('group');
 
                 } else {
                     //get only volunteers who belong to the group that has been switched too
                     $volunteers = Profile::where($this->getGroupNameFromTruncated(Session::get('group')),  1)
                         ->where('active', 1)
+                        ->orderBy('first_name')
                         ->paginate(9);
 
                     $defaultGroup = Session::get('group');
@@ -43,21 +52,30 @@ class StaffProfileController extends Controller
             } else {
                 //check to see if the staff member has set a default group in the default group column
                 if($staff != null && ($staff->default_group != null || $staff->default_group != '')) {
+
                     $volunteers = Profile::where($this->getGroupNameFromTruncated($staff->default_group),  1)
                         ->where('active', 1)
+                        ->orderBy('first_name')
                         ->paginate(9);
+
                     $defaultGroup = $staff->default_group;
+
+                    //Set default group
+                    Session::set('group', $defaultGroup);
+
                 } else {
                     try {
                         //the user has not switched groups yet nor have they set a default group in the settings give them the default group
-                        $volunteers = Profile::where($this->getDefaultGroupFromId(Session::get('id')), 1)
+                        $volunteers = Profile::where($this->getDefaultGroupFromId(Auth::user()->id), 1)
                             ->where('active', 1)
+                            ->orderBy('first_name')
                             ->paginate(9);
                         //Default group the user will be logged in as
-                        $defaultGroup = $this->getTruncatedGroupName($this->getDefaultGroupFromId(Session::get('id')));
+                        $defaultGroup = $this->getTruncatedGroupName($this->getDefaultGroupFromId(Auth::user()->id));
 
                     } catch (\Exception $e) {
-                        //If the user tries to access the /profile URI Directly
+
+                        //If the user tries to access the /profile URI Directly (will already be caught by middleware)
                         return Redirect::to('/');
                     }
 
@@ -73,7 +91,7 @@ class StaffProfileController extends Controller
             }
 
             //Handles getting all volunteers used for switching volunteer groups
-            $all = Profile::all();
+            $all = Profile::where('active', 1)->get();
 
             //Handles getting the donation data from the database
             $donations = Donations::where('status', 'pending')
@@ -98,7 +116,9 @@ class StaffProfileController extends Controller
                     ->orderBy('start', 'ASC')
                     ->paginate(5);
 
-                $allStaff = StaffProfile::all();
+                $allStaff = Cache::remember('allStaff', 60, function() {
+                   return StaffProfile::all();
+                });
             } else {
 
                 //Events on the calendar and events in the event log where the group is the staff members current group
@@ -109,9 +129,12 @@ class StaffProfileController extends Controller
                     ->orderBy('start', 'ASC')
                     ->paginate(5);
 
+                $name = $this->getAttributeName($defaultGroup);
 
                 //Get all staff members who match the current group
-                $allStaff = StaffProfile::where($this->getAttributeName($defaultGroup), 1)->get();
+                $allStaff = Cache::remember('allStaffNoAdmin', 60, function() use ($name) {
+                    return StaffProfile::where($name, 1)->get();
+                });
             }
 
             //return the view and attach staff & volunteer objects to be accessed by blade templating engine
@@ -126,38 +149,23 @@ class StaffProfileController extends Controller
                 ->with('programs', $programs);
     }
 
+    /**
+     * Returns an array of Groups the currently logged in user has access to
+     *
+     * @param $user User
+     * @return array
+     */
     public function isMemberOf($user)
     {
         $access = [];
-        //todo This works locally but gives a string to array error in dev... not sure why
-//        $groups = ['bebco_access', 'jaco_access', 'jbc_access'];
-//        $truncatedName = ['BEBCO', 'JACO', 'JBC'];
-//
-//        for($i = 0; $i < 3; $i++) {
-//            if($user->$groups[$i] == 1) {
-//                $access[$truncatedName[$i]] = true;
-//            } else {
-//                $access[$truncatedName[$i]] = false;
-//            }
-//        }
-        if($user->bebco_access == 1) {
-            $access['BEBCO'] = true;
-        } else {
-            $access['BEBCO'] = false;
-        }
-        if($user->jaco_access == 1) {
-            $access['JACO'] = true;
-        } else {
-            $access['JACO'] = false;
-        }
-        if($user->jbc_access == 1) {
-            $access['JBC'] = true;
-        } else {
-            $access['JBC'] = false;
-        }
+
+        $user->bebco_access == 1 ? $access['BEBCO'] = true : $access['BEBCO'] = false;
+        $user->jaco_access == 1 ? $access['JACO'] = true : $access['JACO'] = false;
+        $user->jbc_access == 1 ? $access['JBC'] = true : $access['JBC'] = false;
+        $user->jrcs_access == 1 ? $access['JRCS'] = true : $access['JRCS'] = false;
 
         //Staff member is a part of all 3 groups
-        if($access['BEBCO'] == true && $access['JACO'] == true && $access['JBC'] == true) {
+        if(($access['BEBCO'] == true && $access['JACO'] == true && $access['JBC'] == true) || $access['JRCS'] == true) {
             $access['ADMIN']= true;
         } else {
             $access['ADMIN'] = false;
@@ -172,7 +180,7 @@ class StaffProfileController extends Controller
      */
     public function getDefaultGroupFromId($id)
     {
-            $row = DB::table('staff_profile2')->where('id', '=', $id)->get()->first();
+            $row = StaffProfile::where('id', $id)->first();
 
             //todo could be replaced with a for loop
             if($row->bebco_access == 1) {
@@ -183,6 +191,9 @@ class StaffProfileController extends Controller
             }
             if($row->jbc_access == 1) {
                return "jbc_volunteer";
+            }
+            if($row->jrcs_access == 1) {
+                return "jrcs_volunteer";
             }
 
             return null;
@@ -204,6 +215,9 @@ class StaffProfileController extends Controller
             case "jbc_volunteer":
                 $group = "JBC";
                 break;
+            case "jrcs_volunteer":
+                $group = "JRCS";
+                break;
             default:
                 $group = "NULL";
 
@@ -217,8 +231,6 @@ class StaffProfileController extends Controller
      * @return string A String tht matches the column in the database for this respective group
      */
     public function getGroupNameFromTruncated($truncated) {
-        $group = '';
-
         switch($truncated) {
             case "BEBCO":
                 $group = 'bebco_volunteer';
@@ -228,6 +240,9 @@ class StaffProfileController extends Controller
                 break;
             case "JBC":
                 $group = 'jbc_volunteer';
+                break;
+            case "JRCS":
+                $group = 'jrcs_volunteer';
                 break;
             default:
                 $group = 'error';
@@ -241,8 +256,6 @@ class StaffProfileController extends Controller
      * @return string A String tht matches the column in the database for this respective group
      */
     public function getAttributeName($truncated) {
-        $group = '';
-
         switch($truncated) {
             case "BEBCO":
                 $group = 'bebco_access';
@@ -252,6 +265,9 @@ class StaffProfileController extends Controller
                 break;
             case "JBC":
                 $group = 'jbc_access';
+                break;
+            case "JRCS":
+                $group = 'jrcs_access';
                 break;
             default:
                 $group = 'error';

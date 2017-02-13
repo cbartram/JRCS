@@ -12,12 +12,12 @@
                 <div class="row">
                     <div class="col-lg-4 col-lg-offset-2">
                             <label for="start">
-                               Start Date <input type="text" class="form-control" placeholder="YYYY-MM-DD" name="start">
+                               Start Date <input type="text" id="export-start-date" class="form-control" placeholder="YYYY-MM-DD" name="start">
                             </label>
                     </div>
                     <div class="col-lg-4">
                         <label for="end">
-                            End Date <input type="text" class="form-control" placeholder="YYYY-MM-DD" name="end">
+                            End Date <input type="text" id="export-end-date" class="form-control" placeholder="YYYY-MM-DD" name="end">
                         </label>
                     </div>
                 </div>
@@ -29,6 +29,9 @@
                                     <option value="{{$k}}">{{$k}}</option>
                                 @endif
                             @endforeach
+                            @if($defaultGroup == "ADMIN")
+                            <option value="all">All Groups</option>
+                            @endif
                         </select>
                     </div>
                 </div>

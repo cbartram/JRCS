@@ -36,8 +36,8 @@ class FirePHPHandlerTest extends TestCase
             'X-Wf-Protocol-1'    => 'http://meta.wildfirehq.org/Protocol/JsonStream/0.2',
             'X-Wf-1-Structure-1' => 'http://meta.firephp.org/Wildfire/Structure/FirePHP/FirebugConsole/0.1',
             'X-Wf-1-Plugin-1'    => 'http://meta.firephp.org/Wildfire/Plugin/FirePHP/Library-FirePHPCore/0.3',
-            'X-Wf-1-1-1-1'       => 'tests',
-            'X-Wf-1-1-1-2'       => 'tests',
+            'X-Wf-1-1-1-1'       => 'test',
+            'X-Wf-1-1-1-2'       => 'test',
         );
 
         $this->assertEquals($expected, $handler->getHeaders());
@@ -59,13 +59,13 @@ class FirePHPHandlerTest extends TestCase
             'X-Wf-Protocol-1'    => 'http://meta.wildfirehq.org/Protocol/JsonStream/0.2',
             'X-Wf-1-Structure-1' => 'http://meta.firephp.org/Wildfire/Structure/FirePHP/FirebugConsole/0.1',
             'X-Wf-1-Plugin-1'    => 'http://meta.firephp.org/Wildfire/Plugin/FirePHP/Library-FirePHPCore/0.3',
-            'X-Wf-1-1-1-1'       => 'tests',
-            'X-Wf-1-1-1-2'       => 'tests',
+            'X-Wf-1-1-1-1'       => 'test',
+            'X-Wf-1-1-1-2'       => 'test',
         );
 
         $expected2 = array(
-            'X-Wf-1-1-1-3'       => 'tests',
-            'X-Wf-1-1-1-4'       => 'tests',
+            'X-Wf-1-1-1-3'       => 'test',
+            'X-Wf-1-1-1-4'       => 'test',
         );
 
         $this->assertEquals($expected, $handler->getHeaders());

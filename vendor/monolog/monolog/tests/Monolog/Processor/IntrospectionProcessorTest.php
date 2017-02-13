@@ -50,7 +50,7 @@ class IntrospectionProcessorTest extends TestCase
         $this->assertEquals(__FILE__, $record['extra']['file']);
         $this->assertEquals(18, $record['extra']['line']);
         $this->assertEquals('Acme\Tester', $record['extra']['class']);
-        $this->assertEquals('tests', $record['extra']['function']);
+        $this->assertEquals('test', $record['extra']['function']);
     }
 
     public function testProcessorFromFunc()

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Test;
 use App\Cico;
 use App\Helpers\Helpers;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Mail;
 
 class TestController extends Controller
 {
@@ -14,7 +15,7 @@ class TestController extends Controller
      */
     public function testGet()
     {
-
+        //
     }
 
     /**
@@ -23,6 +24,6 @@ class TestController extends Controller
      */
     public function testPost()
     {
-
+        //
     }
 }

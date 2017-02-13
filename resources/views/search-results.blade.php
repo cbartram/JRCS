@@ -1,27 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="icon" href="../../favicon.ico">
+@extends('components.navbar-simple')
 
-    <title>Volunteer Checkout</title>
-
-    <link href="https://fonts.googleapis.com/css?family=Lato:100" rel="stylesheet" type="text/css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="../../public/css/CICO.css">
-</head>
-<body>
-
+@section('content')
 <div class="container">
     <div class="row">
         <div class="col-lg-9 col-lg-offset-1">
             <div class="panel panel-default" style="margin-top:25px;">
-                <div class="panel-heading">Search Results</div>
+                <div class="panel-heading">Volunteer Information</div>
                 <div class="panel-body">
                     <div class="table-responsive">
                         <table class="table table-bordered volunteer">
@@ -37,17 +21,77 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>{{$volunteer->id}}</td>
-                                    <td>{{$volunteer->first_name}}</td>
-                                    <td>{{$volunteer->last_name}}</td>
-                                    <td>{{$volunteer->email}}</td>
-                                    <td>{{$volunteer->phone}}</td>
-                                    <td>{{$volunteer->city}}</td>
-                                    <td>{{$volunteer->state}}</td>
-                                    <td>{{$volunteer->zip_code}}</td>
+                                    <td>{{$volunteer[0]->id}}</td>
+                                    <td>{{$volunteer[0]->first_name}}</td>
+                                    <td>{{$volunteer[0]->last_name}}</td>
+                                    <td>{{$volunteer[0]->email}}</td>
+                                    <td>{{$volunteer[0]->phone}}</td>
+                                    <td>{{$volunteer[0]->city}}</td>
+                                    <td>{{$volunteer[0]->state}}</td>
+                                    <td>{{$volunteer[0]->zip_code}}</td>
                                 </tr>
                             </tbody>
                         </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-9 col-lg-offset-1">
+            <div class="panel panel-default" style="margin-top:25px;">
+                <div class="panel-heading">Additional Information</div>
+                <div class="panel-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered volunteer">
+                            <thead>
+                                <th>Availability</th>
+                                <th>Degree</th>
+                                <th>Transportation</th>
+                                <th>Languages</th>
+                                <th>Criminal History</th>
+                                <th>Nationality</th>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>{{$volunteer[0]->availability}}</td>
+                                <td>{{$volunteer[0]->degree}}</td>
+                                <td>{!! $volunteer[0]->transportation == 1 ? '<span class="label label-success">True</span>' : '<span class="label label-danger">False</span>'!!}</td>
+                                <td>{{$volunteer[0]->languages_spoken}}</td>
+                                <td>{{$volunteer[0]->criminal_convictions}}</td>
+                                <td>{{$volunteer[0]->nationality}}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-9 col-lg-offset-1">
+            <div class="panel panel-default" style="margin-top:25px;">
+                <div class="panel-heading">Detailed Information</div>
+                <div class="panel-body">
+                    <div class="col-md-4">
+                        <h4 style="color:black;  border-bottom: 1px dotted #000; padding-bottom:5px;">Interests</h4>
+                        <p>
+                            {{$volunteer[0]->interests}}
+                        </p>
+                    </div>
+                    <div class="col-md-4">
+                        <h4 style="color:black;  border-bottom: 1px dotted #000; padding-bottom:5px;">Special Skills</h4>
+                        <p>
+                            {{$volunteer[0]->special_skills}}
+                        </p>
+                    </div>
+                    <div class="col-md-4">
+                        <h4 style="color:black;  border-bottom: 1px dotted #000; padding-bottom:5px;">Previous Volunteer Work</h4>
+                        <p>
+                            {{$volunteer[0]->previous_volunteer_work}}
+                        </p>
                     </div>
                 </div>
             </div>
@@ -58,7 +102,7 @@
     <div class="row">
         <div class="col-lg-9 col-lg-offset-1">
             <div class="panel panel-default" style="margin-top:25px;">
-                <div class="panel-heading">Search Results</div>
+                <div class="panel-heading">Volunteer CICO Log</div>
                 <div class="panel-body">
                     <div class="table-responsive">
                         <table class="table table-striped">
@@ -81,7 +125,7 @@
                              @endforeach
                             </tbody>
                         </table>
-                        {{$cico->links()}}
+                        {{$cico->appends(request()->input())->links()}}
                     </div>
                 </div>
             </div>
@@ -98,15 +142,5 @@
 
 </div> <!-- /container -->
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
-<script src="https://use.fontawesome.com/09e1e27aff.js"></script>
-<script src="../../public/js/jquery.tabledit.min.js"></script>
-
-
-<script src="../../public/js/VolunteerRESTLibrary.js"></script>
-<script src="../../public/js/Search.js"></script>
-
-</body>
-</html>
+<script src="/public/js/Search.js"></script>
+@endsection

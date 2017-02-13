@@ -10,8 +10,8 @@ class Swift_Bug76Test extends \PHPUnit_Framework_TestCase
     {
         if (!defined('SWIFT_TMP_DIR') || !is_writable(SWIFT_TMP_DIR)) {
             $this->markTestSkipped(
-                'Cannot run tests without a writable directory to use ('.
-                'define SWIFT_TMP_DIR in tests/config.php if you wish to run this tests)'
+                'Cannot run test without a writable directory to use ('.
+                'define SWIFT_TMP_DIR in tests/config.php if you wish to run this test)'
              );
         }
 

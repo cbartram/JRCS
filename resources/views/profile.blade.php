@@ -10,7 +10,7 @@
                 <div class="panel-body" id="test">
             <div class="profile-sidebar">
                 <div class="profile-userpic">
-                    <img style="height:130px; width:130px; border-radius:50%" src="https://www.gravatar.com/avatar/{{$gravEmail}}?d=http://jrcs.herokuapp.com/public/images/gravatar.jpg&s=350" class="img-responsive" alt="">
+                    <img style="height:130px; width:130px; border-radius:50%" src="https://www.gravatar.com/avatar/{{$gravEmail}}?d=https://app.nimia.com/static/img/default_profile.png&s=350" class="img-responsive" alt="">
                 </div>
                 <div class="profile-usertitle">
                     <div class="profile-usertitle-name">
@@ -35,9 +35,18 @@
                             <a href="#" id="hide-all"><i class="fa fa-eye-slash"></i>Show/Hide All</a>
                         </li>
                         <li>
-                            <a href="/logout"><i class="glyphicon glyphicon-log-out"></i>Logout</a>
+                            <a href="/logout"><i class="fa fa-sign-out"></i>Logout</a>
                         </li>
                     </ul>
+                    @if (count($errors) > 0)
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
                 </div>
             </div>
         </div>
@@ -166,57 +175,118 @@
 
             <div class="col-md-12">
                 <div class="panel panel-default">
-                    <div class="panel-heading">Volunteer Profiles <span class="fa fa-users"></span> <span class="fa fa-minus fa-2x"></span></div>
-                    <div class="panel-body">
-                        @if(Input::get('page') > $volunteers->lastPage())
+                    <div class="panel-heading">Volunteer Table <span class="fa fa-list"></span> <span class="fa fa-minus fa-2x"></span></div>
+                    <div class="panel-body panel-sortable">
                         <div class="row">
                             <div class="col-lg-10 col-lg-offset-1">
-                                    <h3 class="text-muted">There are no volunteers to show on page {{Input::get('page')}} try switching to a previous page</h3>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-lg-6 col-lg-offset-5">
-                                <img src="../public/images/404.gif">
-                            </div>
-                        </div>
-                        @else
+                                <div class="table table-responsive">
+                                    <table class="table table-bordered">
+                                        <thead>
+                                        <tr>
+                                            <th>Id</th>
+                                            <th>Name</th>
+                                            <th>Group</th>
+                                            <th>See More</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        @foreach($volunteers as $volunteer)
+                                            <!-- Each Accordian parent row -->
+                                            <tr>
+                                                <td><span class="label label-primary">{{$volunteer->id}}</span></td>
+                                                <td>{{Helpers::getName($volunteer->id)}}</td>
+                                                <td>{{Helpers::getGroups($volunteer->id)}}</td>
+                                                <td><a id="accordian{{$loop->index}}" role="button" aria-controls="collapse{{$loop->index}}"
+                                                       data-toggle="collapse" data-index="{{$loop->index}}" href="#collapse{{$loop->index}}"
+                                                       data-target="#collapse{{$loop->index}}" data-id="{{$volunteer->id}}"
+                                                       data-render="#chart{{$loop->index}}" aria-expanded="true" class="btn btn-default collapsable">
+                                                       <i class="fa fa-angle-down"></i></a>
+                                                </td>
+                                            </tr>
 
-                <div class="profile-content" style="float:top;">
-                    <div class="row">
-                        @foreach($volunteers as $volunteer)
-                        <div class="col-lg-4">
-                            <div class="well cart-item cart-script">
-                                <h4 class="user-name"> {{$volunteer->first_name . ' ' . $volunteer->last_name . ' - ' .  Helpers::getGroups($volunteer->id)}}</h4>
-                                <div class="descr">
-                                    <div class="pull-left icon-script">
-                                      <span class="fa fa-user fa-3x"></span>
-                                    </div>
-                                        <span class="vol-id">Volunteer with the ID: {{$volunteer->id}}</span>
-                                </div>
-                                <br>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <button class="cart-add btn btn-success" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-info-sign"></span> See more</button>
-                                    </div>
+                                            <!-- Accordian Dropdown -->
+                                            <tr>
+                                                <td colspan="4" class="no-padd no-border">
+                                                    <div class="collapse-content collapse"  id="collapse{{$loop->index}}">
+                                                        <div class="row collapse-inner" id="collapse-inner{{$loop->index}}">
+                                                            <div class="col-sm-4">
+                                                                <h6>Current Volunteer Hours</h6>
+
+                                                                <div class="row">
+                                                                    <div class="col-sm-6 text-center">
+                                                                        <div class="vitals-icon">
+                                                                            <i class="fa fa-clock-o"></i>
+                                                                        </div>
+                                                                        <div class="vitals-text">
+                                                                            <div class="number" ><span class="not-found bebco-number"></span></div>
+                                                                            <div class="uom">Bebco</div>
+                                                                            <!--<div class="time">Updated _ ago</div>-->
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-sm-6 text-center">
+                                                                        <div class="vitals-icon">
+                                                                            <i class="fa fa-clock-o"></i>
+                                                                        </div>
+                                                                        <div class="vitals-text">
+                                                                            <div class="number" ><span class="not-found jaco-number"></span></div>
+                                                                            <div class="uom">Jaco</div>
+                                                                            <!--<div class="time">Updated _ ago</div>-->
+                                                                        </div>
+
+                                                                    </div>
+                                                                </div>
+
+                                                                <hr />
+
+                                                                <div class="row">
+                                                                    <div class="col-sm-6 text-center">
+                                                                        <div class="vitals-icon">
+                                                                            <i class="fa fa-clock-o"></i>
+                                                                        </div>
+                                                                        <div class="vitals-text">
+                                                                            <div class="number"><span class="not-found jbc-number"></span></div>
+                                                                            <div class="uom">Jbc</div>
+                                                                            <!--<div class="time">Updated _ ago</div>-->
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-sm-6 text-center">
+                                                                        <div class="vitals-icon">
+                                                                            <i class="fa fa-clock-o"></i>
+                                                                        </div>
+                                                                        <div class="vitals-text">
+                                                                            <div class="number"><span class="not-found all-number"></span></div>
+                                                                            <div class="uom">Jrcs</div>
+                                                                            <!--<div class="time">Updated _ ago</div>-->
+                                                                        </div>
+
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-sm-8">
+                                                                <h6>Volunteer Hours Over Time</h6>
+                                                                <div class="chart-wrap">
+                                                                    <!-- Highcharts volunteer chart is loaded here -->
+                                                                    <div id="chart{{$loop->index}}" style="height: 280px;"></div>
+                                                                    <a class="btn btn-primary btn-block" href="volunteer/search/?group={{$defaultGroup}}&email={{$volunteer->email}}" type="button">View Volunteer Details</a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
                         </div>
-                        @endforeach
                     </div>
                 </div>
             </div>
-                    @endif
-               <div class="row">
-                   <div class="col-lg-4 col-lg-offset-5">
-                       {{$volunteers->links()}}
-                   </div>
-               </div>
-        </div>
-    </div>
 </div>
 </div>
 
-    @if($defaultGroup == 'ADMIN' || Session::get('drop'))
+    @if($defaultGroup == 'ADMIN' || Session::get('drop') || $defaultGroup == "JRCS")
     <!-- Start to Swap and Copy Volunteer Profiles -->
     <div class="row">
         <div class="col-md-4">

@@ -69,14 +69,14 @@ class GelfMessageFormatterTest extends \PHPUnit_Framework_TestCase
             'channel' => 'meh',
             'context' => array('from' => 'logger'),
             'datetime' => new \DateTime("@0"),
-            'extra' => array('file' => 'tests', 'line' => 14),
+            'extra' => array('file' => 'test', 'line' => 14),
             'message' => 'log',
         );
 
         $message = $formatter->format($record);
 
         $this->assertInstanceOf('Gelf\Message', $message);
-        $this->assertEquals('tests', $message->getFile());
+        $this->assertEquals('test', $message->getFile());
         $this->assertEquals(14, $message->getLine());
     }
 

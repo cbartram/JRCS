@@ -6,9 +6,17 @@ use App\Calendar;
 use App\Donations;
 use App\Profile;
 use App\Programs;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 
 class ArchiveController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function index() {
 
         $donations = Donations::where('status', 'Approved')
@@ -30,7 +38,8 @@ class ArchiveController extends Controller
 
         return view('donation.archive', compact('donations'), compact('volunteers'))
             ->with('programs', $programs)
-            ->with('events', $events);
+            ->with('events', $events)
+            ->with('defaultGroup', Session::get('group'));
     }
 
 }

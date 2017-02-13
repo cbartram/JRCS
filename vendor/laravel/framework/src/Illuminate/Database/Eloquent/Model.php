@@ -3,7 +3,6 @@
 namespace Illuminate\Database\Eloquent;
 
 use Closure;
-use DateTime;
 use Exception;
 use ArrayAccess;
 use Carbon\Carbon;
@@ -1966,6 +1965,16 @@ abstract class Model implements ArrayAccess, Arrayable, Jsonable, JsonSerializab
     public function getQualifiedKeyName()
     {
         return $this->getTable().'.'.$this->getKeyName();
+    }
+
+    /**
+     * Get the auto incrementing key type.
+     *
+     * @return string
+     */
+    public function getKeyType()
+    {
+        return $this->keyType;
     }
 
     /**

@@ -71,10 +71,10 @@ class LineFormatterTest extends \PHPUnit_Framework_TestCase
             'channel' => 'meh',
             'context' => array(),
             'datetime' => new \DateTime,
-            'extra' => array('ip' => '127.0.0.1', 'file' => 'tests'),
+            'extra' => array('ip' => '127.0.0.1', 'file' => 'test'),
             'message' => 'log',
         ));
-        $this->assertEquals('['.date('Y-m-d').'] meh.ERROR: log [] tests {"ip":"127.0.0.1"}'."\n", $message);
+        $this->assertEquals('['.date('Y-m-d').'] meh.ERROR: log [] test {"ip":"127.0.0.1"}'."\n", $message);
     }
 
     public function testContextAndExtraOptionallyNotShownIfEmpty()
@@ -161,7 +161,7 @@ class LineFormatterTest extends \PHPUnit_Framework_TestCase
         $message = $formatter->formatBatch(array(
             array(
                 'level_name' => 'CRITICAL',
-                'channel' => 'tests',
+                'channel' => 'test',
                 'message' => 'bar',
                 'context' => array(),
                 'datetime' => new \DateTime,
@@ -176,7 +176,7 @@ class LineFormatterTest extends \PHPUnit_Framework_TestCase
                 'extra' => array(),
             ),
         ));
-        $this->assertEquals('['.date('Y-m-d').'] tests.CRITICAL: bar [] []'."\n".'['.date('Y-m-d').'] log.WARNING: foo [] []'."\n", $message);
+        $this->assertEquals('['.date('Y-m-d').'] test.CRITICAL: bar [] []'."\n".'['.date('Y-m-d').'] log.WARNING: foo [] []'."\n", $message);
     }
 
     public function testFormatShouldStripInlineLineBreaks()

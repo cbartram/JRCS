@@ -13,6 +13,7 @@
 
 use App\Cico;
 use App\Programs;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Route;
@@ -27,11 +28,19 @@ use Illuminate\Support\Facades\Session;
 |
  */
 //Handles showing the user the root page
-Route::get('/login', function() { return view('login'); });
+Route::get('/login', function() {
+
+    if(!Auth::check()) {
+
+    return view('login');
+
+    } else {
+
+        return Redirect::to('/profile');
+    }
+});
 
 Route::get('/', function() {
-
-    Config::set('app.debug', false);
 
     //Get all users from the table where they have not yet checked out joining with the profiles table
     $volunteers = Cico::where('check_out_timestamp', 'null')
@@ -47,7 +56,12 @@ Route::get('/', function() {
    return view('cico', compact('volunteers'), compact('programs'));
 });
 
+
+//Handles showing a specific volunteer
 Route::get('/volunteer/search', 'SearchController@search');
+
+//Handles searching for volunteers by name
+Route::get('/volunteer/find/search', 'SearchController@find');
 
 //Handles verifying the form data and authenticating the user
 Route::post('/', 'Auth\LoginController@handleLogin');
@@ -64,7 +78,7 @@ Route::get('/switch/{group}', function($group) {
 });
 
 //Logs a user out safely
-Route::get('/logout', function() { Session::flush(); return Redirect::to('/'); });
+Route::get('/logout', function() { Auth::logout(); return Redirect::to('/'); });
 
 //Handles when a staff member registers a new volunteer
 Route::post('/add', 'addController@index');
@@ -256,8 +270,13 @@ Route::get('api/v1/donations/deny/{id}', 'REST\RESTController@denyDonation');
 //Approves a pending donation
 Route::get('api/v1/donations/approve/{id}', 'REST\RESTController@approveDonation');
 
+
+
 //Handles authenticating if a users email and password are correct
 Route::post('api/v1/authenticate/', 'REST\RESTController@authenticate');
+
+
+
 
 Route::get('api/v1/hours/', 'REST\RESTController@getAllHours');
 
@@ -275,6 +294,15 @@ Route::get('/api/v1/hours/group/{group}/{start}/{end}', 'REST\RESTController@get
 
 //Aggregates sum of all groups one a specific date
 Route::get('/api/v1/hours/date/{date}', 'REST\RESTController@getAllHoursOnDate');
+
+//Aggregates sum of volunteer hours
+Route::get('/api/v1/hours/{id}/{group}/{start}/{end}', 'REST\RESTController@getHoursByIdAndGroupBetween');
+
+
+Route::get('/api/v1/volunteer/hours/{id}/{start}/{end}', 'REST\RESTController@getHoursForVolunteerBetween');
+
+
+
 
 //Handles archiving a volunteer
 Route::post('/api/v1/archive/volunteer/{id}', 'REST\RESTController@archiveVolunteer');
@@ -300,5 +328,4 @@ Route::post('/api/v1/demographics/update', 'REST\RESTController@updateDemographi
 
 //updates volunteer cico information found through a search
 Route::post('/api/v1/cico/search/update', 'REST\RESTController@updateCico');
-
 

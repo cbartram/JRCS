@@ -6,16 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="icon" href="../../favicon.ico">
+    <link rel="icon" href="/public/css/images/favicon.ico">
 
     <title>Volunteer Check-in</title>
 
     <!-- Latest compiled and minified CSS -->
-    <link href="https://fonts.googleapis.com/css?family=Lato:100" rel="stylesheet" type="text/css">
-    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <!-- Custom styles for this template -->
-    <link href="../../public/css/CICO.css" rel="stylesheet">
+    <link href="/public/css/CICO.css" rel="stylesheet">
 </head>
 
 <body>
@@ -68,17 +64,18 @@
     <div class="row" id="volunteer-login">
         <div class="col-lg-5" style="margin-top:25px">
             <div id="alert-cico"></div>
-            <form class="form-signin">
-                <input type="email" class="form-control" placeholder="Email" id="volunteer-email" style="width:100%;">
+            <form method="post" action="/cico">
+
+                <input type="text" class="form-control" name="email" placeholder="Email or Phone" id="volunteer-email" style="width:100%;">
+
                 <div class="row">
                     <div class="col-md-12" style="margin-top:25px">
 
                         <!-- Volunteer type selector -->
                         <div class="form-group">
-                            <select class="form-control" id="volunteer-type" style="width:100%">
-                                <option name="default" selected>Select Volunteer Type</option>
+                            <select class="form-control" name="type" id="volunteer-type" style="width:100%">
                                 <option name="program">Program</option>
-                                <option name="board">Board</option>
+                                <option name="board" selected>Board</option>
                                 <option name="general">General</option>
                                 <option name="other">Other</option>
                             </select>
@@ -86,14 +83,26 @@
 
                         <!-- Hidden form only visible to program volunteers -->
                         <div class="input-group" id="volunteer-program">
+
                             <label for="program">Select Volunteer Program</label>
-                            <select class="form-control" id="program">
+                            <select class="form-control" name="program" id="program">
                                 <option name="default" selected>Select Program</option>
                                 @foreach($programs as $program)
                                     <option name="{{$program->program_name}}">{{$program->program_name}}</option>
                                 @endforeach
                             </select>
                         </div>
+
+                        <div class="input-group" style="margin-bottom:25px">
+                            <label for="for-group">Volunteering For</label>
+                            <select class="form-control" name="forGroup" id="for-group">
+                                <option name="BEBCO">BEBCO</option>
+                                <option name="JACO">JACO</option>
+                                <option name="JBC">JBC</option>
+                                <option name="JRCS">JRCS</option>
+                            </select>
+                        </div>
+
                     </div>
 
                     <!-- Submit & back buttons -->
@@ -171,16 +180,10 @@
     </div>
 </footer>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-<script src="//code.jquery.com/ui/1.12.0/jquery-ui.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-<script src="https://use.fontawesome.com/09e1e27aff.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
-
 
 <!-- Local Libraries -->
-<script src="../../public/js/VolunteerRESTLibrary.js"></script>
-<script src="../../public/js/Login.js"></script>
-<script src="../../public/js/CICO.js"></script>
+<script src="/public/js/CICO.js"></script>
+{!! Toastr::render() !!}
+
 </body>
 </html>

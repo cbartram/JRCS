@@ -7,14 +7,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="icon" href="../../favicon.ico">
+    <link rel="icon" href="/public/css/images/favicon.ico">
 
     <title>Staff Login</title>
 
     <!-- Latest compiled and minified CSS -->
-    <link href="https://fonts.googleapis.com/css?family=Lato:100" rel="stylesheet" type="text/css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <link href="../../public/css/Login.css" rel="stylesheet">
+    <link href="/public/css/Login.css" rel="stylesheet">
+
 </head>
 
 <body>
@@ -64,14 +63,7 @@
     </div>
 </div> <!-- /container -->
 
-<!-- Globally Hosted Libraries -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-<script src="//code.jquery.com/ui/1.12.0/jquery-ui.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-<script src="https://use.fontawesome.com/09e1e27aff.js"></script>
-
 <!-- Local Libraries -->
-<script src="../../public/js/VolunteerRESTLibrary.js"></script>
-<script src="../../public/js/Login.js"></script>
+<script src="/public/js/Login.js"></script>
 </body>
 </html>

@@ -17,7 +17,7 @@ class Swift_Bug38Test extends \PHPUnit_Framework_TestCase
     public function testWritingMessageToByteStreamProducesCorrectStructure()
     {
         $message = new Swift_Message();
-        $message->setSubject('tests subject');
+        $message->setSubject('test subject');
         $message->setTo('user@domain.tld');
         $message->setCc('other@domain.tld');
         $message->setFrom('user@domain.tld');
@@ -40,7 +40,7 @@ class Swift_Bug38Test extends \PHPUnit_Framework_TestCase
             '~^'.
             'Message-ID: <'.$id.'>'."\r\n".
             'Date: '.$date."\r\n".
-            'Subject: tests subject'."\r\n".
+            'Subject: test subject'."\r\n".
             'From: user@domain.tld'."\r\n".
             'To: user@domain.tld'."\r\n".
             'Cc: other@domain.tld'."\r\n".
@@ -71,7 +71,7 @@ class Swift_Bug38Test extends \PHPUnit_Framework_TestCase
     public function testWritingMessageToByteStreamTwiceProducesCorrectStructure()
     {
         $message = new Swift_Message();
-        $message->setSubject('tests subject');
+        $message->setSubject('test subject');
         $message->setTo('user@domain.tld');
         $message->setCc('other@domain.tld');
         $message->setFrom('user@domain.tld');
@@ -89,7 +89,7 @@ class Swift_Bug38Test extends \PHPUnit_Framework_TestCase
         $pattern = '~^'.
         'Message-ID: <'.$id.'>'."\r\n".
         'Date: '.$date."\r\n".
-        'Subject: tests subject'."\r\n".
+        'Subject: test subject'."\r\n".
         'From: user@domain.tld'."\r\n".
         'To: user@domain.tld'."\r\n".
         'Cc: other@domain.tld'."\r\n".
@@ -128,7 +128,7 @@ class Swift_Bug38Test extends \PHPUnit_Framework_TestCase
     public function testWritingMessageToByteStreamTwiceUsingAFileAttachment()
     {
         $message = new Swift_Message();
-        $message->setSubject('tests subject');
+        $message->setSubject('test subject');
         $message->setTo('user@domain.tld');
         $message->setCc('other@domain.tld');
         $message->setFrom('user@domain.tld');
@@ -149,7 +149,7 @@ class Swift_Bug38Test extends \PHPUnit_Framework_TestCase
         $pattern = '~^'.
             'Message-ID: <'.$id.'>'."\r\n".
             'Date: '.$date."\r\n".
-            'Subject: tests subject'."\r\n".
+            'Subject: test subject'."\r\n".
             'From: user@domain.tld'."\r\n".
             'To: user@domain.tld'."\r\n".
             'Cc: other@domain.tld'."\r\n".

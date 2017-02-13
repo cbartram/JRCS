@@ -17,7 +17,7 @@ class Swift_Smoke_BasicSmokeTest extends SwiftMailerSmokeTestCase
                 )
             ;
         $this->assertEquals(1, $mailer->send($message),
-            '%s: The smoke tests should send a single message'
+            '%s: The smoke test should send a single message'
             );
     }
 }

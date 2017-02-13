@@ -1,0 +1,179 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto:300');
+
+body {
+    padding-top: 40px;
+    padding-bottom: 40px;
+    background-color: #1999D6;
+    font-family: 'Roboto', sans-serif;
+    /*font-weight:200;*/
+}
+a {
+    color:white;
+}
+a:hover, a:focus, a:active {
+    color:white;
+    text-decoration: underline;
+}
+
+h2 {
+    color:white;
+}
+
+#toast-container > .toast {
+    background-image: none !important;
+}
+
+#toast-container > .toast-success {
+    margin-top:50px;
+    border: 2px solid rgb(106,187,98);
+    background-color: rgba(106,187, 98, .3);
+    color: rgb(36, 147, 13);
+    border-radius:7px;
+    font-weight: bold;
+}
+
+#toast-container > .toast-success:before {
+    position: fixed;
+    font-family: FontAwesome;
+    font-size: 24px;
+    line-height: 18px;
+    float: left;
+    color: rgb(106, 187, 98);
+    padding-right: 0.5em;
+    margin: .2em 0.5em auto -1.5em;
+}
+
+#toast-container > .toast-warning {
+    margin-top:50px;
+    border: 2px solid rgb(231,152,78);
+    background-color: rgba(231,152, 78, .5);
+    color: #c07007;
+    border-radius:7px;
+    font-weight: bold;
+}
+
+#toast-container > .toast-warning:before {
+    position: fixed;
+    font-family: FontAwesome;
+    font-size: 24px;
+    line-height: 18px;
+    float: left;
+    color: rgb(231, 129, 27);
+    padding-right: 0.5em;
+    margin: .2em 0.5em auto -1.5em;
+}
+
+#toast-container > .toast-error {
+    margin-top:50px;
+    border: 2px solid rgb(180, 10, 48);
+    background-color: rgba(180, 0, 10, 0.5);
+    color: rgb(157, 0, 26);
+    border-radius:7px;
+    font-weight: bold;
+}
+
+#toast-container > .toast-error:before {
+    position: fixed;
+    font-family: FontAwesome;
+    font-size: 24px;
+    line-height: 18px;
+    float: left;
+    color: rgb(180,10,48);
+    padding-right: 0.5em;
+    margin: .2em 0.5em auto -1.5em;
+}
+#toast-container > .toast-info {
+    margin-top:50px;
+    border: 2px solid rgb(72,128,209);
+    background-color: rgba(72, 128, 209, .4);
+    color: rgb(72, 128, 209);
+    border-radius:7px;
+    font-weight: bold;
+}
+
+#toast-container > .toast-info:before {
+    position: fixed;
+    font-family: FontAwesome;
+    font-size: 24px;
+    line-height: 18px;
+    float: left;
+    color: rgb(72, 128, 209);
+    padding-right: 0.5em;
+    margin: .2em 0.5em auto -1.5em;
+}
+
+/* Font Awesome Unicode Equivalent */
+#toast-container > .toast-success:before {
+    content: "\f058";
+}
+#toast-container > .toast-warning:before {
+    content: "\f06a";
+}
+#toast-container > .toast-error:before {
+    content: "\f057";
+}
+#toast-container > .toast-info:before {
+    content: "\f05a";
+}
+
+ #email-input {
+    margin-bottom: -10px;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+    border-bottom: 1px solid #ccc;
+}
+
+#pass {
+    margin-bottom: 10px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
+.form-control {
+    outline: 0;
+    background-color: #fff;
+    background-image: none !important;
+    border: none;
+    border-radius: 4px;
+    box-shadow: none !important;
+    color: #555;
+    display: block;
+    font-size: 14px;
+    height: 34px;
+    line-height: 1.42857;
+    padding: 6px 12px;
+    width: 100%;
+}
+
+.btn-success, .btn-success:active, .btn-success:focus {
+    -moz-user-select: none;
+    background-image: none;
+    border-radius: 4px;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.42857;
+    margin-bottom: 0;
+    padding: 6px 12px;
+    text-align: center;
+    vertical-align: middle;
+    white-space: nowrap;
+    background-color: #27245E!important;
+    border-color: #27245E !important;
+    color: #fff;
+    width: 100%;
+}
+
+.btn-success:active {
+    background-color: #27245E;
+    border-color: #27245E;
+    color: #fff;
+    width: 100%;
+}
+
+.btn-success:hover {
+    background-color: #35365e;
+    border-color: #27245E;
+    color: #fff;
+    width: 100%;
+}

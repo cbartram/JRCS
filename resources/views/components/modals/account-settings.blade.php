@@ -12,20 +12,25 @@
                         <h5>Select your Default group</h5>
                         <hr>
                         {{Form::open(array('url' => '/settings', 'method' => 'post'))}}
-                        @if(Helpers::hasAccessTo('BEBCO', Session::get('id')))
+                        @if(Helpers::hasAccessTo('BEBCO', Auth::user()->id))
                             <div class="checkbox">
                                 <label>{{ Form::radio('group-radio', 'BEBCO') }} Set BEBCO as Default</label>
                             </div>
                         @endif
-                        @if(Helpers::hasAccessTo('JACO', Session::get('id')))
+                        @if(Helpers::hasAccessTo('JACO', Auth::user()->id))
                             <div class="checkbox">
                                 <label>{{ Form::radio('group-radio', 'JACO') }} Set JACO as Default</label>
 
                             </div>
                         @endif
-                        @if(Helpers::hasAccessTo('JBC', Session::get('id')))
+                        @if(Helpers::hasAccessTo('JBC', Auth::user()->id))
                             <div class="checkbox">
                                 <label>{{ Form::radio('group-radio', 'JBC') }} Set JBC as Default</label>
+                            </div>
+                        @endif
+                        @if(Helpers::hasAccessTo('JRCS', Auth::user()->id))
+                            <div class="checkbox">
+                                <label>{{ Form::radio('group-radio', 'JRCS') }} Set JRCS as Default</label>
                             </div>
                         @endif
                         {{ Form::submit('Save', array('class' => 'btn btn-primary')) }}
@@ -63,17 +68,17 @@
 
                         <div class="input-group" id="checkbox-access">
                             <div class="checkbox">
-                                @if(Helpers::hasAccessTo('JACO', Session::get('id')))
+                                @if(Helpers::hasAccessTo('JACO', Auth::user()->id))
                                     <label>{{Form::checkbox('jaco', 'true')}} JACO Access</label>
                                 @endif
                             </div>
                             <div class="checkbox">
-                                @if(Helpers::hasAccessTo('BEBCO', Session::get('id')))
+                                @if(Helpers::hasAccessTo('BEBCO', Auth::user()->id)))
                                     <label>{{Form::checkbox('bebco', 'true')}} BEBCO Access</label>
                                 @endif
                             </div>
                             <div class="checkbox">
-                                @if(Helpers::hasAccessTo('JBC', Session::get('id')))
+                                @if(Helpers::hasAccessTo('JBC', Auth::user()->id))
                                     <label>{{Form::checkbox('jbc', 'true')}} JBC Access</label>
                                 @endif
                             </div>
@@ -118,7 +123,7 @@
                         {{Form::submit('Save', array('class' => 'btn btn-primary')) }}
                         {{Form::close()}}
 
-                        @if(Helpers::isAdmin(Session::get('id')))
+                        @if(Helpers::isAdmin(Auth::user()->id))
                             <div class="row">
                                 <div class="col-lg-12">
                                     {{Form::open(array('url' => '/settings/drop', 'method' => 'post'))}}

@@ -25,7 +25,7 @@ class StreamHandlerTest extends TestCase
         $handle = fopen('php://memory', 'a+');
         $handler = new StreamHandler($handle);
         $handler->setFormatter($this->getIdentityFormatter());
-        $handler->handle($this->getRecord(Logger::WARNING, 'tests'));
+        $handler->handle($this->getRecord(Logger::WARNING, 'test'));
         $handler->handle($this->getRecord(Logger::WARNING, 'test2'));
         $handler->handle($this->getRecord(Logger::WARNING, 'test3'));
         fseek($handle, 0);
@@ -50,7 +50,7 @@ class StreamHandlerTest extends TestCase
     public function testClose()
     {
         $handler = new StreamHandler('php://memory');
-        $handler->handle($this->getRecord(Logger::WARNING, 'tests'));
+        $handler->handle($this->getRecord(Logger::WARNING, 'test'));
         $streamProp = new \ReflectionProperty('Monolog\Handler\StreamHandler', 'stream');
         $streamProp->setAccessible(true);
         $handle = $streamProp->getValue($handler);

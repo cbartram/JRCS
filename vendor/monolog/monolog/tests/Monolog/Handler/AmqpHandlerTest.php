@@ -47,21 +47,21 @@ class AmqpHandlerTest extends TestCase
 
         $handler = new AmqpHandler($exchange, 'log');
 
-        $record = $this->getRecord(Logger::WARNING, 'tests', array('data' => new \stdClass, 'foo' => 34));
+        $record = $this->getRecord(Logger::WARNING, 'test', array('data' => new \stdClass, 'foo' => 34));
 
         $expected = array(
             array(
-                'message' => 'tests',
+                'message' => 'test',
                 'context' => array(
                     'data' => array(),
                     'foo' => 34,
                 ),
                 'level' => 300,
                 'level_name' => 'WARNING',
-                'channel' => 'tests',
+                'channel' => 'test',
                 'extra' => array(),
             ),
-            'warn.tests',
+            'warn.test',
             0,
             array(
                 'delivery_mode' => 2,
@@ -96,22 +96,22 @@ class AmqpHandlerTest extends TestCase
 
         $handler = new AmqpHandler($exchange, 'log');
 
-        $record = $this->getRecord(Logger::WARNING, 'tests', array('data' => new \stdClass, 'foo' => 34));
+        $record = $this->getRecord(Logger::WARNING, 'test', array('data' => new \stdClass, 'foo' => 34));
 
         $expected = array(
             array(
-                'message' => 'tests',
+                'message' => 'test',
                 'context' => array(
                     'data' => array(),
                     'foo' => 34,
                 ),
                 'level' => 300,
                 'level_name' => 'WARNING',
-                'channel' => 'tests',
+                'channel' => 'test',
                 'extra' => array(),
             ),
             'log',
-            'warn.tests',
+            'warn.test',
             false,
             false,
             null,

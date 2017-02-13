@@ -13,7 +13,7 @@
                         <div class="col-lg-6 col-lg-offset-3">
                                 {{ csrf_field() }}
                                 <p><input type="text" name="program-name" placeholder="Program Name" class="form-control"></p>
-                                <p><input type="hidden" name="id" value="{{Session::get('id')}}"></p>
+                                <p><input type="hidden" name="id" value="{{Auth::user()->id}}"></p>
                         </div>
                     </div>
             </div>

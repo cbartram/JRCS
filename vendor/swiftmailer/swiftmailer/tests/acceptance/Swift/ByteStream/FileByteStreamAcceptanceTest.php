@@ -9,13 +9,13 @@ class Swift_ByteStream_FileByteStreamAcceptanceTest extends \PHPUnit_Framework_T
     {
         if (!defined('SWIFT_TMP_DIR')) {
             $this->markTestSkipped(
-                'Cannot run tests without a writable directory to use ('.
-                'define SWIFT_TMP_DIR in tests/config.php if you wish to run this tests)'
+                'Cannot run test without a writable directory to use ('.
+                'define SWIFT_TMP_DIR in tests/config.php if you wish to run this test)'
              );
         }
 
         $this->_tmpDir = SWIFT_TMP_DIR;
-        $this->_testFile = $this->_tmpDir.'/swift-tests-file'.__CLASS__;
+        $this->_testFile = $this->_tmpDir.'/swift-test-file'.__CLASS__;
         file_put_contents($this->_testFile, 'abcdefghijklm');
     }
 
@@ -75,9 +75,9 @@ class Swift_ByteStream_FileByteStreamAcceptanceTest extends \PHPUnit_Framework_T
             );
         $file->addFilter($this->_createFilter(array("\r\n", "\r"), "\n"), 'allToLF');
         $file->write("foo\r\nbar\r");
-        $file->write("\nzip\r\ntests\r");
+        $file->write("\nzip\r\ntest\r");
         $file->flushBuffers();
-        $this->assertEquals("foo\nbar\nzip\ntests\n", file_get_contents($this->_testFile));
+        $this->assertEquals("foo\nbar\nzip\ntest\n", file_get_contents($this->_testFile));
     }
 
     public function testBindingOtherStreamsMirrorsWriteOperations()

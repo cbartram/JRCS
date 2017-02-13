@@ -10,9 +10,11 @@ use App\Helpers\Helpers;
 use App\Profile;
 use App\Http\Requests;
 use App\Programs;
+use App\StaffProfile;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
@@ -31,15 +33,15 @@ class RESTController extends Controller
     }
 
     public function findByEmail($email) {
-        return DB::table('profiles')->where('email', '=', $email)->limit(1)->get();
+        return Profile::where('email', $email)->first();
     }
 
     public function deleteById($id) {
-        return DB::table('profiles')->where('id', '=', $id)->delete();
+        return Profile::where('id', $id)->delete();
     }
 
     public function deleteByEmail($email) {
-        return DB::table('profiles')->where('email', '=', $email)->delete();
+        return Profile::where('email', $email)->delete();
     }
 
     public function updateById($id, $columnToUpdate, $newValue) {
@@ -50,7 +52,7 @@ class RESTController extends Controller
     }
 
     public function updateByEmail($email, $columnToUpdate, $newValue) {
-        $volunteer = Profile::where('email', '=', $email)->limit(1)->first();
+        $volunteer = Profile::where('email', $email)->first();
         $volunteer->$columnToUpdate = $newValue;
 
         $volunteer->save();
@@ -150,7 +152,7 @@ class RESTController extends Controller
             return "false";
         } else {
             $donations->status = 'pending';
-            $donations->action_by = Session::get('id');
+            $donations->action_by = Auth::user()->id;
             $donations->save();
             return "true";
         }
@@ -163,7 +165,7 @@ class RESTController extends Controller
             return "false";
         } else {
             $donations->status = 'Denied';
-            $donations->action_by = Session::get('id');
+            $donations->action_by = Auth::user()->id;
             $donations->save();
             return "true";
         }
@@ -176,7 +178,7 @@ class RESTController extends Controller
             return "false";
         } else {
             $donations->status = 'Approved';
-            $donations->action_by = Session::get('id');
+            $donations->action_by = Auth::user()->id;
             $donations->save();
             return "true";
         }
@@ -185,12 +187,11 @@ class RESTController extends Controller
     /**
      * Authenticates that a provided email and un-hashed password references
      * a row in the database
-     * @param $email Email Address
-     * @param $password Un-hashed password
+     *
      * @return bool Returns true if the email and password match a row in the database false otherwise
      */
     public function authenticate() {
-        $staff = DB::table('staff_profile2')->where('email', Input::get('email'))->limit(1)->first();
+        $staff = StaffProfile::where('email', Input::get('email'))->first();
         if($staff != null) {
             if($staff->email == Input::get('email') && Hash::check(Input::get('password'), $staff->password)) {
                 return "true";
@@ -239,6 +240,46 @@ class RESTController extends Controller
         }
     }
 
+
+    /**
+     * Handles the hours volunteered on a group by group basis between a specified start
+     * date and a specified end date
+     *
+     * @param $id
+     * @param $group
+     * @param $start
+     * @param $end
+     * @return array
+     */
+    public function getHoursByIdAndGroupBetween($id, $group, $start, $end) {
+
+        $group = ['bebco', 'jaco', 'jbc', 'jrcs'];
+
+        $response = ['bebco' => null, 'jaco' => null, 'jbc' => null, 'jrcs' => null];
+
+        foreach($group as $k => $v) {
+            $min = Cico::where('volunteer_id', $id)
+                ->where('for_' . $v, 1)
+                ->where('check_in_date', '>=', $start)
+                ->where('check_out_date', '<=', $end)
+                ->sum('minutes_volunteered');
+            $response[$v] = Helpers::minutesToHours($min);
+        }
+
+        $all = Cico::where('volunteer_id', $id)
+            ->where('check_in_date', '>=', $start)
+            ->where('check_out_date', '<=', $end)
+            ->sum('minutes_volunteered');
+
+        //Append several KV elements to the response
+        $response['all'] = Helpers::minutesToHours($all);
+        $response['id']  = $id;
+
+        return $response;
+
+    }
+
+
     /**
      * Aggregates the sum of the volunteers hours between the start date and
      * the end date given the id
@@ -255,6 +296,35 @@ class RESTController extends Controller
             ->sum('minutes_volunteered');
 
         return ['id' => $id, 'hours' => Helpers::minutesToHours($resultSet), 'minutes' => intval($resultSet)];
+    }
+
+    /**
+     * This is very similar the the getHoursBetween() method except that it will return
+     * the sum of the volunteers hours on every day between the start date and the end date
+     *
+     * @param $id string volunteer id
+     * @param $start string date in the format Y-m-d
+     * @param $end string date in the format Y-m-d
+     * @return array $data
+     */
+    public function getHoursForVolunteerBetween($id, $start, $end) {
+
+        $ranges = Helpers::generateDateRange(Carbon::createFromFormat('Y-m-d', Carbon::now()->subHour(5)->subDays(5)->format('Y-m-d')),
+            Carbon::createFromFormat('Y-m-d', Carbon::now()->subHour(5)->format('Y-m-d')));
+
+        $data = [];
+
+        foreach($ranges as $range) {
+            $value = Cico::where('volunteer_id', $id)
+                ->where('check_in_date', '>=', $range)
+                ->where('check_out_date', '<=', $range)
+                ->sum('minutes_volunteered');
+
+            array_push($data, intval($value));
+        }
+
+        return [$data, $ranges];
+
     }
 
     /**
@@ -280,14 +350,42 @@ class RESTController extends Controller
      * @return array JSON String
      */
     public function getHoursByGroupBetween($group, $start, $end) {
+        //Default days to show is 6
+        $days = 6;
+
+        //If the user has specified a specific number of days to show
+        if(Input::get('days')) {
+            $days = intval(Input::get('days')) - 1;
+        }
+
         $groupName = Helpers::getGroupNameFromTruncated($group);
 
-        $result = Cico::where($groupName, 1)
-            ->where('check_in_date', '>=', $start)
-            ->where('check_out_date', '<=', $end)
-            ->sum('minutes_volunteered');
+        $ranges = Helpers::generateDateRange(Carbon::createFromFormat('Y-m-d', Carbon::now()->subHour(5)->subDays($days)->format('Y-m-d')),
+            Carbon::createFromFormat('Y-m-d', Carbon::now()->subHour(5)->format('Y-m-d')));
 
-        return ['group' => $group, 'hours' => Helpers::minutesToHours($result), 'minutes' => intval($result)];
+        $data = [];
+
+        if($group == "ADMIN" || $group == "JRCS") {
+            foreach($ranges as $range) {
+                $result = Cico::where('check_in_date', '>=', $range)
+                    ->where('check_out_date', '<=', $range)
+                    ->sum('minutes_volunteered');
+
+                array_push($data, intval($result));
+            }
+        } else {
+
+            foreach($ranges as $range) {
+                $result = Cico::where($groupName, 1)
+                    ->where('check_in_date', '>=', $range)
+                    ->where('check_out_date', '<=', $range)
+                    ->sum('minutes_volunteered');
+
+                array_push($data, intval($result));
+            }
+        }
+
+        return ['group' => $group, $data, $ranges];
     }
 
     /**
@@ -417,6 +515,7 @@ class RESTController extends Controller
             //Exception thrown cannot create format insufficient data
             return "false";
         }
+        return "false";
     }
 
     /**
@@ -462,7 +561,7 @@ class RESTController extends Controller
                 array_push($value, $v);
             }
 
-            //to avoid a array to string conversion error
+             //to avoid an array to string conversion error
              array_map("strval", $value);
              array_map("strval", $key);
 
@@ -480,8 +579,6 @@ class RESTController extends Controller
                     //Recalculate the new minutes volunteered
                     $checkInDate = Carbon::createFromFormat('Y-m-d g:i A', $timestamp);
                     $checkOutDate = Carbon::createFromFormat('Y-m-d g:i A', $row->check_out_timestamp);
-                    Log::info('Checkin in edited: ' . $checkInDate);
-
 
                     $row->minutes_volunteered = $checkInDate->diffInMinutes($checkOutDate);
 

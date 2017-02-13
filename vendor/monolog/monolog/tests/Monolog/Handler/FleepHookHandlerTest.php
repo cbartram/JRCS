@@ -35,7 +35,7 @@ class FleepHookHandlerTest extends TestCase
         parent::setUp();
 
         if (!extension_loaded('openssl')) {
-            $this->markTestSkipped('This tests requires openssl extension to run');
+            $this->markTestSkipped('This test requires openssl extension to run');
         }
 
         // Create instances of the handler and logger for convenience

@@ -32,7 +32,7 @@ class RotatingFileHandlerTest extends TestCase
         $dir = __DIR__.'/Fixtures';
         chmod($dir, 0777);
         if (!is_writable($dir)) {
-            $this->markTestSkipped($dir.' must be writable to tests the RotatingFileHandler.');
+            $this->markTestSkipped($dir.' must be writable to test the RotatingFileHandler.');
         }
         $this->lastError = null;
         $self = $this;
@@ -70,7 +70,7 @@ class RotatingFileHandlerTest extends TestCase
 
         $log = __DIR__.'/Fixtures/foo-'.date('Y-m-d').'.rot';
         $this->assertTrue(file_exists($log));
-        $this->assertEquals('tests', file_get_contents($log));
+        $this->assertEquals('test', file_get_contents($log));
     }
 
     /**
@@ -101,7 +101,7 @@ class RotatingFileHandlerTest extends TestCase
         $this->assertEquals($createFile, file_exists($old2));
         $this->assertEquals($createFile, file_exists($old3));
         $this->assertEquals($createFile, file_exists($old4));
-        $this->assertEquals('tests', file_get_contents($log));
+        $this->assertEquals('test', file_get_contents($log));
     }
 
     public function rotationTests()

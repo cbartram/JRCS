@@ -44,9 +44,9 @@ class RedisHandlerTest extends TestCase
         // Predis\Client uses rpush
         $redis->expects($this->once())
             ->method('rpush')
-            ->with('key', 'tests');
+            ->with('key', 'test');
 
-        $record = $this->getRecord(Logger::WARNING, 'tests', array('data' => new \stdClass, 'foo' => 34));
+        $record = $this->getRecord(Logger::WARNING, 'test', array('data' => new \stdClass, 'foo' => 34));
 
         $handler = new RedisHandler($redis, 'key');
         $handler->setFormatter(new LineFormatter("%message%"));
@@ -60,9 +60,9 @@ class RedisHandlerTest extends TestCase
         // Redis uses rPush
         $redis->expects($this->once())
             ->method('rPush')
-            ->with('key', 'tests');
+            ->with('key', 'test');
 
-        $record = $this->getRecord(Logger::WARNING, 'tests', array('data' => new \stdClass, 'foo' => 34));
+        $record = $this->getRecord(Logger::WARNING, 'test', array('data' => new \stdClass, 'foo' => 34));
 
         $handler = new RedisHandler($redis, 'key');
         $handler->setFormatter(new LineFormatter("%message%"));
@@ -90,7 +90,7 @@ class RedisHandlerTest extends TestCase
             ->method('exec')
             ->will($this->returnSelf());
 
-        $record = $this->getRecord(Logger::WARNING, 'tests', array('data' => new \stdClass, 'foo' => 34));
+        $record = $this->getRecord(Logger::WARNING, 'test', array('data' => new \stdClass, 'foo' => 34));
 
         $handler = new RedisHandler($redis, 'key', Logger::DEBUG, true, 10);
         $handler->setFormatter(new LineFormatter("%message%"));
@@ -118,7 +118,7 @@ class RedisHandlerTest extends TestCase
                 $cb($redisTransaction);
             }));
 
-        $record = $this->getRecord(Logger::WARNING, 'tests', array('data' => new \stdClass, 'foo' => 34));
+        $record = $this->getRecord(Logger::WARNING, 'test', array('data' => new \stdClass, 'foo' => 34));
 
         $handler = new RedisHandler($redis, 'key', Logger::DEBUG, true, 10);
         $handler->setFormatter(new LineFormatter("%message%"));
