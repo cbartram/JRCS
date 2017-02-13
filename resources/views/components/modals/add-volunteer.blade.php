@@ -91,7 +91,7 @@
                         <h4 style="color:black;">Degree & Transportation</h4>
                         <p>{{ Form::text('degree', Input::old('degree'), array('placeholder' => 'Highest Degree', 'class' => 'form-control')) }}</p>
                         <div class="checkbox">
-                            <label>{{ Form::checkbox('has-transportation', 'true') }} Has Transportation</label>
+                            <label>{{Form::checkbox('has-transportation', 'true')}} Has Transportation</label>
                         </div>
 
                         <h4 style="color:black">Languages</h4>

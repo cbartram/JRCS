@@ -29,7 +29,6 @@ class addController extends Controller
             'phone' => 'required',
             'nationality' => 'required',
             'volunteer_type' => 'required',
-            'has-transportation' => 'required',
             'skills' => 'required',
             'degree' => 'required',
             'languages' => 'required',
@@ -105,7 +104,7 @@ class addController extends Controller
         $additionalInformation->interests = $interests;
         $additionalInformation->special_skills = $input['skills'];
         $additionalInformation->degree = $input['degree'];
-        $input['has-transportation'] != "true" ? $additionalInformation->transportation = 0 : $additionalInformation->transportation = 1;
+        Input::get('has-transportation') == 'true' ? $additionalInformation->transportation = 1 : $additionalInformation->transportation = 0;
         $additionalInformation->languages_spoken = $input['languages'];
         $additionalInformation->previous_volunteer_work = $input['previous'];
         $additionalInformation->criminal_convictions = $input['criminal'];
