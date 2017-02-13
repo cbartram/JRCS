@@ -77,19 +77,19 @@
                 <div class="panel-body">
                     <div class="col-md-4">
                         <h4 style="color:black;  border-bottom: 1px dotted #000; padding-bottom:5px;">Interests</h4>
-                        <p>
+                        <p style="word-wrap: break-word;">
                             {{$volunteer[0]->interests}}
                         </p>
                     </div>
                     <div class="col-md-4">
                         <h4 style="color:black;  border-bottom: 1px dotted #000; padding-bottom:5px;">Special Skills</h4>
-                        <p>
+                        <p style="word-wrap: break-word;">
                             {{$volunteer[0]->special_skills}}
                         </p>
                     </div>
                     <div class="col-md-4">
                         <h4 style="color:black;  border-bottom: 1px dotted #000; padding-bottom:5px;">Previous Volunteer Work</h4>
-                        <p>
+                        <p style="word-wrap: break-word;">
                             {{$volunteer[0]->previous_volunteer_work}}
                         </p>
                     </div>
