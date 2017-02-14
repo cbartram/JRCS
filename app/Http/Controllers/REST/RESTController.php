@@ -78,20 +78,13 @@ class RESTController extends Controller
      * @return Collection
      */
     public function findEventsByGroup($group) {
-        $events =  EventLog::where('group', $group)
-            ->where('active', 1)
+        $events = Calendar::select('id', 'start', 'end', 'color', 'title', 'calendar_events.active')
+            ->leftJoin('event_log', 'event_log.event_id', '=', 'calendar_events.id')
+            ->where('event_log.group', $group)
+            ->where('event_log.active', 1)
             ->get();
 
-        //Create a new collection to house the objects
-        $result = new Collection();
-
-        //Iterate over each item in the events collection adding to the result collection
-        foreach($events as $event) {
-            if($event != null) {
-                $result->add(Calendar::find($event->event_id));
-            }
-        }
-        return $result;
+        return $events;
     }
 
     public function createEvent($start, $end, $title, $color, $group) {
