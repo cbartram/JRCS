@@ -10,7 +10,7 @@
                 <div class="panel-body" id="test">
             <div class="profile-sidebar">
                 <div class="profile-userpic">
-                    <img style="height:130px; width:130px; border-radius:50%" src="https://www.gravatar.com/avatar/{{$gravEmail}}?d=https://app.nimia.com/static/img/default_profile.png&s=350" class="img-responsive" alt="">
+                    <img style="height:130px; width:130px; border-radius:50%" src="https://www.gravatar.com/avatar/{{$gravEmail}}?d=http://jrcs.herokuapp.com/default_profile.png&s=350" class="img-responsive" alt="">
                 </div>
                 <div class="profile-usertitle">
                     <div class="profile-usertitle-name">
