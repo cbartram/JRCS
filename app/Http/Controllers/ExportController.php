@@ -63,7 +63,7 @@ class ExportController extends Controller
                 $sheet->row(1, array($group . ' Volunteer Data'));
 
                 //All data for Individual and Admin Groups
-                if($group == "all") {
+                if($group == "all" || $group == "JRCS") {
                     $events = EventLog::select('event_log.total_volunteer_hours', 'calendar_events.title')
                         ->join('calendar_events', 'calendar_events.id', '=', 'event_log.event_id')
                         ->where('event_log.log_status', 1)->get()->toArray();

@@ -29,7 +29,7 @@
                                     <option value="{{$k}}">{{$k}}</option>
                                 @endif
                             @endforeach
-                            @if($defaultGroup == "ADMIN")
+                            @if($defaultGroup == "ADMIN" || $defaultGroup = "JRCS")
                             <option value="all">All Groups</option>
                             @endif
                         </select>
