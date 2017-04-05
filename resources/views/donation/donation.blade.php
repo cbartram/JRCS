@@ -49,6 +49,7 @@
                         <option name="JACO">JACO</option>
                         <option name="BEBCO">BEBCO</option>
                         <option name="JBC">JBC</option>
+                        <option name="JRCS">JRCS</option>
                     </select></p>
 
                     <p><select name="donation-type" class="form-control" id="donation-type">
