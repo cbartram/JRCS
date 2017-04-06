@@ -115,12 +115,8 @@
                            <form method="get" action="/event/remove">
                        <div class="col-md-3 col-md-offset-7" style="margin-top:20px;">
                                <select class="form-control" name="id">
-                                   @foreach($log as $event)
-                                       {{--If the event is not logged it could have taken place, its just not been logged yet --}}
-                                       {{-- todo this condition can be removed depending on what laura says--}}
-                                       @if($event->log_status == 0)
-                                           <option value="{{$event->id}}">{{$event->title}}</option>
-                                       @endif
+                                   @foreach($removableEvents as $event)
+                                       <option value="{{$event->id}}">{{$event->title . ' - ' . $event->start}}</option>
                                    @endforeach
                                </select>
                        </div>
@@ -280,6 +276,7 @@
                                 </div>
                             </div>
                         </div>
+                        {{$volunteers->links()}}
                     </div>
                 </div>
             </div>
