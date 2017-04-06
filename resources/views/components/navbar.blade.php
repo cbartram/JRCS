@@ -114,9 +114,9 @@
                             @foreach($groups as $group)
                                 @if($group->getAuth())
                                     @if($defaultGroup == $group->getName())
-                                        <li class="disabled"><a href="#"><div class="group-color" style="background-color:{{$group->getColor()}}"></div> {{$group->getName()}} - Current Organization</a></li>
+                                        <li class="disabled"><a href="#"><div class="group-color" style="height:15px; width:15px; border-radius:50%; background-color:{{$group->getColor()}};"></div> {{$group->getName()}} - Current Organization</a></li>
                                     @else
-                                        <li><a href="/switch/{{$group->getName()}}"><div class="group-color" style="background-color:{{$group->getColor()}}"></div> {{$group->getName()}}</a></li>
+                                        <li><a href="/switch/{{$group->getName()}}"><div class="group-color" style="height:15px; width:15px; border-radius:50%; background-color:{{$group->getColor()}};"></div> {{$group->getName()}}</a></li>
                                     @endif
                                 @endif
                             @endforeach
