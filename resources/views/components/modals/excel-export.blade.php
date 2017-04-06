@@ -24,9 +24,9 @@
                 <div class="row">
                     <div class="col-lg-4 col-lg-offset-2">
                         <select name="group" id="group-select" class="form-control">
-                            @foreach($groups as $k => $v)
-                                @if($groups[$k] == true && $k != "ADMIN")
-                                    <option value="{{$k}}">{{$k}}</option>
+                            @foreach($groups as $group)
+                                @if($group->getAuth() && $group->getName() != "ADMIN")
+                                    <option value="{{$group->getName()}}"> {{$group->getName()}}</option>
                                 @endif
                             @endforeach
                             @if($defaultGroup == "ADMIN" || $defaultGroup = "JRCS")

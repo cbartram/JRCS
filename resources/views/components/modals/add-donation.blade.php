@@ -18,11 +18,11 @@
                     </select></p>
 
                     <p><select name="group" class="form-control" id="group">
-                        @foreach($groups as $k => $v)
-                            @if($groups[$k] == true && $k != "ADMIN")
-                                <option name="{{$k}}">{{$k}}</option>
-                            @endif
-                        @endforeach
+                            @foreach($groups as $group)
+                                @if($group->getAuth() && $group->getName() != "ADMIN")
+                                    <option value="{{$group->getName()}}"> {{$group->getName()}}</option>
+                                @endif
+                            @endforeach
                     </select></p>
 
                     <p><select name="donation-type" class="form-control" id="donation-type">

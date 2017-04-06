@@ -14,9 +14,9 @@
                             <p><input type="text" class="form-control" id="end-date" placeholder="End Date (Optional)"></p>
                             <p><input type="text" class="form-control" id="title" placeholder="Event Title"></p>
                             <select name="group" id="group-select" class="form-control">
-                                @foreach($groups as $k => $v)
-                                    @if($groups[$k] == true && $k != "ADMIN")
-                                        <option value="{{$k}}">{{$k}}</option>
+                                @foreach($groups as $group)
+                                    @if($group->getAuth() && $group->getName() != "ADMIN")
+                                       <option value="{{$group->getName()}}"> {{$group->getName()}}</option>
                                     @endif
                                 @endforeach
                             </select>

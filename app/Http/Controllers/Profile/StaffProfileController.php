@@ -27,7 +27,6 @@ class StaffProfileController extends Controller
 
     public function index()
     {
-            //Searches the DB for staff profile with the $id = id submitted by the login form
             $staff = StaffProfile::where('id', Auth::user()->id)->first();
 
             //Finds the volunteers that relate to the staff members "default" group
@@ -44,7 +43,7 @@ class StaffProfileController extends Controller
                     $volunteers = Profile::where($this->getGroupNameFromTruncated(Session::get('group')),  1)
                         ->where('active', 1)
                         ->orderBy('first_name')
-                        ->paginate(9);
+                        ->get();
 
                     $defaultGroup = Session::get('group');
                 }
@@ -56,7 +55,7 @@ class StaffProfileController extends Controller
                     $volunteers = Profile::where($this->getGroupNameFromTruncated($staff->default_group),  1)
                         ->where('active', 1)
                         ->orderBy('first_name')
-                        ->paginate(9);
+                        ->get();
 
                     $defaultGroup = $staff->default_group;
 
@@ -69,7 +68,7 @@ class StaffProfileController extends Controller
                         $volunteers = Profile::where($this->getDefaultGroupFromId(Auth::user()->id), 1)
                             ->where('active', 1)
                             ->orderBy('first_name')
-                            ->paginate(9);
+                            ->get();
                         //Default group the user will be logged in as
                         $defaultGroup = $this->getTruncatedGroupName($this->getDefaultGroupFromId(Auth::user()->id));
 
