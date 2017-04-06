@@ -43,7 +43,7 @@ class StaffProfileController extends Controller
                     $volunteers = Profile::where($this->getGroupNameFromTruncated(Session::get('group')),  1)
                         ->where('active', 1)
                         ->orderBy('first_name')
-                        ->get();
+                        ->paginate(9);
 
                     $defaultGroup = Session::get('group');
                 }
@@ -55,7 +55,7 @@ class StaffProfileController extends Controller
                     $volunteers = Profile::where($this->getGroupNameFromTruncated($staff->default_group),  1)
                         ->where('active', 1)
                         ->orderBy('first_name')
-                        ->get();
+                        ->paginate(9);
 
                     $defaultGroup = $staff->default_group;
 
@@ -68,7 +68,7 @@ class StaffProfileController extends Controller
                         $volunteers = Profile::where($this->getDefaultGroupFromId(Auth::user()->id), 1)
                             ->where('active', 1)
                             ->orderBy('first_name')
-                            ->get();
+                            ->paginate(9);
                         //Default group the user will be logged in as
                         $defaultGroup = $this->getTruncatedGroupName($this->getDefaultGroupFromId(Auth::user()->id));
 
@@ -109,15 +109,26 @@ class StaffProfileController extends Controller
 
             //If the user is browsing the admin group show all events
             if($defaultGroup == "ADMIN") {
+
+                //Events that can be logged
                 $log = EventLog::join('calendar_events', 'event_log.event_id', '=', 'calendar_events.id')
                     ->where('event_log.active', 1)
                     ->where('calendar_events.active', 1)
                     ->orderBy('start', 'ASC')
                     ->paginate(5);
 
+                //Events that can be deleted (non paginated events)
+                $removableEvents = EventLog::join('calendar_events', 'event_log.event_id', '=', 'calendar_events.id')
+                    ->where('event_log.active', 1)
+                    ->where('calendar_events.active', 1)
+                    ->orderBy('start', 'ASC')
+                    ->get();
+
                 $allStaff = Cache::remember('allStaff', 60, function() {
                    return StaffProfile::all();
                 });
+
+
             } else {
 
                 //Events on the calendar and events in the event log where the group is the staff members current group
@@ -127,6 +138,13 @@ class StaffProfileController extends Controller
                     ->where('calendar_events.active', 1)
                     ->orderBy('start', 'ASC')
                     ->paginate(5);
+
+                $removableEvents = EventLog::where('event_log.group', $defaultGroup)
+                    ->join('calendar_events', 'event_log.event_id', '=', 'calendar_events.id')
+                    ->where('event_log.active', 1)
+                    ->where('calendar_events.active', 1)
+                    ->orderBy('start', 'ASC')
+                    ->get();
 
                 $name = $this->getAttributeName($defaultGroup);
 
@@ -145,6 +163,7 @@ class StaffProfileController extends Controller
                 ->with('donations', $donations)
                 ->with('all', $all)
                 ->with('log', $log)
+                ->with('removableEvents', $removableEvents)
                 ->with('programs', $programs);
     }
 

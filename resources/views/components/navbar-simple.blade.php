@@ -56,55 +56,10 @@
             <ul class="nav navbar-nav navbar-right">
                 <!-- Authentication Links -->
                 @if (true)
-                    <!-- Volunteer Dropdown -->
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="fa fa-user"></span> Volunteers <span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                            <li class="dropdown-header">Volunteer Actions</li>
-                            <li><a href="/profile" id="add-volunteer"><span class="fa fa-user-plus"></span> New Volunteer</a></li>
-                            <li><a href="/profile"><span class="fa fa-search"></span> Volunteer Search</a></li>
-                            <li><a href="/archive"><span class="fa fa-archive"></span> Volunteer Archive</a></li>
-                        </ul>
-                    </li>
 
-                    <!-- Event Dropdown -->
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="fa fa-calendar"></span> Events <span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                            <li class="dropdown-header">Event Actions</li>
-                            <li><a href="/profile" id="events"><span class="fa fa-calendar"></span> Create Event</a></li>
-                            <li><a href="/profile" id="log"><span class="fa fa-pencil"></span> Log Event</a></li>
-                            <li><a href="/archive"><span class="fa fa-archive"></span> Event Archive</a></li>
-                        </ul>
-                    </li>
-
-                    <!-- Donation Dropdown -->
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="fa fa-money"></span> Donations <span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                            <li class="dropdown-header">Donation Actions</li>
-                            <li><a href="/profile"><span class="fa fa-plus-square"></span> New Donation</a></li>
-                            <li><a href=/profile id="profile"><span class="fa fa-exclamation-triangle"></span> Pending Donations</a></li>
-                            <li><a href="/archive"><span class="fa fa-history"></span> Donation History</a></li>
-                        </ul>
-                    </li>
-
-                    <!-- Programs Dropdown -->
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="fa fa-list"></span> Programs <span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                            <li class="dropdown-header">Program Actions</li>
-                            <li><a href="/profile"><span class="fa fa-plus-square"></span> Add Program</a></li>
-                            @if($defaultGroup == "ADMIN" || $defaultGroup == "JRCS")
-                            <li><a href="/profile" id="profile"><span class="fa fa-trash"></span> Delete Program</a></li>
-                            <li><a href="/archive"><span class="fa fa-archive"></span> Archived Programs</a></li>
-                            @endif
-                        </ul>
-                    </li>
-
-                    <!-- Export Dropdown -->
-                    <li role="presentation"><a href="/profile"><span class="fa fa-file-excel-o"></span> Export</a></li>
-                    <li role="presentation" id="checkout-volunteer"><a href="/checkout"><span class="fa fa-sign-out"></span> Checkout</a></li>
+                    <!-- Checkout --->
+                        <a href="/profile"><button type="button" class="btn btn-default navbar-btn">Dashboard <span class="fa fa-undo"></span></button></a>
+                        <li role="presentation" id="checkout-volunteer"><a href="/checkout"><span class="fa fa-sign-out"></span> Checkout</a></li>
                 @else
 
                 @endif

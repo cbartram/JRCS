@@ -17,8 +17,8 @@
                         <p>{{ Form::text('last_name', Input::old('last_name'), array('placeholder' => 'Last Name', 'class' => 'form-control')) }}</p>
                         <p>{{ Form::text('address', Input::old('address'), array('placeholder' => 'Address', 'class' => 'form-control')) }}</p>
                         <p>{{ Form::text('city', Input::old('city'), array('placeholder' => 'City', 'class' => 'form-control')) }}</p>
-                        <p>{{ Form::text('state', Input::old('state'), array('placeholder' => 'State', 'class' => 'form-control')) }}</p>
-                        <p>{{ Form::text('zip', Input::old('zip'), array('placeholder' => 'Zip Code', 'class' => 'form-control')) }}</p>
+                        <p>{{ Form::text('state', Input::old('state'), array('placeholder' => 'State',  'class' => 'form-control')) }}</p>
+                        <p>{{ Form::text('zip', Input::old('zip'), array('placeholder' => 'Zip Code', 'maxlength' => '6', 'onkeypress' => "validate(event)", 'class' => 'form-control')) }}</p>
                         <p>{{ Form::text('email', Input::old('email'), array('placeholder' => 'Email', 'class' => 'form-control')) }}</p>
                         <p>{{ Form::text('phone', Input::old('phone'), array('placeholder' => 'Phone', 'class' => 'form-control')) }}</p>
                         <p>{{ Form::text('nationality', Input::old('nationality'), array('placeholder' => 'Nationality', 'class' => 'form-control')) }}</p>
@@ -110,7 +110,7 @@
                         <p>{{ Form::text('e-address', Input::old('e-address'), array('placeholder' => 'Address', 'class' => 'form-control')) }}</p>
                         <p>{{ Form::text('e-city', Input::old('e-city'), array('placeholder' => 'City', 'class' => 'form-control')) }}</p>
                         <p>{{ Form::text('e-state', Input::old('e-state'), array('placeholder' => 'State', 'class' => 'form-control')) }}</p>
-                        <p>{{ Form::text('e-zip', Input::old('e-zip'), array('placeholder' => 'Zip Code', 'class' => 'form-control')) }}</p>
+                        <p>{{ Form::text('e-zip', Input::old('e-zip'), array('placeholder' => 'Zip Code', 'maxlength' => '6', 'onkeypress' => "validate(event)", 'class' => 'form-control')) }}</p>
                         <p>{{ Form::text('e-email', Input::old('e-email'), array('placeholder' => 'Email', 'class' => 'form-control')) }}</p>
                         <p>{{ Form::text('e-phone', Input::old('e-phone'), array('placeholder' => 'Phone', 'class' => 'form-control')) }}</p>
 

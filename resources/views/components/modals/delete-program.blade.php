@@ -24,7 +24,7 @@
             <div class="modal-footer">
                 <div class="row">
                     <div class="col-lg-3 col-lg-offset-7">
-                        <button type="submit" class="btn btn-primary" name="submit">Submit <span style="margin-top:4px; margin-left:5px;" class="fa fa-plus"></span></button>
+                        <button type="submit" class="btn btn-danger" name="submit">Delete <span style="margin-top:4px; margin-left:5px;" class="fa fa-trash"></span></button>
                         </form>
                     </div>
                     <div class="col-lg-2">

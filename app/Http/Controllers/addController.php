@@ -25,7 +25,7 @@ class addController extends Controller
             'address' => 'required',
             'city' => 'required',
             'state' => 'required',
-            'zip' => 'required',
+            'zip' => 'required|numeric|max:6',
             'phone' => 'required',
             'nationality' => 'required',
             'volunteer_type' => 'required',
@@ -39,7 +39,7 @@ class addController extends Controller
             'e-address' => 'required',
             'e-city' => 'required',
             'e-state' => 'required',
-            'e-zip' => 'required',
+            'e-zip' => 'required|numeric|max:6',
             'e-phone' => 'required',
             'e-email' => 'required|email'
         );
