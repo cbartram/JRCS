@@ -157,19 +157,18 @@ class StaffProfileController extends Controller
      */
     public function isMemberOf($user)
     {
+        //Array to hold the results and groups as a key value pair
         $access = [];
+        $groupNames = ['BEBCO' => '#b40a30', 'JACO' => '#e7984e', 'JBC' => '#4880d1', 'JRCS' => '#6abb62'];
 
-        $user->bebco_access == 1 ? $access['BEBCO'] = true : $access['BEBCO'] = false;
-        $user->jaco_access == 1 ? $access['JACO'] = true : $access['JACO'] = false;
-        $user->jbc_access == 1 ? $access['JBC'] = true : $access['JBC'] = false;
-        $user->jrcs_access == 1 ? $access['JRCS'] = true : $access['JRCS'] = false;
-
-        //Staff member is a part of all 3 groups
-        if(($access['BEBCO'] == true && $access['JACO'] == true && $access['JBC'] == true) || $access['JRCS'] == true) {
-            $access['ADMIN']= true;
-        } else {
-            $access['ADMIN'] = false;
+        //Instantiate the Group object
+        foreach($groupNames as $k => $v) {
+          array_push($access, new Group($k, $v,  Helpers::hasAccessTo($k, $user->id)));
         }
+
+        //Push admin access onto the stack
+        array_push($access, new Group('ADMIN', 'black', Helpers::isAdmin($user->id)));
+
         return $access;
     }
 

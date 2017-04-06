@@ -111,12 +111,12 @@
                             &nbsp; Switch Organizations <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li class="dropdown-header">Organizations</li>
-                            @foreach($groups as $k => $v)
-                                @if($groups[$k] == true)
-                                    @if($defaultGroup == $k)
-                                        <li class="disabled"><a href="#">{{$k}} - Current Organization</a></li>
+                            @foreach($groups as $group)
+                                @if($group->getAuth())
+                                    @if($defaultGroup == $group->getName())
+                                        <li class="disabled"><a href="#"><div class="group-color" style="background-color:{{$group->getColor()}}"></div> {{$group->getName()}} - Current Organization</a></li>
                                     @else
-                                        <li><a href="/switch/{{$k}}">{{$k}}</a></li>
+                                        <li><a href="/switch/{{$group->getName()}}"><div class="group-color" style="background-color:{{$group->getColor()}}"></div> {{$group->getName()}}</a></li>
                                     @endif
                                 @endif
                             @endforeach

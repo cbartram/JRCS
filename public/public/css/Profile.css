@@ -1797,7 +1797,12 @@ h1, h2, h3, h4 {
     box-shadow: 0 6px 12px rgba(0,0,0,.175);
 }
 
-
+/* Styles for calendar colors */
+.group-color {
+    height:15px;
+    width:15px;
+    border-radius:50%;
+}
 
 /* Panel Styles */
 .panel-default {

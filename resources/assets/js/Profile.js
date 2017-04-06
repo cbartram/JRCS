@@ -184,8 +184,28 @@ $(document).ready(function() {
             if(end == "") {
                 end = start;
             }
+
+            var color;
+
+            switch(group) {
+                case "JACO":
+                    color = "e7984e";
+                    break;
+                case "BEBCO":
+                    color = "b40a30";
+                    break;
+                case "JBC":
+                    color = "4880d1";
+                    break;
+                case "JRCS":
+                    color = "6abb62";
+                    break;
+                default:
+                    color = "black"
+            }
+
             //Use js API to create a new event!
-            createEvent(start, end, title, 'black', group, function (response) {
+            createEvent(start, end, title, color, group, function (response) {
             });
             toastr.success('Successfully created new event!');
         }
