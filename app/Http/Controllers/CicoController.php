@@ -139,6 +139,66 @@ class CicoController extends Controller
 
     }
 
+    /**
+     * Saves a newly/manually created Cico timestamp for a volunteer
+     */
+    public function save() {
+        try {
+
+        //Validate Input
+        $checkInDate = Carbon::createFromFormat('Y-m-d g:i A', Input::get('checkIn'));
+        $checkOutDate = Carbon::createFromFormat('Y-m-d g:i A', Input::get('checkOut'));
+
+        } catch (\Exception $e) {
+
+            return "false";
+        }
+
+        //Perform DB lookup of the volunteer
+        $volunteer = Helpers::getVolunteerByEmail(Input::get('email'));
+
+            $cico = new Cico();
+
+            $groups = ['BEBCO', 'JACO', 'JBC', 'JRCS'];
+
+            foreach($groups as $group) {
+
+                $columnName = Helpers::getGroupNameFromTruncated($group);
+                $col = Helpers::getForGroupNameFromTruncated($group);
+
+                //If the group we are iterating over is the group they are volunteering as
+                if(Input::get('group') == $group) {
+                    $cico->$col = 1;
+                } else {
+                    $cico->$col = 0;
+                }
+
+                if(Helpers::isMemberOf($group, $volunteer->id)) {
+                    $cico->$columnName = 1;
+                } else {
+                    $cico->$columnName = 0;
+                }
+            }
+
+        //Assign the rest of the values for the row
+        $cico->id = 'cico_' . str_random(10);
+        $cico->volunteer_id = $volunteer->id;
+        $cico->email = $volunteer->email;
+
+        $cico->volunteer_program = "null";
+        $cico->volunteer_type = Input::get('type');
+        $cico->check_in_date = $checkInDate->format('Y-m-d');
+        $cico->check_out_date = $checkOutDate->format('Y-m-d');
+        $cico->check_in_timestamp = $checkInDate;
+        $cico->check_out_timestamp = $checkOutDate;
+        $cico->minutes_volunteered = $checkInDate->diffInMinutes($checkOutDate);
+
+        $cico->save();
+
+        return "true";
+
+    }
+
 
     /**
      * Handles showing the bulk checkout view when

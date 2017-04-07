@@ -113,20 +113,30 @@
                             <th>Check-in</th>
                             <th>Check-out</th>
                             </thead>
-                            <tbody>
+                            <tbody id="detail-cico-table">
                             @foreach($cico as $c)
                             <tr>
                                 <td>{{$c->id}}</td>
-                                <td>{{Helpers::getName($c->volunteer_id)}}</td>
-                                <td>{{$c->email}}</td>
+                                <td class="name">{{Helpers::getName($c->volunteer_id)}}</td>
+                                <td class="email">{{$c->email}}</td>
                                 <td>{{$c->check_in_timestamp}}</td>
                                 <td>{{$c->check_out_timestamp}}</td>
                             </tr>
                              @endforeach
                             </tbody>
                         </table>
-                        {{$cico->appends(request()->input())->links()}}
                     </div>
+                    <!-- Additional row to hold the add button -->
+                    <div class="row">
+                        <div class="col-md-1 col-md-offset-5">
+                            <button class="btn btn-warning btn-circle"><span class="fa fa-plus"></span></button>
+                            <button class="btn btn-primary btn-save">Save <span class="fa fa-download"></span></button>
+                        </div>
+                        <div class="col-md-1">
+                            <button class="btn btn-danger btn-cancel">Cancel <span class="fa fa-times"></span></button>
+                        </div>
+                    </div>
+                    {{$cico->appends(request()->input())->links()}}
                 </div>
             </div>
         </div>
