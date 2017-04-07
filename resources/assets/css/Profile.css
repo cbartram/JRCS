@@ -452,6 +452,11 @@ h6 {
     border: none !important;
 }
 
+.btn-circle {
+    height:39px;
+    border-radius:50%;
+}
+
 .blur {
     -webkit-filter: blur(7px);
     -moz-filter: blur(7px);

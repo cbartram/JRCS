@@ -191,6 +191,8 @@ Route::post('/checkout', 'CicoController@checkOut');
 //Handles a staff member clicking the checkout button
 Route::get('/checkout', 'CicoController@bulkCheckout');
 
+Route::get('/cico/save', 'CicoController@save');
+
 /*
 |------------------------------------------------------------------------
 | Routes for Password Resetting
