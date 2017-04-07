@@ -14,12 +14,13 @@ $(document).ready(function() {
 
         //The input forms will be submitted via an ajax request
         $('#detail-cico-table tr:last').after('<tr>' +
-            '<td><select class="form-control" id="volunteer-type"><option value="General">General</option>' +
-            '<option value="Program">Program</option><option value="board">Board</option></select></td>' +
+            '<td>' + name + '</td>' +
             '<td><select class="form-control" id="for-group"><option value="BEBCO">BEBCO</option><option value="JACO">JACO</option>' +
             '<option value="JBC">JBC</option><option value="JRCS">JRCS</option></select></td>' +
             '<td><input type="text" class="form-control check-in" id="checkin" placeholder="Check-In Timestamp"></td>' +
             '<td><input type="text" placeholder="Check-Out Timestamp" id="checkout" class="form-control"></td>' +
+            '<td><select class="form-control" id="volunteer-type"><option value="General">General</option>' +
+            '<option value="Program">Program</option><option value="board">Board</option></select></td>' +
             '</tr>');
 
         //Show and hide the correct buttons
@@ -55,6 +56,11 @@ $(document).ready(function() {
                    toastr.error('Your Timestamps must be in the format YYYY-MM-DD HH:MM AM/PM');
                 } else {
                     toastr.success('Successfully Added new timestamp for ' + email + "!")
+
+                    $(".btn-save, .btn-cancel").hide();
+                    $('.btn-circle').show('slow');
+
+                    $("#detail-cico-table tr:last").remove();
                 }
             });
         }
@@ -114,7 +120,8 @@ $('.table-striped').Tabledit({
         identifier: [0, 'id'],
         editable: [
             [3, 'check_in_timestamp'],
-            [4, 'check_out_timestamp']
+            [4, 'check_out_timestamp'],
+            [5, 'volunteer_type']
         ]
     },
     onAjax: function() {

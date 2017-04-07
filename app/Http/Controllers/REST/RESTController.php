@@ -554,13 +554,24 @@ class RESTController extends Controller
                 array_push($value, $v);
             }
 
+            //They are updating the Volunteer type not the timestamps
+            if(strtolower($value[1]) == "general" || strtolower($value[1]) == 'program' || strtolower($value[1]) == 'board')
+            {
+                $row = Cico::find($value[0]);
+                $row->volunteer_type = $value[1];
+
+                $row->save();
+
+                return "true";
+            }
+
              //to avoid an array to string conversion error
              array_map("strval", $value);
              array_map("strval", $key);
 
              $timestamp = $value[1];
 
-            if (Carbon::createFromFormat('Y-m-d g:i A', $timestamp) != false) {
+            if (Carbon::createFromFormat('Y-m-d g:i A', $timestamp)) {
                 //valid timestamp
                 $row = Cico::find($value[0]);
 
@@ -592,6 +603,7 @@ class RESTController extends Controller
                 return "true";
             }
         } catch(Exception $e) {
+
             Log::error($e);
 
             //Exception thrown cannot create format insufficient data
