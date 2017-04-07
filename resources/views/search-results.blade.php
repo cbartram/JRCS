@@ -112,6 +112,7 @@
                             <th>Email</th>
                             <th>Check-in</th>
                             <th>Check-out</th>
+                            <th>Volunteer Type</th>
                             </thead>
                             <tbody id="detail-cico-table">
                             @foreach($cico as $c)
@@ -121,18 +122,25 @@
                                 <td class="email">{{$c->email}}</td>
                                 <td>{{$c->check_in_timestamp}}</td>
                                 <td>{{$c->check_out_timestamp}}</td>
+                                <td>{{$c->volunteer_type}}</td>
                             </tr>
                              @endforeach
                             </tbody>
                         </table>
                     </div>
-                    <!-- Additional row to hold the add button -->
+
                     <div class="row">
                         <div class="col-md-1 col-md-offset-5">
                             <button class="btn btn-warning btn-circle"><span class="fa fa-plus"></span></button>
+                        </div>
+                    </div>
+
+                    <!-- Additional row to hold the add button -->
+                    <div class="row">
+                        <div class="col-md-1 col-md-offset-4">
                             <button class="btn btn-primary btn-save">Save <span class="fa fa-download"></span></button>
                         </div>
-                        <div class="col-md-1">
+                        <div class="col-md-1 col-md-offset-1">
                             <button class="btn btn-danger btn-cancel">Cancel <span class="fa fa-times"></span></button>
                         </div>
                     </div>

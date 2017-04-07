@@ -189,8 +189,8 @@ class CicoController extends Controller
         $cico->volunteer_type = Input::get('type');
         $cico->check_in_date = $checkInDate->format('Y-m-d');
         $cico->check_out_date = $checkOutDate->format('Y-m-d');
-        $cico->check_in_timestamp = $checkInDate;
-        $cico->check_out_timestamp = $checkOutDate;
+        $cico->check_in_timestamp = $checkInDate->format('Y-m-d g:i A');
+        $cico->check_out_timestamp = $checkOutDate->format('Y-m-d g:i A');
         $cico->minutes_volunteered = $checkInDate->diffInMinutes($checkOutDate);
 
         $cico->save();
