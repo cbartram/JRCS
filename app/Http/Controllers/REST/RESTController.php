@@ -485,30 +485,45 @@ class RESTController extends Controller
     /**
      * Updates a Check in timestamp in the /checkout page via an ajax
      * request made over the input to an HTML table
+     *
+     * IMPORTANT: The key here is this operation uses Tabledit to update the tables with an ajax request. This framework requires a response
+     * to be in an array format and will not accept responses that are single key value pairs. Ensure when you are testing anything
+     * that has to do with tabledit that all responses are are formatted as arrays.
+     *
      * @return string true if the operation was successful false otherwise
      */
     public function updateTimestamp() {
         try {
+            $key = [];
+            $value = [];
 
-            $timestamp = Input::get('timestamp');
+            foreach(Input::all() as $k => $v) {
+                array_push($key, $k);
+                array_push($value, $v);
+            }
 
-            if (Carbon::createFromFormat('Y-m-d g:i A', $timestamp) != false) {
+            $carbonTimestamp = Carbon::createFromFormat('Y-m-d g:i A', $value[1]);
+
+            if ($carbonTimestamp) {
+
                 //valid timestamp
-                $row = Cico::find(Input::get('id'));
-                $row->check_in_timestamp = $timestamp;
-                $row->check_in_date = substr($timestamp, 0, strpos($timestamp, ' '));
+                $row = Cico::find($value[0]);
+                $row->check_in_timestamp = $value[1];
+                $row->check_in_date = $carbonTimestamp->format('Y-m-d');
 
                 $row->save();
 
-
                 return "true";
             }
+
+            return "false";
+
         } catch(Exception $e) {
+            //Invalid Timestamp
             Log::error($e);
-            //Exception thrown cannot create format insufficient data
+
             return "false";
         }
-        return "false";
     }
 
     /**

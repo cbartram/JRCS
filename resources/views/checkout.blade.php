@@ -74,11 +74,10 @@
         },
         onSuccess: function(data, textStatus, jqXHR) {
             console.log(data);
-            if (data == false) {
+            if (data === false) {
                 toastr.error('Error saving timestamp... The format must be YYYY-MM-DD H:MM AM/PM');
             } else {
                 toastr.success('Your timestamp has been updated successfully!');
-
             }
         }
     });

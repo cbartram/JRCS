@@ -56,12 +56,9 @@
             <ul class="nav navbar-nav navbar-right">
                 <!-- Authentication Links -->
                 @if (true)
-
                     <!-- Checkout --->
                         <a href="/profile"><button type="button" class="btn btn-default navbar-btn">Dashboard <span class="fa fa-undo"></span></button></a>
                         <li role="presentation" id="checkout-volunteer"><a href="/checkout"><span class="fa fa-sign-out"></span> Checkout</a></li>
-                @else
-
                 @endif
             </ul>
         </div>
@@ -71,7 +68,7 @@
 @yield('content')
 
 <!-- Local JS Files -->
-<script src="/public/js/Profile.js"></script>
+@if(!Request::is('checkout'))<script src="/public/js/Profile.js"></script>@endif
 <script src="/public/js/Jquery_Bootstrap.js"></script>
 {!! Toastr::render() !!}
 
