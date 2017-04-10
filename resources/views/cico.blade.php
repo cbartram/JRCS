@@ -40,7 +40,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="#" target="_blank">
+                        <a href="https://youtu.be/BK1wSsVF5hA" target="_blank">
                             Help <span class="fa fa-question"></span>
                         </a>
                     </li>
