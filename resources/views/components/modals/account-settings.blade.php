@@ -73,7 +73,7 @@
                                 @endif
                             </div>
                             <div class="checkbox">
-                                @if(Helpers::hasAccessTo('BEBCO', Auth::user()->id)))
+                                @if(Helpers::hasAccessTo('BEBCO', Auth::user()->id))
                                     <label>{{Form::checkbox('bebco', 'true')}} BEBCO Access</label>
                                 @endif
                             </div>
