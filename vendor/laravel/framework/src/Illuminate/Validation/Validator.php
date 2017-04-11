@@ -10,9 +10,9 @@ use Throwable;
 use DateTimeZone;
 use RuntimeException;
 use DateTimeInterface;
+use BadMethodCallException;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
-use BadMethodCallException;
 use InvalidArgumentException;
 use Illuminate\Support\Fluent;
 use Illuminate\Support\MessageBag;
@@ -620,7 +620,13 @@ class Validator implements ValidatorContract
     protected function passesOptionalCheck($attribute)
     {
         if ($this->hasRule($attribute, ['Sometimes'])) {
-            return array_key_exists($attribute, Arr::dot($this->data))
+            $data = Arr::dot($this->initializeAttributeOnData($attribute));
+
+            $data = array_merge($data, $this->extractValuesForWildcards(
+                $data, $attribute
+            ));
+
+            return array_key_exists($attribute, $data)
                 || in_array($attribute, array_keys($this->data));
         }
 
@@ -1332,8 +1338,10 @@ class Validator implements ValidatorContract
 
         $attributeData = $this->extractDataFromPath($explicitPath);
 
-        $data = Arr::where(Arr::dot($attributeData), function ($value, $key) use ($attribute, $attributeName) {
-            return $key != $attribute && Str::is($attributeName, $key);
+        $pattern = str_replace('\*', '[^.]+', preg_quote($attributeName, '#'));
+
+        $data = Arr::where(Arr::dot($attributeData), function ($value, $key) use ($attribute, $attributeName, $pattern) {
+            return $key != $attribute && (bool) preg_match('#^'.$pattern.'\z#u', $key);
         });
 
         return ! in_array($value, array_values($data));
@@ -1394,7 +1402,6 @@ class Validator implements ValidatorContract
 
         return $verifier->getCount(
             $table, $column, $value, $id, $idColumn, $extra
-
         ) == 0;
     }
 
@@ -1654,7 +1661,7 @@ class Validator implements ValidatorContract
      */
     protected function validateDimensions($attribute, $value, $parameters)
     {
-        if (! $this->isAValidFileInstance($value) || ! $sizeDetails = getimagesize($value->getRealPath())) {
+        if (! $this->isAValidFileInstance($value) || ! $sizeDetails = @getimagesize($value->getRealPath())) {
             return false;
         }
 
@@ -1680,7 +1687,7 @@ class Validator implements ValidatorContract
                 [1, 1], array_filter(sscanf($parameters['ratio'], '%f/%d'))
             );
 
-            return $numerator / $denominator == $width / $height;
+            return abs($numerator / $denominator - $width / $height) < 0.000001;
         }
 
         return true;
@@ -2230,7 +2237,7 @@ class Validator implements ValidatorContract
             }
 
             $line = Arr::get(
-                $this->translator->get('validation.attributes'),
+                $this->translator->trans('validation.attributes'),
                 $expectedAttributeName
             );
 

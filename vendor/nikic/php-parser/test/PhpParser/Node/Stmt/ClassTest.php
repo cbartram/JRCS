@@ -42,7 +42,7 @@ class ClassTest extends \PHPUnit_Framework_TestCase
 
     public function testGetMethod() {
         $methodConstruct = new ClassMethod('__CONSTRUCT');
-        $methodTest = new ClassMethod('tests');
+        $methodTest = new ClassMethod('test');
         $class = new Class_('Foo', array(
             'stmts' => array(
                 new ClassConst(array()),
@@ -53,7 +53,14 @@ class ClassTest extends \PHPUnit_Framework_TestCase
         ));
 
         $this->assertSame($methodConstruct, $class->getMethod('__construct'));
-        $this->assertSame($methodTest, $class->getMethod('tests'));
+        $this->assertSame($methodTest, $class->getMethod('test'));
         $this->assertNull($class->getMethod('nonExisting'));
+    }
+
+    public function testDeprecatedTypeNode() {
+        $class = new Class_('Foo', array('type' => Class_::MODIFIER_ABSTRACT));
+        $this->assertTrue($class->isAbstract());
+        $this->assertSame(Class_::MODIFIER_ABSTRACT, $class->flags);
+        $this->assertSame(Class_::MODIFIER_ABSTRACT, $class->type);
     }
 }

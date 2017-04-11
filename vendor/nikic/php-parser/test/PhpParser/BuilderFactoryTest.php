@@ -11,7 +11,7 @@ class BuilderFactoryTest extends \PHPUnit_Framework_TestCase
      */
     public function testFactory($methodName, $className) {
         $factory = new BuilderFactory;
-        $this->assertInstanceOf($className, $factory->$methodName('tests'));
+        $this->assertInstanceOf($className, $factory->$methodName('test'));
     }
 
     public function provideTestFactory() {
@@ -59,7 +59,7 @@ class BuilderFactoryTest extends \PHPUnit_Framework_TestCase
 
                 ->addStmt($factory->method('anotherMethod')
                     ->makeProtected()
-                    ->addParam($factory->param('someParam')->setDefault('tests'))
+                    ->addParam($factory->param('someParam')->setDefault('test'))
                     ->addStmt(new Expr\Print_(new Expr\Variable('someParam'))))
 
                 ->addStmt($factory->property('someProperty')->makeProtected())
@@ -89,7 +89,7 @@ abstract class SomeClass extends SomeOtherClass implements A\Few, \Interfaces
      * @param SomeClass And takes a parameter
      */
     public abstract function someMethod(SomeClass $someParam);
-    protected function anotherMethod($someParam = 'tests')
+    protected function anotherMethod($someParam = 'test')
     {
         print $someParam;
     }

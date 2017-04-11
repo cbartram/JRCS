@@ -28,7 +28,7 @@ if (! function_exists('abort')) {
      */
     function abort($code, $message = '', array $headers = [])
     {
-        return app()->abort($code, $message, $headers);
+        app()->abort($code, $message, $headers);
     }
 }
 
@@ -397,6 +397,8 @@ if (! function_exists('elixir')) {
                 $manifestPath = $buildDirectory;
             }
         }
+
+        $file = ltrim($file, '/');
 
         if (isset($manifest[$file])) {
             return '/'.trim($buildDirectory.'/'.$manifest[$file], '/');

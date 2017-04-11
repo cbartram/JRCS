@@ -2,11 +2,11 @@
 
 namespace PhpParser\Builder;
 
-use PhpParser\Node\Name;
-use PhpParser\Node\Stmt;
-use PhpParser\Node\Expr;
-use PhpParser\Node\Scalar;
 use PhpParser\Comment;
+use PhpParser\Node\Expr;
+use PhpParser\Node\Name;
+use PhpParser\Node\Scalar;
+use PhpParser\Node\Stmt;
 
 class PropertyTest extends \PHPUnit_Framework_TestCase
 {
@@ -15,7 +15,7 @@ class PropertyTest extends \PHPUnit_Framework_TestCase
     }
 
     public function testModifiers() {
-        $node = $this->createPropertyBuilder('tests')
+        $node = $this->createPropertyBuilder('test')
             ->makePrivate()
             ->makeStatic()
             ->getNode()
@@ -26,13 +26,13 @@ class PropertyTest extends \PHPUnit_Framework_TestCase
                 Stmt\Class_::MODIFIER_PRIVATE
               | Stmt\Class_::MODIFIER_STATIC,
                 array(
-                    new Stmt\PropertyProperty('tests')
+                    new Stmt\PropertyProperty('test')
                 )
             ),
             $node
         );
 
-        $node = $this->createPropertyBuilder('tests')
+        $node = $this->createPropertyBuilder('test')
             ->makeProtected()
             ->getNode()
         ;
@@ -41,13 +41,13 @@ class PropertyTest extends \PHPUnit_Framework_TestCase
             new Stmt\Property(
                 Stmt\Class_::MODIFIER_PROTECTED,
                 array(
-                    new Stmt\PropertyProperty('tests')
+                    new Stmt\PropertyProperty('test')
                 )
             ),
             $node
         );
 
-        $node = $this->createPropertyBuilder('tests')
+        $node = $this->createPropertyBuilder('test')
             ->makePublic()
             ->getNode()
         ;
@@ -56,7 +56,7 @@ class PropertyTest extends \PHPUnit_Framework_TestCase
             new Stmt\Property(
                 Stmt\Class_::MODIFIER_PUBLIC,
                 array(
-                    new Stmt\PropertyProperty('tests')
+                    new Stmt\PropertyProperty('test')
                 )
             ),
             $node
@@ -64,14 +64,14 @@ class PropertyTest extends \PHPUnit_Framework_TestCase
     }
 
     public function testDocComment() {
-        $node = $this->createPropertyBuilder('tests')
+        $node = $this->createPropertyBuilder('test')
             ->setDocComment('/** Test */')
             ->getNode();
 
         $this->assertEquals(new Stmt\Property(
             Stmt\Class_::MODIFIER_PUBLIC,
             array(
-                new Stmt\PropertyProperty('tests')
+                new Stmt\PropertyProperty('test')
             ),
             array(
                 'comments' => array(new Comment\Doc('/** Test */'))
@@ -83,7 +83,7 @@ class PropertyTest extends \PHPUnit_Framework_TestCase
      * @dataProvider provideTestDefaultValues
      */
     public function testDefaultValues($value, $expectedValueNode) {
-        $node = $this->createPropertyBuilder('tests')
+        $node = $this->createPropertyBuilder('test')
             ->setDefault($value)
             ->getNode()
         ;
