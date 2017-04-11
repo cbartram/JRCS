@@ -2,8 +2,8 @@
 
 namespace PhpParser\Unserializer;
 
-use PhpParser\Node\Scalar;
 use PhpParser\Comment;
+use PhpParser\Node\Scalar;
 
 class XMLTest extends \PHPUnit_Framework_TestCase
 {
@@ -65,7 +65,7 @@ XML;
  <scalar:array>
   <scalar:array></scalar:array>
   <scalar:array/>
-  <scalar:string>tests</scalar:string>
+  <scalar:string>test</scalar:string>
   <scalar:string></scalar:string>
   <scalar:string/>
   <scalar:int>1</scalar:int>
@@ -79,7 +79,7 @@ XML;
 XML;
         $result = array(
             array(), array(),
-            'tests', '', '',
+            'test', '', '',
             1,
             1, 1.5,
             true, false, null
@@ -125,16 +125,16 @@ XML;
 
     public function provideTestErrors() {
         return array(
-            array('<scalar:true>tests</scalar:true>',   '"true" scalar must be empty'),
-            array('<scalar:false>tests</scalar:false>', '"false" scalar must be empty'),
-            array('<scalar:null>tests</scalar:null>',   '"null" scalar must be empty'),
+            array('<scalar:true>test</scalar:true>',   '"true" scalar must be empty'),
+            array('<scalar:false>test</scalar:false>', '"false" scalar must be empty'),
+            array('<scalar:null>test</scalar:null>',   '"null" scalar must be empty'),
             array('<scalar:foo>bar</scalar:foo>',      'Unknown scalar type "foo"'),
             array('<scalar:int>x</scalar:int>',        '"x" is not a valid int'),
             array('<scalar:float>x</scalar:float>',    '"x" is not a valid float'),
             array('',                                  'Expected node or scalar'),
-            array('<foo:bar>tests</foo:bar>',           'Unexpected node of type "foo:bar"'),
+            array('<foo:bar>test</foo:bar>',           'Unexpected node of type "foo:bar"'),
             array(
-                '<node:Scalar_String><foo:bar>tests</foo:bar></node:Scalar_String>',
+                '<node:Scalar_String><foo:bar>test</foo:bar></node:Scalar_String>',
                 'Expected sub node or attribute, got node of type "foo:bar"'
             ),
             array(
