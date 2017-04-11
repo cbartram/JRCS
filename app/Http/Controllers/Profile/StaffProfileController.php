@@ -27,7 +27,7 @@ class StaffProfileController extends Controller
 
     public function index()
     {
-            $staff = StaffProfile::where('id', Auth::user()->id)->first();
+            $staff = StaffProfile::find(Auth::user()->id);
 
             //Finds the volunteers that relate to the staff members "default" group
             if(Session::has('group')) {
@@ -185,7 +185,7 @@ class StaffProfileController extends Controller
         }
 
         //Push admin access onto the stack
-        array_push($access, new Group('ADMIN', 'black', Helpers::isAdmin($user->id)));
+        array_push($access, new Group('ADMIN', '#FFFFFF', Helpers::isAdmin($user->id)));
 
         return $access;
     }
@@ -197,7 +197,8 @@ class StaffProfileController extends Controller
      */
     public function getDefaultGroupFromId($id)
     {
-            $row = StaffProfile::where('id', $id)->first();
+            $row = StaffProfile::find($id);
+
 
             //todo could be replaced with a for loop
             if($row->bebco_access == 1) {

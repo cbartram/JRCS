@@ -12,10 +12,12 @@ class TestController extends Controller
     /**
      * A place to test methods or functions using a get request
      * this function is tied to the route 'http://localhost:8000/test'
+     *
+     * By default this returns a test view which can be located in views/test/test.blade.php
      */
     public function testGet()
     {
-        //
+        return view('test.test');
     }
 
     /**
