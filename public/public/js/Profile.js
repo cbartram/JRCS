@@ -1131,6 +1131,7 @@ function getNameById(id, getResult) {
     });
 }
 
+
 /**
  * Gets a volunteers first name and last name given their email
  * @param email volunteers email
@@ -1977,6 +1978,32 @@ $(document).ready(function() {
             }
 
         });
+    });
+
+
+    //start of the editable table plugin integration
+    $('.table-striped').Tabledit({
+        url: '/api/v1/cico/update/',
+        editButton: false,
+        deleteButton: false,
+        hideIdentifier: false,
+        columns: {
+            identifier: [0, 'id'],
+            editable: [[3, 'timestamp']]
+        },
+        onAjax: function () {
+            //when an ajax request is sent
+            toastr.info('Attempting to update timestamp...');
+        },
+        onSuccess: function (data, textStatus, jqXHR) {
+            console.log(data);
+            if (data == false) {
+                toastr.error('Error saving timestamp... The format must be YYYY-MM-DD H:MM AM/PM');
+            } else {
+                toastr.success('Your timestamp has been updated successfully!');
+
+            }
+        }
     });
 
     //Handles sorting and dragging volunteer cards

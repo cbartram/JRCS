@@ -185,7 +185,7 @@ class StaffProfileController extends Controller
         }
 
         //Push admin access onto the stack
-        array_push($access, new Group('ADMIN', '#FFFFFF', Helpers::isAdmin($user->id)));
+        array_push($access, new Group('ADMIN', 'black', Helpers::isAdmin($user->id)));
 
         return $access;
     }
