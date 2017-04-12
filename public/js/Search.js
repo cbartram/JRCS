@@ -258,6 +258,7 @@ function getNameById(id, getResult) {
     });
 }
 
+
 /**
  * Gets a volunteers first name and last name given their email
  * @param email volunteers email
