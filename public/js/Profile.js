@@ -2035,6 +2035,13 @@ channel.bind('test-event', function(data) {
             if(data.to === user.id) {
                 //Show the message and update the badge
                 toastr.success('New Message From: ' + data.name);
+
+                var notification = parseInt($('.notif-count').text());
+
+                $('.notif-count').text(notification + 1);
+
+                $('#notification-dropdown').append('<li><a href="#">' +
+                    '<span class="badge" style="background-color:red">New</span> <b>' + data.name + '</b> says <b>' + data.text + '</b></a></li>')
             }
 
         });

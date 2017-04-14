@@ -126,18 +126,18 @@
                     <li><a href="#" id="events" data-toggle="modal" data-target="#notification-modal"><span class="fa fa-send"></span> Send Message</a></li>
                     <li class="dropdown">
 
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="notification-bell" role="button" aria-expanded="false"><span class="fa fa-bell"></span> @if($notificationCount > 0)<span class="badge" style="background-color:red">{{$notificationCount}}</span>@endif</a>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="notification-bell" role="button" aria-expanded="false"><span class="fa fa-bell"></span> @if($notificationCount > 0)<span class="badge notif-count" style="background-color:red">{{$notificationCount}}</span>@endif</a>
 
-                            <ul class="dropdown-menu" role="menu">
+                            <ul class="dropdown-menu" id="notification-dropdown" role="menu">
                                 @if($notificationCount == 0)
                                     <li><a href="#">You're all caught up! <span class="fa fa-smile-o"></span></a></li>
                                 @endif
                                 {{-- Foreach notification of this user show it here --}}
                                 @foreach($notifications as $n)
                                     @if($n->unread == 1)
-                                            <li><a href="/notification/remove/{{$n->notification_id}}"><span class="badge" style="background-color:red">New</span> From: <b>{{$n->name}}</b> Message: <b>{{$n->message}}</b></a></li>
+                                            <li><a href="/notification/remove/{{$n->notification_id}}"><span class="badge" style="background-color:red">New</span> <b>{{$n->name}}</b> says <b>{{$n->message}}</b></a></li>
                                     @else
-                                            <li><a href="/notification/remove/{{$n->notification_id}}">From: <b>{{$n->name}}</b> Message: <b>{{$n->message}}</b></a></li>
+                                            <li><a href="/notification/remove/{{$n->notification_id}}"> <b>{{$n->name}}</b> says <b>{{$n->message}}</b></a></li>
                                     @endif
                                 @endforeach
                             </ul>

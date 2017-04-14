@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Calendar;
 use App\Donations;
+use App\Notification;
 use App\Profile;
 use App\Programs;
 use Illuminate\Support\Facades\Auth;
@@ -36,10 +37,15 @@ class ArchiveController extends Controller
             ->orderBy('start', 'ASC')
             ->get();
 
+        $notifications = Notification::where('to', Auth::user()->id)
+            ->where('active', 0)
+            ->paginate(10);
+
         return view('donation.archive', compact('donations'), compact('volunteers'))
             ->with('programs', $programs)
             ->with('events', $events)
-            ->with('defaultGroup', Session::get('group'));
+            ->with('defaultGroup', Session::get('group'))
+            ->with('notifications', $notifications);
     }
 
 }

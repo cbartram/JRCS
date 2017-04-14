@@ -46,6 +46,22 @@ class NotificationController extends Controller
 
 
     /**
+     * Archives all Notifications for a user
+     * @param $id
+     */
+    public function clearAll($id) {
+         Notification::where('active', 1)
+            ->where('to', $id)
+            ->update(['active' => 0]);
+
+       Toastr::success('Your notifications have been cleared!');
+       return Redirect::back();
+
+    }
+
+
+
+    /**
      * Removes a notifiation by making in inactive
      * @param $id
      */

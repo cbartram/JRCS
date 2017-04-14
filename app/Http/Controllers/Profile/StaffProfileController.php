@@ -166,6 +166,8 @@ class StaffProfileController extends Controller
                 ->where('active', 1)
                 ->get();
 
+            //Allstaff except for yourself because you cant send a notification to yourself
+            $notificationStaff = StaffProfile::all()->except(Auth::user()->id);
 
             //return the view and attach staff & volunteer objects to be accessed by blade templating engine
              return view('profile', compact('staff'), compact('volunteers'))
@@ -179,7 +181,8 @@ class StaffProfileController extends Controller
                 ->with('removableEvents', $removableEvents)
                 ->with('programs', $programs)
                 ->with('notificationCount', $notificationCount)
-                ->with('notifications', $notifications);
+                ->with('notifications', $notifications)
+                ->with('notificationStaff', $notificationStaff);
     }
 
     /**
