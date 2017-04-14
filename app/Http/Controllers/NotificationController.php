@@ -39,7 +39,7 @@ class NotificationController extends Controller
 
         $pusher->trigger('test-channel', 'test-event', ['text' => $notifyText, 'to' => $to, 'from' => $from, 'name' => $fromName]);
 
-        Toastr::success('Message to ' . Helpers::getStaffName($to) . ' Sent Successfully!', $title = 'Message Sent Successfully');
+        Toastr::success('Message to ' . Helpers::getStaffName($to) . ' Sent Successfully!');
         return Redirect::back();
 
     }
