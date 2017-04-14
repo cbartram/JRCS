@@ -123,12 +123,11 @@ channel.bind('test-event', function(data) {
 
         //If the person who the message is for is the currently logged in user
         getAuthenticatedUser(function(user) {
-            console.log(data.name);
 
-            console.log('Data.to'  + data.to);
-            console.log('User id' + user.id);
+            console.log('Data.to: '  + data.to);
+            console.log('User.ID: ' + user.id);
 
-            if(data.to == user.id) {
+            if(data.to === user.id) {
                 //Show the message and update the badge
                 toastr.success('New Message From: ' + data.name);
             }
