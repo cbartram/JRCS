@@ -90,7 +90,7 @@ Route::post('/program/add', 'ProgramController@add');
 Route::post('/program/delete', 'ProgramController@delete');
 
 //Handles routing the notifications
-Route::post('/notifications/notify', 'NotificationController@notify');
+Route::get('/notifications/notify', 'NotificationController@notify');
 
 Route::get('/notification/remove/{id}', 'NotificationController@remove');
 

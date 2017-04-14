@@ -10,7 +10,7 @@
                 <div class="row">
                     <div class="col-lg-8 col-lg-offset-2">
                         <div class="form-group">
-                            <form id="notify" action="notifications/notify/" method="post">
+                            <form id="notify" action="notifications/notify/" method="get">
                                 <select class="form-control" name="to" id="to">
                                     @foreach($allStaff as $s)
                                         <option value="{{$s->id}}">{{$s->first_name . ' ' . $s->last_name}}</option>
