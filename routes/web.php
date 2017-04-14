@@ -40,6 +40,7 @@ Route::get('/login', function() {
     }
 });
 
+
 Route::get('/', function() {
 
     //Get all users from the table where they have not yet checked out joining with the profiles table
@@ -87,6 +88,11 @@ Route::post('/add', 'addController@index');
 Route::post('/program/add', 'ProgramController@add');
 
 Route::post('/program/delete', 'ProgramController@delete');
+
+//Handles routing the notifications
+Route::post('/notifications/notify', 'NotificationController@notify');
+
+Route::get('/notification/remove/{id}', 'NotificationController@remove');
 
 /*
 |------------------------------------------------------------------------
@@ -228,6 +234,14 @@ Route::post('/change', 'PasswordController@change');
 | Patch updates a single resource without having to insert an entire new column saving bandwith
 |
  */
+
+//Gets staff member via id
+Route::get('api/v1/staff/{id}', 'REST\RESTController@findStaffById');
+
+Route::get('api/v1/auth/user', function() {
+   return Auth::user();
+});
+
 //Get all volunteers
 Route::get('api/v1/volunteers', 'REST\RESTController@all');
 

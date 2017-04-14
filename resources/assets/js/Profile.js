@@ -108,6 +108,35 @@ $(document).ready(function() {
         });
     });
 
+
+    Pusher.logToConsole = true;
+
+    //Pusher code
+    var pusher = new Pusher('2b625b4ec56b59013e86', {
+        encrypted: true
+    });
+
+    var channel = pusher.subscribe('test-channel');
+
+channel.bind('test-event', function(data) {
+    console.log(data);
+
+        //If the person who the message is for is the currently logged in user
+        getAuthenticatedUser(function(user) {
+            console.log(data.name);
+
+            console.log('Data.to'  + data.to);
+            console.log('User id' + user.id);
+
+            if(data.to == user.id) {
+                //Show the message and update the badge
+                toastr.success('New Message From: ' + data.name);
+            }
+
+        });
+});
+
+
     //Handles sorting and dragging volunteer cards
     $(function() {
         var from, to, id;

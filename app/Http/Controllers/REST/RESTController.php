@@ -49,6 +49,13 @@ class RESTController extends Controller
         $volunteer->save();
     }
 
+    /**
+     * Updates a users email in the database
+     *
+     * @param $email
+     * @param $columnToUpdate
+     * @param $newValue
+     */
     public function updateByEmail($email, $columnToUpdate, $newValue) {
         $volunteer = Profile::where('email', $email)->first();
         $volunteer->$columnToUpdate = $newValue;
@@ -56,17 +63,41 @@ class RESTController extends Controller
         $volunteer->save();
     }
 
+    /**
+     * Finds a staff member given their id
+     *
+     * @param $id
+     * @return mixed
+     */
+    public function findStaffById($id) {
+        return StaffProfile::find($id);
+    }
 
+
+    /**
+     * Finds all active calendar events
+     *
+     * @return mixed
+     */
     public function findAllEvents() {
         return Calendar::where('active', 1)
             ->get();
     }
 
+    /**
+     * Finds a specific calendar event given its ID
+     *
+     * @param $id
+     * @return mixed
+     */
     public function findEventById($id) {
         return Calendar::where('id', $id)
             ->where('active', 1)
             ->get();
     }
+
+
+
 
     /**
      * This method is tricky because it queries eventlog for all the events with the proper group

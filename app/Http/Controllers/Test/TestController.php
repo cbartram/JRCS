@@ -3,9 +3,15 @@
 namespace App\Http\Controllers\Test;
 
 use App\Cico;
+use App\Events\TestEvent;
 use App\Helpers\Helpers;
 use App\Http\Controllers\Controller;
+use App\StaffProfile;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Mail;
+use Vinkla\Pusher\Facades\Pusher;
+use Vinkla\Pusher\PusherManager;
 
 class TestController extends Controller
 {
@@ -17,7 +23,7 @@ class TestController extends Controller
      */
     public function testGet()
     {
-        return view('test.test');
+       //
     }
 
     /**
@@ -26,6 +32,7 @@ class TestController extends Controller
      */
     public function testPost()
     {
-        //
+      //
     }
+
 }
