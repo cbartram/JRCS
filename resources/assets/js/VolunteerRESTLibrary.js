@@ -233,6 +233,39 @@ function getNameByEmail(email, getResult) {
     });
 }
 
+
+/**
+ * Returns the currently authenticated user object
+ * @param getResult
+ */
+function getAuthenticatedUser(getResult) {
+    $.ajax({
+        type: 'GET',
+        url:'api/v1/auth/user',
+        dataType: "json",// data type of response
+        success: function (data) {
+            getResult(data);
+        }
+    });
+}
+
+
+/**
+ * Gets a staff member object given an ID
+ * @param email volunteers email
+ * @param getResult callback function
+ */
+function getStaff(id, getResult) {
+    $.ajax({
+        type: 'GET',
+        url:'api/v1/staff/' + id,
+        dataType: "json",// data type of response
+        success: function (data) {
+            getResult(data);
+        }
+    });
+}
+
 /**
  * Gets a volunteers id given their email
  * @param email volunteers email

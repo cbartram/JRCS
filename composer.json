@@ -13,7 +13,8 @@
         "swiftmailer/swiftmailer": "^5.4",
         "guzzlehttp/guzzle": "^6.2",
         "kamaln7/toastr": "dev-master",
-        "maatwebsite/excel": "~2.1.0"
+        "maatwebsite/excel": "~2.1.0",
+        "vinkla/pusher": "^2.4"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

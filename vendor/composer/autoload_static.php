@@ -35,6 +35,10 @@ class ComposerStaticInitc78b0aee7ac413f93ef306c560156c6c
         array (
             'Webmozart\\Assert\\' => 17,
         ),
+        'V' => 
+        array (
+            'Vinkla\\Pusher\\' => 14,
+        ),
         'T' => 
         array (
             'TijsVerkoyen\\CssToInlineStyles\\' => 31,
@@ -88,6 +92,7 @@ class ComposerStaticInitc78b0aee7ac413f93ef306c560156c6c
             'GuzzleHttp\\Psr7\\' => 16,
             'GuzzleHttp\\Promise\\' => 19,
             'GuzzleHttp\\' => 11,
+            'GrahamCampbell\\Manager\\' => 23,
         ),
         'F' => 
         array (
@@ -129,6 +134,10 @@ class ComposerStaticInitc78b0aee7ac413f93ef306c560156c6c
         'Webmozart\\Assert\\' => 
         array (
             0 => __DIR__ . '/..' . '/webmozart/assert/src',
+        ),
+        'Vinkla\\Pusher\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/vinkla/pusher/src',
         ),
         'TijsVerkoyen\\CssToInlineStyles\\' => 
         array (
@@ -249,6 +258,10 @@ class ComposerStaticInitc78b0aee7ac413f93ef306c560156c6c
         'GuzzleHttp\\' => 
         array (
             0 => __DIR__ . '/..' . '/guzzlehttp/guzzle/src',
+        ),
+        'GrahamCampbell\\Manager\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/graham-campbell/manager/src',
         ),
         'Faker\\' => 
         array (
@@ -1210,6 +1223,9 @@ class ComposerStaticInitc78b0aee7ac413f93ef306c560156c6c
         'File_Iterator' => __DIR__ . '/..' . '/phpunit/php-file-iterator/src/Iterator.php',
         'File_Iterator_Facade' => __DIR__ . '/..' . '/phpunit/php-file-iterator/src/Facade.php',
         'File_Iterator_Factory' => __DIR__ . '/..' . '/phpunit/php-file-iterator/src/Factory.php',
+        'GrahamCampbell\\Manager\\AbstractManager' => __DIR__ . '/..' . '/graham-campbell/manager/src/AbstractManager.php',
+        'GrahamCampbell\\Manager\\ConnectorInterface' => __DIR__ . '/..' . '/graham-campbell/manager/src/ConnectorInterface.php',
+        'GrahamCampbell\\Manager\\ManagerInterface' => __DIR__ . '/..' . '/graham-campbell/manager/src/ManagerInterface.php',
         'GuzzleHttp\\Client' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/Client.php',
         'GuzzleHttp\\ClientInterface' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/ClientInterface.php',
         'GuzzleHttp\\Cookie\\CookieJar' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/Cookie/CookieJar.php',
@@ -3477,6 +3493,9 @@ class ComposerStaticInitc78b0aee7ac413f93ef306c560156c6c
         'Psy\\VersionUpdater\\GitHubChecker' => __DIR__ . '/..' . '/psy/psysh/src/Psy/VersionUpdater/GitHubChecker.php',
         'Psy\\VersionUpdater\\IntervalChecker' => __DIR__ . '/..' . '/psy/psysh/src/Psy/VersionUpdater/IntervalChecker.php',
         'Psy\\VersionUpdater\\NoopChecker' => __DIR__ . '/..' . '/psy/psysh/src/Psy/VersionUpdater/NoopChecker.php',
+        'Pusher' => __DIR__ . '/..' . '/pusher/pusher-php-server/lib/Pusher.php',
+        'PusherException' => __DIR__ . '/..' . '/pusher/pusher-php-server/lib/Pusher.php',
+        'PusherInstance' => __DIR__ . '/..' . '/pusher/pusher-php-server/lib/Pusher.php',
         'Ramsey\\Uuid\\BinaryUtils' => __DIR__ . '/..' . '/ramsey/uuid/src/BinaryUtils.php',
         'Ramsey\\Uuid\\Builder\\DefaultUuidBuilder' => __DIR__ . '/..' . '/ramsey/uuid/src/Builder/DefaultUuidBuilder.php',
         'Ramsey\\Uuid\\Builder\\DegradedUuidBuilder' => __DIR__ . '/..' . '/ramsey/uuid/src/Builder/DegradedUuidBuilder.php',
@@ -4143,6 +4162,10 @@ class ComposerStaticInitc78b0aee7ac413f93ef306c560156c6c
         'TijsVerkoyen\\CssToInlineStyles\\Css\\Rule\\Processor' => __DIR__ . '/..' . '/tijsverkoyen/css-to-inline-styles/src/Css/Rule/Processor.php',
         'TijsVerkoyen\\CssToInlineStyles\\Css\\Rule\\Rule' => __DIR__ . '/..' . '/tijsverkoyen/css-to-inline-styles/src/Css/Rule/Rule.php',
         'UpdateStaffProfileTable' => __DIR__ . '/../..' . '/database/migrations/2016_10_07_191647_update_staff_profile_table.php',
+        'Vinkla\\Pusher\\Facades\\Pusher' => __DIR__ . '/..' . '/vinkla/pusher/src/Facades/Pusher.php',
+        'Vinkla\\Pusher\\PusherFactory' => __DIR__ . '/..' . '/vinkla/pusher/src/PusherFactory.php',
+        'Vinkla\\Pusher\\PusherManager' => __DIR__ . '/..' . '/vinkla/pusher/src/PusherManager.php',
+        'Vinkla\\Pusher\\PusherServiceProvider' => __DIR__ . '/..' . '/vinkla/pusher/src/PusherServiceProvider.php',
         'Webmozart\\Assert\\Assert' => __DIR__ . '/..' . '/webmozart/assert/src/Assert.php',
         'XdgBaseDir\\Xdg' => __DIR__ . '/..' . '/dnoegel/php-xdg-base-dir/src/Xdg.php',
         'phpDocumentor\\Reflection\\DocBlock' => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src/DocBlock.php',

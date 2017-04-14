@@ -6,6 +6,7 @@ use App\Donations;
 use App\EventLog;
 use App\Helpers\Helpers;
 use App\Http\Controllers\Controller;
+use App\Notification;
 use App\Profile;
 use App\Programs;
 use App\StaffProfile;
@@ -154,6 +155,18 @@ class StaffProfileController extends Controller
                 });
             }
 
+
+            //Stuff for notifications
+            $notificationCount = Notification::where('to', Auth::user()->id)
+                ->where('unread', 1)
+                ->where('active', 1)
+                ->count();
+
+            $notifications = Notification::where('to', Auth::user()->id)
+                ->where('active', 1)
+                ->get();
+
+
             //return the view and attach staff & volunteer objects to be accessed by blade templating engine
              return view('profile', compact('staff'), compact('volunteers'))
                 ->with('allStaff', $allStaff)
@@ -164,7 +177,9 @@ class StaffProfileController extends Controller
                 ->with('all', $all)
                 ->with('log', $log)
                 ->with('removableEvents', $removableEvents)
-                ->with('programs', $programs);
+                ->with('programs', $programs)
+                ->with('notificationCount', $notificationCount)
+                ->with('notifications', $notifications);
     }
 
     /**

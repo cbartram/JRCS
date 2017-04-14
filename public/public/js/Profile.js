@@ -1149,6 +1149,39 @@ function getNameByEmail(email, getResult) {
     });
 }
 
+
+/**
+ * Returns the currently authenticated user object
+ * @param getResult
+ */
+function getAuthenticatedUser(getResult) {
+    $.ajax({
+        type: 'GET',
+        url:'api/v1/auth/user',
+        dataType: "json",// data type of response
+        success: function (data) {
+            getResult(data);
+        }
+    });
+}
+
+
+/**
+ * Gets a staff member object given an ID
+ * @param email volunteers email
+ * @param getResult callback function
+ */
+function getStaff(id, getResult) {
+    $.ajax({
+        type: 'GET',
+        url:'api/v1/staff/' + id,
+        dataType: "json",// data type of response
+        success: function (data) {
+            getResult(data);
+        }
+    });
+}
+
 /**
  * Gets a volunteers id given their email
  * @param email volunteers email
@@ -1981,30 +2014,33 @@ $(document).ready(function() {
     });
 
 
-    //start of the editable table plugin integration
-    $('.table-striped').Tabledit({
-        url: '/api/v1/cico/update/',
-        editButton: false,
-        deleteButton: false,
-        hideIdentifier: false,
-        columns: {
-            identifier: [0, 'id'],
-            editable: [[3, 'timestamp']]
-        },
-        onAjax: function () {
-            //when an ajax request is sent
-            toastr.info('Attempting to update timestamp...');
-        },
-        onSuccess: function (data, textStatus, jqXHR) {
-            console.log(data);
-            if (data == false) {
-                toastr.error('Error saving timestamp... The format must be YYYY-MM-DD H:MM AM/PM');
-            } else {
-                toastr.success('Your timestamp has been updated successfully!');
+    Pusher.logToConsole = true;
 
-            }
-        }
+    //Pusher code
+    var pusher = new Pusher('2b625b4ec56b59013e86', {
+        encrypted: true
     });
+
+    var channel = pusher.subscribe('test-channel');
+
+channel.bind('test-event', function(data) {
+    console.log(data);
+
+        //If the person who the message is for is the currently logged in user
+        getAuthenticatedUser(function(user) {
+            console.log(data.name);
+
+            console.log('Data.to'  + data.to);
+            console.log('User id' + user.id);
+
+            if(data.to == user.id) {
+                //Show the message and update the badge
+                toastr.success('New Message From: ' + data.name);
+            }
+
+        });
+});
+
 
     //Handles sorting and dragging volunteer cards
     $(function() {

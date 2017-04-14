@@ -165,6 +165,7 @@ return [
         Collective\Html\HtmlServiceProvider::class,
         Kamaln7\Toastr\ToastrServiceProvider::class,
         Maatwebsite\Excel\ExcelServiceProvider::class,
+        Vinkla\Pusher\PusherServiceProvider::class,
 
         /*
          * Package Service Providers...
@@ -177,10 +178,9 @@ return [
          */
         App\Providers\AppServiceProvider::class,
         App\Providers\AuthServiceProvider::class,
-        // App\Providers\BroadcastServiceProvider::class,
+        App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
-
     ],
 
     /*
@@ -234,7 +234,6 @@ return [
         'Helpers' => App\Helpers\Helpers::class,
         'Toastr' => Kamaln7\Toastr\Facades\Toastr::class,
         'Excel' => Maatwebsite\Excel\Facades\Excel::class,
-
     ],
 
 ];
