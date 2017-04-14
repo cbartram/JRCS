@@ -425,7 +425,7 @@ class Helpers
      * @return bool
      */
     public static function isAdmin($id) {
-        $volunteer = StaffProfile::where('id', '=', $id)->first();
+        $volunteer = StaffProfile::where('id', $id)->first();
 
         if($volunteer == null) {
             return null;
@@ -443,12 +443,23 @@ class Helpers
     }
 
     /**
+     * Converts a MySQL timestamp primitive type into a
+     * readable 12 hour time with AM/PM
+     *
+     * @param $timestamp
+     * @return string
+     */
+    public static function toTwelveHourTime($timestamp) {
+       return Carbon::createFromFormat('Y-m-d H:i:s', $timestamp)->format('Y-m-d g:i A');
+    }
+
+    /**
      * Returns staff members first and last name given their id
      * @param $id String staff id
      * @return null|string First name concatenated by a space then the staff members last name
      */
     public static function getStaffName($id) {
-        $staff = StaffProfile::where('id', '=', $id)->first();
+        $staff = StaffProfile::where('id', $id)->first();
 
         if($staff == null) {
             return null;

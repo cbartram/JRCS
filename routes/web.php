@@ -94,6 +94,8 @@ Route::get('/notifications/notify', 'NotificationController@notify');
 
 Route::get('/notification/remove/{id}', 'NotificationController@remove');
 
+Route::get('/notification/clear/all/{id}', 'NotificationController@clearAll');
+
 /*
 |------------------------------------------------------------------------
 | Routes for Excel Exporting
