@@ -164,6 +164,7 @@ class StaffProfileController extends Controller
 
             $notifications = Notification::where('to', Auth::user()->id)
                 ->where('active', 1)
+                ->orderBy('unread', 'DESC')
                 ->get();
 
             //Allstaff except for yourself because you cant send a notification to yourself
