@@ -60,6 +60,22 @@ class NotificationController extends Controller
     }
 
 
+    /**
+     * Updates a notifications status to read from unread
+     *
+     * @param $id
+     * @return mixed
+     */
+    public function read($id) {
+        $notif = Notification::find($id);
+
+        $notif->unread = 0;
+        $notif->save();
+
+        return Redirect::back();
+    }
+
+
 
     /**
      * Removes a notifiation by making in inactive

@@ -2038,14 +2038,40 @@ channel.bind('test-event', function(data) {
 
                 var notification = parseInt($('.notif-count').text());
 
+                //Get the notification count currently
                 $('.notif-count').text(notification + 1);
 
+                //Append a new notification to the dropdown till a page refresh occurs and PHP takes over
                 $('#notification-dropdown').append('<li><a href="#">' +
                     '<span class="badge" style="background-color:red">New</span> <b>' + data.name + '</b> says <b>' + data.text + '</b></a></li>')
             }
 
         });
 });
+
+
+    //Handles replying to, deleting notifications, and marking notifications read
+    $('.btn-notification-delete').click(function() {
+
+        //Get the notification ID
+        var id = $(this).attr('data-id');
+
+        window.location = '/notification/remove/' + id;
+    });
+
+    //Mark notification as read
+    $('.btn-mark-as-read').click(function() {
+
+       var id = $(this).attr('data-id');
+
+       window.location = '/notification/read/' + id;
+    });
+
+
+    $('.btn-notification-reply').click(function() {
+            $('#notification-modal').modal('show');
+    });
+
 
 
     //Handles sorting and dragging volunteer cards

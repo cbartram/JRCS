@@ -145,6 +145,30 @@ channel.bind('test-event', function(data) {
 });
 
 
+    //Handles replying to, deleting notifications, and marking notifications read
+    $('.btn-notification-delete').click(function() {
+
+        //Get the notification ID
+        var id = $(this).attr('data-id');
+
+        window.location = '/notification/remove/' + id;
+    });
+
+    //Mark notification as read
+    $('.btn-mark-as-read').click(function() {
+
+       var id = $(this).attr('data-id');
+
+       window.location = '/notification/read/' + id;
+    });
+
+    //Reply to a notification
+    $('.btn-notification-reply').click(function() {
+            $('#notification-modal').modal('show');
+    });
+
+
+
     //Handles sorting and dragging volunteer cards
     $(function() {
         var from, to, id;

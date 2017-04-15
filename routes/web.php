@@ -89,12 +89,21 @@ Route::post('/program/add', 'ProgramController@add');
 
 Route::post('/program/delete', 'ProgramController@delete');
 
-//Handles routing the notifications
+/*
+|------------------------------------------------------------------------
+| Routes for Notifications
+|------------------------------------------------------------------------
+| These routes define the specific GET and POST requests that are required
+| for notifications to be sent, deliver, and updated
+|
+ */
 Route::get('/notifications/notify', 'NotificationController@notify');
 
 Route::get('/notification/remove/{id}', 'NotificationController@remove');
 
 Route::get('/notification/clear/all/{id}', 'NotificationController@clearAll');
+
+Route::get('/notification/read/{id}', 'NotificationController@read');
 
 /*
 |------------------------------------------------------------------------
