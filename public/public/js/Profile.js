@@ -1979,6 +1979,40 @@ $(document).ready(function() {
 
     });
 
+
+
+    //start of the editable table plugin integration for upating event logs
+    $('.table-striped').Tabledit({
+        url: '/api/v1/log/update',
+        editButton: false,
+        deleteButton: false,
+        hideIdentifier: true,
+        columns: {
+            identifier: [0, 'event_id'],
+            editable: [
+                [1, 'title'],
+                [2, 'start_date'],
+                [3, 'attendee_count'],
+                [4, 'volunteer_count'],
+                [5, 'total_volunteer_hours'],
+                [6, 'donation_amount']
+            ]
+        },
+        onAjax: function() {
+            //when an ajax request is sent
+            toastr.info('Attempting to update information...');
+            console.log(this.url);
+        },
+        onSuccess: function(data, textStatus, jqXHR) {
+            console.log(data);
+            if (data == false) {
+                toastr.error('Uh oh, Your updates could not be saved! Ensure that your date is in the format YYYY-MM-DD and all other values are numeric!');
+            } else {
+                toastr.success('Your event log updates have been saved successfully!');
+            }
+        }
+    });
+
     //Add Date pickers from jqueryUI to date selectors
     $("#start-date, #end-date, #export-start-date, #export-end-date").datepicker();
     $("#export-start-date, #export-end-date").datepicker("option", "dateFormat", 'yy-mm-dd');

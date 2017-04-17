@@ -356,3 +356,6 @@ Route::post('/api/v1/demographics/update', 'REST\RESTController@updateDemographi
 //updates volunteer cico information found through a search
 Route::post('/api/v1/cico/search/update', 'REST\RESTController@updateCico');
 
+//Updates the event log after or before events have been logged.
+Route::post('/api/v1/log/update', 'REST\RESTController@updateEventLog');
+
