@@ -6,6 +6,7 @@ use App\Donations;
 use App\EventLog;
 use App\Helpers\Helpers;
 use App\Http\Controllers\Controller;
+use App\Notification;
 use App\Profile;
 use App\Programs;
 use App\StaffProfile;
@@ -27,7 +28,7 @@ class StaffProfileController extends Controller
 
     public function index()
     {
-            $staff = StaffProfile::where('id', Auth::user()->id)->first();
+            $staff = StaffProfile::find(Auth::user()->id);
 
             //Finds the volunteers that relate to the staff members "default" group
             if(Session::has('group')) {
@@ -154,6 +155,21 @@ class StaffProfileController extends Controller
                 });
             }
 
+
+            //Stuff for notifications
+            $notificationCount = Notification::where('to', Auth::user()->id)
+                ->where('unread', 1)
+                ->where('active', 1)
+                ->count();
+
+            $notifications = Notification::where('to', Auth::user()->id)
+                ->where('active', 1)
+                ->orderBy('unread', 'DESC')
+                ->get();
+
+            //Allstaff except for yourself because you cant send a notification to yourself
+            $notificationStaff = StaffProfile::all()->except(Auth::user()->id);
+
             //return the view and attach staff & volunteer objects to be accessed by blade templating engine
              return view('profile', compact('staff'), compact('volunteers'))
                 ->with('allStaff', $allStaff)
@@ -164,7 +180,10 @@ class StaffProfileController extends Controller
                 ->with('all', $all)
                 ->with('log', $log)
                 ->with('removableEvents', $removableEvents)
-                ->with('programs', $programs);
+                ->with('programs', $programs)
+                ->with('notificationCount', $notificationCount)
+                ->with('notifications', $notifications)
+                ->with('notificationStaff', $notificationStaff);
     }
 
     /**
@@ -197,7 +216,8 @@ class StaffProfileController extends Controller
      */
     public function getDefaultGroupFromId($id)
     {
-            $row = StaffProfile::where('id', $id)->first();
+            $row = StaffProfile::find($id);
+
 
             //todo could be replaced with a for loop
             if($row->bebco_access == 1) {

@@ -142,6 +142,67 @@ $(document).ready(function() {
         });
     });
 
+
+    Pusher.logToConsole = true;
+
+    //Pusher code
+    var pusher = new Pusher('2b625b4ec56b59013e86', {
+        encrypted: true
+    });
+
+    var channel = pusher.subscribe('test-channel');
+
+channel.bind('test-event', function(data) {
+    console.log(data);
+
+        //If the person who the message is for is the currently logged in user
+        getAuthenticatedUser(function(user) {
+
+            console.log('Data.to: '  + data.to);
+            console.log('User.ID: ' + user.id);
+
+            if(data.to === user.id) {
+                //Show the message and update the badge
+                toastr.success('New Message From: ' + data.name);
+
+                var notification = parseInt($('.notif-count').text());
+
+                //Get the notification count currently
+                $('.notif-count').text(notification + 1);
+
+                //Append a new notification to the dropdown till a page refresh occurs and PHP takes over
+                $('#notification-dropdown').append('<li><a href="#">' +
+                    '<span class="badge" style="background-color:red">New</span> <b>' + data.name + '</b> says <b>' + data.text + '</b></a></li>')
+            }
+
+        });
+});
+
+
+    //Handles replying to, deleting notifications, and marking notifications read
+    $('.btn-notification-delete').click(function() {
+
+        //Get the notification ID
+        var id = $(this).attr('data-id');
+
+        window.location = '/notification/remove/' + id;
+    });
+
+    //Mark notification as read
+    $('.btn-mark-as-read').click(function() {
+
+       var id = $(this).attr('data-id');
+
+       window.location = '/notification/read/' + id;
+    });
+
+    //Reply to a notification
+    $('.btn-notification-reply').click(function() {
+            $('#notification-modal').modal('show');
+    });
+
+
+
     //Handles sorting and dragging volunteer cards
     $(function() {
         var from, to, id;

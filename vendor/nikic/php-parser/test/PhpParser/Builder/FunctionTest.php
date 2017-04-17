@@ -4,9 +4,9 @@ namespace PhpParser\Builder;
 
 use PhpParser\Comment;
 use PhpParser\Node;
-use PhpParser\Node\Stmt;
 use PhpParser\Node\Expr\Print_;
 use PhpParser\Node\Scalar\String_;
+use PhpParser\Node\Stmt;
 
 class FunctionTest extends \PHPUnit_Framework_TestCase
 {
@@ -15,13 +15,13 @@ class FunctionTest extends \PHPUnit_Framework_TestCase
     }
 
     public function testReturnByRef() {
-        $node = $this->createFunctionBuilder('tests')
+        $node = $this->createFunctionBuilder('test')
             ->makeReturnByRef()
             ->getNode()
         ;
 
         $this->assertEquals(
-            new Stmt\Function_('tests', array(
+            new Stmt\Function_('test', array(
                 'byRef' => true
             )),
             $node
@@ -33,14 +33,14 @@ class FunctionTest extends \PHPUnit_Framework_TestCase
         $param2 = new Node\Param('test2');
         $param3 = new Node\Param('test3');
 
-        $node = $this->createFunctionBuilder('tests')
+        $node = $this->createFunctionBuilder('test')
             ->addParam($param1)
             ->addParams(array($param2, $param3))
             ->getNode()
         ;
 
         $this->assertEquals(
-            new Stmt\Function_('tests', array(
+            new Stmt\Function_('test', array(
                 'params' => array($param1, $param2, $param3)
             )),
             $node
@@ -52,14 +52,14 @@ class FunctionTest extends \PHPUnit_Framework_TestCase
         $stmt2 = new Print_(new String_('test2'));
         $stmt3 = new Print_(new String_('test3'));
 
-        $node = $this->createFunctionBuilder('tests')
+        $node = $this->createFunctionBuilder('test')
             ->addStmt($stmt1)
             ->addStmts(array($stmt2, $stmt3))
             ->getNode()
         ;
 
         $this->assertEquals(
-            new Stmt\Function_('tests', array(
+            new Stmt\Function_('test', array(
                 'stmts' => array($stmt1, $stmt2, $stmt3)
             )),
             $node
@@ -67,23 +67,31 @@ class FunctionTest extends \PHPUnit_Framework_TestCase
     }
 
     public function testDocComment() {
-        $node = $this->createFunctionBuilder('tests')
+        $node = $this->createFunctionBuilder('test')
             ->setDocComment('/** Test */')
             ->getNode();
 
-        $this->assertEquals(new Stmt\Function_('tests', array(), array(
+        $this->assertEquals(new Stmt\Function_('test', array(), array(
             'comments' => array(new Comment\Doc('/** Test */'))
         )), $node);
     }
 
     public function testReturnType() {
-        $node = $this->createFunctionBuilder('tests')
-            ->setReturnType('bool')
+        $node = $this->createFunctionBuilder('test')
+            ->setReturnType('void')
             ->getNode();
 
-        $this->assertEquals(new Stmt\Function_('tests', array(
-            'returnType' => 'bool'
+        $this->assertEquals(new Stmt\Function_('test', array(
+            'returnType' => 'void'
         ), array()), $node);
+    }
+
+    /**
+     * @expectedException \LogicException
+     * @expectedExceptionMessage void type cannot be nullable
+     */
+    public function testInvalidNullableVoidType() {
+        $this->createFunctionBuilder('test')->setReturnType('?void');
     }
 
     /**
@@ -91,7 +99,7 @@ class FunctionTest extends \PHPUnit_Framework_TestCase
      * @expectedExceptionMessage Expected parameter node, got "Name"
      */
     public function testInvalidParamError() {
-        $this->createFunctionBuilder('tests')
+        $this->createFunctionBuilder('test')
             ->addParam(new Node\Name('foo'))
         ;
     }

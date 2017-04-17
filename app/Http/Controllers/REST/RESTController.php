@@ -16,12 +16,10 @@ use Exception;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Session;
 
 class RESTController extends Controller
 {
@@ -52,6 +50,13 @@ class RESTController extends Controller
         $volunteer->save();
     }
 
+    /**
+     * Updates a users email in the database
+     *
+     * @param $email
+     * @param $columnToUpdate
+     * @param $newValue
+     */
     public function updateByEmail($email, $columnToUpdate, $newValue) {
         $volunteer = Profile::where('email', $email)->first();
         $volunteer->$columnToUpdate = $newValue;
@@ -59,17 +64,41 @@ class RESTController extends Controller
         $volunteer->save();
     }
 
+    /**
+     * Finds a staff member given their id
+     *
+     * @param $id
+     * @return mixed
+     */
+    public function findStaffById($id) {
+        return StaffProfile::find($id);
+    }
 
+
+    /**
+     * Finds all active calendar events
+     *
+     * @return mixed
+     */
     public function findAllEvents() {
         return Calendar::where('active', 1)
             ->get();
     }
 
+    /**
+     * Finds a specific calendar event given its ID
+     *
+     * @param $id
+     * @return mixed
+     */
     public function findEventById($id) {
         return Calendar::where('id', $id)
             ->where('active', 1)
             ->get();
     }
+
+
+
 
     /**
      * This method is tricky because it queries eventlog for all the events with the proper group

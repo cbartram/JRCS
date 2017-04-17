@@ -23,7 +23,7 @@
                 <div class="profile-usermenu">
                     <ul class="nav">
                         <li>
-                            <a href="#"><i class="fa fa-tachometer"></i>Dashboard</a>
+                            <a href="/notification/clear/all/{{Auth::user()->id}}"><i class="fa fa-times"></i>Clear Notifications</a>
                         </li>
                         <li>
                             <a href="#" data-toggle="modal" data-target="#account-settings-modal"><i class="fa fa-cog"></i>Account Settings</a>

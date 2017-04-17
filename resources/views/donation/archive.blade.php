@@ -112,6 +112,40 @@
         </div>
     </div>
 
+    <!-- Row for archived notifications -->
+    <div class="row" style="margin-top:25px;">
+        <div class="col-lg-9 col-lg-offset-1">
+            <div class="panel panel-default">
+                <div class="panel-heading">Archived Notifications <i class="fa fa-archive"></i></div>
+                <div class="panel-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered">
+                            <thead>
+                            <th>Notification Id</th>
+                            <th>To</th>
+                            <th>From</th>
+                            <th>Message</th>
+                            <th>Timestamp</th>
+                            </thead>
+                            <tbody>
+                            @foreach($notifications as $n)
+                                <tr>
+                                    <td>{{$n->notification_id}}</td>
+                                    <td><span class="label label-info">{{Helpers::getStaffName($n->to)}}</span></td>
+                                    <td><span class="label label-info">{{Helpers::getStaffName($n->from)}}</span></td>
+                                    <td>{{$n->message}}</td>
+                                    <td>{{Helpers::toTwelveHourTime($n->created_at)}}</td>
+                                </tr>
+                            @endforeach
+                            </tbody>
+                        </table>
+                        {{$notifications->links()}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Row for archived events -->
     <div class="row" style="margin-top:25px;">
         <div class="col-lg-9 col-lg-offset-1">

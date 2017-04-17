@@ -123,7 +123,47 @@
                         </ul>
                     </li>
                     <li role="presentation" id="checkout-volunteer"><a href="/checkout"><span class="fa fa-sign-out"></span> Checkout</a></li>
-                @else
+                    <li><a href="#" id="events" data-toggle="modal" data-target="#notification-modal"><span class="fa fa-send"></span> Send Message</a></li>
+                    <li class="dropdown">
+
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="notification-bell" role="button" aria-expanded="false"><span class="fa fa-bell"></span> @if($notificationCount > 0)<span class="badge notif-count" style="background-color:red">{{$notificationCount}}</span>@endif</a>
+
+                            <ul class="dropdown-menu" id="notification-dropdown" role="menu">
+                                <li class="dropdown-header">Notifications</li>
+
+                                @if($notificationCount == 0)
+                                    <li><a href="#">You're all caught up! <span class="fa fa-smile-o"></span></a></li>
+                                @endif
+                                {{-- Foreach notification of this user show it here --}}
+                                @foreach($notifications as $n)
+                                        @if($n->unread == 1)
+                                            <li>
+                                                <a href="#">
+                                                    <span class="badge" style="background-color:red">New</span> <b>{{$n->name}}</b> says <b>{{$n->message}}</b>
+                                                    &nbsp;
+                                                    <button class="btn btn-sm btn-primary btn-notification-reply"><span class="fa fa-reply"></span></button>
+                                                    &nbsp;
+                                                    <button class="btn btn-sm btn-danger btn-notification-delete" data-id="{{$n->notification_id}}"><span class="fa fa-trash"></span></button>
+                                                    &nbsp;
+                                                    <button class="btn btn-sm btn-primary btn-mark-as-read" data-id="{{$n->notification_id}}"><span class="fa fa-check"></span></button>
+                                                </a>
+                                            </li>
+                                    @else
+                                            <li>
+                                                <a href="#"><b>{{$n->name}}</b> says <b>{{$n->message}}</b>
+                                                    &nbsp;
+                                                    <button class="btn btn-sm btn-primary btn-notification-reply"><span class="fa fa-reply"></span></button>
+                                                    &nbsp;
+                                                    <button class="btn btn-sm btn-danger btn-notification-delete" data-id="{{$n->notification_id}}"><span class="fa fa-trash"></span></button>
+                                                </a>
+                                            </li>
+                                    @endif
+                                @endforeach
+                            </ul>
+                        </li>
+
+
+                    @else
                     <li class="dropdown">
 
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{{ Auth::user()->name }} <span class="caret"></span></a>
@@ -155,11 +195,12 @@
 @include('components.modals.donation-denied')
 @include('components.modals.excel-export')
 @include('components.modals.search')
-
+@include('components.modals.notification')
 
 @yield('content')
 
 <!-- Local JS Files -->
+<script src="https://js.pusher.com/4.0/pusher.min.js"></script>
 <script src="/public/js/Profile.js"></script>
 
 <script type="text/javascript">
