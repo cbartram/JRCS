@@ -57,7 +57,6 @@ Route::get('/', function() {
    return view('cico', compact('volunteers'), compact('programs'));
 });
 
-
 //Handles showing a specific volunteer
 Route::get('/volunteer/search', 'SearchController@search');
 

@@ -465,5 +465,18 @@ h6 {
     filter: blur(7px);
 }
 
+.messenger-profile-pic {
+    height:30px;
+    width:30px;
+    border:1px solid black;
+    border-radius:50%;
+}
+
+.navbar-nav>li>.dropdown-menu {
+    min-width: 0px !important;
+}
+
+
+
 
 

@@ -18,6 +18,7 @@
                                 </select>
                                 {{ csrf_field() }}
                                 <input type="hidden" name="from" id="from" value="{{Auth::user()->id}}">
+                                <input type="hidden" name="from-email" id="from-email" value="{{Auth::user()->email}}">
                                 <input type="hidden" name="from-name" value="{{Auth::user()->first_name . ' ' . Auth::user()->last_name}}">
                                 <br>
                                 <textarea rows="5" cols="10" class="form-control" id="notify_text" name="notify_text" placeholder="What's the Message?" minlength="3" maxlength="140" required></textarea>

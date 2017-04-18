@@ -25,6 +25,7 @@ class NotificationController extends Controller
         $to = $request->input('to');
         $from = $request->input('from');
         $fromName = $request->input('from-name');
+        $fromEmail = $request->input('from-email');
 
         $notification = new Notification();
 
@@ -37,7 +38,7 @@ class NotificationController extends Controller
 
         $notification->save();
 
-        $pusher->trigger('test-channel', 'test-event', ['text' => $notifyText, 'to' => $to, 'from' => $from, 'name' => $fromName]);
+        $pusher->trigger('test-channel', 'test-event', ['text' => $notifyText, 'to' => $to, 'from' => $from, 'name' => $fromName, 'email' => $fromEmail]);
 
         Toastr::success('Message to ' . Helpers::getStaffName($to) . ' Sent Successfully!');
         return Redirect::back();

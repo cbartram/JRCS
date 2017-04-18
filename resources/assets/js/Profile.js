@@ -142,9 +142,6 @@ $(document).ready(function() {
         });
     });
 
-
-    Pusher.logToConsole = true;
-
     //Pusher code
     var pusher = new Pusher('2b625b4ec56b59013e86', {
         encrypted: true
@@ -157,10 +154,6 @@ channel.bind('test-event', function(data) {
 
         //If the person who the message is for is the currently logged in user
         getAuthenticatedUser(function(user) {
-
-            console.log('Data.to: '  + data.to);
-            console.log('User.ID: ' + user.id);
-
             if(data.to === user.id) {
                 //Show the message and update the badge
                 toastr.success('New Message From: ' + data.name);
@@ -179,28 +172,24 @@ channel.bind('test-event', function(data) {
 });
 
 
-    //Handles replying to, deleting notifications, and marking notifications read
-    $('.btn-notification-delete').click(function() {
+    //Handles getting necessary data from the clicked notification to the modal
+    $('.notification-link').click(function() {
+        $('#notification-reply-modal').modal('show');
 
-        //Get the notification ID
-        var id = $(this).attr('data-id');
+        //Get data from element attributes
+        var notificationID = $(this).attr('data-id');
+        var name = $(this).attr('data-name');
+        var message = $(this).attr('data-message');
+        var from = $(this).attr('data-from');
+        var gravatar = $(this).find('img').attr('src');
 
-        window.location = '/notification/remove/' + id;
+        //Apply the data to the modal
+        $('#notification-reply-header').text('Message from ' + name);
+        $('.notification-reply-message').text(message);
+        $('.notification-reply-delete').attr('href', '/notification/remove/' + notificationID);
+        $('.notification-reply-read').attr('href', '/notification/read/' + notificationID);
+        $('.notification-reply-picture').attr('src', gravatar);
     });
-
-    //Mark notification as read
-    $('.btn-mark-as-read').click(function() {
-
-       var id = $(this).attr('data-id');
-
-       window.location = '/notification/read/' + id;
-    });
-
-    //Reply to a notification
-    $('.btn-notification-reply').click(function() {
-            $('#notification-modal').modal('show');
-    });
-
 
 
     //Handles sorting and dragging volunteer cards
@@ -337,13 +326,13 @@ channel.bind('test-event', function(data) {
 
         $('#calendar').fullCalendar({
             header: {
-                left: 'prev,next today',
+                left: 'prev,next,today',
                 center: 'title',
                 right: 'month,agendaWeek,agendaDay,listWeek'
             },
             defaultDate: moment(),
             navLinks: false, // can click day/week names to navigate views and see events for a particular day
-            editable: false, //can drag and drop events onto different days todo this is a bug right now
+            editable: true, //can drag and drop events onto different days todo this is a bug right now
             eventLimit: true,
             eventSources: [
                 {
