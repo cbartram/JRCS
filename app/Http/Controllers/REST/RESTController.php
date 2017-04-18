@@ -14,6 +14,7 @@ use App\StaffProfile;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
@@ -554,6 +555,73 @@ class RESTController extends Controller
             return "false";
         }
     }
+
+
+    /**
+     * Updates the Event Logs via an HTML table and
+     * Ajax request
+     *
+     * @param $request Request Represents the incoming HTTP Request
+     * @return Boolean true if the save operation was successfull false otherwise
+     */
+    public function updateEventLog(Request $request) {
+
+        $input = array_map('trim', $request->input());
+
+        try {
+            //Validate the incoming request (donation doesnt need validated because it could be anything)
+            $this->validate($request, [
+                'start_date' => 'date_format:Y-m-d',
+                'attendee_count' => 'numeric',
+                'volunteer_count' => 'numeric',
+                'total_volunteer_hours' => 'numeric',
+            ]);
+
+        } catch (Exception $e) {
+            //The validator failed on the request input
+            return "false";
+        }
+
+        //Keys coming in from the GET Request mapped to their respective database columns
+        $keys = [
+            'title' => 'title',
+            'start_date' => 'start',
+            'attendee_count' => 'attendee_count',
+            'volunteer_count' => 'volunteer_count',
+            'total_volunteer_hours' => 'total_volunteer_hours',
+            'donation_amount' => 'donation_amount'
+        ];
+
+        $eventLog = EventLog::find($input['event_id']);
+        $calendar = Calendar::find($input['event_id']);
+        $user = Auth::user();
+
+
+        foreach($keys as $k => $v) {
+            if(array_key_exists($k, $input)) {
+
+                //If they are updating the data update the calendar events table instead of the event log
+                if($k == "start_date" || $k == "title") {
+                    $calendar->$v = $input[$k];
+                    $eventLog->updated_by = $user->first_name . ' ' . $user->last_name;
+                    $calendar->save();
+                } else {
+                    $eventLog->$v = $input[$k];
+                    $eventLog->updated_by = $user->first_name . ' ' . $user->last_name;
+                }
+
+                $eventLog->save();
+
+                return "true";
+            }
+        }
+
+        return "false";
+
+
+    }
+
+
 
     /**
      * Updates the demographic information for a volunteer via an ajax

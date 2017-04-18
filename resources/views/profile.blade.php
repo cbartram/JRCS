@@ -139,13 +139,14 @@
                                 <div class="table-responsive">
                                 <table class="table table-striped">
                                     <thead>
-                                    <th>Event ID</th>
-                                    <th>Event Title</th>
-                                    <th>Start Date</th>
-                                    <th>Attendees</th>
-                                    <th>Volunteers</th>
-                                    <th>Total Hours Volunteered</th>
-                                    <th>Donations</th>
+                                        <th>Event ID</th>
+                                        <th>Event Title</th>
+                                        <th>Start Date</th>
+                                        <th>Attendees</th>
+                                        <th>Volunteers</th>
+                                        <th>Total Hours Volunteered</th>
+                                        <th>Donations</th>
+                                        <th>Last Updated By</th>
                                     </thead>
                                     <tbody>
                                         @foreach($log as $l)
@@ -153,10 +154,11 @@
                                             <td>{{$l->event_id}}</td>
                                             <td>{{$l->title}}</td>
                                             <td>{{$l->start}}</td>
-                                            <td>@if($l->attendee_count == 0) - @else {{$l->attendee_count}} @endif</td>
+                                            <td>@if($l->attendee_count == 0) - @else{{$l->attendee_count}}@endif</td>
                                             <td>@if($l->volunteer_count == 0) - @else {{$l->volunteer_count}} @endif</td>
                                             <td>@if($l->total_volunteer_hours == 0) - @else {{$l->total_volunteer_hours}} @endif</td>
                                             <td>{{$l->donation_amount}}</td>
+                                            <td>{{$l->updated_by}}</td>
                                           </tr>
                                         @endforeach
                                     </tbody>
