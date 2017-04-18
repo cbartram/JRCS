@@ -191,6 +191,11 @@ channel.bind('test-event', function(data) {
         $('.notification-reply-picture').attr('src', gravatar);
     });
 
+    $('.notification-reply-reply').click(function() {
+       $('#notification-reply-modal').modal('toggle');
+        $("#notification-modal").modal('show');
+    });
+
 
     //Handles sorting and dragging volunteer cards
     $(function() {
