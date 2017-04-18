@@ -91,7 +91,7 @@ class CicoController extends Controller
                 $cico->volunteer_program = Input::get('program');
                 $cico->volunteer_type = Input::get('type');
                 $cico->check_in_date = $date;
-                $cico->check_in_timestamp = Carbon::now()->subHours(5)->format('Y-m-d g:i A');
+                $cico->check_in_timestamp = Carbon::now()->subHours(4)->format('Y-m-d g:i A');
                 $cico->check_out_timestamp = 'null';
 
                 $cico->save();
@@ -120,7 +120,7 @@ class CicoController extends Controller
 
             $date = date('Y-m-d');
 
-            $volunteer->check_out_timestamp = Carbon::now()->subHours(5)->format('Y-m-d g:i A');
+            $volunteer->check_out_timestamp = Carbon::now()->subHours(4)->format('Y-m-d g:i A');
             $volunteer->check_out_date = $date;
 
             //convert the check_in_timestamp to a carbon object in case the field was updated before the volunteer checked out

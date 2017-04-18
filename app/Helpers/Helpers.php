@@ -463,7 +463,7 @@ class Helpers
      */
     public static function toTwelveHourTime($timestamp) {
         //Subtract hours because of UTC Time
-       return Carbon::createFromFormat('Y-m-d H:i:s', $timestamp)->subHours(5)->format('Y-m-d g:i A');
+       return Carbon::createFromFormat('Y-m-d H:i:s', $timestamp)->subHours(4)->format('Y-m-d g:i A');
     }
 
     /**
