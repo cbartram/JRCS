@@ -128,7 +128,7 @@
 
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="notification-bell" role="button" aria-expanded="false"><span class="fa fa-bell"></span> @if($notificationCount > 0)<span class="badge notif-count" style="background-color:red">{{$notificationCount}}</span>@endif</a>
 
-                            <ul class="dropdown-menu" id="notification-dropdown" role="menu">
+                            <ul class="dropdown-menu" style="width:500px" id="notification-dropdown" role="menu">
                                 <li class="dropdown-header">Notifications</li>
 
                                 @if($notificationCount == 0)
@@ -138,27 +138,63 @@
                                 @foreach($notifications as $n)
                                         @if($n->unread == 1)
                                             <li>
-                                                <a href="#">
-                                                    <span class="badge" style="background-color:red">New</span> <b>{{$n->name}}</b> says <b>{{$n->message}}</b>
-                                                    &nbsp;
-                                                    <button class="btn btn-sm btn-primary btn-notification-reply"><span class="fa fa-reply"></span></button>
-                                                    &nbsp;
-                                                    <button class="btn btn-sm btn-danger btn-notification-delete" data-id="{{$n->notification_id}}"><span class="fa fa-trash"></span></button>
-                                                    &nbsp;
-                                                    <button class="btn btn-sm btn-primary btn-mark-as-read" data-id="{{$n->notification_id}}"><span class="fa fa-check"></span></button>
-                                                    &nbsp;
-                                                    <b>{{Helpers::toHumanReadableTime($n->created_at)}}</b>
+                                                <a href="#" class="notification-link" data-name="{{$n->name}}" data-from="{{$n->from}}" data-id="{{$n->notification_id}}" data-message="{{$n->message}}">
+                                                <div class="row">
+                                                    <div class="col-md-1">
+                                                        <!--Profile Picture -->
+                                                        <div class="messanger-profile-pic">
+                                                            <img height="40" width="40" src="{{Helpers::gravURL(Helpers::getStaffById($n->from)->email)}}">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-11">
+                                                        <div class="row">
+                                                            <div class="col-md-3">
+                                                                <!-- From Name -->
+                                                                <b>{{$n->name}}</b>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <!-- Message -->
+                                                                <span class="badge">New</span> {{str_limit($n->message, $limit = 30, $end = '...')}}
+
+                                                            </div>
+                                                            <div class="col-md-2 col-md-offset-3">
+                                                                {{Helpers::toHumanReadableTime($n->created_at)}}
+                                                            </div>
+                                                        </div>
+                                                      </div>
+                                                   </div>
                                                 </a>
                                             </li>
                                     @else
                                             <li>
-                                                <a href="#"><b>{{$n->name}}</b> says <b>{{$n->message}}</b>
-                                                    &nbsp;
-                                                    <button class="btn btn-sm btn-primary btn-notification-reply"><span class="fa fa-reply"></span></button>
-                                                    &nbsp;
-                                                    <button class="btn btn-sm btn-danger btn-notification-delete" data-id="{{$n->notification_id}}"><span class="fa fa-trash"></span></button>
-                                                    &nbsp;
-                                                    <b>{{Helpers::toHumanReadableTime($n->created_at)}}</b>
+                                                <a href="#" class="notification-link" data-name="{{$n->name}}" data-from="{{$n->from}}" data-id="{{$n->notification_id}}" data-message="{{$n->message}}">
+                                                    <div class="row">
+                                                        <div class="col-md-1">
+                                                            <!--Profile Picture -->
+                                                            <div class="messanger-profile-pic">
+                                                                <img height="40" width="40" src="{{Helpers::gravURL(Helpers::getStaffById($n->from)->email)}}">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-11">
+                                                            <div class="row">
+                                                                <div class="col-md-3">
+                                                                    <!-- From Name -->
+                                                                    <b>{{$n->name}}</b>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-md-6">
+                                                                    <!-- Message -->
+                                                                    {{str_limit($n->message, $limit = 30, $end = '...')}}
+                                                                </div>
+                                                                <div class="col-md-2 col-md-offset-3">
+                                                                    {{Helpers::toHumanReadableTime($n->created_at)}}
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </a>
                                             </li>
                                     @endif
@@ -200,6 +236,7 @@
 @include('components.modals.excel-export')
 @include('components.modals.search')
 @include('components.modals.notification')
+@include('components.modals.notification-reply')
 
 @yield('content')
 

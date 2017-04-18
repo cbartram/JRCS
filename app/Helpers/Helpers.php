@@ -80,6 +80,18 @@ class Helpers
 
     }
 
+
+    /**
+     * Returns an image link to a gravatar picture given an email address
+     *
+     * @param $email
+     * @return string
+     *
+     */
+    public static function gravURL($email) {
+        return "https://www.gravatar.com/avatar/" . md5( strtolower( trim( $email ) ) ) . "?d=http://jrcs.herokuapp.com/default_profile.png&s=40";
+    }
+
     /**
      * This function promotes a volunteer to a staff member. It is different from the promote
      * admin function because it provides the flexibility to designate which groups the staff

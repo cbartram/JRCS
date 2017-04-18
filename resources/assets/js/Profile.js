@@ -138,28 +138,24 @@ channel.bind('test-event', function(data) {
 });
 
 
-    //Handles replying to, deleting notifications, and marking notifications read
-    $('.btn-notification-delete').click(function() {
+    //Handles getting necessary data from the clicked notification to the modal
+    $('.notification-link').click(function() {
+        $('#notification-reply-modal').modal('show');
 
-        //Get the notification ID
-        var id = $(this).attr('data-id');
+        //Get data from element attributes
+        var notificationID = $(this).attr('data-id');
+        var name = $(this).attr('data-name');
+        var message = $(this).attr('data-message');
+        var from = $(this).attr('data-from');
+        var gravatar = $(this).find('img').attr('src');
 
-        window.location = '/notification/remove/' + id;
+        //Apply the data to the modal
+        $('#notification-reply-header').text('Message from ' + name);
+        $('.notification-reply-message').text(message);
+        $('.notification-reply-delete').attr('href', '/notification/remove/' + notificationID);
+        $('.notification-reply-read').attr('href', '/notification/read/' + notificationID);
+        $('.notification-reply-picture').attr('src', gravatar);
     });
-
-    //Mark notification as read
-    $('.btn-mark-as-read').click(function() {
-
-       var id = $(this).attr('data-id');
-
-       window.location = '/notification/read/' + id;
-    });
-
-    //Reply to a notification
-    $('.btn-notification-reply').click(function() {
-            $('#notification-modal').modal('show');
-    });
-
 
 
     //Handles sorting and dragging volunteer cards
