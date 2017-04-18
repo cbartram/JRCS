@@ -19,7 +19,10 @@
                 </div>
                 <!-- Message Actions -->
                 <div class="row">
-                    <div class="col-md-4 col-md-offset-2">
+                    <div class="col-md-4">
+                        <button class="btn btn-block btn-primary notification-reply-reply">Reply <span class="fa fa-reply"></span></button>
+                    </div>
+                    <div class="col-md-4">
                         <a class="notification-reply-read" href=""><button class="btn btn-block btn-primary">Mark as Read <span class="fa fa-check"></span></button></a>
                     </div>
                     <div class="col-md-4">

@@ -2058,14 +2058,17 @@ channel.bind('test-event', function(data) {
         var from = $(this).attr('data-from');
         var gravatar = $(this).find('img').attr('src');
 
-        console.log(gravatar);
-
         //Apply the data to the modal
         $('#notification-reply-header').text('Message from ' + name);
         $('.notification-reply-message').text(message);
         $('.notification-reply-delete').attr('href', '/notification/remove/' + notificationID);
         $('.notification-reply-read').attr('href', '/notification/read/' + notificationID);
         $('.notification-reply-picture').attr('src', gravatar);
+    });
+
+    $('.notification-reply-reply').click(function() {
+       $('#notification-reply-modal').modal('toggle');
+        $("#notification-modal").modal('show');
     });
 
 
