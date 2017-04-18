@@ -450,7 +450,18 @@ class Helpers
      * @return string
      */
     public static function toTwelveHourTime($timestamp) {
-       return Carbon::createFromFormat('Y-m-d H:i:s', $timestamp)->format('Y-m-d g:i A');
+        //Subtract hours because of UTC Time
+       return Carbon::createFromFormat('Y-m-d H:i:s', $timestamp)->subHours(5)->format('Y-m-d g:i A');
+    }
+
+    /**
+     * Wrapper function that Returns a human readable version of elapsed time from a given MySQL timestamp data type
+     *
+     * @param $timestamp
+     * @return string
+     */
+    public static function toHumanReadableTime($timestamp) {
+        return Carbon::createFromFormat('Y-m-d H:i:s', $timestamp)->diffForHumans();
     }
 
     /**

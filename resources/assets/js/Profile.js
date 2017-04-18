@@ -108,9 +108,6 @@ $(document).ready(function() {
         });
     });
 
-
-    Pusher.logToConsole = true;
-
     //Pusher code
     var pusher = new Pusher('2b625b4ec56b59013e86', {
         encrypted: true
@@ -123,10 +120,6 @@ channel.bind('test-event', function(data) {
 
         //If the person who the message is for is the currently logged in user
         getAuthenticatedUser(function(user) {
-
-            console.log('Data.to: '  + data.to);
-            console.log('User.ID: ' + user.id);
-
             if(data.to === user.id) {
                 //Show the message and update the badge
                 toastr.success('New Message From: ' + data.name);
@@ -303,13 +296,13 @@ channel.bind('test-event', function(data) {
 
         $('#calendar').fullCalendar({
             header: {
-                left: 'prev,next today',
+                left: 'prev,next,today',
                 center: 'title',
                 right: 'month,agendaWeek,agendaDay,listWeek'
             },
             defaultDate: moment(),
             navLinks: false, // can click day/week names to navigate views and see events for a particular day
-            editable: false, //can drag and drop events onto different days todo this is a bug right now
+            editable: true, //can drag and drop events onto different days todo this is a bug right now
             eventLimit: true,
             eventSources: [
                 {

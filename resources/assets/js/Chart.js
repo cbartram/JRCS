@@ -175,6 +175,8 @@ function createVolunteerProfileChart(data, xAxis, id) {
 var openDrawerIds = [];
 
 $('.collapsable').click(function() {
+
+
     var index = $(this).attr('data-index');
     var chartContainerId = 'chart' + index;
     var drawerId =  'collapse' + index;
@@ -200,6 +202,7 @@ $('.collapsable').click(function() {
     }
 
     openDrawerIds.push(drawerId);
+
             //get the hours for each group between start and end date
             $.ajax({
                 context: this,

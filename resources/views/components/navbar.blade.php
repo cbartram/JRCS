@@ -146,6 +146,8 @@
                                                     <button class="btn btn-sm btn-danger btn-notification-delete" data-id="{{$n->notification_id}}"><span class="fa fa-trash"></span></button>
                                                     &nbsp;
                                                     <button class="btn btn-sm btn-primary btn-mark-as-read" data-id="{{$n->notification_id}}"><span class="fa fa-check"></span></button>
+                                                    &nbsp;
+                                                    <b>{{Helpers::toHumanReadableTime($n->created_at)}}</b>
                                                 </a>
                                             </li>
                                     @else
@@ -155,6 +157,8 @@
                                                     <button class="btn btn-sm btn-primary btn-notification-reply"><span class="fa fa-reply"></span></button>
                                                     &nbsp;
                                                     <button class="btn btn-sm btn-danger btn-notification-delete" data-id="{{$n->notification_id}}"><span class="fa fa-trash"></span></button>
+                                                    &nbsp;
+                                                    <b>{{Helpers::toHumanReadableTime($n->created_at)}}</b>
                                                 </a>
                                             </li>
                                     @endif
