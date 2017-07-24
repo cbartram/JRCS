@@ -108,8 +108,6 @@ class Helpers
         $volunteer = Profile::find($volunteerID);
         $staff = new StaffProfile();
 
-        //todo possibly could be done much simpler with replicate()->save();
-
         //check to make sure the volunteer exists
         if($volunteer != null) {
             $staff->id = 'stf_' . str_random(8);

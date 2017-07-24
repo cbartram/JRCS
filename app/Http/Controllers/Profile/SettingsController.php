@@ -184,14 +184,13 @@ class SettingsController extends Controller
                     ->withInput();
             }
 
-            Helpers::promoteToStaff(Input::get('volunteers'),
-                Input::get('password'),
-                $groups['bebco'],
-                $groups['jaco'],
-                $groups['jbc']);
-
-            Toastr::success('Volunteer has been promoted to a staff member successfully', $title = 'Promotion Succeeded', $options = []);
-            return Redirect::back();
+            if(Helpers::promoteToStaff(Input::get('volunteers'), Input::get('password'), $groups['bebco'], $groups['jaco'], $groups['jbc'])) {
+                Toastr::success('Volunteer has been promoted to a staff member successfully', $title = 'Promotion Succeeded', $options = []);
+                return Redirect::back();
+            } else {
+                Toastr::error('Something went wrong promoting the volunteer try again!');
+                return Redirect::back();
+            }
 
         } else {
             //Handle demoting
