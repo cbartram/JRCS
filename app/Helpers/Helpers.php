@@ -108,6 +108,7 @@ class Helpers
         $volunteer = Profile::find($volunteerID);
         $staff = new StaffProfile();
 
+        dump($volunteer);
         //check to make sure the volunteer exists
         if($volunteer != null) {
             $staff->id = 'stf_' . str_random(8);
