@@ -22,26 +22,6 @@ class addController extends Controller
             'email'    => 'required|email',
             'first_name' => 'required',
             'last_name' => 'required',
-            'address' => 'required',
-            'city' => 'required',
-            'state' => 'required',
-            'zip' => 'required|numeric|max:6',
-            'phone' => 'required',
-            'nationality' => 'required',
-            'volunteer_type' => 'required',
-            'skills' => 'required',
-            'degree' => 'required',
-            'languages' => 'required',
-            'previous' => 'required',
-            'criminal' => 'required',
-            'e-first_name' => 'required',
-            'e-last_name' => 'required',
-            'e-address' => 'required',
-            'e-city' => 'required',
-            'e-state' => 'required',
-            'e-zip' => 'required|numeric|max:6',
-            'e-phone' => 'required',
-            'e-email' => 'required|email'
         );
 
         //run the validation rules on the inputs from the form
